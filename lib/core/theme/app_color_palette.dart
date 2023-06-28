@@ -5,39 +5,38 @@ class AppColorPalette {
   final MaterialColor secondarySwatch;
   final MaterialColor additionalSwatch1;
   final MaterialColor whiteColorPrimary;
-  final MaterialColor stroke;
   final Color transparentColor;
   final Color backgroundColor;
-  final Color redColor;
-
+  final Color redDark;
+  final Color primaryBlue;
+  final Color primaryDarkblue;
+  final Color stroke;
+  final Color primaryGrey;
+  final Color redBackground;
+  final Color greenDark;
+  final Color greenBackground;
   AppColorPalette({
     required this.primarySwatch,
     required this.secondarySwatch,
     required this.additionalSwatch1,
     required this.whiteColorPrimary,
-    required this.stroke,
     required this.transparentColor,
     required this.backgroundColor,
-    required this.redColor,
+    required this.redDark,
+    required this.primaryBlue,
+    required this.primaryDarkblue,
+    required this.stroke,
+    required this.primaryGrey,
+    required this.redBackground,
+    required this.greenDark,
+    required this.greenBackground,
   });
 }
 
 AppColorPalette lightColorPalette = AppColorPalette(
-  primarySwatch: const MaterialColor(800, {
-    900: Color(0xFF0060F7),
-    800: Color(0xFF1A4563),
-    700: Color(0xFF757F8E),
-  }),
-  secondarySwatch: const MaterialColor(
-      600, {900: Color(0xFF30AC8A), 800: Color(0xFFECFCFA)}),
-  additionalSwatch1: const MaterialColor(800, {
-    900: Color(0xFF626280),
-    800: Color(0xFFD7D4D7),
-    700: Color(0xFF867D88),
-    600: Color(0xFFFF7446),
-    500: Color(0xFFFBFBFB),
-    400: Color(0xFFF5F4F5)
-  }),
+  primarySwatch: const MaterialColor(800, {}),
+  secondarySwatch: const MaterialColor(600, {}),
+  additionalSwatch1: const MaterialColor(800, {}),
   whiteColorPrimary: const MaterialColor(900, {
     900: Color(0xFFFFFFFF),
     800: Color(0xFFFAFAFA),
@@ -45,13 +44,15 @@ AppColorPalette lightColorPalette = AppColorPalette(
     600: Color(0xFFF9F9F9),
   }),
   transparentColor: Colors.transparent,
-  redColor: Colors.red,
-  backgroundColor: const Color(0xFFE5E5E5),
-  stroke: const MaterialColor(800, {
-    900: Color(0xFF0060F7),
-    800: Color(0xFF1A4563),
-    700: Color(0xFF757F8E),
-  }),
+  redDark: const Color(0xFFF51F1F),
+  backgroundColor: const Color(0xFFEDF4FF),
+  stroke: const Color(0xFFB3BAC6),
+  greenBackground: const Color(0xFFE0FFDF),
+  greenDark: const Color(0xFF04B201),
+  primaryBlue: const Color(0xFF0060F7),
+  primaryDarkblue: const Color(0xFF1A4563),
+  primaryGrey: const Color(0xFF757F8E),
+  redBackground: const Color(0xFFFFEDED),
 );
 const TextTheme lightTextTheme = TextTheme(
   ///Mobile/Header1
