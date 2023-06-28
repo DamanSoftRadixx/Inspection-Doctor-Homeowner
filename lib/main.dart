@@ -18,7 +18,7 @@ void main() async {
   ]);
   await GetStorage.init();
   ApiHitter.shared.changeTimeoutTime(timeoutMinutes: 90);
-  runApp(AppContainer(child: const MyApp()));
+  runApp(const AppContainer(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -32,13 +32,13 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
-            title: 'Feel Write',
+            title: 'Inspection Doctor Homeowner',
             translations: LocalString(),
             locale: const Locale('en', 'US'),
             debugShowCheckedModeBanner: false,
             themeMode: ThemeMode.dark,
             getPages: AppPages(),
-            initialRoute: Routes.INITIAL,
+            initialRoute: Routes.root,
             theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: AppContainer.of(context).textTheme,

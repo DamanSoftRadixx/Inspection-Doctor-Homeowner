@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/binding/forget_password_binding.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/binding/login_screen_binding.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/binding/verify_screen_binding.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/screens/forget_password_screen.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/screens/login_screen.dart';
-import 'package:inspection_doctor_homeowner/features/login/presentation/screens/otp_verify_screen.dart';
-import 'package:inspection_doctor_homeowner/features/signup/presentation/binding/signup_screen_binding.dart';
-import 'package:inspection_doctor_homeowner/features/signup/presentation/screens/signup_screen.dart';
-import 'package:inspection_doctor_homeowner/features/splash/screens/splashScreen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/forget_password_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/login_screen_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/verify_screen_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/forget_password_screen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/login_screen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/otp_verify_screen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/presentation/binding/signup_screen_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/presentation/screens/signup_screen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/binding/signup_screen_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/screens/splashScreen.dart';
 
 import '../../features/webview/binding/webview_binding.dart';
 import '../../features/webview/view/webview_screen.dart';
@@ -16,7 +17,7 @@ import '../../features/webview/view/webview_screen.dart';
 class Routes {
   Routes._();
 
-  static const String INITIAL = "/";
+  static const String root = "/";
   static const String dashboard = "/dashboard";
   static const String entriesScreen = "/entries";
   static const String flowsScreen = "/flows";
@@ -38,10 +39,10 @@ class Routes {
 
 List<GetPage> AppPages() => [
       GetPage(
-        name: Routes.INITIAL,
+        name: Routes.root,
         page: () => const SplashScreen(),
         fullscreenDialog: true,
-        // binding: NetworkBinding(),
+        binding: SplashScreenBinding(),
         transition: CommonStrings.transition,
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
