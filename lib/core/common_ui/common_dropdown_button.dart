@@ -43,7 +43,7 @@ Widget dropdownField(
                 //strokeAlign: 1.h,
                 color: isCheckValidation == false
                     ? lightColorPalette.additionalSwatch1.shade800
-                    : lightColorPalette.redColor,
+                    : lightColorPalette.redDark,
                 width: 1.w),
             borderRadius: BorderRadius.all(Radius.circular(6.r)),
           ),

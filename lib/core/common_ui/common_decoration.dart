@@ -46,7 +46,7 @@ formFieldErrorDecoration() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(6.r),
     borderSide: BorderSide(
-        width: 1, style: BorderStyle.solid, color: lightColorPalette.redColor),
+        width: 1, style: BorderStyle.solid, color: lightColorPalette.redDark),
   );
 }
 

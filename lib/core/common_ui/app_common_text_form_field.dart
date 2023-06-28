@@ -182,7 +182,7 @@ class AppTextFormField extends StatelessWidget {
                     borderSide: BorderSide(
                         width: 1.0.w,
                         color: isCheckValidation
-                            ? lightColorPalette.redColor
+                            ? lightColorPalette.redDark
                             : lightColorPalette.additionalSwatch1.shade800)),
             enabledBorder: enabledBorder ??
                 OutlineInputBorder(
@@ -190,7 +190,7 @@ class AppTextFormField extends StatelessWidget {
                     borderSide: BorderSide(
                         width: 1.0.w,
                         color: isCheckValidation
-                            ? lightColorPalette.redColor
+                            ? lightColorPalette.redDark
                             : lightColorPalette.additionalSwatch1.shade800)),
             focusedBorder: focusedBorder ??
                 OutlineInputBorder(
@@ -198,7 +198,7 @@ class AppTextFormField extends StatelessWidget {
                     borderSide: BorderSide(
                         width: 1.0.w,
                         color: isCheckValidation
-                            ? lightColorPalette.redColor
+                            ? lightColorPalette.redDark
                             : lightColorPalette.additionalSwatch1.shade800)),
             focusedErrorBorder: focusedErrorBorder ??
                 OutlineInputBorder(
@@ -206,7 +206,7 @@ class AppTextFormField extends StatelessWidget {
                     borderSide: BorderSide(
                         width: 1.0.w,
                         color: isCheckValidation
-                            ? lightColorPalette.redColor
+                            ? lightColorPalette.redDark
                             : lightColorPalette.additionalSwatch1.shade800)),
           ),
           onSaved: onSaved,

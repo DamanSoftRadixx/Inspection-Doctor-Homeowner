@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             locale: const Locale('en', 'US'),
             debugShowCheckedModeBanner: false,
             themeMode: ThemeMode.dark,
-            getPages: AppPages(),
+            getPages: appPages(),
             initialRoute: Routes.root,
             theme: ThemeData(
               primarySwatch: Colors.blue,

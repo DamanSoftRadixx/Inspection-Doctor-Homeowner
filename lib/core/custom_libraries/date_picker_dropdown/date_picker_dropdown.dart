@@ -408,7 +408,7 @@ class _DatePickerDropdownState extends State<DatePickerDropdown> {
           //strokeAlign: 1.h,
           color: widget.isCheckMonthValidation == false
               ? lightColorPalette.additionalSwatch1.shade800
-              : lightColorPalette.redColor,
+              : lightColorPalette.redDark,
           width: 1.0.w,
         ),
         borderRadius: BorderRadius.all(Radius.circular(6.r)),
@@ -475,7 +475,7 @@ class _DatePickerDropdownState extends State<DatePickerDropdown> {
           //strokeAlign: 1.h,
           color: widget.isCheckYearValidation == false
               ? lightColorPalette.additionalSwatch1.shade800
-              : lightColorPalette.redColor,
+              : lightColorPalette.redDark,
           width: 1.0.w,
         ),
         borderRadius: BorderRadius.all(Radius.circular(6.r)),
@@ -535,7 +535,7 @@ class _DatePickerDropdownState extends State<DatePickerDropdown> {
           //strokeAlign: 1.h,
           color: widget.isCheckDayValidation == false
               ? lightColorPalette.additionalSwatch1.shade800
-              : lightColorPalette.redColor,
+              : lightColorPalette.redDark,
           width: 1.0.w,
         ),
         borderRadius: BorderRadius.all(Radius.circular(6.r)),

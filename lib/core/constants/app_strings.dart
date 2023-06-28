@@ -1,14 +1,3 @@
-import 'package:flutter/cupertino.dart' as cupertino_dialog;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import '../common_ui/app_text_widget.dart';
-import '../theme/app_color_palette.dart';
-import 'common_strings.dart';
-
 class AppStrings {
   static const myJournal = "My Journal";
   static const myGuidedJournals = "My Guided Journals";
@@ -65,7 +54,6 @@ class AppStrings {
   static const loginPassword = "Enter your password";
   static const loginScreenButton = "Login";
   static const login = "Log in";
-
 
   static const guidedJournalDetails = "Guided Journal Details";
   static const guidedJournalforOvercomingtheFearofBeingJudgedandAvoidingGroupsinPublic =
@@ -185,34 +173,39 @@ class AppStrings {
       "A verification code has been sent to your email";
   static const newPasswordAndRepeatPasswordMustBeSame =
       'New password and repeat password must be same';
-  static const guidedJournal="Guided Journal";
-  static const chapter="Chapter";
-  static const ok="OK";
-  static const success="Success";
-  static const signup="Sign up";
-  static const back="Back";
-static const of="Of";
-static const birth="Birth";
-  static const passwordChangeSuccessfully="Your password is successfully changed";
-  static const currentPasswordSecurity="Your current password is not correct!";
-  static const failed="Failed";
-  static const allFieldsAreRequired="All fields are required";
-  static const question1isrequired="Question no.1 is required";
-  static const question2isrequired="Question no.2 is required";
-  static const question3isrequired="Question no.3 is required";
-  static const tableOfContentReady="Your table of contents will be ready in a minute Feel free to leave this screen we'll notify you when it's read";
+  static const guidedJournal = "Guided Journal";
+  static const chapter = "Chapter";
+  static const ok = "OK";
+  static const success = "Success";
+  static const signup = "Sign up";
+  static const back = "Back";
+  static const of = "Of";
+  static const birth = "Birth";
+  static const passwordChangeSuccessfully =
+      "Your password is successfully changed";
+  static const currentPasswordSecurity =
+      "Your current password is not correct!";
+  static const failed = "Failed";
+  static const allFieldsAreRequired = "All fields are required";
+  static const question1isrequired = "Question no.1 is required";
+  static const question2isrequired = "Question no.2 is required";
+  static const question3isrequired = "Question no.3 is required";
+  static const tableOfContentReady =
+      "Your table of contents will be ready in a minute Feel free to leave this screen we'll notify you when it's read";
 
-  static const pleaseSelectYourDateOfBirth  = "Please select your Date of Birth";
+  static const pleaseSelectYourDateOfBirth = "Please select your Date of Birth";
 
-  static const continueStr  = "Continue";
-  static const error  = "Error";
-  static const youHaveLoginSuccesfully  = "You have login successfully.";
-  static const resendCode =  "Resend code";
-  static const chatGptDefaultString =  "Need a spark to get you started? Express your emotions and hit the arrow on the right. Click the bulb to hide this bubble, and toggle it back as needed.";
-  static const pleaseEnterSomeTextFirst =  "Please enter some text first";
+  static const continueStr = "Continue";
+  static const error = "Error";
+  static const youHaveLoginSuccesfully = "You have login successfully.";
+  static const resendCode = "Resend code";
+  static const chatGptDefaultString =
+      "Need a spark to get you started? Express your emotions and hit the arrow on the right. Click the bulb to hide this bubble, and toggle it back as needed.";
+  static const pleaseEnterSomeTextFirst = "Please enter some text first";
   static const guidedJournalContentPlaceholder = "Generating ...";
   static const guidedJournlSectionText = "Section";
 
+  static const selectLanguage = "Select language";
 }
 
 class GetArgumentConstants {
@@ -224,7 +217,7 @@ class GetArgumentConstants {
   static const navigateToAddEditJournalModel = "navigateToAddEditJournalModel";
 }
 
-class HomeScreenType{
+class HomeScreenType {
   static const journal = "journal";
   static const guidedJournal = "guidedJournal";
 }
