@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 
 class AppColorPalette {
   final MaterialColor primarySwatch;
@@ -54,74 +56,58 @@ AppColorPalette lightColorPalette = AppColorPalette(
   primaryGrey: const Color(0xFF757F8E),
   redBackground: const Color(0xFFFFEDED),
 );
-const TextTheme lightTextTheme = TextTheme(
-  ///Mobile/Header1
+TextTheme lightTextTheme = TextTheme(
+  ///Heading 1
   displayLarge: TextStyle(
-    fontSize: 28,
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 24.sp,
     fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: Color(0xFF626280),
+    height: 1.33,
+    color: const Color(0xFF626280),
   ),
 
-  ///Mobile/Header2
+  ///Heading 2
   displayMedium: TextStyle(
-    fontSize: 18,
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: Color(0xFF626280),
+    height: 1.25,
+    color: const Color(0xFF626280),
   ),
 
-  ///Mobile/Header3
-  displaySmall: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    height: 1.3,
-    color: Color(0xFF626280),
-  ),
-
-  ///Mobile/Header4
+  ///Normat text  , Subtext
   headlineMedium: TextStyle(
-    fontSize: 14,
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    height: 1.3,
-    color: Color(0xFF626280),
+    height: 1,
+    color: const Color(0xFF626280),
   ),
 
-  ///Mobile/Text Body
+  // Button text ,Category Text
   bodyLarge: TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    height: 1.5,
-    color: Color(0xFF626280),
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    height: 1,
+    color: const Color(0xFF626280),
   ),
 
-  ///Mobile/Additional
+  ///Bottom tabs
   bodyMedium: TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    height: 1.3,
-    color: Color(0xFF626280),
-  ),
-
-  ///Mobile/Additional2
-  titleMedium: TextStyle(
-    fontSize: 12,
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w500,
-    height: 1.3,
-    color: Color(0xFF626280),
+    height: 1,
+    color: const Color(0xFF626280),
   ),
 
-  ///Desktop/Additional
+  ///Small text
   titleSmall: TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    height: 1.3,
-    color: Color(0xFF626280),
-  ),
-  labelMedium: TextStyle(
-    color: Color(0xffA5ADC0),
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-    height: 1.2,
+    fontFamily: CommonStrings.generalSans,
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w500,
+    height: 1,
+    color: const Color(0xFF626280),
   ),
 );
