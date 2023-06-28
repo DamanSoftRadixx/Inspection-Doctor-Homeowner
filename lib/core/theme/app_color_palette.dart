@@ -75,7 +75,7 @@ TextTheme lightTextTheme = TextTheme(
     color: const Color(0xFF626280),
   ),
 
-  ///Normat text  , Subtext
+  ///Normat text , Subtext
   headlineMedium: TextStyle(
     fontFamily: CommonStrings.generalSans,
     fontSize: 14.sp,
@@ -111,3 +111,84 @@ TextTheme lightTextTheme = TextTheme(
     color: const Color(0xFF626280),
   ),
 );
+
+class LightTextTheme {
+  static TextStyle heading1({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w600,
+      height: 1.33,
+      color: color,
+    );
+  }
+
+  static TextStyle heading2({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w600,
+      height: 1.25,
+      color: color,
+    );
+  }
+
+  static TextStyle normalText({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+      height: 1,
+      color: color,
+    );
+  }
+
+  static TextStyle subtext({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+      height: 1,
+      color: color,
+    );
+  }
+
+  static TextStyle buttonText({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      height: 1,
+      color: color,
+    );
+  }
+
+  static TextStyle categoryText({required Color color}) {
+    return TextStyle(
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w600,
+        height: 1,
+        color: color);
+  }
+
+  static TextStyle bottomTabs({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w500,
+      height: 1,
+      color: color,
+    );
+  }
+
+  static TextStyle bottomTabs({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w500,
+      height: 1,
+      color: color,
+    );
+  }
+}

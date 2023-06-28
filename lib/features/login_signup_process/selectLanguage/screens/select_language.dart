@@ -5,7 +5,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/app_text_widget.dart'
 import 'package:inspection_doctor_homeowner/core/common_ui/asset.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_image_widget.dart';
-import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/controller/select_language_controller.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
@@ -46,29 +45,21 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                               boxFit: BoxFit.fitWidth,
                             ).paddingOnly(right: 7.5.w),
                             AppTextWidget(
-                                text: value.languageName,
-                                style: Theme.of(Get.context!)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        fontSize: 14.sp,
-                                        color:
-                                            lightColorPalette.primaryDarkblue,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: CommonStrings.generalSans)),
-                          ],
-                        ),
-                        InkWell(
-                          child: AppTextWidget(
                               text: value.languageName,
                               style: Theme.of(Get.context!)
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                      fontSize: 14.sp,
-                                      color: lightColorPalette.primaryDarkblue,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: CommonStrings.generalSans)),
+                                    color: lightColorPalette.primaryDarkblue,
+                                  ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          child: AppTextWidget(
+                              text: value.languageName,
+                              style: LightTextTheme.heading_1(
+                                  color: lightColorPalette.primaryDarkblue)),
                         )
                       ],
                     ),
