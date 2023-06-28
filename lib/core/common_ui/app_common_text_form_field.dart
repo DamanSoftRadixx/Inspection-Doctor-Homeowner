@@ -138,7 +138,7 @@ class AppTextFormField extends StatelessWidget {
           style: style ??
               lightTextTheme.bodyMedium?.copyWith(
                   fontSize: 14.sp,
-                  fontFamily: CommonStrings.vitnamPro,
+                  fontFamily: CommonStrings.generalSans,
                   fontWeight: FontWeight.w400,
                   color: lightColorPalette.additionalSwatch1.shade900),
           decoration: InputDecoration(
@@ -165,7 +165,7 @@ class AppTextFormField extends StatelessWidget {
             hintStyle: hintStyle ??
                 lightTextTheme.bodyMedium?.copyWith(
                     fontSize: 14.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     fontWeight: FontWeight.w300,
                     color: lightColorPalette.additionalSwatch1.shade700),
             counterText: counterText,
@@ -173,7 +173,7 @@ class AppTextFormField extends StatelessWidget {
             labelStyle: labelStyle ??
                 lightTextTheme.bodyMedium?.copyWith(
                     fontSize: 14.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     fontWeight: FontWeight.w400,
                     color: lightColorPalette.additionalSwatch1.shade900),
             errorBorder: errorBorder ??
@@ -218,7 +218,7 @@ class AppTextFormField extends StatelessWidget {
                       color: Colors.red,
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
-                      fontFamily: CommonStrings.vitnamPro))
+                      fontFamily: CommonStrings.generalSans))
               .paddingOnly(left: 8.w),
       ],
     );

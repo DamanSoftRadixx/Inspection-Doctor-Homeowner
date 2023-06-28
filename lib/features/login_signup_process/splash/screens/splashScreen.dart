@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/controller/controller.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/controller/splash_controller.dart';
 
 import '../../../../core/common_ui/asset.dart';
 
-class SplashScreen extends GetView<SplashScreenController> {
+class SplashScreen extends GetView<SplashController> {
   const SplashScreen({super.key});
 
   @override

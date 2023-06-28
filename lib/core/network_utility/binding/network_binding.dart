@@ -1,13 +1,13 @@
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 
-import '../controller/network_controller.dart';
+// import '../controller/network_controller.dart';
 
-class NetworkBinding extends Bindings{
+// class NetworkBinding extends Bindings{
 
-  @override
-  void dependencies() {
-    Get.lazyPut<NetworkController>(() => NetworkController());
-  }
+//   @override
+//   void dependencies() {
+//     Get.lazyPut<NetworkController>(() => NetworkController());
+//   }
 
 
-}
+// }

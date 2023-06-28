@@ -143,7 +143,7 @@ class AppStrings {
   static const pleaseEnterSetNewPassword = 'Please set a new password';
   static const createPasswordORConfirmPasswordMustBeSame =
       'Create password and confirm password must be same';
-  static const english = "English";
+
   static const arabic = "Arabic";
   static const save = "Save";
   static const markAllRead = "Mark all as read";
@@ -205,7 +205,10 @@ class AppStrings {
   static const guidedJournalContentPlaceholder = "Generating ...";
   static const guidedJournlSectionText = "Section";
 
+  //Language
   static const selectLanguage = "Select language";
+  static const english = "English";
+  static const spanish = "Spanish";
 }
 
 class GetArgumentConstants {

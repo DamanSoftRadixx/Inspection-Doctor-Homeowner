@@ -12,7 +12,7 @@ showInputDecoration({required BuildContext context, required bool errorBool}) {
         color: lightColorPalette.additionalSwatch1.shade800,
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: CommonStrings.vitnamPro),
+        fontFamily: CommonStrings.generalSans),
     focusedBorder:
         errorBool == true ? formFieldErrorDecoration() : formFocusDecoration(),
     border: errorBool == true

@@ -14,13 +14,13 @@ void waitingForContentAlertBox(
         title: Text(AppStrings.alert.tr,
                 style: lightTextTheme.displaySmall?.copyWith(
                     fontSize: 16.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     color: lightColorPalette.additionalSwatch1.shade900))
             .paddingOnly(bottom: 10.h),
         content: Text(title ?? AppStrings.somethingWentWrong.tr,
             style: lightTextTheme.labelMedium?.copyWith(
                 fontWeight: FontWeight.w300,
-                fontFamily: CommonStrings.vitnamPro,
+                fontFamily: CommonStrings.generalSans,
                 fontSize: 13.sp,
                 color: lightColorPalette.additionalSwatch1.shade900)),
         actions: <CupertinoDialogAction>[
@@ -31,7 +31,7 @@ void waitingForContentAlertBox(
             child: Text(AppStrings.strOk.tr,
                 style: lightTextTheme.titleSmall?.copyWith(
                     fontSize: 17.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     color: lightColorPalette.additionalSwatch1.shade900)),
           ),
         ],

@@ -6,7 +6,7 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 
 class CommonStrings {
-  static String vitnamPro = "VitnamPro";
+  static String generalSans = "GeneralSans";
 
   static const int transitionDuration = 320;
   static const int zeroDuration = 0;

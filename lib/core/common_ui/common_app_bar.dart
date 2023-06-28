@@ -47,7 +47,7 @@ class CommonAppBar extends StatelessWidget {
                       text: title,
                       style: lightTextTheme.displayLarge?.copyWith(
                           fontSize: 18.sp,
-                          fontFamily: CommonStrings.vitnamPro,
+                          fontFamily: CommonStrings.generalSans,
                           fontWeight: FontWeight.w600,
                           color: lightColorPalette.whiteColorPrimary.shade900),
                       textAlign: TextAlign.center,

@@ -141,7 +141,7 @@ class AppDateTimeDropdown extends StatelessWidget {
             hintStyle: hintStyle ??
                 lightTextTheme.bodyMedium?.copyWith(
                     fontSize: 14.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     fontWeight: FontWeight.w400,
                     color: lightColorPalette.additionalSwatch1.shade700),
             counterText: counterText,
@@ -149,7 +149,7 @@ class AppDateTimeDropdown extends StatelessWidget {
             labelStyle: labelStyle ??
                 lightTextTheme.bodyMedium?.copyWith(
                     fontSize: 14.sp,
-                    fontFamily: CommonStrings.vitnamPro,
+                    fontFamily: CommonStrings.generalSans,
                     fontWeight: FontWeight.w400,
                     color: lightColorPalette.additionalSwatch1.shade700),
           ),
@@ -171,7 +171,7 @@ class AppDateTimeDropdown extends StatelessWidget {
           hintTextStyle: hintStyle ??
               lightTextTheme.bodyMedium?.copyWith(
                   fontSize: 14.sp,
-                  fontFamily: CommonStrings.vitnamPro,
+                  fontFamily: CommonStrings.generalSans,
                   fontWeight: FontWeight.w400,
                   color: lightColorPalette.additionalSwatch1.shade700),
           yearFlex: 4,
@@ -194,7 +194,7 @@ class AppDateTimeDropdown extends StatelessWidget {
           textStyle: style ??
               lightTextTheme.bodyMedium?.copyWith(
                   fontSize: 14.sp,
-                  fontFamily: CommonStrings.vitnamPro,
+                  fontFamily: CommonStrings.generalSans,
                   fontWeight: FontWeight.w400,
                   color: lightColorPalette.additionalSwatch1.shade900),
         ),
@@ -206,7 +206,7 @@ class AppDateTimeDropdown extends StatelessWidget {
                       color: Colors.red,
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
-                      fontFamily: CommonStrings.vitnamPro))
+                      fontFamily: CommonStrings.generalSans))
               .paddingOnly(left: 7.w),
       ],
     ).paddingSymmetric(horizontal: 2.w);

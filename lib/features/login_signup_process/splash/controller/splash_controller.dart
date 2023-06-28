@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 
-class SplashScreenController extends GetxController {
+class SplashController extends GetxController {
   @override
   void onInit() {
     navigateToNext();

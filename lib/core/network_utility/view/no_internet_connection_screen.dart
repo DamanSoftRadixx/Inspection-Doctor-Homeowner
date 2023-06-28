@@ -28,14 +28,14 @@ class NoInternetConnectionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            AssetWidget(
-              asset: Asset(
-                  type: AssetType.svg,
-                  path: ImageResource.noInternetConnection),
-              height: 158.h,
-              width: 138.w,
-              boxFit: BoxFit.fitWidth,
-            ),
+            // AssetWidget(
+            //   asset: Asset(
+            //       type: AssetType.svg,
+            //       path: ImageResource.noInternetConnection),
+            //   height: 158.h,
+            //   width: 138.w,
+            //   boxFit: BoxFit.fitWidth,
+            // ),
             /*
             Icon(
                 Icons.wifi_off_sharp,
@@ -51,7 +51,7 @@ class NoInternetConnectionScreen extends StatelessWidget {
                   fontSize: 17.sp,
                   color: lightColorPalette.primarySwatch.shade900,
                   fontWeight: FontWeight.w600,
-                  fontFamily: CommonStrings.vitnamPro),
+                  fontFamily: CommonStrings.generalSans),
               textAlign: TextAlign.start,
             ),
             SizedBox(
@@ -63,7 +63,7 @@ class NoInternetConnectionScreen extends StatelessWidget {
                   fontSize: 12.sp,
                   color: lightColorPalette.primarySwatch.shade800,
                   fontWeight: FontWeight.w400,
-                  fontFamily: CommonStrings.vitnamPro ),
+                  fontFamily: CommonStrings.generalSans),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20.h),

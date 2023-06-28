@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:inspection_doctor_homeowner/core/app/app.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/translator/local_translation.dart';
 
 import 'core/routes/routes.dart';
@@ -17,7 +16,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await GetStorage.init();
-  ApiHitter.shared.changeTimeoutTime(timeoutMinutes: 90);
+  // ApiHitter.shared.changeTimeoutTime(timeoutMinutes: 90);
   runApp(const AppContainer(child: MyApp()));
 }
 
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: AppContainer.of(context).textTheme,
-              fontFamily: CommonStrings.vitnamPro,
+              fontFamily: CommonStrings.generalSans,
             ),
           );
         });

@@ -28,7 +28,7 @@ Widget dropdownField(
         Text(title,
             style: lightTextTheme.bodyLarge?.copyWith(
               fontSize: 14.sp,
-              fontFamily: CommonStrings.vitnamPro,
+              fontFamily: CommonStrings.generalSans,
               fontWeight: FontWeight.w700,
               color: lightColorPalette.additionalSwatch1.shade900,
             )).paddingOnly(left: 1.5.w, bottom: 5.w),
@@ -71,7 +71,7 @@ Widget dropdownField(
               hint,
               style: lightTextTheme.bodyLarge?.copyWith(
                 fontSize: 14.sp,
-                fontFamily: CommonStrings.vitnamPro,
+                fontFamily: CommonStrings.generalSans,
                 fontWeight: FontWeight.w400,
                 color: lightColorPalette.additionalSwatch1.shade700,
               ),
@@ -84,7 +84,7 @@ Widget dropdownField(
                         model.name,
                         style: lightTextTheme.bodyLarge?.copyWith(
                           fontSize: 14.sp,
-                          fontFamily: CommonStrings.vitnamPro,
+                          fontFamily: CommonStrings.generalSans,
                           fontWeight: FontWeight.w400,
                           color: lightColorPalette.additionalSwatch1.shade900,
                         ),
@@ -101,7 +101,7 @@ Widget dropdownField(
                     color: Colors.red,
                     fontSize: 10.sp,
                     fontWeight: FontWeight.w400,
-                    fontFamily: CommonStrings.vitnamPro))
+                    fontFamily: CommonStrings.generalSans))
             .paddingOnly(left: 8.w)
     ],
   ).paddingOnly(left: 2.w, right: 2.w);

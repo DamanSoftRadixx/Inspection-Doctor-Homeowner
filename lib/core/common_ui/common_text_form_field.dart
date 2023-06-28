@@ -61,7 +61,7 @@ class CommonEmailTextFieldWidget extends StatelessWidget {
             color: lightColorPalette.additionalSwatch1.shade900,
             fontWeight: FontWeight.w400,
             fontSize: 17.sp,
-            fontFamily: CommonStrings.vitnamPro),
+            fontFamily: CommonStrings.generalSans),
         keyboardType: keyboardType,
         textInputAction: textInputAction,
         decoration: decoration);
