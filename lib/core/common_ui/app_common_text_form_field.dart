@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_image_widget.dart';
@@ -248,17 +249,13 @@ Widget commonTextFieldWidget(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       if (title != null && title != "")
-        Padding(
-          padding: const EdgeInsets.only(bottom: 1.0),
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
-            ),
-            text: title ?? "",
-            textAlign: TextAlign.center,
-            // TextStyle(fontSize: 16.sp),
+        AppTextWidget(
+          style: CustomTextTheme.normalText(
+            color: lightColorPalette.primaryDarkblue,
           ),
-        ),
+          text: title ?? "",
+          textAlign: TextAlign.center,
+        ).paddingOnly(bottom: 3.0.h),
       Container(
         width: 1.sw,
         height: 44.h,

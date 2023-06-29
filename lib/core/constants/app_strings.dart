@@ -53,7 +53,6 @@ class AppStrings {
   static const loginEmail = "Enter your Email";
   static const loginPassword = "Enter your password";
   static const loginScreenButton = "Login";
-  static const login = "Log in";
 
   static const guidedJournalDetails = "Guided Journal Details";
   static const guidedJournalforOvercomingtheFearofBeingJudgedandAvoidingGroupsinPublic =
@@ -78,7 +77,6 @@ class AppStrings {
   static const gender = "Gender";
   static const country = "Country";
   static const stateorProviance = "State or Proviance";
-  static const city = "City";
 
   static const createPassword = "Create Password";
   static const confirmPassword = "Confirm Password";
@@ -177,7 +175,7 @@ class AppStrings {
   static const chapter = "Chapter";
   static const ok = "OK";
   static const success = "Success";
-  static const signup = "Sign up";
+
   static const back = "Back";
   static const of = "Of";
   static const birth = "Birth";
@@ -211,14 +209,30 @@ class AppStrings {
   static const continueBtn = "Continue";
 
   //login
-
   static const loginScreenPassword = "Password";
   static const email = "Email";
   static const forgotPassword = "Forgot Password?";
   static const dontHaveAccount = "Don’t have an account? ";
   static const signupCaps = "Sign up";
-
   static const orContinueWith = "Or Continue With";
+
+  //signup
+  static const signup = "Sign up";
+  static const registerStarted = "Register to get started!";
+  static const fillDetail =
+      "Please fill out the below details to create your account.";
+  static const firstName = "First name";
+  static const lastName = "Last name";
+  static const phoneNumber = "Phone number";
+  static const password = "Password";
+  static const confirmpassword = "Confirm password";
+  static const street = "Street";
+  static const city = "City";
+  static const state = "State";
+  static const zipCode = "Zip code";
+  static const alreadyAccount = "Already have an account! ";
+  static const mailingAddress = "Mailing Address (Optional)";
+  static const login = "Log in";
 }
 
 class GetArgumentConstants {

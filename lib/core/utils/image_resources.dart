@@ -2,6 +2,7 @@ class ImageResource {
   //svg
 
   static String splash = "assets/images/svg/splash.svg";
+  static String backArrow = "assets/images/svg/backArrow.svg";
 
   //language
   static String flagUSA = "assets/images/svg/flagUSA.svg";

@@ -4,6 +4,8 @@ import 'package:inspection_doctor_homeowner/features/login_signup_process/login/
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/login_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/binding/select_language_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/screens/select_language.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/binding/signup_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/screens/signup_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/binding/signup_screen_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/screens/splashScreen.dart';
 
@@ -55,6 +57,15 @@ List<GetPage> appPages() => [
         page: () => const LoginScreen(),
         fullscreenDialog: true,
         binding: LoginBinding(),
+        transition: CommonStrings.transition,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.signupScreen,
+        page: () => const SignupScreen(),
+        fullscreenDialog: true,
+        binding: SignupBinding(),
         transition: CommonStrings.transition,
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
