@@ -2,8 +2,21 @@ class ImageResource {
   //svg
 
   static String splash = "assets/images/svg/splash.svg";
+
+  //language
   static String flagUSA = "assets/images/svg/flagUSA.svg";
   static String flagSpain = "assets/images/svg/flagSpain.svg";
+  static String checked = "assets/images/svg/checked.svg";
+  static String unCheck = "assets/images/svg/unCheck.svg";
+  static String welcome = "assets/images/svg/welcome.svg";
+
+  //Login
+  static String loginLogo = "assets/images/svg/loginLogo.svg";
+  static String openEye = "assets/images/svg/openEye.svg";
+  static String hideEye = "assets/images/svg/hideEye.svg";
+  static String apple = "assets/images/svg/apple.svg";
+  static String google = "assets/images/svg/google.svg";
+  static String facebook = "assets/images/svg/facebook.svg";
 
   //png
 

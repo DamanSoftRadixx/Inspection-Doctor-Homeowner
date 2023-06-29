@@ -1,22 +1,20 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomIconButton extends StatelessWidget {
-  final Widget icon;
+class CustomInkwell extends StatelessWidget {
+  final Widget child;
   final double? iconSize;
   final EdgeInsetsGeometry? padding;
   // final VoidCallback onPressed;
-  final void Function()? onPressed;
+  final void Function()? onTap;
 
-  const CustomIconButton(
+  const CustomInkwell(
       {Key? key,
-        required this.icon,
-        this.iconSize,
-        required this.onPressed,
-        this.padding})
+      required this.child,
+      this.iconSize,
+      required this.onTap,
+      this.padding})
       : super(key: key);
 
   @override
@@ -28,8 +26,8 @@ class CustomIconButton extends StatelessWidget {
           minSize: iconSize,
           padding: padding ?? EdgeInsets.all(12.w),
           //onPressed: () => onPressed(),
-          onPressed: onPressed,
-          child: icon,
+          onPressed: onTap,
+          child: child,
         ));
   }
 }

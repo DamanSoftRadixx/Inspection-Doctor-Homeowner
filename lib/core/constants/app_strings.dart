@@ -15,7 +15,7 @@ class AppStrings {
   static const payments = "Payments";
   static const reminders = "Reminders";
   static const setaNewPassword = "Set a new password";
-  static const email = "Email";
+
   static const verificationCode = "Verification Code";
   static const hintEmail = "Enter your email";
   static const currentPassword = "Current password";
@@ -67,7 +67,7 @@ class AppStrings {
   static const disclaimerText =
       "This guided journal is not intended to replace therapy or other professional help. If you are experiencing significant distress or mental health issues, please seek the guidance of a licensed mental health professional.";
   static const createGuidedJournalBtnText = "Create Guided Journal";
-  static const loginScreenPassword = "Password";
+
   static const loginText = "Don't have an account yet?";
   static const loginText2 = 'Create a new one for free?';
   static const loginResetButton = 'Reset Password';
@@ -79,7 +79,7 @@ class AppStrings {
   static const country = "Country";
   static const stateorProviance = "State or Proviance";
   static const city = "City";
-  static const continuebTN = "Continue";
+
   static const createPassword = "Create Password";
   static const confirmPassword = "Confirm Password";
   static const selectAge = "Select Age";
@@ -195,7 +195,6 @@ class AppStrings {
 
   static const pleaseSelectYourDateOfBirth = "Please select your Date of Birth";
 
-  static const continueStr = "Continue";
   static const error = "Error";
   static const youHaveLoginSuccesfully = "You have login successfully.";
   static const resendCode = "Resend code";
@@ -209,6 +208,17 @@ class AppStrings {
   static const selectLanguage = "Select language";
   static const english = "English";
   static const spanish = "Spanish";
+  static const continueBtn = "Continue";
+
+  //login
+
+  static const loginScreenPassword = "Password";
+  static const email = "Email";
+  static const forgotPassword = "Forgot Password?";
+  static const dontHaveAccount = "Don’t have an account? ";
+  static const signupCaps = "Sign up";
+
+  static const orContinueWith = "Or Continue With";
 }
 
 class GetArgumentConstants {

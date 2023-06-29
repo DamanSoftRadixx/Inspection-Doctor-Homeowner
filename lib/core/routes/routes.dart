@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/login_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/login_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/binding/select_language_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/screens/select_language.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/binding/signup_screen_binding.dart';
@@ -44,6 +46,15 @@ List<GetPage> appPages() => [
         page: () => const SelectLanguageScreen(),
         fullscreenDialog: true,
         binding: SelectLanguageBinding(),
+        transition: CommonStrings.transition,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.loginScreen,
+        page: () => const LoginScreen(),
+        fullscreenDialog: true,
+        binding: LoginBinding(),
         transition: CommonStrings.transition,
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),

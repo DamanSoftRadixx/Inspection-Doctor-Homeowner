@@ -56,63 +56,63 @@ AppColorPalette lightColorPalette = AppColorPalette(
   primaryGrey: const Color(0xFF757F8E),
   redBackground: const Color(0xFFFFEDED),
 );
-TextTheme lightTextTheme = TextTheme(
-  ///Heading 1
-  displayLarge: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
-    height: 1.33,
-    color: const Color(0xFF626280),
-  ),
+// TextTheme lightTextTheme = TextTheme(
+//   ///Heading 1
+//   displayLarge: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 24.sp,
+//     fontWeight: FontWeight.w600,
+//     height: 1.33,
+//     color: const Color(0xFF626280),
+//   ),
 
-  ///Heading 2
-  displayMedium: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 16.sp,
-    fontWeight: FontWeight.w600,
-    height: 1.25,
-    color: const Color(0xFF626280),
-  ),
+//   ///Heading 2
+//   displayMedium: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 16.sp,
+//     fontWeight: FontWeight.w600,
+//     height: 1.25,
+//     color: const Color(0xFF626280),
+//   ),
 
-  ///Normat text , Subtext
-  headlineMedium: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w500,
-    height: 1,
-    color: const Color(0xFF626280),
-  ),
+//   ///Normat text , Subtext
+//   headlineMedium: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 14.sp,
+//     fontWeight: FontWeight.w500,
+//     height: 1,
+//     color: const Color(0xFF626280),
+//   ),
 
-  // Button text ,Category Text
-  bodyLarge: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w600,
-    height: 1,
-    color: const Color(0xFF626280),
-  ),
+//   // Button text ,Category Text
+//   bodyLarge: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 14.sp,
+//     fontWeight: FontWeight.w600,
+//     height: 1,
+//     color: const Color(0xFF626280),
+//   ),
 
-  ///Bottom tabs
-  bodyMedium: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 12.sp,
-    fontWeight: FontWeight.w500,
-    height: 1,
-    color: const Color(0xFF626280),
-  ),
+//   ///Bottom tabs
+//   bodyMedium: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 12.sp,
+//     fontWeight: FontWeight.w500,
+//     height: 1,
+//     color: const Color(0xFF626280),
+//   ),
 
-  ///Small text
-  titleSmall: TextStyle(
-    fontFamily: CommonStrings.generalSans,
-    fontSize: 10.sp,
-    fontWeight: FontWeight.w500,
-    height: 1,
-    color: const Color(0xFF626280),
-  ),
-);
+//   ///Small text
+//   titleSmall: TextStyle(
+//     fontFamily: CommonStrings.generalSans,
+//     fontSize: 10.sp,
+//     fontWeight: FontWeight.w500,
+//     height: 1,
+//     color: const Color(0xFF626280),
+//   ),
+// );
 
-class LightTextTheme {
+class CustomTextTheme {
   static TextStyle heading1({required Color color}) {
     return TextStyle(
       fontFamily: CommonStrings.generalSans,
@@ -182,13 +182,12 @@ class LightTextTheme {
     );
   }
 
-  static TextStyle bottomTabs({required Color color}) {
+  static TextStyle smallText({required Color color}) {
     return TextStyle(
-      fontFamily: CommonStrings.generalSans,
-      fontSize: 12.sp,
-      fontWeight: FontWeight.w500,
-      height: 1,
-      color: color,
-    );
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 10.sp,
+        fontWeight: FontWeight.w500,
+        height: 1,
+        color: color);
   }
 }

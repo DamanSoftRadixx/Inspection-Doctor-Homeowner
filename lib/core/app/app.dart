@@ -22,7 +22,7 @@ class AppContainer extends StatefulWidget {
 
 class AppState extends State<AppContainer> {
   AppColorPalette light = lightColorPalette;
-  TextTheme textTheme = lightTextTheme;
+  // TextTheme textTheme = lightTextTheme;
 
   @override
   Widget build(BuildContext context) {

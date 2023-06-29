@@ -14,17 +14,19 @@ class SplashScreen extends GetView<SplashController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: AssetWidget(
-                asset: Asset(type: AssetType.svg, path: ImageResource.splash),
-              ),
-            )
-          ],
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: AssetWidget(
+                  asset: Asset(type: AssetType.svg, path: ImageResource.splash),
+                ),
+              )
+            ],
+          ),
         ));
   }
 }
