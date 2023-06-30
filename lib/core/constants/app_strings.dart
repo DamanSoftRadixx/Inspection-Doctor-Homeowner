@@ -233,6 +233,30 @@ class AppStrings {
   static const alreadyAccount = "Already have an account! ";
   static const mailingAddress = "Mailing Address (Optional)";
   static const login = "Log in";
+
+  //OTP
+  static const otp = "OTP";
+  static const codeVerification = "Code verification";
+  static const oTPSent = "OTP is sent to";
+  static const verify = "Verify";
+  static const expiresIn = "Expires in";
+  static const dontYouReceivedOTP = "Don’t you received OTP?";
+  static const resendOTP = "Resend OTP";
+
+  //Forgot
+  static const forgot = "Forgot";
+  static const sendlink = "Send link";
+  static const dontYouReceivedLink = "Don’t you received link?";
+  static const resendlink = "Resend link";
+  static const donworryItOccurs = "Don’t worry! It occurs";
+  static const forgetPleaseEnterEmail =
+      "Please enter email address linked with your account and we will send a link.";
+  //Reset
+  static const resetcreatePassword = "Create new password";
+  static const resetNewPasswordMustUnique =
+      "Your new password must be unique from those previously used.";
+  static const resetNewPassword = "New password";
+  static const resetConfirmPassword = "Confirm password";
 }
 
 class GetArgumentConstants {

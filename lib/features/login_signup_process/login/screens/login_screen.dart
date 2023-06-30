@@ -23,43 +23,46 @@ class LoginScreen extends GetView<LoginController> {
       backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       body: SafeArea(
         bottom: false,
-        child: Column(
-          children: [
-            Container(height: 30.h),
-            Stack(
-              children: [
-                Obx(() => Container(
-                    color: lightColorPalette.backgroundColor,
-                    margin: EdgeInsets.only(top: 21.h),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    height: 0.870.sh,
-                    width: 1.sw,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        getWelcomeLoginView(),
-                        //Email
-                        Column(
-                          children: [
-                            showEmailField().paddingOnly(bottom: 11.h),
-                            showPasswordField(),
-                            showForgotPassword().paddingOnly(top: 10.h),
-                            showLoginButton().paddingOnly(top: 50.h),
-                            showSignupButton().paddingOnly(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(height: 30.h),
+              Stack(
+                children: [
+                  Obx(() => Container(
+                      color: lightColorPalette.backgroundColor,
+                      margin: EdgeInsets.only(top: 21.h),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      height: 0.9.sh,
+                      width: 1.sw,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          getWelcomeLoginView(),
+                          //Email
+                          Column(
+                            children: [
+                              showEmailField().paddingOnly(bottom: 11.h),
+                              showPasswordField(),
+                              showForgotPassword().paddingOnly(top: 10.h),
+                              showLoginButton().paddingOnly(top: 50.h),
+                              showSignupButton().paddingOnly(
                                 left: 20.w,
                                 right: 20.w,
                                 top: 20.h,
-                                bottom: 29.h),
-                            shwoDriver(),
-                            showOtherLoginOption(),
-                          ],
-                        )
-                      ],
-                    ))),
-                getTopLogo(),
-              ],
-            ),
-          ],
+                                bottom: 29.h,
+                              ),
+                              showDivider(),
+                              showOtherLoginOption(),
+                            ],
+                          )
+                        ],
+                      ))),
+                  getTopLogo(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -152,7 +155,7 @@ class LoginScreen extends GetView<LoginController> {
     );
   }
 
-  Stack shwoDriver() {
+  Stack showDivider() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -219,7 +222,10 @@ class LoginScreen extends GetView<LoginController> {
 
   CommonButton showLoginButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.login.tr, onPress: () {});
+        commonButtonBottonText: AppStrings.login.tr,
+        onPress: () {
+          Get.toNamed(Routes.otpVerifyScreen);
+        });
   }
 
   Row showSignupButton() {
@@ -233,7 +239,7 @@ class LoginScreen extends GetView<LoginController> {
           text: AppStrings.dontHaveAccount.tr,
         ),
         CustomInkwell(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.only(top: 5.h),
           onTap: () {
             dismissKeyboard();
             Get.toNamed(Routes.signupScreen);

@@ -25,7 +25,9 @@ class SignupScreen extends GetView<SignupController> {
       appBar: commonAppBar(
           title: AppStrings.signup.tr,
           leading: CustomInkwell(
-              onTap: () {},
+              onTap: () {
+                Get.back();
+              },
               child: AssetWidget(
                 asset:
                     Asset(type: AssetType.svg, path: ImageResource.backArrow),
@@ -49,8 +51,8 @@ class SignupScreen extends GetView<SignupController> {
                       showStreetField().paddingOnly(bottom: 11.h),
                       showCityField().paddingOnly(bottom: 11.h),
                       showStateField().paddingOnly(bottom: 11.h),
-                      showZipCodeField().paddingOnly(bottom: 11.h),
-                      showLoginButton().paddingOnly(top: 50.h),
+                      showZipCodeField(),
+                      showLoginButton().paddingOnly(top: 40.h),
                       showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
                     ],
                   ).paddingSymmetric(horizontal: 20.w),
@@ -84,7 +86,7 @@ class SignupScreen extends GetView<SignupController> {
           text: AppStrings.alreadyAccount.tr,
         ),
         CustomInkwell(
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.only(top: 5.h),
           onTap: () {
             dismissKeyboard();
             Get.toNamed(Routes.signupScreen);
