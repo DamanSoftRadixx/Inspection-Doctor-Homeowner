@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/local_storage.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CommonFunctionality {
@@ -21,6 +19,6 @@ class CommonFunctionality {
 
   clearPrefAndLogout() {
     Prefs.erase();
-    Get.offAllNamed(Routes.introScreen);
+    // Get.offAllNamed(Routes.introScreen);
   }
 }

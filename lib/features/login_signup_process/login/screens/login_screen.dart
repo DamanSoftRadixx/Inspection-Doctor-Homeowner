@@ -42,16 +42,11 @@ class LoginScreen extends GetView<LoginController> {
                           //Email
                           Column(
                             children: [
-                              showEmailField().paddingOnly(bottom: 11.h),
+                              showEmailField(),
                               showPasswordField(),
                               showForgotPassword().paddingOnly(top: 10.h),
                               showLoginButton().paddingOnly(top: 50.h),
-                              showSignupButton().paddingOnly(
-                                left: 20.w,
-                                right: 20.w,
-                                top: 20.h,
-                                bottom: 29.h,
-                              ),
+                              showSignupButton(),
                               showDivider(),
                               showOtherLoginOption(),
                             ],
@@ -180,7 +175,7 @@ class LoginScreen extends GetView<LoginController> {
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
-    );
+    ).paddingOnly(bottom: 11.h);
   }
 
   showPasswordField() {
@@ -192,13 +187,13 @@ class LoginScreen extends GetView<LoginController> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {
-        if (controller.isVisiblePassword.value == false) {
-          controller.isVisiblePassword.value = true;
+        if (controller.isHidePassword.value == false) {
+          controller.isHidePassword.value = true;
         } else {
-          controller.isVisiblePassword.value = false;
+          controller.isHidePassword.value = false;
         }
       },
-      passwordVisible: controller.isVisiblePassword.value,
+      passwordVisible: controller.isHidePassword.value,
     );
   }
 
@@ -224,11 +219,12 @@ class LoginScreen extends GetView<LoginController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.login.tr,
         onPress: () {
+          dismissKeyboard();
           Get.toNamed(Routes.otpVerifyScreen);
         });
   }
 
-  Row showSignupButton() {
+  showSignupButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -239,7 +235,7 @@ class LoginScreen extends GetView<LoginController> {
           text: AppStrings.dontHaveAccount.tr,
         ),
         CustomInkwell(
-          padding: EdgeInsets.only(top: 5.h),
+          padding: EdgeInsets.zero,
           onTap: () {
             dismissKeyboard();
             Get.toNamed(Routes.signupScreen);
@@ -251,6 +247,11 @@ class LoginScreen extends GetView<LoginController> {
           ),
         )
       ],
+    ).paddingOnly(
+      left: 20.w,
+      right: 20.w,
+      top: 20.h,
+      bottom: 29.h,
     );
   }
 

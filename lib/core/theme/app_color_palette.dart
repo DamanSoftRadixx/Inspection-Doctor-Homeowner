@@ -191,3 +191,25 @@ class CustomTextTheme {
         color: color);
   }
 }
+
+BoxDecoration decoration(FocusNode? focusNode) {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(4.r),
+      shape: BoxShape.rectangle,
+      boxShadow: focusNode != null && focusNode.hasFocus
+          ? [
+              BoxShadow(
+                blurRadius: 14,
+                color: lightColorPalette.primaryBlue.withOpacity(0.25),
+                offset: const Offset(0, 6),
+                spreadRadius: 0,
+              ),
+            ]
+          : [],
+      border: Border.all(
+          color: focusNode != null && focusNode.hasFocus
+              ? lightColorPalette.primaryBlue
+              : lightColorPalette.stroke,
+          width: 1));
+}

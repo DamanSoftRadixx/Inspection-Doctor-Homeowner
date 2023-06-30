@@ -26,8 +26,10 @@ class SignupController extends GetxController {
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
 
-  RxBool isVisiblePassword = false.obs;
-  RxBool isVisibleConfirmPassword = false.obs;
+  RxString selectedCountryCode = "1".obs;
+
+  RxBool isHidePassword = true.obs;
+  RxBool isHideConfirmPassword = true.obs;
 
   addFocusListeners() {
     firstNameFocusNode.value.addListener(() {

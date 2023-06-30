@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/forget/screen/otp_verify.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/screens/forget_password_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/login_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/login_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/binding/otp_verify_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/screen/otp_verify.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/binding/reset_password_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/screens/reset_password_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/binding/select_language_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/screens/select_language.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/binding/signup_binding.dart';
@@ -22,19 +24,12 @@ class Routes {
   static const String entriesScreen = "/entries";
   static const String flowsScreen = "/flows";
   static const String settingsScreen = "/SettingsScreen";
-  static const String languageScreen = "/LanguageSelectionScreen";
-
-  static const String guidedJournalContentScreen =
-      "/guidedJournalContentScreen";
   static const String loginScreen = "/loginScreen";
-  static const String guidedJournalDetails = "/guidedJournalDetails";
   static const String signupScreen = "/signupScreen";
   static const String forgetScreen = "/forgetScreen";
   static const String addCardScreen = "/addCardScreen";
   static const String otpVerifyScreen = "/otpVerifyScreen";
-  static const String webViewScreen = "/webViewScreen";
-  static const String notificationScreen = "/notificationScreen";
-  static const String introScreen = "/introScreen";
+  static const String resetPassword = "/resetPassword";
 }
 
 List<GetPage> appPages() => [
@@ -88,6 +83,15 @@ List<GetPage> appPages() => [
         page: () => const ForgetPasswordScreen(),
         fullscreenDialog: true,
         binding: ForgetPasswordBinding(),
+        transition: CommonStrings.transition,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.resetPassword,
+        page: () => const ResetPasswordScreen(),
+        fullscreenDialog: true,
+        binding: ResetPasswordBinding(),
         transition: CommonStrings.transition,
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),

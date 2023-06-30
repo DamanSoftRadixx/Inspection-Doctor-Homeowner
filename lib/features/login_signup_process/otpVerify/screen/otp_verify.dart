@@ -49,7 +49,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
               : AppStrings.dontYouReceivedOTP.tr,
         ),
         CustomInkwell(
-          padding: EdgeInsets.only(top: 5.h, left: 3.w),
+          padding: EdgeInsets.only(left: 3.w),
           onTap: () {
             dismissKeyboard();
             Get.toNamed(Routes.forgetScreen);
@@ -68,8 +68,13 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
 
   showVerifyButton() {
     return CommonButton(
-            commonButtonBottonText: AppStrings.verify.tr, onPress: () {})
-        .paddingOnly(left: 20.w, right: 20.w, top: 50.h);
+        commonButtonBottonText: AppStrings.verify.tr,
+        onPress: () {
+          dismissKeyboard();
+
+          Get.until((route) =>
+              route.settings.name == Routes.loginScreen ? true : false);
+        }).paddingOnly(left: 20.w, right: 20.w, top: 50.h);
   }
 
   showPinView() {

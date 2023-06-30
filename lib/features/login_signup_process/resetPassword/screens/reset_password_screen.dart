@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset.dart';
@@ -10,13 +9,12 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/controller/forget_password_controller.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/controller/reset_password_controller.dart';
 
-class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
-  const ForgetPasswordScreen({Key? key}) : super(key: key);
+class ResetPasswordScreen extends GetView<ResetPasswordController> {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,50 +25,24 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
         child: Column(
           children: [
             showHeadingText(),
-            showEmailField(),
+            showPasswordField(),
+            showConfirmPasswordField(),
             showSendLinkButton(),
-            showResendOTP(),
           ],
         ).paddingSymmetric(horizontal: 20.w),
       ),
     );
   }
 
-  showResendOTP() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
-          text: AppStrings.dontYouReceivedLink.tr,
-        ),
-        CustomInkwell(
-          padding: EdgeInsets.only(left: 3.w),
-          onTap: () {},
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryBlue),
-            text: AppStrings.resendlink.tr,
-          ),
-        ),
-      ],
-    ).paddingOnly(top: 50.h);
-  }
-
   showSendLinkButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.sendlink.tr,
-        onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.resetPassword);
-        }).paddingOnly(top: 50.h);
+            commonButtonBottonText: AppStrings.sendlink.tr, onPress: () {})
+        .paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {
     return commonAppBar(
-        title: AppStrings.forgot.tr,
+        title: AppStrings.reset.tr,
         leading: CustomInkwell(
             onTap: () {
               Get.back();
@@ -86,7 +58,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       children: [
         Center(
           child: AppTextWidget(
-            text: AppStrings.donworryItOccurs.tr,
+            text: AppStrings.resetcreatePassword.tr,
             style: CustomTextTheme.heading1(
               color: lightColorPalette.primaryDarkblue,
             ),
@@ -98,7 +70,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
             Expanded(
               child: AppTextWidget(
                 textAlign: TextAlign.center,
-                text: AppStrings.forgetPleaseEnterEmail.tr,
+                text: AppStrings.resetNewPasswordMustUnique.tr,
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryGrey),
               ).paddingSymmetric(horizontal: 30.w),
@@ -109,15 +81,41 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
     );
   }
 
-  Widget showEmailField() {
-    return commonTextFieldWidget(
-      focusNode: controller.emailFocusNode.value,
-      controller: controller.emailController,
-      title: AppStrings.email.tr,
-      hint: AppStrings.email.tr,
-      keyboardType: TextInputType.emailAddress,
+  Widget showPasswordField() {
+    return commonPasswordText(
+      focusNode: controller.passwordFocusNode.value,
+      controller: controller.passwordController,
+      title: AppStrings.resetNewPassword.tr,
+      hint: AppStrings.resetNewPassword.tr,
+      keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onPress: () {
+        if (controller.isHidePassword.value == false) {
+          controller.isHidePassword.value = true;
+        } else {
+          controller.isHidePassword.value = false;
+        }
+      },
+      passwordVisible: controller.isHidePassword.value,
     ).paddingOnly(bottom: 11.h, top: 50.h);
+  }
+
+  Widget showConfirmPasswordField() {
+    return commonPasswordText(
+      focusNode: controller.confirmPasswordFocusNode.value,
+      controller: controller.confirmPasswordController,
+      title: AppStrings.confirmPassword.tr,
+      hint: AppStrings.confirmPassword.tr,
+      keyboardType: TextInputType.visiblePassword,
+      textInputAction: TextInputAction.next,
+      onPress: () {
+        if (controller.isHideConfirmPassword.value == false) {
+          controller.isHideConfirmPassword.value = true;
+        } else {
+          controller.isHideConfirmPassword.value = false;
+        }
+      },
+      passwordVisible: controller.isHideConfirmPassword.value,
+    );
   }
 }

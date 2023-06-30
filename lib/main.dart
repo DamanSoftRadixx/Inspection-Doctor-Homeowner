@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
             getPages: appPages(),
             initialRoute: Routes.root,
             theme: ThemeData(
-              useMaterial3: true,
+              // useMaterial3: true,
               primarySwatch: Colors.blue,
               fontFamily: CommonStrings.generalSans,
             ),

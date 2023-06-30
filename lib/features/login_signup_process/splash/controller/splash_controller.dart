@@ -9,7 +9,7 @@ class SplashController extends GetxController {
   }
 
   Future navigateToNext() async {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       // var token = Prefs.read(Prefs.TOKEN);
       // token == null
       //     ? Get.offNamed(Routes.introScreen)

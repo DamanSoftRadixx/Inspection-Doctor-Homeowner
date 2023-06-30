@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class SignupScreen extends GetView<SignupController> {
                       showCityField().paddingOnly(bottom: 11.h),
                       showStateField().paddingOnly(bottom: 11.h),
                       showZipCodeField(),
-                      showLoginButton().paddingOnly(top: 40.h),
+                      showSignUpButton().paddingOnly(top: 40.h),
                       showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
                     ],
                   ).paddingSymmetric(horizontal: 20.w),
@@ -86,10 +87,10 @@ class SignupScreen extends GetView<SignupController> {
           text: AppStrings.alreadyAccount.tr,
         ),
         CustomInkwell(
-          padding: EdgeInsets.only(top: 5.h),
+          padding: EdgeInsets.zero,
           onTap: () {
             dismissKeyboard();
-            Get.toNamed(Routes.signupScreen);
+            Get.back();
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalText(
@@ -101,9 +102,13 @@ class SignupScreen extends GetView<SignupController> {
     );
   }
 
-  CommonButton showLoginButton() {
+  CommonButton showSignUpButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.signup.tr, onPress: () {});
+        commonButtonBottonText: AppStrings.signup.tr,
+        onPress: () {
+          dismissKeyboard();
+          Get.toNamed(Routes.otpVerifyScreen);
+        });
   }
 
   Column showHeadingText() {
@@ -167,7 +172,7 @@ class SignupScreen extends GetView<SignupController> {
   }
 
   Widget showPhoneNumberField() {
-    return commonTextFieldWidget(
+    return commonPhoneText(
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController,
       title: AppStrings.phoneNumber.tr,
@@ -175,6 +180,10 @@ class SignupScreen extends GetView<SignupController> {
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
+      countryCode: controller.selectedCountryCode.value,
+      onSelect: (Country country) {
+        controller.selectedCountryCode.value = country.phoneCode;
+      },
     );
   }
 
@@ -187,13 +196,13 @@ class SignupScreen extends GetView<SignupController> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {
-        if (controller.isVisiblePassword.value == false) {
-          controller.isVisiblePassword.value = true;
+        if (controller.isHidePassword.value == false) {
+          controller.isHidePassword.value = true;
         } else {
-          controller.isVisiblePassword.value = false;
+          controller.isHidePassword.value = false;
         }
       },
-      passwordVisible: controller.isVisiblePassword.value,
+      passwordVisible: controller.isHidePassword.value,
     );
   }
 
@@ -206,13 +215,13 @@ class SignupScreen extends GetView<SignupController> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {
-        if (controller.isVisibleConfirmPassword.value == false) {
-          controller.isVisibleConfirmPassword.value = true;
+        if (controller.isHideConfirmPassword.value == false) {
+          controller.isHideConfirmPassword.value = true;
         } else {
-          controller.isVisibleConfirmPassword.value = false;
+          controller.isHideConfirmPassword.value = false;
         }
       },
-      passwordVisible: controller.isVisibleConfirmPassword.value,
+      passwordVisible: controller.isHideConfirmPassword.value,
     );
   }
 

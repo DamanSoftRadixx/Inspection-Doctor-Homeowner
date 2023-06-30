@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  RxBool isHidePassword = true.obs;
-  TextEditingController emailController = TextEditingController();
+class ResetPasswordController extends GetxController {
+  Rx<FocusNode> passwordFocusNode = FocusNode().obs;
+  Rx<FocusNode> confirmPasswordFocusNode = FocusNode().obs;
   TextEditingController passwordController = TextEditingController();
-
-  var emailFocusNode = FocusNode().obs;
-  var passwordFocusNode = FocusNode().obs;
+  TextEditingController confirmPasswordController = TextEditingController();
+  RxBool isHidePassword = true.obs;
+  RxBool isHideConfirmPassword = true.obs;
 
   addFocusListeners() {
-    emailFocusNode.value.addListener(() {
-      emailFocusNode.refresh();
-    });
     passwordFocusNode.value.addListener(() {
       passwordFocusNode.refresh();
+    });
+    confirmPasswordFocusNode.value.addListener(() {
+      confirmPasswordFocusNode.refresh();
     });
   }
 
   disposeFocusListeners() {
-    emailFocusNode.value.removeListener(() {});
     passwordFocusNode.value.removeListener(() {});
+    confirmPasswordFocusNode.value.removeListener(() {});
   }
 
   @override

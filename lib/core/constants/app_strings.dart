@@ -252,6 +252,7 @@ class AppStrings {
   static const forgetPleaseEnterEmail =
       "Please enter email address linked with your account and we will send a link.";
   //Reset
+  static const reset = "Reset";
   static const resetcreatePassword = "Create new password";
   static const resetNewPasswordMustUnique =
       "Your new password must be unique from those previously used.";
