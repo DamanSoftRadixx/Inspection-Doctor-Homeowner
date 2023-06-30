@@ -12,11 +12,10 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/controller/otp_verify_controller.dart';
-import 'package:pinput/pinput.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/controller/forget_password_controller.dart';
 
-class OtpVerifyScreen extends GetView<OtpVerifyController> {
-  const OtpVerifyScreen({Key? key}) : super(key: key);
+class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
+  const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +26,8 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         child: Column(
           children: [
             showHeadingText(),
-            showPinView(),
-            showVerifyButton(),
-            showResendOTP()
+            showSendLinkButton(),
+            showResendOTP(),
           ],
         ),
       ),
@@ -44,55 +42,33 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         AppTextWidget(
           style:
               CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
-          text: controller.isNeedResendOTP.value
-              ? AppStrings.expiresIn.tr
-              : AppStrings.dontYouReceivedOTP.tr,
+          text: AppStrings.dontYouReceivedOTP.tr,
         ),
         CustomInkwell(
           padding: EdgeInsets.only(top: 5.h, left: 3.w),
           onTap: () {
             dismissKeyboard();
-            Get.toNamed(Routes.forgetScreen);
+            Get.toNamed(Routes.signupScreen);
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalText(
                 color: lightColorPalette.primaryBlue),
-            text: controller.isNeedResendOTP.value
-                ? "02:05"
-                : AppStrings.resendOTP.tr,
+            text: AppStrings.resendlink.tr,
           ),
         ),
       ],
     ).paddingOnly(top: 50.h);
   }
 
-  showVerifyButton() {
+  showSendLinkButton() {
     return CommonButton(
-            commonButtonBottonText: AppStrings.verify.tr, onPress: () {})
+            commonButtonBottonText: AppStrings.sendlink.tr, onPress: () {})
         .paddingOnly(left: 20.w, right: 20.w, top: 50.h);
-  }
-
-  showPinView() {
-    return Pinput(
-      defaultPinTheme: defaultPinTheme,
-      focusedPinTheme: focusedPinTheme,
-      submittedPinTheme: submittedPinTheme,
-      showCursor: true,
-      onCompleted: (pin) {
-        controller.verifyCode.value = pin;
-        controller.isSubmitVisible.value = true;
-      },
-      onChanged: (text) {
-        if (text.length < 4) {
-          controller.isSubmitVisible.value = false;
-        }
-      },
-    ).paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {
     return commonAppBar(
-        title: AppStrings.otp.tr,
+        title: AppStrings.forgot.tr,
         leading: CustomInkwell(
             onTap: () {
               Get.back();
@@ -108,7 +84,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       children: [
         Center(
           child: AppTextWidget(
-            text: AppStrings.codeVerification.tr,
+            text: AppStrings.donworryItOccurs.tr,
             style: CustomTextTheme.heading1(
               color: lightColorPalette.primaryDarkblue,
             ),
@@ -119,52 +95,13 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
           children: [
             AppTextWidget(
               textAlign: TextAlign.center,
-              text: AppStrings.oTPSent.tr,
+              text: AppStrings.forgetPleaseEnterEmail.tr,
               style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryGrey,
-              ),
+                  color: lightColorPalette.primaryGrey),
             ),
-            AppTextWidget(
-              textAlign: TextAlign.center,
-              text: " +1 8451265847",
-              style: CustomTextTheme.categoryText(
-                color: lightColorPalette.primaryDarkblue,
-              ),
-            )
           ],
         ),
       ],
     );
   }
 }
-
-final defaultPinTheme = PinTheme(
-  width: 44.w,
-  height: 44.h,
-  margin: EdgeInsets.only(left: 5.w),
-  textStyle: CustomTextTheme.heading2(color: lightColorPalette.primaryDarkblue),
-  decoration: BoxDecoration(
-    color: lightColorPalette.whiteColorPrimary.shade900,
-    border: Border.all(color: lightColorPalette.stroke, width: 0.3.w),
-    borderRadius: BorderRadius.circular(4.r),
-  ),
-);
-
-final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-  color: lightColorPalette.whiteColorPrimary.shade900,
-  boxShadow: [
-    BoxShadow(
-      blurRadius: 14,
-      color: lightColorPalette.primaryBlue.withOpacity(0.25),
-      offset: const Offset(0, 6),
-      spreadRadius: 0,
-    ),
-  ],
-  border: Border.all(color: lightColorPalette.primaryBlue, width: 1.w),
-  borderRadius: BorderRadius.circular(4.r),
-);
-
-final submittedPinTheme = defaultPinTheme.copyWith(
-  decoration: defaultPinTheme.decoration
-      ?.copyWith(color: lightColorPalette.backgroundColor),
-);
