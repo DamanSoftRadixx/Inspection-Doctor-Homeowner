@@ -258,6 +258,9 @@ class AppStrings {
       "Your new password must be unique from those previously used.";
   static const resetNewPassword = "New password";
   static const resetConfirmPassword = "Confirm password";
+
+  static const uploadDocument ="Upload document";
+
 }
 
 class GetArgumentConstants {

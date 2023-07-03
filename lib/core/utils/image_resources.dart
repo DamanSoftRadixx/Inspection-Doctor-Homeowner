@@ -23,6 +23,8 @@ class ImageResource {
   static const searchIcon = "assets/images/svg/search_icon.svg";
   static const selectedCheckbox = "assets/images/svg/selected_checkbox.svg";
   static const unSelectedCheckbox = "assets/images/svg/unselected_checkbox.svg";
+  static const downloadIcon = "assets/images/svg/download_icon.svg";
+
 
 
   //png

@@ -51,6 +51,8 @@ dependencies:
   cached_network_image: ^3.2.3
   pinput: ^2.2.31
   country_picker: ^2.0.20
+  dotted_border: ^2.0.0+3
+
 
 dev_dependencies:
   flutter_test:
