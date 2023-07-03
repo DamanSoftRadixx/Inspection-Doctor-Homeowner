@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:inspection_doctor_homeowner/core/common_ui/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
 Login loginFromJson(String str) => Login.fromJson(json.decode(str));
 

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:inspection_doctor_homeowner/core/common_ui/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
 CountryListingResponse countryListingResponseFromJson(String str) =>
     CountryListingResponse.fromJson(json.decode(str));

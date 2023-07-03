@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../common_ui/app_text_widget.dart';
+import '../../common_ui/text/app_text_widget.dart';
 import '../../common_ui/asset.dart';
-import '../../common_ui/common_image_widget.dart';
+import '../../common_ui/asset_widget/common_image_widget.dart';
 import '../../constants/app_strings.dart';
 import '../../constants/common_strings.dart';
 import '../../theme/app_color_palette.dart';

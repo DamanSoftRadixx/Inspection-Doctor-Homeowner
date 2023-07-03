@@ -4,25 +4,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_image_widget.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 Widget commonTextFieldWidget(
     {required TextEditingController controller,
-    String? title,
-    String? hint,
-    FocusNode? focusNode,
-    Function(String value)? onChanged,
-    String? errorMsg,
-    bool? isError,
-    bool? readOnly,
-    bool? autoFocus,
-    TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+      String? title,
+      String? hint,
+      required FocusNode focusNode,
+      Function(String value)? onChanged,
+      String? errorMsg,
+      bool? isError,
+      bool? readOnly,
+      bool? autoFocus,
+      TextInputType? keyboardType,
+      TextInputAction? textInputAction}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -37,13 +37,13 @@ Widget commonTextFieldWidget(
         ).paddingOnly(bottom: 3.0.h),
       GestureDetector(
         onTap: () {
-          focusNode?.requestFocus();
+          focusNode.requestFocus();
         },
         child: Container(
           width: 1.sw,
           height: 44.h,
           padding: EdgeInsets.only(top: 0.h),
-          decoration: decoration(focusNode),
+          decoration: decoration(isSelected: focusNode.hasFocus),
           child: Center(
             child: TextFormField(
               keyboardType: keyboardType,
@@ -55,7 +55,7 @@ Widget commonTextFieldWidget(
               expands: false,
               readOnly: readOnly ?? false,
               autofocus: autoFocus ?? false,
-              focusNode: focusNode ?? FocusNode(),
+              focusNode: focusNode,
               decoration: InputDecoration(
                 isCollapsed: true,
                 contentPadding: EdgeInsets.only(left: 15.0, right: 15.w),
@@ -88,16 +88,16 @@ Widget commonTextFieldWidget(
 
 Widget commonPasswordText(
     {required final String title,
-    required bool passwordVisible,
-    final VoidCallback? onPress,
-    required final TextEditingController controller,
-    FocusNode? focusNode,
-    String? errorMsg,
-    bool? isError,
-    String? hint,
-    Function(String value)? onChanged,
-    TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+      required bool passwordVisible,
+      final VoidCallback? onPress,
+      required final TextEditingController controller,
+      required FocusNode focusNode,
+      String? errorMsg,
+      bool? isError,
+      String? hint,
+      Function(String value)? onChanged,
+      TextInputType? keyboardType,
+      TextInputAction? textInputAction}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,12 +116,12 @@ Widget commonPasswordText(
         ),
       GestureDetector(
         onTap: () {
-          focusNode?.requestFocus();
+          focusNode.requestFocus();
         },
         child: Container(
           width: 1.sw,
           height: 44.h,
-          decoration: decoration(focusNode),
+          decoration: decoration(isSelected: focusNode.hasFocus),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -133,14 +133,14 @@ Widget commonPasswordText(
                   maxLines: 1,
                   minLines: 1,
                   expands: false,
-                  focusNode: focusNode ?? FocusNode(),
+                  focusNode: focusNode,
                   controller: controller,
                   obscureText: passwordVisible,
                   onChanged: onChanged,
                   decoration: InputDecoration(
                     hintStyle: CustomTextTheme.normalText(
                         color:
-                            lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                        lightColorPalette.primaryDarkblue.withOpacity(0.5)),
                     border: InputBorder.none,
                     hintText: hint ?? "",
                     isCollapsed: true,
@@ -157,19 +157,19 @@ Widget commonPasswordText(
                     onTap: onPress == null
                         ? null
                         : () {
-                            onPress();
-                          },
+                      onPress();
+                    },
                     child: passwordVisible
                         ? AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.hideEye),
-                          )
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.hideEye),
+                    )
                         : AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.openEye),
-                          ),
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.openEye),
+                    ),
                   )),
             ],
           ),
@@ -221,7 +221,7 @@ Widget commonPhoneText({
       Container(
         width: 1.sw,
         height: 44.h,
-        decoration: decoration(focusNode),
+        decoration: decoration(isSelected: focusNode?.hasFocus ?? false),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -295,3 +295,53 @@ Widget commonPhoneText({
     ],
   );
 }
+
+Widget commonSearchFieldWidget({
+  required TextEditingController controller,
+  Function(String value)? onChanged,
+  required FocusNode focusNode,
+  required String searchHint,
+}){
+  return GestureDetector(
+    onTap: (){
+      focusNode.requestFocus();
+    },
+    child: Container(
+      width: 1.sw,
+      height: 32.h,
+      decoration: decorationSearchTextField(isSelected: focusNode.hasFocus),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 12.w,),
+          AssetWidget(
+            asset: Asset(type: AssetType.svg, path: ImageResource.searchIcon),
+          ),
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              maxLines: 1,
+              minLines: 1,
+              onChanged: onChanged,
+              expands: false,
+              focusNode: focusNode,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: EdgeInsets.only(left: 8.0, right: 15.w),
+                border: InputBorder.none,
+                hintText: searchHint,
+                hintStyle: CustomTextTheme.normalText(
+                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+              ),
+              style: CustomTextTheme.normalText(
+                  color: lightColorPalette.primaryDarkblue),
+            ),
+          )
+
+        ],
+      ),
+    ),
+  );
+}
+

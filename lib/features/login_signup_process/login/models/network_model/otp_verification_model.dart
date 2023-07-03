@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:inspection_doctor_homeowner/core/common_ui/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
 OtpVerificationModel otpVerificationFromJson(String str) =>
     OtpVerificationModel.fromJson(json.decode(str));

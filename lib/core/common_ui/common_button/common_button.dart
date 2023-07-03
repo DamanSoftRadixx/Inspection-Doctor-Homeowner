@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 
 class CommonButton extends StatelessWidget {
@@ -81,3 +83,67 @@ class CommonButton extends StatelessWidget {
     );
   }
 }
+
+
+Widget commonRadioButton({required String text, required bool isSelected,required Function() onTap}){
+  return GestureDetector(
+    onTap: (){
+      onTap();
+    },
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        isSelected ? AssetWidget(
+          asset:
+          Asset(type: AssetType.svg, path: ImageResource.checked),
+        ) : AssetWidget(
+          asset:
+          Asset(type: AssetType.svg, path: ImageResource.unCheck),
+        ),
+        SizedBox(width: 10.w,),
+        Flexible(child: AppTextWidget(
+          textAlign: TextAlign.start,
+          text: text,
+          style: CustomTextTheme.categoryText(
+            color: lightColorPalette.primaryDarkblue,
+          ),
+        )),
+      ],
+    ),
+  );
+}
+
+Widget commonTermAndConditionsButton({required String text, required bool isSelected,required Function() onTap}){
+  return GestureDetector(
+    onTap: (){
+      onTap();
+    },
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(top: 2.h),
+          child: isSelected ? AssetWidget(
+            asset:
+            Asset(type: AssetType.svg, path: ImageResource.selectedCheckbox),
+          ) : AssetWidget(
+            asset:
+            Asset(type: AssetType.svg, path: ImageResource.unSelectedCheckbox),
+          ),
+        ),
+        SizedBox(width: 10.w,),
+        Flexible(child: AppTextWidget(
+          textAlign: TextAlign.start,
+          text: text,
+          style: CustomTextTheme.normalTextWithLineHeight20(
+            color: lightColorPalette.primaryGrey,
+          ),
+        )),
+      ],
+    ),
+  );
+}
+

@@ -133,12 +133,42 @@ class CustomTextTheme {
     );
   }
 
+  static TextStyle heading3({required Color color}) {
+    return TextStyle(
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w600,
+        color: color,
+        letterSpacing: 0.72
+    );
+  }
+
   static TextStyle normalText({required Color color}) {
     return TextStyle(
       fontFamily: CommonStrings.generalSans,
       fontSize: 14.sp,
       fontWeight: FontWeight.w500,
       height: 1,
+      color: color,
+    );
+  }
+
+  static TextStyle normalTextWithLetterSpacing0_56({required Color color}) {
+    return TextStyle(
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w500,
+        color: color,
+        letterSpacing: 0.56
+    );
+  }
+
+  static TextStyle normalTextWithLineHeight20({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w500,
+      height: 1.42,
       color: color,
     );
   }
@@ -192,24 +222,48 @@ class CustomTextTheme {
   }
 }
 
-BoxDecoration decoration(FocusNode? focusNode) {
+
+BoxDecoration decorationSearchTextField({required bool isSelected}) {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,
       borderRadius: BorderRadius.circular(4.r),
       shape: BoxShape.rectangle,
-      boxShadow: focusNode != null && focusNode.hasFocus
+      boxShadow: isSelected
           ? [
-              BoxShadow(
-                blurRadius: 14,
-                color: lightColorPalette.primaryBlue.withOpacity(0.25),
-                offset: const Offset(0, 6),
-                spreadRadius: 0,
-              ),
-            ]
+        BoxShadow(
+          blurRadius: 14,
+          color: lightColorPalette.primaryBlue.withOpacity(0.25),
+          offset: const Offset(0, 6),
+          spreadRadius: 0,
+        ),
+      ]
           : [],
       border: Border.all(
-          color: focusNode != null && focusNode.hasFocus
+          color: isSelected
+              ? lightColorPalette.primaryBlue
+              : lightColorPalette.primaryGrey,
+          width: isSelected ? 1 : 0.3));
+}
+
+
+BoxDecoration decoration({required bool isSelected}) {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(4.r),
+      shape: BoxShape.rectangle,
+      boxShadow: isSelected
+          ? [
+        BoxShadow(
+          blurRadius: 14,
+          color: lightColorPalette.primaryBlue.withOpacity(0.25),
+          offset: const Offset(0, 6),
+          spreadRadius: 0,
+        ),
+      ]
+          : [],
+      border: Border.all(
+          color: isSelected
               ? lightColorPalette.primaryBlue
               : lightColorPalette.stroke,
-          width: 1));
+          width: isSelected ? 1 : 0.3));
 }

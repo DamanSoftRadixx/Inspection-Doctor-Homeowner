@@ -19,6 +19,12 @@ class ImageResource {
   static String google = "assets/images/svg/google.svg";
   static String facebook = "assets/images/svg/facebook.svg";
 
+
+  static const searchIcon = "assets/images/svg/search_icon.svg";
+  static const selectedCheckbox = "assets/images/svg/selected_checkbox.svg";
+  static const unSelectedCheckbox = "assets/images/svg/unselected_checkbox.svg";
+
+
   //png
 
   static const noImagePlaceholder =
