@@ -33,50 +33,44 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         LanguageModel value = languageList[index];
-                        return Container(
-                          margin: EdgeInsets.only(
-                              left: 20.w, top: 20.h, right: 20.w),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.w, vertical: 5.h),
-                          decoration: BoxDecoration(
-                              color:
-                                  lightColorPalette.whiteColorPrimary.shade900,
-                              borderRadius: BorderRadius.circular(4.r),
-                              border:
-                                  Border.all(color: lightColorPalette.stroke)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  AssetWidget(
-                                    asset: Asset(
-                                        type: AssetType.svg, path: value.icon),
-                                    boxFit: BoxFit.fitWidth,
-                                  ).paddingOnly(right: 7.5.w),
-                                  AppTextWidget(
-                                    text: value.languageName,
-                                    style: CustomTextTheme.buttonText(
-                                      color: lightColorPalette.primaryDarkblue,
+                        return GestureDetector(
+                          onTap: (){
+                            controller.onTapCheckBox(value);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 20.w, top: 20.h, right: 20.w),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 5.h),
+                            decoration: decoration(isSelected: false),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    AssetWidget(
+                                      asset: Asset(
+                                          type: AssetType.svg, path: value.icon),
+                                      boxFit: BoxFit.fitWidth,
+                                    ).paddingOnly(right: 7.5.w),
+                                    AppTextWidget(
+                                      text: value.languageName,
+                                      style: CustomTextTheme.buttonText(
+                                        color: lightColorPalette.primaryDarkblue,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              CustomInkwell(
-                                padding: EdgeInsets.zero,
-                                child: AssetWidget(
+                                  ],
+                                ),
+                                AssetWidget(
                                   asset: Asset(
                                       type: AssetType.svg,
                                       path: value.isSeleceted
                                           ? ImageResource.checked
                                           : ImageResource.unCheck),
                                   boxFit: BoxFit.fitWidth,
-                                ),
-                                onTap: () {
-                                  controller.onTapCheckBox(value);
-                                },
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -86,7 +80,7 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                       commonButtonBottonText: AppStrings.continueBtn,
                       onPress: () {
                         controller.onTapContinueButton();
-                      }).paddingOnly(bottom: 41.h, left: 20.w, right: 20.w)
+                      }).paddingOnly(bottom: 17.h, left: 20.w, right: 20.w)
                 ],
               ),
             )));

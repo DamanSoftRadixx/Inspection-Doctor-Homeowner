@@ -203,8 +203,7 @@ class LoginScreen extends GetView<LoginController> {
       child: CustomInkwell(
         padding: EdgeInsets.zero,
         onTap: () {
-          // dismissKeyboard();
-          // Get.toNamed(Routes.forgotScreen);
+          controller.onPressForgotPasswordButton();
         },
         child: AppTextWidget(
           style:

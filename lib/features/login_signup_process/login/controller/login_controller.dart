@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 
 class LoginController extends GetxController {
   RxBool isHidePassword = true.obs;
@@ -33,5 +35,10 @@ class LoginController extends GetxController {
   void onClose() {
     disposeFocusListeners();
     super.onClose();
+  }
+
+  void onPressForgotPasswordButton() {
+    dismissKeyboard();
+    Get.toNamed(Routes.forgetScreen);
   }
 }

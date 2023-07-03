@@ -121,7 +121,7 @@ class SignupScreen extends GetView<SignupController> {
               color: lightColorPalette.primaryDarkblue,
             ),
           ),
-        ).paddingOnly(top: 22.h, bottom: 10.h),
+        ).paddingOnly(top: 22.h, bottom: 10.h,left: 20.w, right: 20.w,),
         Center(
           child: AppTextWidget(
             textAlign: TextAlign.center,
@@ -130,7 +130,7 @@ class SignupScreen extends GetView<SignupController> {
               color: lightColorPalette.primaryGrey,
             ),
           ),
-        ).paddingOnly(left: 60.w, right: 60.w, bottom: 30.h),
+        ).paddingOnly(left: 20.w, right: 20.w, bottom: 30.h),
       ],
     );
   }
