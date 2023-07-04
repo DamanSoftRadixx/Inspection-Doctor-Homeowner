@@ -25,12 +25,12 @@ class HomeScreen extends GetView<HomeController> {
           },
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 width: 1.sw,
                 child: AssetWidget(
-                  asset:
-                  Asset(type: AssetType.svg,
-                      path: ImageResource.addPropertyBackgroundImage,
+                  asset: Asset(
+                    type: AssetType.svg,
+                    path: ImageResource.addPropertyBackgroundImage,
                   ),
                   boxFit: BoxFit.fill,
                 ),
@@ -44,7 +44,7 @@ class HomeScreen extends GetView<HomeController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          addPropertyWidget()
+                          addPropertyWidget(),
                         ],
                       ),
                     ),
@@ -61,34 +61,40 @@ class HomeScreen extends GetView<HomeController> {
     );
   }
 
-  addPropertyWidget(){
+  addPropertyWidget() {
     return Container(
       width: 1.sw,
-      padding: EdgeInsets.symmetric(horizontal: 30.w,vertical: 40.h),
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 40.h),
       decoration: decorationWithElevationOnly(),
       child: Column(
         children: [
           AssetWidget(
-            asset:
-            Asset(type: AssetType.svg,
+            asset: Asset(
+              type: AssetType.svg,
               path: ImageResource.addPropertyImage,
             ),
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(
+            height: 20.h,
+          ),
           AppTextWidget(
             textAlign: TextAlign.center,
             text: AppStrings.addPropertiesForInspection.tr,
             style: CustomTextTheme.heading1WithLetterSpacing(
                 color: lightColorPalette.primaryDarkblue),
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(
+            height: 10.h,
+          ),
           AppTextWidget(
             textAlign: TextAlign.center,
             text: AppStrings.youHaveNotAddedPropertyYet.tr,
             style: CustomTextTheme.normalText(
                 color: lightColorPalette.primaryGrey),
           ),
-          SizedBox(height: 14.h,),
+          SizedBox(
+            height: 14.h,
+          ),
           CommonButton(
               commonButtonBottonText: AppStrings.addPropertyButton.tr,
               onPress: () {
@@ -98,5 +104,4 @@ class HomeScreen extends GetView<HomeController> {
       ),
     );
   }
-
 }

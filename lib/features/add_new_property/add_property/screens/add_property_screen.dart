@@ -1,19 +1,11 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
-
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
 
 class AddPropertyScreen extends GetView<AddPropertyController> {
@@ -25,35 +17,33 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: commonAppBarWithElevation(
           title: AppStrings.addProperty.tr,
-        onPressBackButton: (){
+          onPressBackButton: () {
             Get.back();
-        }
-          ),
+          }),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Obx(() => Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              showHeadingText(),
-              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  showFirstNameField().paddingOnly(bottom: 11.h),
-                  showLastNameField().paddingOnly(bottom: 11.h),
-                  showEmailField().paddingOnly(bottom: 11.h),
-                  showPhoneNumberField().paddingOnly(bottom: 11.h),
-                  showPasswordField().paddingOnly(bottom: 11.h),
-                  showConfirmPasswordField().paddingOnly(bottom: 11.h),
-                  showMailingAddress(),
-                  showStreetField().paddingOnly(bottom: 11.h),
-                  showCityField().paddingOnly(bottom: 11.h),
-                  showStateField().paddingOnly(bottom: 11.h),
-                  showZipCodeField(),
-                  showSignUpButton().paddingOnly(top: 40.h),
-                  showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
+                  Column(
+                    children: [
+                      showPropertyNameField()
+                          .paddingOnly(bottom: 11.h, top: 20.h),
+                      showStreetNameField().paddingOnly(bottom: 11.h),
+                      showCityField().paddingOnly(bottom: 11.h),
+                      showStateField().paddingOnly(bottom: 11.h),
+                      showZipCodeField().paddingOnly(bottom: 11.h),
+                      showPermitNumberield().paddingOnly(bottom: 11.h),
+                      showLotNumberField().paddingOnly(bottom: 11.h),
+                      showBlockNumberField().paddingOnly(bottom: 11.h),
+                      dropdownField(
+                          selectedValue: selectedValue,
+                          onClick: (DropdownModel value) {},
+                          list: list)
+                    ],
+                  ).paddingSymmetric(horizontal: 20.w),
                 ],
-              ).paddingSymmetric(horizontal: 20.w),
-            ],
-          )),
+              )),
         ),
       ),
     );
@@ -64,159 +54,34 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       children: [
         AppTextWidget(
           style:
-          CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
           text: AppStrings.mailingAddress.tr,
         ).paddingOnly(top: 30.h, bottom: 15.h),
       ],
     );
   }
 
-  Row showLoginOption() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        AppTextWidget(
-          style:
-          CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
-          text: AppStrings.alreadyAccount.tr,
-        ),
-        CustomInkwell(
-          padding: EdgeInsets.zero,
-          onTap: () {
-            dismissKeyboard();
-            Get.back();
-          },
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryBlue),
-            text: AppStrings.login.tr,
-          ),
-        ),
-      ],
-    );
-  }
-
-  CommonButton showSignUpButton() {
-    return CommonButton(
-        commonButtonBottonText: AppStrings.signup.tr,
-        onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
-        });
-  }
-
-  Column showHeadingText() {
-    return Column(
-      children: [
-        Center(
-          child: AppTextWidget(
-            text: AppStrings.registerStarted.tr,
-            style: CustomTextTheme.heading1(
-              color: lightColorPalette.primaryDarkblue,
-            ),
-          ),
-        ).paddingOnly(top: 22.h, bottom: 10.h,left: 20.w, right: 20.w,),
-        Center(
-          child: AppTextWidget(
-            textAlign: TextAlign.center,
-            text: AppStrings.fillDetail,
-            style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryGrey,
-            ),
-          ),
-        ).paddingOnly(left: 20.w, right: 20.w, bottom: 30.h),
-      ],
-    );
-  }
-
-  Widget showFirstNameField() {
+  Widget showPropertyNameField() {
     return commonTextFieldWidget(
-      focusNode: controller.firstNameFocusNode.value,
-      controller: controller.firstNameController,
-      title: AppStrings.firstName.tr,
-      hint: AppStrings.firstName.tr,
+      focusNode: controller.propertyFocusNode.value,
+      controller: controller.propertyController,
+      title: AppStrings.propertyNameNickName.tr,
+      hint: AppStrings.propertyNameNickName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );
   }
 
-  Widget showLastNameField() {
+  Widget showStreetNameField() {
     return commonTextFieldWidget(
-      focusNode: controller.lastNameFocusNode.value,
-      controller: controller.lastNameController,
-      title: AppStrings.lastName.tr,
-      hint: AppStrings.lastName.tr,
+      focusNode: controller.streetFocusNode.value,
+      controller: controller.streetController,
+      title: AppStrings.street.tr,
+      hint: AppStrings.street.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
-    );
-  }
-
-  Widget showEmailField() {
-    return commonTextFieldWidget(
-      focusNode: controller.emailFocusNode.value,
-      controller: controller.emailController,
-      title: AppStrings.email.tr,
-      hint: AppStrings.email.tr,
-      keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
-      onChanged: (value) {},
-    );
-  }
-
-  Widget showPhoneNumberField() {
-    return commonPhoneText(
-      focusNode: controller.phoneNumberFocusNode.value,
-      controller: controller.phoneNumberController,
-      title: AppStrings.phoneNumber.tr,
-      hint: AppStrings.phoneNumber.tr,
-      keyboardType: TextInputType.number,
-      textInputAction: TextInputAction.next,
-      onChanged: (value) {},
-      countryCode: controller.selectedCountryCode.value,
-      onSelect: (Country country) {
-        controller.selectedCountryCode.value = country.phoneCode;
-      },
-    );
-  }
-
-  Widget showPasswordField() {
-    return commonPasswordText(
-      focusNode: controller.passwordFocusNode.value,
-      controller: controller.passwordController,
-      title: AppStrings.loginScreenPassword.tr,
-      hint: AppStrings.loginScreenPassword.tr,
-      keyboardType: TextInputType.visiblePassword,
-      textInputAction: TextInputAction.next,
-      onPress: () {
-        if (controller.isHidePassword.value == false) {
-          controller.isHidePassword.value = true;
-        } else {
-          controller.isHidePassword.value = false;
-        }
-      },
-      passwordVisible: controller.isHidePassword.value,
-    );
-  }
-
-  Widget showConfirmPasswordField() {
-    return commonPasswordText(
-      focusNode: controller.confirmPasswordFocusNode.value,
-      controller: controller.confirmPasswordController,
-      title: AppStrings.confirmPassword.tr,
-      hint: AppStrings.confirmPassword.tr,
-      keyboardType: TextInputType.visiblePassword,
-      textInputAction: TextInputAction.next,
-      onPress: () {
-        if (controller.isHideConfirmPassword.value == false) {
-          controller.isHideConfirmPassword.value = true;
-        } else {
-          controller.isHideConfirmPassword.value = false;
-        }
-      },
-      passwordVisible: controller.isHideConfirmPassword.value,
     );
   }
 
@@ -262,6 +127,42 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.next,
+      onChanged: (value) {},
+    );
+  }
+
+  Widget showPermitNumberield() {
+    return commonTextFieldWidget(
+      focusNode: controller.permitNumberFocusNode.value,
+      controller: controller.permitNumberController,
+      title: AppStrings.permitNumber.tr,
+      hint: AppStrings.permitNumber.tr,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.next,
+      onChanged: (value) {},
+    );
+  }
+
+  Widget showLotNumberField() {
+    return commonTextFieldWidget(
+      focusNode: controller.lotNumberFocusNode.value,
+      controller: controller.lotNumberController,
+      title: AppStrings.lotNumber.tr,
+      hint: AppStrings.lotNumber.tr,
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.next,
+      onChanged: (value) {},
+    );
+  }
+
+  Widget showBlockNumberField() {
+    return commonTextFieldWidget(
+      focusNode: controller.blockNumberFocusNode.value,
+      controller: controller.blockNumberController,
+      title: AppStrings.blockNumber.tr,
+      hint: AppStrings.blockNumber.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},

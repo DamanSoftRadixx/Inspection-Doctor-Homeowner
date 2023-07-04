@@ -2,80 +2,63 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddPropertyController extends GetxController {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController propertyController = TextEditingController();
   TextEditingController streetController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController zipCodeController = TextEditingController();
+  TextEditingController permitNumberController = TextEditingController();
+  TextEditingController lotNumberController = TextEditingController();
+  TextEditingController blockNumberController = TextEditingController();
 
-  Rx<FocusNode> firstNameFocusNode = FocusNode().obs;
-  Rx<FocusNode> lastNameFocusNode = FocusNode().obs;
-  Rx<FocusNode> emailFocusNode = FocusNode().obs;
-  Rx<FocusNode> nameFocusNode = FocusNode().obs;
-  Rx<FocusNode> phoneNumberFocusNode = FocusNode().obs;
-  Rx<FocusNode> passwordFocusNode = FocusNode().obs;
-  Rx<FocusNode> confirmPasswordFocusNode = FocusNode().obs;
+  Rx<FocusNode> propertyFocusNode = FocusNode().obs;
   Rx<FocusNode> streetFocusNode = FocusNode().obs;
   Rx<FocusNode> cityFocusNode = FocusNode().obs;
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
-
-  RxString selectedCountryCode = "1".obs;
-
-  RxBool isHidePassword = true.obs;
-  RxBool isHideConfirmPassword = true.obs;
+  Rx<FocusNode> permitNumberFocusNode = FocusNode().obs;
+  Rx<FocusNode> lotNumberFocusNode = FocusNode().obs;
+  Rx<FocusNode> blockNumberFocusNode = FocusNode().obs;
 
   addFocusListeners() {
-    firstNameFocusNode.value.addListener(() {
-      firstNameFocusNode.refresh();
-    });
-    lastNameFocusNode.value.addListener(() {
-      lastNameFocusNode.refresh();
-    });
-    emailFocusNode.value.addListener(() {
-      emailFocusNode.refresh();
-    });
-    nameFocusNode.value.addListener(() {
-      nameFocusNode.refresh();
-    });
-    phoneNumberFocusNode.value.addListener(() {
-      phoneNumberFocusNode.refresh();
-    });
-    passwordFocusNode.value.addListener(() {
-      passwordFocusNode.refresh();
-    });
-    confirmPasswordFocusNode.value.addListener(() {
-      confirmPasswordFocusNode.refresh();
-    });
-    cityFocusNode.value.addListener(() {
-      cityFocusNode.refresh();
+    propertyFocusNode.value.addListener(() {
+      propertyFocusNode.refresh();
     });
     streetFocusNode.value.addListener(() {
       streetFocusNode.refresh();
     });
+    cityFocusNode.value.addListener(() {
+      cityFocusNode.refresh();
+    });
+
+    stateFocusNode.value.addListener(() {
+      stateFocusNode.refresh();
+    });
+
     zipCodeFocusNode.value.addListener(() {
       zipCodeFocusNode.refresh();
+    });
+    permitNumberFocusNode.value.addListener(() {
+      permitNumberFocusNode.refresh();
+    });
+
+    lotNumberFocusNode.value.addListener(() {
+      lotNumberFocusNode.refresh();
+    });
+    blockNumberFocusNode.value.addListener(() {
+      blockNumberFocusNode.refresh();
     });
   }
 
   disposeFocusListeners() {
-    firstNameFocusNode.value.removeListener(() {});
-    lastNameFocusNode.value.removeListener(() {});
-    emailFocusNode.value.removeListener(() {});
-    nameFocusNode.value.removeListener(() {});
-    phoneNumberFocusNode.value.removeListener(() {});
-    passwordFocusNode.value.removeListener(() {});
-    confirmPasswordFocusNode.value.removeListener(() {});
+    propertyFocusNode.value.removeListener(() {});
     streetFocusNode.value.removeListener(() {});
     cityFocusNode.value.removeListener(() {});
     stateFocusNode.value.removeListener(() {});
-    lastNameFocusNode.value.removeListener(() {});
+    zipCodeFocusNode.value.removeListener(() {});
+    permitNumberFocusNode.value.removeListener(() {});
+    lotNumberFocusNode.value.removeListener(() {});
+    blockNumberFocusNode.value.removeListener(() {});
   }
 
   @override
