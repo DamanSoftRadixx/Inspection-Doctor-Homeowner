@@ -261,6 +261,23 @@ class AppStrings {
 
   static const uploadDocument ="Upload document";
 
+  //Dashboard
+  static const homeTab = "Home";
+  static const inspectionsTab = "Inspections";
+  static const notificationTab = "Notification";
+  static const myProfileTab = "My Profile";
+
+  //Common
+  static const noDataFound = "No Data Found";
+
+  //Add Property
+  static const addPropertiesForInspection = "Add properties for inspection";
+  static const youHaveNotAddedPropertyYet = "You haven’t added any property yet. Tap on below button to add.";
+  static const addPropertyButton = "Add property";
+
+
+
+
 }
 
 class GetArgumentConstants {
@@ -271,6 +288,17 @@ class GetArgumentConstants {
   static const navigateToContentDataModel = "navigateToContentDataModel";
   static const navigateToAddEditJournalModel = "navigateToAddEditJournalModel";
 }
+
+class WeekDays{
+  static const monday ="Monday";
+  static const tuesday ="Tuesday";
+  static const wednesday ="Wednesday";
+  static const thursday ="Thursday";
+  static const friday ="Friday";
+  static const saturday ="Saturday";
+  static const sunday ="Sunday";
+}
+
 
 class HomeScreenType {
   static const journal = "journal";

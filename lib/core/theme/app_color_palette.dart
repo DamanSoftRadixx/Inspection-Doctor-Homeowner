@@ -68,6 +68,16 @@ class CustomTextTheme {
     );
   }
 
+  static TextStyle heading1WithLetterSpacing({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 24.sp,
+      fontWeight: FontWeight.w600,
+      color: color,
+      letterSpacing: 0.96
+    );
+  }
+
   static TextStyle heading2({required Color color}) {
     return TextStyle(
       fontFamily: CommonStrings.generalSans,
@@ -222,4 +232,22 @@ BoxDecoration decoration({required bool isSelected}) {
               ? lightColorPalette.primaryBlue
               : lightColorPalette.stroke,
           width: isSelected ? 1 : 0.3));
+}
+
+BoxDecoration decorationWithElevationOnly() {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(4.r),
+      shape: BoxShape.rectangle,
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 14,
+          color: lightColorPalette.primaryBlue.withOpacity(0.25),
+          offset: const Offset(0, 6),
+          spreadRadius: 0,
+        ),
+      ],
+      border: Border.all(
+          color:lightColorPalette.stroke,
+          width: 0.3));
 }

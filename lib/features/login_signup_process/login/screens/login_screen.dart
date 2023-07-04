@@ -218,8 +218,7 @@ class LoginScreen extends GetView<LoginController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.login.tr,
         onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
+          controller.onPressLoginButton();
         });
   }
 

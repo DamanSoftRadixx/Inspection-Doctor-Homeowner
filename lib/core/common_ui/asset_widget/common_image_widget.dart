@@ -27,8 +27,7 @@ class AssetWidget extends StatelessWidget {
       this.file,
       this.firstName,
       this.onClick,
-      this.placeHolder =
-          ImageResource.noImagePlaceholder, //"assets/images/png/user_img.png",
+      this.placeHolder = "", //"assets/images/png/user_img.png",
       this.isCircular = false,
       this.lastName,
       this.height,
@@ -89,8 +88,8 @@ class AssetWidget extends StatelessWidget {
                     width: width,
                     imageUrl: asset.path,
                     fit: boxFit ?? BoxFit.cover,
-                    placeholder: (context, url) =>
-                        loadingWidget(placeHolder: url),
+                    /*placeholder: (context, url) =>
+                        loadingWidget(placeHolder: url),*/
                     errorWidget: (context, url, error) =>
                         loadingWidget(placeHolder: placeHolder),
                   ),

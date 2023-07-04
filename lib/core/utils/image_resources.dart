@@ -25,10 +25,21 @@ class ImageResource {
   static const unSelectedCheckbox = "assets/images/svg/unselected_checkbox.svg";
   static const downloadIcon = "assets/images/svg/download_icon.svg";
 
+  static const selectedRadioIcon = "assets/images/svg/selected_radio_icon.svg";
 
 
-  //png
+  //Dashboard
+  static const selectedHomeIcon = "assets/images/svg/selected_home_icon.svg";
+  static const unSelectedHomeIcon = "assets/images/svg/unselcted_home_icon.svg";
+  static const selectedInspectionsIcon = "assets/images/svg/selected_inspections_icon.svg";
+  static const unSelectedInspectionsIcon = "assets/images/svg/unselected_inspections_icon.svg";
+  static const selectedNotificationsIcon = "assets/images/svg/selected_notifications_icon.svg";
+  static const unSelectedNotificationsIcon = "assets/images/svg/unselected_notifications_icon.svg";
+  static const selectedProfileIcon = "assets/images/svg/selected_profile_icon.svg";
+  static const unSelectedProfileIcon = "assets/images/svg/unselected_profile_icon.svg";
 
-  static const noImagePlaceholder =
-      "assets/images/png/no_image_placeholder.png";
+  //Add Property
+  static const addPropertyBackgroundImage = "assets/images/svg/add_property_bg.svg";
+  static const addPropertyImage = "assets/images/svg/add_property_image.svg";
+
 }

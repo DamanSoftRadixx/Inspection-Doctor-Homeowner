@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
+import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/screens/forget_password_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/login_binding.dart';
@@ -20,7 +22,6 @@ class Routes {
 
   static const String root = "/";
   static const String selectLanguage = "/selectLanguage";
-  static const String dashboard = "/dashboard";
   static const String entriesScreen = "/entries";
   static const String flowsScreen = "/flows";
   static const String settingsScreen = "/SettingsScreen";
@@ -30,6 +31,10 @@ class Routes {
   static const String addCardScreen = "/addCardScreen";
   static const String otpVerifyScreen = "/otpVerifyScreen";
   static const String resetPassword = "/resetPassword";
+
+  //Dashboard
+  static const String dashboard = "/dashboard";
+
 }
 
 List<GetPage> appPages() => [
@@ -96,4 +101,13 @@ List<GetPage> appPages() => [
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
       ),
+  GetPage(
+    name: Routes.dashboard,
+    page: () => DashBoardScreen(),
+    binding: DashboardBinding(),
+    transition: CommonStrings.transition,
+    fullscreenDialog: true,
+    transitionDuration:
+    const Duration(milliseconds: CommonStrings.transitionDuration),
+  ),
     ];

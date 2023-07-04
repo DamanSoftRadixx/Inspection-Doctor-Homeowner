@@ -41,4 +41,9 @@ class LoginController extends GetxController {
     dismissKeyboard();
     Get.toNamed(Routes.forgetScreen);
   }
+
+  void onPressLoginButton() {
+    dismissKeyboard();
+    Get.toNamed(Routes.dashboard);
+  }
 }
