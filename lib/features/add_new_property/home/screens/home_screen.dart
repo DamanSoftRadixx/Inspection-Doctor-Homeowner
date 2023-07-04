@@ -92,7 +92,7 @@ class HomeScreen extends GetView<HomeController> {
           CommonButton(
               commonButtonBottonText: AppStrings.addPropertyButton.tr,
               onPress: () {
-
+                controller.onPressAddPropertyButton();
               })
         ],
       ),

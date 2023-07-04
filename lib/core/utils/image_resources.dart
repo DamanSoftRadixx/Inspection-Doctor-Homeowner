@@ -41,5 +41,6 @@ class ImageResource {
   //Add Property
   static const addPropertyBackgroundImage = "assets/images/svg/add_property_bg.svg";
   static const addPropertyImage = "assets/images/svg/add_property_image.svg";
+  static const downArrow = "assets/images/svg/down_arrow.svg";
 
 }

@@ -274,6 +274,15 @@ class AppStrings {
   static const addPropertiesForInspection = "Add properties for inspection";
   static const youHaveNotAddedPropertyYet = "You haven’t added any property yet. Tap on below button to add.";
   static const addPropertyButton = "Add property";
+  static const addProperty = "Add property";
+  static const propertyNameNickName = "Property name (nickname)";
+  static const permitNumber = "Permit number";
+  static const lotNumber = "LOT number";
+  static const blockNumber = "Block number";
+  static const county = "County";
+  static const uploadArchitecturalDrawing = "Upload architectural drawing";
+  static const uploadAPdf = "Upload a pdf";
+
 
 
 

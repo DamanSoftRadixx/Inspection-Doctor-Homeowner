@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/binding/add_property_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/screens/add_property_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
@@ -34,6 +36,9 @@ class Routes {
 
   //Dashboard
   static const String dashboard = "/dashboard";
+
+  //Add Property
+  static const String addPropertyScreen = "/addPropertyScreen";
 
 }
 
@@ -105,6 +110,16 @@ List<GetPage> appPages() => [
     name: Routes.dashboard,
     page: () => DashBoardScreen(),
     binding: DashboardBinding(),
+    transition: CommonStrings.transition,
+    fullscreenDialog: true,
+    transitionDuration:
+    const Duration(milliseconds: CommonStrings.transitionDuration),
+  ),
+
+  GetPage(
+    name: Routes.addPropertyScreen,
+    page: () => AddPropertyScreen(),
+    binding: AddPropertyBinding(),
     transition: CommonStrings.transition,
     fullscreenDialog: true,
     transitionDuration:

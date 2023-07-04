@@ -1,4 +1,6 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +9,8 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_ke
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
@@ -343,4 +347,199 @@ Widget commonSearchFieldWidget({
     ),
   );
 }
+
+Widget dropdownField(
+    {String hint = "",
+      required DropdownModel selectedValue,
+      required Function(DropdownModel value) onClick,
+      EdgeInsetsGeometry? padding,
+      required List<DropdownModel> list,
+      bool? isExpanded,
+      bool isMandatory = false,
+      bool isShowRightButton = false,
+      String? title,
+      Widget? rightButtonDesign,
+      bool isError = false,
+      Function()? onTap,
+      String? errorMsg,bool hasFocus = false}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (title != null && title != "")
+        Padding(
+          padding: EdgeInsets.only(bottom: 3.h),
+          child: AppTextWidget(
+            style: CustomTextTheme.normalText(
+                color: lightColorPalette.primaryDarkblue),
+            text: title,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      Container(
+          width: 1.sw,
+          height: 44.h,
+          decoration: decoration(isSelected: hasFocus),
+          child: DropdownButton2<DropdownModel>(
+            isDense: true,
+            /* menuItemStyleData:
+                MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
+            dropdownStyleData: DropdownStyleData(
+                offset: const Offset(0, -22),
+
+                maxHeight: 300.h,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: lightColorPalette.additionalSwatch1.shade900.withOpacity(0.4),
+                          spreadRadius: 4,
+                          blurRadius: 20,
+                          offset: Offset(1,1)
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(6.r),
+                    shape: BoxShape.rectangle,
+                    border: Border.all(
+                        color: lightColorPalette.additionalSwatch1.shade900,
+                        width: 0.5))),
+            isExpanded: isExpanded ?? false,
+            underline: const SizedBox(),
+            customButton: Padding(
+              padding: EdgeInsets.only(right: 16.0.w,left: 16.0.w),
+              child: Row(
+                children: [
+                  AppTextWidget(
+                    text: selectedValue.name,
+                    style: TextStyle(
+                      fontSize: 14.w,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: CommonStrings.generalSans,
+                      color: lightColorPalette
+                          .secondarySwatch.shade900,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.w),
+                    child: AssetWidget(
+                        asset: Asset(
+                            type: AssetType.svg,
+                            path: ImageResource.downArrow)),
+                  )
+                ],
+              ),
+            ),
+            iconStyleData: IconStyleData(
+              icon: Icon(Icons.arrow_drop_down,
+                  color: lightColorPalette.secondarySwatch.shade900,
+                  size: 25.h)
+                  .paddingOnly(right: 4.w),
+            ),
+
+            hint: Text(
+              hint,
+              style: TextStyle(
+                color: lightColorPalette.additionalSwatch1.shade900,
+                fontWeight: FontWeight.w500,
+                fontSize: 14.sp,
+              ),
+            ),
+            buttonStyleData: ButtonStyleData(
+              padding: EdgeInsets.only(left: 2.w,right: 5.w),
+            ),
+            value: selectedValue.name == "" ? null : selectedValue,
+            selectedItemBuilder: (_) {
+              return list.map<Widget>((item) {
+                return Row(
+                  children: [
+                    AppTextWidget(
+                      text: item.name.toString(),
+                      style: TextStyle(
+                        fontSize: 14.w,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: CommonStrings.generalSans,
+                        color: lightColorPalette
+                            .secondarySwatch.shade900,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                );
+              }).toList();
+            },
+            items: list
+                .map((DropdownModel model) => DropdownMenuItem<DropdownModel>(
+              child: DropdownMenuItem(
+                value: model,
+                child: StatefulBuilder(builder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 2.0.w,left: 5.0.w),
+                    child: Row(
+                      children: [
+                        AppTextWidget(
+                          text: model.name.toString(),
+                          style: TextStyle(
+                            fontSize: 14.w,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: CommonStrings.generalSans,
+                            color: lightColorPalette
+                                .secondarySwatch.shade900,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+                        selectedValue.id == model.id
+                            ? Padding(
+                          padding: EdgeInsets.only(left: 8.w),
+                          child: AssetWidget(
+                              asset: Asset(
+                                  type: AssetType.svg,
+                                  path: ImageResource.checked)),
+                        )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+              value: model,
+            ))
+                .toList(),
+            onChanged: (DropdownModel? value) {
+              onClick(value!);
+            },
+          )),
+      Visibility(
+        visible: isError ?? false,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: AppTextWidget(
+            text: errorMsg ?? "",
+            style: CustomTextTheme.normalText(
+              color: lightColorPalette.primaryDarkblue,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+class DropdownModel extends Equatable {
+  String id, name, status, type;
+  bool isActive;
+  DropdownModel(
+      {this.id = "",
+        this.name = "",
+        this.status = "",
+        this.type = "",
+        this.isActive = true});
+  @override
+  String toString() => name;
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, status, type];
+}
+
 
