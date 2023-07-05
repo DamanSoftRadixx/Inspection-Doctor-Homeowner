@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/controller/home_controller.dart';
@@ -17,9 +19,12 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
-      body: Obx(() => SafeArea(
+    return Obx(() => Scaffold(
+          backgroundColor: lightColorPalette.backgroundColor,
+          floatingActionButton: controller.homeList.isNotEmpty
+              ? showFloatingButton()
+              : const SizedBox(),
+          body: SafeArea(
             child: GestureDetector(
               onTap: () {
                 dismissKeyboard();
@@ -28,7 +33,24 @@ class HomeScreen extends GetView<HomeController> {
                   ? showAddProperty()
                   : showPropertyUi(),
             ),
-          )),
+          ),
+        ));
+  }
+
+  SizedBox showFloatingButton() {
+    return SizedBox(
+      height: 56.h,
+      width: 56.w,
+      child: FittedBox(
+        child: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: lightColorPalette.primaryBlue,
+          child: const Icon(
+            Icons.add,
+            size: 35,
+          ),
+        ),
+      ),
     );
   }
 
@@ -58,100 +80,111 @@ class HomeScreen extends GetView<HomeController> {
         physics: const RangeMaintainingScrollPhysics(),
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            margin: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
-            padding: EdgeInsets.only(
-                left: 20.w, top: 15.h, right: 20.w, bottom: 14.h),
-            decoration: decorationHome(),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppTextWidget(
-                      style: CustomTextTheme.heading3(
-                          color: lightColorPalette.primaryDarkblue),
-                      text: "ABC Property name",
-                    ),
-                    AssetWidget(
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.forwordArrow,
+          return CustomInkwell(
+            padding: EdgeInsets.zero,
+            onTap: () {
+              Get.toNamed(Routes.propertyDetailScreen);
+            },
+            child: Container(
+              margin: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+              padding: EdgeInsets.only(
+                  left: 20.w, top: 15.h, right: 20.w, bottom: 14.h),
+              decoration: decorationHome(),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: AppTextWidget(
+                          style: CustomTextTheme.heading3(
+                              color: lightColorPalette.primaryDarkblue),
+                          text: "ABC Property name",
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    AssetWidget(
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.pinLocation,
+                      AssetWidget(
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.forwordArrow,
+                        ),
                       ),
-                    ).paddingOnly(right: 5.w),
-                    AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.primaryGrey),
-                      text: "4001 Anderson Road, Nashville TN 37217",
-                    ),
-                  ],
-                ).paddingOnly(top: 12.h, bottom: 12.h),
-                Divider(
-                  color: lightColorPalette.stroke,
-                  height: 0,
-                ),
-                Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        AssetWidget(
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.hashLogo,
-                          ),
-                        ).paddingOnly(right: 5.w),
-                        AppTextWidget(
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      AssetWidget(
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.pinLocation,
+                        ),
+                      ).paddingOnly(right: 5.w),
+                      Expanded(
+                        child: AppTextWidget(
                           style: CustomTextTheme.normalText(
                               color: lightColorPalette.primaryGrey),
-                          text: "Lot#33",
+                          text: "4001 Anderson Road, Nashville TN 37217",
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AssetWidget(
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.hashLogo,
+                      ),
+                    ],
+                  ).paddingOnly(top: 12.h, bottom: 12.h),
+                  Divider(
+                    color: lightColorPalette.stroke,
+                    height: 0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AssetWidget(
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.hashLogo,
+                            ),
+                          ).paddingOnly(right: 5.w),
+                          AppTextWidget(
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryGrey),
+                            text: "Lot#33",
                           ),
-                        ).paddingOnly(right: 5.w),
-                        AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.primaryGrey),
-                          text: "20224-0705",
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.primaryDarkblue),
-                          text: '\u2022 ',
-                        ),
-                        AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.primaryDarkblue),
-                          text: "Scheduled",
-                        ),
-                      ],
-                    ),
-                  ],
-                ).paddingOnly(top: 12.h)
-              ],
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AssetWidget(
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.hashLogo,
+                            ),
+                          ).paddingOnly(right: 5.w),
+                          AppTextWidget(
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryGrey),
+                            text: "20224-0705",
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppTextWidget(
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryDarkblue),
+                            text: '\u2022 ',
+                          ),
+                          AppTextWidget(
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryDarkblue),
+                            text: "Scheduled",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ).paddingOnly(top: 12.h)
+                ],
+              ),
             ),
           );
         },

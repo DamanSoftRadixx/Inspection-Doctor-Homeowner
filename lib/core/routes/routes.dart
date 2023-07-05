@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/screens/add_property_screen.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/binding/add_property_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_detail_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
@@ -39,7 +41,7 @@ class Routes {
 
   //Add Property
   static const String addPropertyScreen = "/addPropertyScreen";
-
+  static const String propertyDetailScreen = "/propertyDetailScreen";
 }
 
 List<GetPage> appPages() => [
@@ -106,23 +108,31 @@ List<GetPage> appPages() => [
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
       ),
-  GetPage(
-    name: Routes.dashboard,
-    page: () => DashBoardScreen(),
-    binding: DashboardBinding(),
-    transition: CommonStrings.transition,
-    fullscreenDialog: true,
-    transitionDuration:
-    const Duration(milliseconds: CommonStrings.transitionDuration),
-  ),
-
-  GetPage(
-    name: Routes.addPropertyScreen,
-    page: () => AddPropertyScreen(),
-    binding: AddPropertyBinding(),
-    transition: CommonStrings.transition,
-    fullscreenDialog: true,
-    transitionDuration:
-    const Duration(milliseconds: CommonStrings.transitionDuration),
-  ),
+      GetPage(
+        name: Routes.dashboard,
+        page: () => const DashBoardScreen(),
+        binding: DashboardBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.addPropertyScreen,
+        page: () => const AddPropertyScreen(),
+        binding: AddPropertyBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.propertyDetailScreen,
+        page: () => const PropertyDetailScreen(),
+        binding: PropertyDetailBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
     ];

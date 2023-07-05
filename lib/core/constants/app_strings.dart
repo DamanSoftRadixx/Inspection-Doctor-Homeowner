@@ -286,6 +286,13 @@ class AppStrings {
 
   //Home List
   static const searchNameAddress = "Search by name and address";
+
+  //Property Detail
+  static const detail = "Detail";
+  static const drawing = "Drawing";
+  static const edit = "Edit";
+  static const delete = "Delete";
+  static const scheduleInspection = "Schedule inspection";
 }
 
 class GetArgumentConstants {

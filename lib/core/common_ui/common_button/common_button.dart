@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -25,6 +26,8 @@ class CommonButton extends StatelessWidget {
   final double? spaceBetween;
   final String? image;
   final bool? needStyle;
+  final Widget? icon;
+  final BorderSide? border;
 
   const CommonButton(
       {Key? key,
@@ -44,7 +47,9 @@ class CommonButton extends StatelessWidget {
       this.minHeight,
       this.image,
       required this.onPress,
-      this.type = ShowImagePositionAt.none})
+      this.type = ShowImagePositionAt.none,
+      this.icon,
+      this.border})
       : super(key: key);
 
   @override
@@ -60,6 +65,7 @@ class CommonButton extends StatelessWidget {
               onPress!();
             },
       style: ElevatedButton.styleFrom(
+        side: border,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius ?? 4.r)),
         backgroundColor: bgColor ?? lightColorPalette.primaryBlue,
@@ -74,35 +80,47 @@ class CommonButton extends StatelessWidget {
         minimumSize: Size(minWidth!, minHeight ?? 45.h),
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: horizontal),
       ),
-      child: AppTextWidget(
-        text: commonButtonBottonText,
-        style: CustomTextTheme.buttonText(
-          color: lightColorPalette.whiteColorPrimary.shade900,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          icon ?? const SizedBox(),
+          AppTextWidget(
+            text: commonButtonBottonText,
+            style: style ??
+                CustomTextTheme.buttonText(
+                  color: lightColorPalette.whiteColorPrimary.shade900,
+                ),
+          ).paddingOnly(left: 1.5.w),
+        ],
       ),
     );
   }
 }
 
-
-Widget commonRadioButton({required String text, required bool isSelected,required Function() onTap}){
+Widget commonRadioButton(
+    {required String text,
+    required bool isSelected,
+    required Function() onTap}) {
   return GestureDetector(
-    onTap: (){
+    onTap: () {
       onTap();
     },
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        isSelected ? AssetWidget(
-          asset:
-          Asset(type: AssetType.svg, path: ImageResource.checked),
-        ) : AssetWidget(
-          asset:
-          Asset(type: AssetType.svg, path: ImageResource.unCheck),
+        isSelected
+            ? AssetWidget(
+                asset: Asset(type: AssetType.svg, path: ImageResource.checked),
+              )
+            : AssetWidget(
+                asset: Asset(type: AssetType.svg, path: ImageResource.unCheck),
+              ),
+        SizedBox(
+          width: 10.w,
         ),
-        SizedBox(width: 10.w,),
-        Flexible(child: AppTextWidget(
+        Flexible(
+            child: AppTextWidget(
           textAlign: TextAlign.start,
           text: text,
           style: CustomTextTheme.categoryText(
@@ -114,9 +132,12 @@ Widget commonRadioButton({required String text, required bool isSelected,require
   );
 }
 
-Widget commonTermAndConditionsButton({required String text, required bool isSelected,required Function() onTap}){
+Widget commonTermAndConditionsButton(
+    {required String text,
+    required bool isSelected,
+    required Function() onTap}) {
   return GestureDetector(
-    onTap: (){
+    onTap: () {
       onTap();
     },
     child: Row(
@@ -126,16 +147,23 @@ Widget commonTermAndConditionsButton({required String text, required bool isSele
       children: [
         Padding(
           padding: EdgeInsets.only(top: 2.h),
-          child: isSelected ? AssetWidget(
-            asset:
-            Asset(type: AssetType.svg, path: ImageResource.selectedCheckbox),
-          ) : AssetWidget(
-            asset:
-            Asset(type: AssetType.svg, path: ImageResource.unSelectedCheckbox),
-          ),
+          child: isSelected
+              ? AssetWidget(
+                  asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.selectedCheckbox),
+                )
+              : AssetWidget(
+                  asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.unSelectedCheckbox),
+                ),
         ),
-        SizedBox(width: 10.w,),
-        Flexible(child: AppTextWidget(
+        SizedBox(
+          width: 10.w,
+        ),
+        Flexible(
+            child: AppTextWidget(
           textAlign: TextAlign.start,
           text: text,
           style: CustomTextTheme.normalTextWithLineHeight20(
@@ -146,4 +174,3 @@ Widget commonTermAndConditionsButton({required String text, required bool isSele
     ),
   );
 }
-
