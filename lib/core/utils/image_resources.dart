@@ -52,6 +52,7 @@ class ImageResource {
   static const forwordArrow = "assets/images/svg/forwordArrow.svg";
   static const pinLocation = "assets/images/svg/pinLocation.svg";
   static const hashLogo = "assets/images/svg/hashLogo.svg";
+  static const updateIcon = "assets/images/svg/updateIcon.svg";
   //Property Detail
   static const lin = "assets/images/svg/lin.svg";
   static const delete = "assets/images/svg/delete.svg";

@@ -104,11 +104,23 @@ class HomeScreen extends GetView<HomeController> {
                           text: "ABC Property name",
                         ),
                       ),
-                      AssetWidget(
-                        asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.forwordArrow,
-                        ),
+                      Row(
+                        children: [
+                          index == 0
+                              ? AssetWidget(
+                                  asset: Asset(
+                                    type: AssetType.svg,
+                                    path: ImageResource.updateIcon,
+                                  ),
+                                ).paddingOnly(right: 10.w)
+                              : const SizedBox(),
+                          AssetWidget(
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.forwordArrow,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
