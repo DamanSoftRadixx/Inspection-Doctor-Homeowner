@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
-
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -20,7 +18,8 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: lightColorPalette.backgroundColor,
-        appBar: commonAppBar(title: AppStrings.selectLanguage.tr),
+        appBar: commonAppBarWithElevation(
+            title: AppStrings.selectLanguage.tr, isShowBackButton: false),
         body: Obx(() => SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +33,7 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                       itemBuilder: (BuildContext context, int index) {
                         LanguageModel value = languageList[index];
                         return GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             controller.onTapCheckBox(value);
                           },
                           child: Container(
@@ -50,13 +49,15 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                                   children: [
                                     AssetWidget(
                                       asset: Asset(
-                                          type: AssetType.svg, path: value.icon),
+                                          type: AssetType.svg,
+                                          path: value.icon),
                                       boxFit: BoxFit.fitWidth,
                                     ).paddingOnly(right: 7.5.w),
                                     AppTextWidget(
                                       text: value.languageName,
                                       style: CustomTextTheme.buttonText(
-                                        color: lightColorPalette.primaryDarkblue,
+                                        color:
+                                            lightColorPalette.primaryDarkblue,
                                       ),
                                     ),
                                   ],

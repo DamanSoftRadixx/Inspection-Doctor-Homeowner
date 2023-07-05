@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
-
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 
 class SignupScreen extends GetView<SignupController> {
@@ -23,17 +20,12 @@ class SignupScreen extends GetView<SignupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightColorPalette.backgroundColor,
-      appBar: commonAppBar(
-          title: AppStrings.signup.tr,
-          leading: CustomInkwell(
-              onTap: () {
-                Get.back();
-              },
-              child: AssetWidget(
-                asset:
-                    Asset(type: AssetType.svg, path: ImageResource.backArrow),
-                boxFit: BoxFit.fitWidth,
-              ))),
+      appBar: commonAppBarWithElevation(
+        onPressBackButton: () {
+          Get.back();
+        },
+        title: AppStrings.signup.tr,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Obx(() => Column(
@@ -121,7 +113,12 @@ class SignupScreen extends GetView<SignupController> {
               color: lightColorPalette.primaryDarkblue,
             ),
           ),
-        ).paddingOnly(top: 22.h, bottom: 10.h,left: 20.w, right: 20.w,),
+        ).paddingOnly(
+          top: 22.h,
+          bottom: 10.h,
+          left: 20.w,
+          right: 20.w,
+        ),
         Center(
           child: AppTextWidget(
             textAlign: TextAlign.center,

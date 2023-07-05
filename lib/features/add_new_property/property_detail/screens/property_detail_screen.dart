@@ -23,12 +23,13 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             Get.back();
           }),
       body: SafeArea(
+        bottom: false,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             showPropertyDetail(),
             showScheduleInspection()
-                .paddingOnly(bottom: 54.h, left: 20.w, right: 20.w)
+                .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
           ],
         ),
       ),
@@ -158,7 +159,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                           path: ImageResource.edit,
                         ),
                       ),
-                      minWidth: 112.w,
+                      minWidth: 99.5.w,
                       commonButtonBottonText: AppStrings.edit.tr,
                       onPress: () {})
                   .paddingSymmetric(horizontal: 10.w),
@@ -176,7 +177,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                       path: ImageResource.delete,
                     ),
                   ),
-                  minWidth: 112.w,
+                  minWidth: 100.w,
                   commonButtonBottonText: AppStrings.delete.tr,
                   onPress: () {})
             ],

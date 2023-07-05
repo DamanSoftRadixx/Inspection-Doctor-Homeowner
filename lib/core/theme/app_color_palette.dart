@@ -188,16 +188,16 @@ BoxDecoration decorationSearchTextField({required bool isSelected}) {
       color: lightColorPalette.whiteColorPrimary.shade900,
       borderRadius: BorderRadius.circular(4.r),
       shape: BoxShape.rectangle,
-      boxShadow: isSelected
-          ? [
-              BoxShadow(
-                blurRadius: 14,
-                color: lightColorPalette.primaryBlue.withOpacity(0.25),
-                offset: const Offset(0, 6),
-                spreadRadius: 0,
-              ),
-            ]
-          : [],
+      // boxShadow: isSelected
+      //     ? [
+      //         BoxShadow(
+      //           blurRadius: 14,
+      //           color: lightColorPalette.primaryBlue.withOpacity(0.25),
+      //           offset: const Offset(0, 6),
+      //           spreadRadius: 0,
+      //         ),
+      //       ]
+      //     : [],
       border: Border.all(
           color: isSelected
               ? lightColorPalette.primaryBlue

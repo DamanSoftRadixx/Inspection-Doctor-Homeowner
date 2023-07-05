@@ -43,7 +43,9 @@ class HomeScreen extends GetView<HomeController> {
       width: 56.w,
       child: FittedBox(
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.onPressAddPropertyButton();
+          },
           backgroundColor: lightColorPalette.primaryBlue,
           child: const Icon(
             Icons.add,
@@ -58,7 +60,7 @@ class HomeScreen extends GetView<HomeController> {
     return Column(
       children: [
         showSearchBar()
-            .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 10.h),
+            .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
         showPropertyList(),
       ],
     );
@@ -68,14 +70,14 @@ class HomeScreen extends GetView<HomeController> {
     return commonSearchFieldWidget(
         controller: controller.searchController,
         onChanged: (value) {},
-        focusNode: controller.seacrhFocusNode,
+        focusNode: controller.seacrhFocusNode.value,
         searchHint: AppStrings.searchNameAddress);
   }
 
   Expanded showPropertyList() {
     return Expanded(
       child: ListView.builder(
-        padding: EdgeInsets.only(top: 10.h),
+        padding: EdgeInsets.only(top: 18.h),
         shrinkWrap: true,
         physics: const RangeMaintainingScrollPhysics(),
         itemCount: 10,
