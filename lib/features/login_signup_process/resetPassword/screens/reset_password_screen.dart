@@ -18,7 +18,8 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-        child: Column(
+          child: Obx(
+        () => Column(
           children: [
             showHeadingText(),
             showPasswordField(),
@@ -26,7 +27,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
             showSendLinkButton(),
           ],
         ).paddingSymmetric(horizontal: 20.w),
-      ),
+      )),
     );
   }
 
