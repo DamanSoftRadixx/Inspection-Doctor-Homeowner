@@ -6,6 +6,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_i
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -18,46 +19,179 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightColorPalette.backgroundColor,
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () {
-            dismissKeyboard();
-          },
-          child: Stack(
-            children: [
-              SizedBox(
-                width: 1.sw,
-                child: AssetWidget(
-                  asset: Asset(
-                    type: AssetType.svg,
-                    path: ImageResource.addPropertyBackgroundImage,
-                  ),
-                  boxFit: BoxFit.fill,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      body: Obx(() => SafeArea(
+            child: GestureDetector(
+              onTap: () {
+                dismissKeyboard();
+              },
+              child: controller.homeList.isEmpty
+                  ? showAddProperty()
+                  : showPropertyUi(),
+            ),
+          )),
+    );
+  }
+
+  showPropertyUi() {
+    return Column(
+      children: [
+        showSearchBar()
+            .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 10.h),
+        showPropertyList(),
+      ],
+    );
+  }
+
+  Widget showSearchBar() {
+    return commonSearchFieldWidget(
+        controller: controller.searchController,
+        onChanged: (value) {},
+        focusNode: controller.seacrhFocusNode,
+        searchHint: AppStrings.searchNameAddress);
+  }
+
+  Expanded showPropertyList() {
+    return Expanded(
+      child: ListView.builder(
+        padding: EdgeInsets.only(top: 10.h),
+        shrinkWrap: true,
+        physics: const RangeMaintainingScrollPhysics(),
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            margin: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(
+                left: 20.w, top: 15.h, right: 20.w, bottom: 14.h),
+            decoration: decorationHome(),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          addPropertyWidget(),
-                        ],
+                    AppTextWidget(
+                      style: CustomTextTheme.heading3(
+                          color: lightColorPalette.primaryDarkblue),
+                      text: "ABC Property name",
+                    ),
+                    AssetWidget(
+                      asset: Asset(
+                        type: AssetType.svg,
+                        path: ImageResource.forwordArrow,
                       ),
                     ),
                   ],
                 ),
+                Row(
+                  children: [
+                    AssetWidget(
+                      asset: Asset(
+                        type: AssetType.svg,
+                        path: ImageResource.pinLocation,
+                      ),
+                    ).paddingOnly(right: 5.w),
+                    AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.primaryGrey),
+                      text: "4001 Anderson Road, Nashville TN 37217",
+                    ),
+                  ],
+                ).paddingOnly(top: 12.h, bottom: 12.h),
+                Divider(
+                  color: lightColorPalette.stroke,
+                  height: 0,
+                ),
+                Stack(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        AssetWidget(
+                          asset: Asset(
+                            type: AssetType.svg,
+                            path: ImageResource.hashLogo,
+                          ),
+                        ).paddingOnly(right: 5.w),
+                        AppTextWidget(
+                          style: CustomTextTheme.normalText(
+                              color: lightColorPalette.primaryGrey),
+                          text: "Lot#33",
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AssetWidget(
+                          asset: Asset(
+                            type: AssetType.svg,
+                            path: ImageResource.hashLogo,
+                          ),
+                        ).paddingOnly(right: 5.w),
+                        AppTextWidget(
+                          style: CustomTextTheme.normalText(
+                              color: lightColorPalette.primaryGrey),
+                          text: "20224-0705",
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        AppTextWidget(
+                          style: CustomTextTheme.normalText(
+                              color: lightColorPalette.primaryDarkblue),
+                          text: '\u2022 ',
+                        ),
+                        AppTextWidget(
+                          style: CustomTextTheme.normalText(
+                              color: lightColorPalette.primaryDarkblue),
+                          text: "Scheduled",
+                        ),
+                      ],
+                    ),
+                  ],
+                ).paddingOnly(top: 12.h)
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Stack showAddProperty() {
+    return Stack(
+      children: [
+        SizedBox(
+          width: 1.sw,
+          child: AssetWidget(
+            asset: Asset(
+              type: AssetType.svg,
+              path: ImageResource.addPropertyBackgroundImage,
+            ),
+            boxFit: BoxFit.fill,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    addPropertyWidget(),
+                  ],
+                ),
               ),
-              Obx(() => controller.isLoading.value == true
-                  ? const CommonLoader()
-                  : Container())
             ],
           ),
         ),
-      ),
+        Obx(() => controller.isLoading.value == true
+            ? const CommonLoader()
+            : Container())
+      ],
     );
   }
 

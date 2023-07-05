@@ -19,7 +19,6 @@ class ImageResource {
   static String google = "assets/images/svg/google.svg";
   static String facebook = "assets/images/svg/facebook.svg";
 
-
   static const searchIcon = "assets/images/svg/search_icon.svg";
   static const selectedCheckbox = "assets/images/svg/selected_checkbox.svg";
   static const unSelectedCheckbox = "assets/images/svg/unselected_checkbox.svg";
@@ -27,20 +26,30 @@ class ImageResource {
 
   static const selectedRadioIcon = "assets/images/svg/selected_radio_icon.svg";
 
-
   //Dashboard
   static const selectedHomeIcon = "assets/images/svg/selected_home_icon.svg";
   static const unSelectedHomeIcon = "assets/images/svg/unselcted_home_icon.svg";
-  static const selectedInspectionsIcon = "assets/images/svg/selected_inspections_icon.svg";
-  static const unSelectedInspectionsIcon = "assets/images/svg/unselected_inspections_icon.svg";
-  static const selectedNotificationsIcon = "assets/images/svg/selected_notifications_icon.svg";
-  static const unSelectedNotificationsIcon = "assets/images/svg/unselected_notifications_icon.svg";
-  static const selectedProfileIcon = "assets/images/svg/selected_profile_icon.svg";
-  static const unSelectedProfileIcon = "assets/images/svg/unselected_profile_icon.svg";
+  static const selectedInspectionsIcon =
+      "assets/images/svg/selected_inspections_icon.svg";
+  static const unSelectedInspectionsIcon =
+      "assets/images/svg/unselected_inspections_icon.svg";
+  static const selectedNotificationsIcon =
+      "assets/images/svg/selected_notifications_icon.svg";
+  static const unSelectedNotificationsIcon =
+      "assets/images/svg/unselected_notifications_icon.svg";
+  static const selectedProfileIcon =
+      "assets/images/svg/selected_profile_icon.svg";
+  static const unSelectedProfileIcon =
+      "assets/images/svg/unselected_profile_icon.svg";
 
   //Add Property
-  static const addPropertyBackgroundImage = "assets/images/svg/add_property_bg.svg";
+  static const addPropertyBackgroundImage =
+      "assets/images/svg/add_property_bg.svg";
   static const addPropertyImage = "assets/images/svg/add_property_image.svg";
   static const downArrow = "assets/images/svg/down_arrow.svg";
 
+  //HomeList
+  static const forwordArrow = "assets/images/svg/forwordArrow.svg";
+  static const pinLocation = "assets/images/svg/pinLocation.svg";
+  static const hashLogo = "assets/images/svg/hashLogo.svg";
 }

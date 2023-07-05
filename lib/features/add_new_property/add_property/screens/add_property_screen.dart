@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/common_document_picker.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -36,10 +38,9 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                       showPermitNumberield().paddingOnly(bottom: 11.h),
                       showLotNumberField().paddingOnly(bottom: 11.h),
                       showBlockNumberField().paddingOnly(bottom: 11.h),
-                      dropdownField(
-                          selectedValue: selectedValue,
-                          onClick: (DropdownModel value) {},
-                          list: list)
+                      showCountyDropDown().paddingOnly(bottom: 11.h),
+                      showAddDocmentBox(),
+                      showAddPropertyButton().paddingSymmetric(vertical: 20.h),
                     ],
                   ).paddingSymmetric(horizontal: 20.w),
                 ],
@@ -47,6 +48,31 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         ),
       ),
     );
+  }
+
+  Widget showAddDocmentBox() {
+    return commonDocumentPicker(
+        title: AppStrings.uploadArchitecturalDrawing.tr,
+        text: AppStrings.uploadAPdf.tr);
+  }
+
+  CommonButton showAddPropertyButton() {
+    return CommonButton(
+        commonButtonBottonText: AppStrings.addPropertyButton.tr,
+        onPress: () {
+          controller.onPressAddPropertyButton();
+        });
+  }
+
+  Widget showCountyDropDown() {
+    return dropdownField(
+        title: AppStrings.county.tr,
+        selectedValue: controller.selectedBaseMaterialDropDown.value,
+        onClick: (DropdownModel value) {
+          controller.onSelectBaseMaterialDropdown(value: value);
+        },
+        list: controller.beddingMaterialList,
+        isExpanded: true);
   }
 
   Row showMailingAddress() {

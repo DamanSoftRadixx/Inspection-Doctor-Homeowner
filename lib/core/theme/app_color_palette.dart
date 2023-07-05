@@ -70,12 +70,11 @@ class CustomTextTheme {
 
   static TextStyle heading1WithLetterSpacing({required Color color}) {
     return TextStyle(
-      fontFamily: CommonStrings.generalSans,
-      fontSize: 24.sp,
-      fontWeight: FontWeight.w600,
-      color: color,
-      letterSpacing: 0.96
-    );
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w600,
+        color: color,
+        letterSpacing: 0.96);
   }
 
   static TextStyle heading2({required Color color}) {
@@ -94,8 +93,7 @@ class CustomTextTheme {
         fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         color: color,
-        letterSpacing: 0.72
-    );
+        letterSpacing: 0.72);
   }
 
   static TextStyle normalText({required Color color}) {
@@ -104,9 +102,7 @@ class CustomTextTheme {
         fontSize: 14.sp,
         fontWeight: FontWeight.w500,
         color: color,
-        letterSpacing: 0.56
-
-    );
+        letterSpacing: 0.56);
   }
 
   static TextStyle normalText2({required Color color}) {
@@ -187,8 +183,6 @@ class CustomTextTheme {
   }
 }
 
-
-
 BoxDecoration decorationSearchTextField({required bool isSelected}) {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,
@@ -196,13 +190,13 @@ BoxDecoration decorationSearchTextField({required bool isSelected}) {
       shape: BoxShape.rectangle,
       boxShadow: isSelected
           ? [
-        BoxShadow(
-          blurRadius: 14,
-          color: lightColorPalette.primaryBlue.withOpacity(0.25),
-          offset: const Offset(0, 6),
-          spreadRadius: 0,
-        ),
-      ]
+              BoxShadow(
+                blurRadius: 14,
+                color: lightColorPalette.primaryBlue.withOpacity(0.25),
+                offset: const Offset(0, 6),
+                spreadRadius: 0,
+              ),
+            ]
           : [],
       border: Border.all(
           color: isSelected
@@ -211,7 +205,6 @@ BoxDecoration decorationSearchTextField({required bool isSelected}) {
           width: isSelected ? 1 : 0.3));
 }
 
-
 BoxDecoration decoration({required bool isSelected}) {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,
@@ -219,13 +212,13 @@ BoxDecoration decoration({required bool isSelected}) {
       shape: BoxShape.rectangle,
       boxShadow: isSelected
           ? [
-        BoxShadow(
-          blurRadius: 14,
-          color: lightColorPalette.primaryBlue.withOpacity(0.25),
-          offset: const Offset(0, 6),
-          spreadRadius: 0,
-        ),
-      ]
+              BoxShadow(
+                blurRadius: 14,
+                color: lightColorPalette.primaryBlue.withOpacity(0.25),
+                offset: const Offset(0, 6),
+                spreadRadius: 0,
+              ),
+            ]
           : [],
       border: Border.all(
           color: isSelected
@@ -247,7 +240,21 @@ BoxDecoration decorationWithElevationOnly() {
           spreadRadius: 0,
         ),
       ],
-      border: Border.all(
-          color:lightColorPalette.stroke,
-          width: 0.3));
+      border: Border.all(color: lightColorPalette.stroke, width: 0.3));
+}
+
+BoxDecoration decorationHome() {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(4.r),
+      shape: BoxShape.rectangle,
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 24,
+          color: lightColorPalette.primaryBlue.withOpacity(0.16),
+          offset: const Offset(0, 2),
+          spreadRadius: 0,
+        ),
+      ],
+      border: Border.all(color: lightColorPalette.stroke, width: 0.3));
 }

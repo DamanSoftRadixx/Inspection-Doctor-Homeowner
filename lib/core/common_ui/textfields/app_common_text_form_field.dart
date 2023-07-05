@@ -6,26 +6,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
-import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 Widget commonTextFieldWidget(
     {required TextEditingController controller,
-      String? title,
-      String? hint,
-      required FocusNode focusNode,
-      Function(String value)? onChanged,
-      String? errorMsg,
-      bool? isError,
-      bool? readOnly,
-      bool? autoFocus,
-      TextInputType? keyboardType,
-      TextInputAction? textInputAction}) {
+    String? title,
+    String? hint,
+    required FocusNode focusNode,
+    Function(String value)? onChanged,
+    String? errorMsg,
+    bool? isError,
+    bool? readOnly,
+    bool? autoFocus,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -91,16 +90,16 @@ Widget commonTextFieldWidget(
 
 Widget commonPasswordText(
     {required final String title,
-      required bool passwordVisible,
-      final VoidCallback? onPress,
-      required final TextEditingController controller,
-      required FocusNode focusNode,
-      String? errorMsg,
-      bool? isError,
-      String? hint,
-      Function(String value)? onChanged,
-      TextInputType? keyboardType,
-      TextInputAction? textInputAction}) {
+    required bool passwordVisible,
+    final VoidCallback? onPress,
+    required final TextEditingController controller,
+    required FocusNode focusNode,
+    String? errorMsg,
+    bool? isError,
+    String? hint,
+    Function(String value)? onChanged,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +142,7 @@ Widget commonPasswordText(
                   decoration: InputDecoration(
                     hintStyle: CustomTextTheme.normalText(
                         color:
-                        lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                            lightColorPalette.primaryDarkblue.withOpacity(0.5)),
                     border: InputBorder.none,
                     hintText: hint ?? "",
                     isCollapsed: true,
@@ -160,19 +159,19 @@ Widget commonPasswordText(
                     onTap: onPress == null
                         ? null
                         : () {
-                      onPress();
-                    },
+                            onPress();
+                          },
                     child: passwordVisible
                         ? AssetWidget(
-                      asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.hideEye),
-                    )
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.hideEye),
+                          )
                         : AssetWidget(
-                      asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.openEye),
-                    ),
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.openEye),
+                          ),
                   )),
             ],
           ),
@@ -304,9 +303,9 @@ Widget commonSearchFieldWidget({
   Function(String value)? onChanged,
   required FocusNode focusNode,
   required String searchHint,
-}){
+}) {
   return GestureDetector(
-    onTap: (){
+    onTap: () {
       focusNode.requestFocus();
     },
     child: Container(
@@ -317,7 +316,9 @@ Widget commonSearchFieldWidget({
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(width: 12.w,),
+          SizedBox(
+            width: 12.w,
+          ),
           AssetWidget(
             asset: Asset(type: AssetType.svg, path: ImageResource.searchIcon),
           ),
@@ -341,7 +342,6 @@ Widget commonSearchFieldWidget({
                   color: lightColorPalette.primaryDarkblue),
             ),
           )
-
         ],
       ),
     ),
@@ -350,18 +350,19 @@ Widget commonSearchFieldWidget({
 
 Widget dropdownField(
     {String hint = "",
-      required DropdownModel selectedValue,
-      required Function(DropdownModel value) onClick,
-      EdgeInsetsGeometry? padding,
-      required List<DropdownModel> list,
-      bool? isExpanded,
-      bool isMandatory = false,
-      bool isShowRightButton = false,
-      String? title,
-      Widget? rightButtonDesign,
-      bool isError = false,
-      Function()? onTap,
-      String? errorMsg,bool hasFocus = false}) {
+    required DropdownModel selectedValue,
+    required Function(DropdownModel value) onClick,
+    EdgeInsetsGeometry? padding,
+    required List<DropdownModel> list,
+    bool? isExpanded,
+    bool isMandatory = false,
+    bool isShowRightButton = false,
+    String? title,
+    Widget? rightButtonDesign,
+    bool isError = false,
+    Function()? onTap,
+    String? errorMsg,
+    bool hasFocus = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -384,28 +385,28 @@ Widget dropdownField(
             /* menuItemStyleData:
                 MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
             dropdownStyleData: DropdownStyleData(
-                offset: const Offset(0, -22),
-
-                maxHeight: 300.h,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: lightColorPalette.additionalSwatch1.shade900.withOpacity(0.4),
-                          spreadRadius: 4,
-                          blurRadius: 20,
-                          offset: Offset(1,1)
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(6.r),
-                    shape: BoxShape.rectangle,
-                    border: Border.all(
-                        color: lightColorPalette.additionalSwatch1.shade900,
-                        width: 0.5))),
+              offset: const Offset(0, -22),
+              maxHeight: 300.h,
+              decoration: BoxDecoration(
+                color: lightColorPalette.whiteColorPrimary.shade900,
+                boxShadow: [
+                  BoxShadow(
+                      color: lightColorPalette.primaryDarkblue.withOpacity(0.2),
+                      spreadRadius: 4,
+                      blurRadius: 20,
+                      offset: const Offset(1, 1))
+                ],
+                borderRadius: BorderRadius.circular(6.r),
+                shape: BoxShape.rectangle,
+                border: Border.all(
+                    color: lightColorPalette.primaryDarkblue.withOpacity(0.3),
+                    width: 0.3),
+              ),
+            ),
             isExpanded: isExpanded ?? false,
             underline: const SizedBox(),
             customButton: Padding(
-              padding: EdgeInsets.only(right: 16.0.w,left: 16.0.w),
+              padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
               child: Row(
                 children: [
                   AppTextWidget(
@@ -414,39 +415,40 @@ Widget dropdownField(
                       fontSize: 14.w,
                       fontWeight: FontWeight.w500,
                       fontFamily: CommonStrings.generalSans,
-                      color: lightColorPalette
-                          .secondarySwatch.shade900,
+                      color: lightColorPalette.primaryDarkblue,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Spacer(),
                   Padding(
                     padding: EdgeInsets.only(left: 8.w),
-                    child: AssetWidget(
-                        asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.downArrow)),
+                    child: Center(
+                      child: AssetWidget(
+                          asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.downArrow)),
+                    ),
                   )
                 ],
               ),
             ),
             iconStyleData: IconStyleData(
-              icon: Icon(Icons.arrow_drop_down,
-                  color: lightColorPalette.secondarySwatch.shade900,
-                  size: 25.h)
-                  .paddingOnly(right: 4.w),
+              icon: Center(
+                child: Icon(Icons.arrow_drop_down,
+                        color: lightColorPalette.primaryDarkblue, size: 25.h)
+                    .paddingOnly(right: 4.w),
+              ),
             ),
-
             hint: Text(
               hint,
               style: TextStyle(
-                color: lightColorPalette.additionalSwatch1.shade900,
+                color: lightColorPalette.primaryDarkblue,
                 fontWeight: FontWeight.w500,
                 fontSize: 14.sp,
               ),
             ),
             buttonStyleData: ButtonStyleData(
-              padding: EdgeInsets.only(left: 2.w,right: 5.w),
+              padding: EdgeInsets.only(left: 2.w, right: 5.w),
             ),
             value: selectedValue.name == "" ? null : selectedValue,
             selectedItemBuilder: (_) {
@@ -459,8 +461,7 @@ Widget dropdownField(
                         fontSize: 14.w,
                         fontWeight: FontWeight.w500,
                         fontFamily: CommonStrings.generalSans,
-                        color: lightColorPalette
-                            .secondarySwatch.shade900,
+                        color: lightColorPalette.primaryDarkblue,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -470,41 +471,46 @@ Widget dropdownField(
             },
             items: list
                 .map((DropdownModel model) => DropdownMenuItem<DropdownModel>(
-              child: DropdownMenuItem(
-                value: model,
-                child: StatefulBuilder(builder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 2.0.w,left: 5.0.w),
-                    child: Row(
-                      children: [
-                        AppTextWidget(
-                          text: model.name.toString(),
-                          style: TextStyle(
-                            fontSize: 14.w,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: CommonStrings.generalSans,
-                            color: lightColorPalette
-                                .secondarySwatch.shade900,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Spacer(),
-                        selectedValue.id == model.id
-                            ? Padding(
-                          padding: EdgeInsets.only(left: 8.w),
-                          child: AssetWidget(
-                              asset: Asset(
-                                  type: AssetType.svg,
-                                  path: ImageResource.checked)),
-                        )
-                            : Container(),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-              value: model,
-            ))
+                      value: model,
+                      child: DropdownMenuItem(
+                        value: model,
+                        child: StatefulBuilder(builder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
+                            child: Row(
+                              children: [
+                                AppTextWidget(
+                                  text: model.name.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.w,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: CommonStrings.generalSans,
+                                    color: lightColorPalette.primaryDarkblue,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const Spacer(),
+                                selectedValue.id == model.id
+                                    ? Padding(
+                                        padding: EdgeInsets.only(left: 8.w),
+                                        child: Icon(
+                                          Icons.check_sharp,
+                                          color: lightColorPalette.primaryBlue,
+                                          size: 15.r,
+                                        )
+
+                                        // AssetWidget(
+                                        //     asset: Asset(
+                                        //         type: AssetType.svg,
+                                        //         path: ImageResource.checked)),
+                                        )
+                                    : Container(),
+                              ],
+                            ),
+                          );
+                        }),
+                      ),
+                    ))
                 .toList(),
             onChanged: (DropdownModel? value) {
               onClick(value!);
@@ -531,15 +537,13 @@ class DropdownModel extends Equatable {
   bool isActive;
   DropdownModel(
       {this.id = "",
-        this.name = "",
-        this.status = "",
-        this.type = "",
-        this.isActive = true});
+      this.name = "",
+      this.status = "",
+      this.type = "",
+      this.isActive = true});
   @override
   String toString() => name;
   @override
   // TODO: implement props
   List<Object?> get props => [id, name, status, type];
 }
-
-

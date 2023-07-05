@@ -259,7 +259,7 @@ class AppStrings {
   static const resetNewPassword = "New password";
   static const resetConfirmPassword = "Confirm password";
 
-  static const uploadDocument ="Upload document";
+  static const uploadDocument = "Upload document";
 
   //Dashboard
   static const homeTab = "Home";
@@ -272,7 +272,8 @@ class AppStrings {
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
-  static const youHaveNotAddedPropertyYet = "You haven’t added any property yet. Tap on below button to add.";
+  static const youHaveNotAddedPropertyYet =
+      "You haven’t added any property yet. Tap on below button to add.";
   static const addPropertyButton = "Add property";
   static const addProperty = "Add property";
   static const propertyNameNickName = "Property name (nickname)";
@@ -283,10 +284,8 @@ class AppStrings {
   static const uploadArchitecturalDrawing = "Upload architectural drawing";
   static const uploadAPdf = "Upload a pdf";
 
-
-
-
-
+  //Home List
+  static const searchNameAddress = "Search by name and address";
 }
 
 class GetArgumentConstants {
@@ -298,16 +297,15 @@ class GetArgumentConstants {
   static const navigateToAddEditJournalModel = "navigateToAddEditJournalModel";
 }
 
-class WeekDays{
-  static const monday ="Monday";
-  static const tuesday ="Tuesday";
-  static const wednesday ="Wednesday";
-  static const thursday ="Thursday";
-  static const friday ="Friday";
-  static const saturday ="Saturday";
-  static const sunday ="Sunday";
+class WeekDays {
+  static const monday = "Monday";
+  static const tuesday = "Tuesday";
+  static const wednesday = "Wednesday";
+  static const thursday = "Thursday";
+  static const friday = "Friday";
+  static const saturday = "Saturday";
+  static const sunday = "Sunday";
 }
-
 
 class HomeScreenType {
   static const journal = "journal";

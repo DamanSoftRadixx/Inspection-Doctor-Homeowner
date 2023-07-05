@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 
 class AddPropertyController extends GetxController {
   TextEditingController propertyController = TextEditingController();
@@ -19,6 +20,9 @@ class AddPropertyController extends GetxController {
   Rx<FocusNode> permitNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> lotNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> blockNumberFocusNode = FocusNode().obs;
+
+  RxList<DropdownModel> beddingMaterialList = <DropdownModel>[].obs;
+  var selectedBaseMaterialDropDown = DropdownModel().obs;
 
   addFocusListeners() {
     propertyFocusNode.value.addListener(() {
@@ -64,6 +68,7 @@ class AddPropertyController extends GetxController {
   @override
   void onInit() {
     addFocusListeners();
+    initBaseMaterialList();
     super.onInit();
   }
 
@@ -71,5 +76,21 @@ class AddPropertyController extends GetxController {
   void onClose() {
     disposeFocusListeners();
     super.onClose();
+  }
+
+  onSelectBaseMaterialDropdown({required DropdownModel value}) {
+    selectedBaseMaterialDropDown.value = value;
+  }
+
+  initBaseMaterialList() {
+    beddingMaterialList.value = [
+      DropdownModel(name: "one", id: "1"),
+      DropdownModel(name: "two", id: "2"),
+      DropdownModel(name: "three", id: "3"),
+    ];
+  }
+
+  onPressAddPropertyButton() {
+    Get.back();
   }
 }
