@@ -269,6 +269,7 @@ class AppStrings {
 
   //Common
   static const noDataFound = "No Data Found";
+  static const cancel = "Cancel";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";

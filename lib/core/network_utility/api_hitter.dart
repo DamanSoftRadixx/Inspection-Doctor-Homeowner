@@ -4,16 +4,25 @@
 
 // import 'package:get/get.dart';
 // import 'package:http/http.dart' as http;
-// import 'package:inspection_doctor_homeowner/core/common_ui/app_end_points.dart';
 // import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
-// import 'package:inspection_doctor_homeowner/core/common_ui/common_functionality.dart';
-// import 'package:inspection_doctor_homeowner/core/common_ui/local_storage.dart';
-// import 'package:inspection_doctor_homeowner/core/common_ui/string_extensions.dart';
 // import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+// import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+// import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
+// import 'package:inspection_doctor_homeowner/core/network_utility/custom_http_client.dart';
+// import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
+// import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 
-// import 'network_check.dart';
+// class ApiHitter implements CustomHttpClient {
+//   ApiHitter({required final String urlBase}) {
+//     dio.options = BaseOptions(
+//       baseUrl: urlBase,
+//       connectTimeout: connectTimeout,
+//       receiveTimeout: receiveTimeout,
+//       sendTimeout: sendTimeout,
+//       responseType: ResponseType.json,
+//     );
+//   }
 
-// class ApiHitter extends GetConnect {
 //   static final ApiHitter shared = ApiHitter._internal();
 //   var networkCheck = NetworkCheck();
 
@@ -27,41 +36,41 @@
 
 //   ApiHitter._internal();
 
-//   getApi(
-//       {required String endPoint,
-//       bool isShowNoInternetConnectionpPopUp = false}) async {
-//     try {
-//       if (await networkCheck.hasNetwork()) {
-//         var token = Prefs.read(Prefs.TOKEN) == null
-//             ? ""
-//             : "Bearer ${Prefs.read(Prefs.TOKEN)}";
-//         // var token = await Prefs.read(Prefs.TOKEN) ?? "";
-//         // var acceptLanguage = await Prefs.read(Prefs.selectedLang) ?? "";
+//   // getApi(
+//   //     {required String endPoint,
+//   //     bool isShowNoInternetConnectionpPopUp = false}) async {
+//   //   try {
+//   //     if (await networkCheck.hasNetwork()) {
+//   //       var token = Prefs.read(Prefs.TOKEN) == null
+//   //           ? ""
+//   //           : "Bearer ${Prefs.read(Prefs.TOKEN)}";
+//   //       // var token = await Prefs.read(Prefs.TOKEN) ?? "";
+//   //       // var acceptLanguage = await Prefs.read(Prefs.selectedLang) ?? "";
 
-//         Map<String, String> headers = {
-//           'Accept': 'application/json',
-//           'Content-type': 'application/json',
-//           "Authorization": token,
-//         };
+//   //       Map<String, String> headers = {
+//   //         'Accept': 'application/json',
+//   //         'Content-type': 'application/json',
+//   //         "Authorization": token,
+//   //       };
 
-//         print("GET URL : ${EndPoints.BASE_URL + endPoint}");
-//         print("TOKEN : $token");
+//   //       print("GET URL : ${EndPoints.BASE_URL + endPoint}");
+//   //       print("TOKEN : $token");
 
-//         var response =
-//             await get(EndPoints.BASE_URL + endPoint, headers: headers);
+//   //       var response =
+//   //           await get(EndPoints.BASE_URL + endPoint, headers: headers);
 
-//         print("RESPONSE ($endPoint) >>>>>>> ${response.body}");
+//   //       print("RESPONSE ($endPoint) >>>>>>> ${response.body}");
 
-//         return responseParser(response: response);
-//       } else {
-//         if (isShowNoInternetConnectionpPopUp) {
-//           networkCheck.noInternetConnectionDialog();
-//         }
-//       }
-//     } catch (e) {
-//       print(e.toString());
-//     }
-//   }
+//   //       return responseParser(response: response);
+//   //     } else {
+//   //       if (isShowNoInternetConnectionpPopUp) {
+//   //         networkCheck.noInternetConnectionDialog();
+//   //       }
+//   //     }
+//   //   } catch (e) {
+//   //     print(e.toString());
+//   //   }
+//   // }
 
 //   deleteApi(
 //       {required String endPoint,
@@ -258,7 +267,6 @@
 //         title: AppStrings.strSessionExpired.tr,
 //         subHeader: AppStrings.strSessionExpiredWarning.tr,
 //         okPressed: () {
-//           CommonFunctionality().clearPrefAndLogout();
 //           Get.back();
 //         });
 //   }
@@ -271,7 +279,8 @@
 //         okPressed: () {
 //           Get.back();
 //           if (okButtonPressed != null) okButtonPressed();
-//         });
+//         },
+//         buttonTitle: '');
 //   }
 
 //   responseParser(
@@ -322,3 +331,271 @@
 //     }
 //   }
 // }
+
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/api_response.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
+
+class ApiHitter {
+  static Dio dio = Dio();
+  static CancelToken cancelToken = CancelToken();
+  final GlobalKey key = GlobalKey();
+  NetworkCheck networkCheck = NetworkCheck();
+  static Dio getDio() {
+    dio = Dio();
+    cancelToken = CancelToken();
+    BaseOptions options = BaseOptions(
+      baseUrl: EndPoints.baseUrl,
+      connectTimeout: const Duration(minutes: 4000),
+      receiveTimeout: const Duration(minutes: 4000),
+    );
+    dio.options = options;
+    return dio;
+  }
+
+  Future<ApiResponse> getApiResponse(
+    String endPoint, {
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? data,
+  }) async {
+    // cancelToken.cancel();
+    // if (cancelToken.isCancelled) {
+    //   cancelToken = CancelToken();
+    // }
+
+    if (result == true) {
+      try {
+        Response response = await getDio().get(
+          endPoint,
+          options: Options(headers: headers),
+          queryParameters: data,
+        );
+        return ApiResponse(
+            response: response,
+            statusMessage: response.statusMessage!,
+            statusCode: response.statusCode ?? 0);
+      } catch (error) {
+        if (error is DioException) {
+          //This is the custom message coming from the backend
+          throw DioExceptions.fromDioError(dioError: error);
+        } else {
+          throw Exception("Error");
+        }
+      }
+    } else {
+      networkCheck.noInternetConnectionDialog();
+    }
+
+    return ApiResponse(
+        response: response,
+        statusMessage: response.statusMessage!,
+        statusCode: response.statusCode ?? 0);
+  }
+
+  // Future<ApiResponse> postMultipartRequest(
+  //   String endPoint, {
+  //   Map<String, dynamic>? headers,
+  //   Map<String, dynamic>? data,
+  // }) async {
+  //   final result = await InternetAddress.lookup('google.com');
+  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //     FormData formData = FormData.fromMap(data!);
+  //     var response = await getDio().post(endPoint,
+  //         options: Options(headers: headers),
+  //         data: formData,
+  //         onSendProgress: (int sent, int total) {});
+  //     return ApiResponse(false, response.statusCode!,
+  //         response: response, statusMessage: response.statusMessage!);
+  //   } else {
+  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  // Future<ApiResponse> postMultipart(String endPoint,
+  //     {Map<String, dynamic>? headers,
+  //     Map<String, dynamic>? data,
+  //     String? pic,
+  //     String imageParamKey = "file"}) async {
+  //   final result = await InternetAddress.lookup('google.com');
+  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //     FormData formData = FormData.fromMap({});
+  //     if (pic != null && pic != "") {
+  //       try {
+  //         var file = File(pic);
+  //         String fileName = file.path.split('/').last;
+  //         formData = FormData.fromMap({
+  //           imageParamKey:
+  //               await MultipartFile.fromFile(file.path, filename: fileName),
+  //           ...data!
+  //         });
+  //       } catch (e) {}
+  //     } else {
+  //       formData = FormData.fromMap({imageParamKey: "", ...data!});
+  //     }
+  //     var response = await getDio().post(endPoint,
+  //         options: Options(headers: headers),
+  //         data: formData,
+  //         onSendProgress: (int sent, int total) {});
+  //     return ApiResponse(false, response.statusCode!,
+  //         response: response, statusMessage: response.statusMessage!);
+  //   } else {
+  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  // Future<ApiResponse> postMultipartArray(String endPoint,
+  //     {Map<String, dynamic>? headers,
+  //     Map<String, dynamic>? data,
+  //     List<String>? picList,
+  //     String imageParamKey = "file"}) async {
+  //   final result = await InternetAddress.lookup('google.com');
+  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //     FormData formData = FormData.fromMap({});
+  //     if (picList != null && picList.isNotEmpty) {
+  //       var arr = [];
+  //       for (var i = 0; i < picList.length; i++) {
+  //         try {
+  //           var file = File(picList[i]);
+  //           String fileName = file.path.split('/').last;
+  //           var multipart =
+  //               await MultipartFile.fromFile(file.path, filename: fileName);
+  //           arr.add(multipart);
+  //         } catch (e) {}
+  //       }
+  //       formData = FormData.fromMap({imageParamKey: arr, ...data!});
+  //     } else {
+  //       formData = FormData.fromMap({imageParamKey: [], ...data!});
+  //     }
+  //     // print("formData for ticket creation : ${formData.toString()}");
+  //     var response = await getDio().post(endPoint,
+  //         options: Options(headers: headers),
+  //         data: formData,
+  //         onSendProgress: (int sent, int total) {});
+  //     return ApiResponse(false, response.statusCode!,
+  //         response: response, statusMessage: response.statusMessage!);
+  //   } else {
+  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  // Future<ApiResponse> postWithFormData(String endPoint,
+  //     {Map<String, dynamic>? headers, required FormData formDataParams}) async {
+  //   final result = await InternetAddress.lookup('google.com');
+  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //     FormData formData = formDataParams;
+  //     print("formData for ticket creation : ${formData.toString()}");
+  //     var response = await getDio().post(endPoint,
+  //         options: Options(headers: headers),
+  //         data: formData,
+  //         onSendProgress: (int sent, int total) {});
+  //     return ApiResponse(false, response.statusCode!,
+  //         response: response, statusMessage: response.statusMessage!);
+  //   } else {
+  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  // Future<ApiResponse> getPostApiResponse(String endPoint,
+  //     {Map<String, dynamic>? headers,
+  //     Map<String, dynamic>? data,
+  //     FormData? formData,
+  //     bool isFormData = false}) async {
+  //   try {
+  //     print(data);
+  //     final result = await InternetAddress.lookup('google.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       try {
+  //         var response = await getDio().post(endPoint,
+  //             options: Options(headers: headers),
+  //             data: isFormData ? formData : data,
+  //             onSendProgress: (int sent, int total) {});
+  //         if (response.statusCode == 200) {
+  //           if (response.statusCode == 200 || response.statusCode == null) {
+  //             return ApiResponse(true, response.statusCode!,
+  //                 response: response, statusMessage: response.data["message"]);
+  //           } else {
+  //             return ApiResponse(true, response.statusCode!,
+  //                 response: response, statusMessage: response.data["message"]);
+  //           }
+  //         } else if (response.statusCode == 402) {
+  //           return ApiResponse(false, response.statusCode!,
+  //               response: response, statusMessage: response.statusMessage!);
+  //         } else if (response.statusCode == 400) {
+  //           return ApiResponse(false, response.statusCode!,
+  //               response: response, statusMessage: response.statusMessage!);
+  //         } else {
+  //           return ApiResponse(false, response.statusCode!,
+  //               response: response, statusMessage: response.statusMessage!);
+  //         }
+  //       } catch (error) {
+  //         return ApiResponse(
+  //             false,
+  //             error.toString().contains("402")
+  //                 ? 402
+  //                 : int.parse(error.toString()),
+  //             statusMessage: error.toString());
+  //       }
+  //     } else {
+  //       return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //     }
+  //   } catch (e) {
+  //     return ApiResponse(false, e.toString().contains("402") ? 402 : 301,
+  //         statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  // Future<ApiResponse> getRawPostApiResponse(String endPoint,
+  //     {Map<String, dynamic>? headers,
+  //     String? data,
+  //     FormData? formData,
+  //     bool isFormData = false}) async {
+  //   try {
+  //     final result = await InternetAddress.lookup('google.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       try {
+  //         var response = await getDio().post(endPoint,
+  //             options: Options(headers: headers),
+  //             data: isFormData ? formData : data,
+  //             onSendProgress: (int sent, int total) {});
+  //         if (response.statusCode == 200) {
+  //           if (response.data["code"] == 200) {
+  //             return ApiResponse(true, response.data["code"],
+  //                 response: response, statusMessage: response.data["message"]);
+  //           } else {
+  //             return ApiResponse(false, response.data["code"],
+  //                 response: response, statusMessage: response.data["message"]);
+  //           }
+  //         } else if (response.statusCode == 402) {
+  //           return ApiResponse(false, response.statusCode!,
+  //               response: response, statusMessage: response.statusMessage!);
+  //         } else {
+  //           return ApiResponse(false, response.statusCode!,
+  //               response: response, statusMessage: response.statusMessage!);
+  //         }
+  //       } catch (error) {
+  //         return ApiResponse(
+  //             false,
+  //             error.toString().contains("402")
+  //                 ? 402
+  //                 : int.parse(error.toString()),
+  //             statusMessage: error.toString());
+  //       }
+  //     } else {
+  //       return ApiResponse(false, 301, statusMessage: errorNoInternet);
+  //     }
+  //   } catch (e) {
+  //     return ApiResponse(false, e.toString().contains("402") ? 402 : 301,
+  //         statusMessage: errorNoInternet);
+  //   }
+  // }
+
+  Future<bool> cancelRequests() async {
+    cancelToken.cancel();
+
+    return cancelToken.isCancelled;
+  }
+}
