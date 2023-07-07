@@ -9,7 +9,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 
@@ -98,8 +97,7 @@ class SignupScreen extends GetView<SignupController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.signup.tr,
         onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
+          controller.onPressSignUpButton();
         });
   }
 

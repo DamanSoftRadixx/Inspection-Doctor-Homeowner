@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:grand_spin/core/common_ui/common_dialogs.dart';
-import 'package:grand_spin/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 
 class DioExceptions implements Exception {
   DioExceptions.fromDioError({required DioException dioError}) {

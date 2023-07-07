@@ -335,7 +335,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/api_response.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
@@ -345,55 +344,43 @@ class ApiHitter {
   static CancelToken cancelToken = CancelToken();
   final GlobalKey key = GlobalKey();
   NetworkCheck networkCheck = NetworkCheck();
-  static Dio getDio() {
-    dio = Dio();
-    cancelToken = CancelToken();
-    BaseOptions options = BaseOptions(
-      baseUrl: EndPoints.baseUrl,
-      connectTimeout: const Duration(minutes: 4000),
+  static Map<String, String> headers = {
+    'language_id': '6243ed27139b3b6b45b5b6dc',
+    'Content-Type': 'application/json'
+  };
+
+  Options options = Options(
       receiveTimeout: const Duration(minutes: 4000),
-    );
-    dio.options = options;
-    return dio;
-  }
+      sendTimeout: const Duration(minutes: 4000),
+      headers: headers);
 
-  Future<ApiResponse> getApiResponse(
-    String endPoint, {
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? data,
-  }) async {
-    // cancelToken.cancel();
-    // if (cancelToken.isCancelled) {
-    //   cancelToken = CancelToken();
-    // }
+  postApi(
+      {required String endPoint,
+      required Object body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters}) async {
+    try {
+      String baseurl = "${EndPoints.baseUrl}$endPoint";
 
-    if (result == true) {
-      try {
-        Response response = await getDio().get(
-          endPoint,
-          options: Options(headers: headers),
-          queryParameters: data,
-        );
-        return ApiResponse(
-            response: response,
-            statusMessage: response.statusMessage!,
-            statusCode: response.statusCode ?? 0);
-      } catch (error) {
-        if (error is DioException) {
-          //This is the custom message coming from the backend
-          throw DioExceptions.fromDioError(dioError: error);
-        } else {
-          throw Exception("Error");
-        }
+      Response response = await dio.post(
+        baseurl,
+        options: options,
+        data: body,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken,
+        queryParameters: queryParameters,
+      );
+      return response;
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
       }
-    } else {
-      networkCheck.noInternetConnectionDialog();
     }
-
-    return ApiResponse(
-        response: response,
-        statusMessage: response.statusMessage!,
-        statusCode: response.statusCode ?? 0);
   }
 
   // Future<ApiResponse> postMultipartRequest(

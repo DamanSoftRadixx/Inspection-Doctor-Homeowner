@@ -270,6 +270,7 @@ class AppStrings {
   //Common
   static const noDataFound = "No Data Found";
   static const cancel = "Cancel";
+  static const String connectionTimeOut = "The connection has timed out";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
