@@ -236,7 +236,8 @@ Widget commonPhoneText({
                   context: Get.context!,
                   showPhoneCode: true,
                   onSelect: onSelect,
-                  countryListTheme: const CountryListThemeData(),
+                  countryListTheme:
+                      CountryListThemeData(bottomSheetHeight: .80.sh),
                 );
               },
               child: Row(
@@ -310,7 +311,7 @@ Widget commonSearchFieldWidget({
     },
     child: Container(
       width: 1.sw,
-      height: 32.h,
+      height: 34.h,
       decoration: decorationSearchTextField(isSelected: focusNode.hasFocus),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

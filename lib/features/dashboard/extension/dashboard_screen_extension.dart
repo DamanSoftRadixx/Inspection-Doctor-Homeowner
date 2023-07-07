@@ -16,6 +16,7 @@ extension DashboardScreenExtension on DashBoardScreen {
   bottomWidget() {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
           // height: 84.h,
