@@ -23,7 +23,6 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             Get.back();
           }),
       body: SafeArea(
-        bottom: false,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

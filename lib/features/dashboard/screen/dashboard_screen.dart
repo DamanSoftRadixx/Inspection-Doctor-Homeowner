@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
@@ -11,23 +10,23 @@ class DashBoardScreen extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return  Obx(() => Scaffold(
-      appBar: commonAppBarWithElevation(title: controller.getDashboardTitle(),isShowBackButton: false),
-      body: SafeArea(
-          bottom: true,
-          child: Obx(()=>Stack(
-            children: [
-              Column(
-                children: [
-                  Expanded(child: tabScreens()),
-                  bottomWidget()
-                ],
-              ),
-
-              controller.isLoading.value ? CommonLoader() : SizedBox()
-            ],
-          ))
-      ),
-    ));
+    return Obx(() => Scaffold(
+          bottomNavigationBar: bottomWidget(),
+          appBar: commonAppBarWithElevation(
+              title: controller.getDashboardTitle(), isShowBackButton: false),
+          body: SafeArea(
+              child: Obx(() => Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Expanded(child: tabScreens()),
+                        ],
+                      ),
+                      controller.isLoading.value
+                          ? const CommonLoader()
+                          : const SizedBox()
+                    ],
+                  ))),
+        ));
   }
 }

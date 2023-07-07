@@ -36,43 +36,7 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                           onTap: () {
                             controller.onTapCheckBox(value);
                           },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                left: 20.w, top: 20.h, right: 20.w),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 5.h),
-                            decoration: decoration(isSelected: false),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    AssetWidget(
-                                      asset: Asset(
-                                          type: AssetType.svg,
-                                          path: value.icon),
-                                      boxFit: BoxFit.fitWidth,
-                                    ).paddingOnly(right: 7.5.w),
-                                    AppTextWidget(
-                                      text: value.languageName,
-                                      style: CustomTextTheme.buttonText(
-                                        color:
-                                            lightColorPalette.primaryDarkblue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                AssetWidget(
-                                  asset: Asset(
-                                      type: AssetType.svg,
-                                      path: value.isSeleceted
-                                          ? ImageResource.checked
-                                          : ImageResource.unCheck),
-                                  boxFit: BoxFit.fitWidth,
-                                )
-                              ],
-                            ),
-                          ),
+                          child: languageBoxShow(value),
                         );
                       },
                     ),
@@ -85,5 +49,40 @@ class SelectLanguageScreen extends GetView<SelectLanguageController> {
                 ],
               ),
             )));
+  }
+
+  Container languageBoxShow(LanguageModel value) {
+    return Container(
+      margin: EdgeInsets.only(left: 20.w, top: 20.h, right: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+      decoration: decoration(isSelected: false),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              AssetWidget(
+                asset: Asset(type: AssetType.svg, path: value.icon),
+                boxFit: BoxFit.fitWidth,
+              ).paddingOnly(right: 7.5.w),
+              AppTextWidget(
+                text: value.languageName,
+                style: CustomTextTheme.buttonText(
+                  color: lightColorPalette.primaryDarkblue,
+                ),
+              ),
+            ],
+          ),
+          AssetWidget(
+            asset: Asset(
+                type: AssetType.svg,
+                path: value.isSeleceted
+                    ? ImageResource.checked
+                    : ImageResource.unCheck),
+            boxFit: BoxFit.fitWidth,
+          )
+        ],
+      ),
+    );
   }
 }

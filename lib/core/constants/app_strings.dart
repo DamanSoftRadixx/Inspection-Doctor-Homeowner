@@ -79,7 +79,7 @@ class AppStrings {
   static const stateorProviance = "State or Proviance";
 
   static const createPassword = "Create Password";
-  static const confirmPassword = "Confirm Password";
+
   static const selectAge = "Select Age";
   static const selectgender = "Select Gender";
   static const selectCountry = "Select Country";

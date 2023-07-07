@@ -85,7 +85,7 @@ class SignupScreen extends GetView<SignupController> {
             Get.back();
           },
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
             text: AppStrings.login.tr,
           ),
@@ -207,8 +207,8 @@ class SignupScreen extends GetView<SignupController> {
     return commonPasswordText(
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
-      title: AppStrings.confirmPassword.tr,
-      hint: AppStrings.confirmPassword.tr,
+      title: AppStrings.confirmpassword.tr,
+      hint: AppStrings.confirmpassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {

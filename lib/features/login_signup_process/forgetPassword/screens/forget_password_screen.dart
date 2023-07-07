@@ -47,7 +47,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           padding: EdgeInsets.only(left: 3.w),
           onTap: () {},
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
             text: AppStrings.resendlink.tr,
           ),

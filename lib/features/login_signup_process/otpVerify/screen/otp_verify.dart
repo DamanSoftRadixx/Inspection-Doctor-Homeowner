@@ -52,7 +52,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             Get.toNamed(Routes.forgetScreen);
           },
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
             text: controller.isNeedResendOTP.value
                 ? "02:05"

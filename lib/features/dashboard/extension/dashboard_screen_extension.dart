@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,51 +13,54 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/home/scree
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 
 extension DashboardScreenExtension on DashBoardScreen {
-
-  bottomWidget(){
-    return Container(
-      // height: 84.h,
-      width: 1.sw,
-      padding: EdgeInsets.only(bottom: 8.h),
-      decoration: BoxDecoration(
-          color: lightColorPalette.whiteColorPrimary.shade900,
-          border: Border(
-              top: BorderSide(
-                  color: lightColorPalette.stroke,
-                  width: 0.3))),
-      child: Row(
-        children: [
-          bottomRow(
-            title: AppStrings.homeTab.tr,
-            icon: ImageResource.unSelectedHomeIcon,
-            iconDark: ImageResource.selectedHomeIcon,
-            check: BottomNavigationEnum.Home,
+  bottomWidget() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          // height: 84.h,
+          width: 1.sw,
+          padding: EdgeInsets.only(bottom: 8.h),
+          decoration: BoxDecoration(
+              color: lightColorPalette.whiteColorPrimary.shade900,
+              border: Border(
+                  top:
+                      BorderSide(color: lightColorPalette.stroke, width: 0.3))),
+          child: Row(
+            children: [
+              bottomRow(
+                title: AppStrings.homeTab.tr,
+                icon: ImageResource.unSelectedHomeIcon,
+                iconDark: ImageResource.selectedHomeIcon,
+                check: BottomNavigationEnum.Home,
+              ),
+              bottomRow(
+                  title: AppStrings.inspectionsTab.tr,
+                  icon: ImageResource.unSelectedInspectionsIcon,
+                  iconDark: ImageResource.selectedInspectionsIcon,
+                  check: BottomNavigationEnum.Inspections),
+              bottomRow(
+                  title: AppStrings.notificationTab.tr,
+                  icon: ImageResource.unSelectedNotificationsIcon,
+                  iconDark: ImageResource.selectedNotificationsIcon,
+                  check: BottomNavigationEnum.Notification),
+              bottomRow(
+                  title: AppStrings.myProfileTab.tr,
+                  icon: ImageResource.unSelectedProfileIcon,
+                  iconDark: ImageResource.selectedProfileIcon,
+                  check: BottomNavigationEnum.MyProfile),
+            ],
           ),
-          bottomRow(
-              title: AppStrings.inspectionsTab.tr,
-              icon: ImageResource.unSelectedInspectionsIcon,
-              iconDark: ImageResource.selectedInspectionsIcon,
-              check: BottomNavigationEnum.Inspections),
-          bottomRow(
-              title: AppStrings.notificationTab.tr,
-              icon: ImageResource.unSelectedNotificationsIcon,
-              iconDark: ImageResource.selectedNotificationsIcon,
-              check: BottomNavigationEnum.Notification),
-          bottomRow(
-              title: AppStrings.myProfileTab.tr,
-              icon: ImageResource.unSelectedProfileIcon,
-              iconDark: ImageResource.selectedProfileIcon,
-              check: BottomNavigationEnum.MyProfile),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   bottomRow(
       {required String title,
-        required String icon,
-        required String iconDark,
-        required BottomNavigationEnum check}) {
+      required String icon,
+      required String iconDark,
+      required BottomNavigationEnum check}) {
     return Expanded(
       child: InkWell(
         onTap: () {
@@ -81,18 +83,19 @@ extension DashboardScreenExtension on DashBoardScreen {
                 ).paddingOnly(bottom: 8.h),
               ),
               Obx(() => Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  AssetWidget(
-                    asset: Asset(
-                        type: AssetType.svg,
-                        path: check == controller.bottomNavigationEnum.value
-                            ? iconDark
-                            : icon),
-                    width: 20.w,height: 20.h,
-                  ).paddingOnly(bottom: 3.53.h),
-                ],
-              )),
+                    clipBehavior: Clip.none,
+                    children: [
+                      AssetWidget(
+                        asset: Asset(
+                            type: AssetType.svg,
+                            path: check == controller.bottomNavigationEnum.value
+                                ? iconDark
+                                : icon),
+                        width: 20.w,
+                        height: 20.h,
+                      ).paddingOnly(bottom: 3.53.h),
+                    ],
+                  )),
               AppTextWidget(
                   text: title,
                   style: CustomTextTheme.bottomTabs(
@@ -107,27 +110,26 @@ extension DashboardScreenExtension on DashBoardScreen {
   }
 
   Widget tabScreens() {
-
     if (controller.bottomNavigationEnum.value == BottomNavigationEnum.Home) {
       Get.put(HomeController());
-      return HomeScreen();
-    } else if(controller.bottomNavigationEnum.value == BottomNavigationEnum.Inspections){
-     /* Get.put(EstimatesController());
+      return const HomeScreen();
+    } else if (controller.bottomNavigationEnum.value ==
+        BottomNavigationEnum.Inspections) {
+      /* Get.put(EstimatesController());
       return EstimatesScreen();*/
       return commonNoDataWidget();
-    }else if(controller.bottomNavigationEnum.value == BottomNavigationEnum.Notification){
+    } else if (controller.bottomNavigationEnum.value ==
+        BottomNavigationEnum.Notification) {
       /*Get.put(DealersListController());
       return DealersListScreen();*/
       return commonNoDataWidget();
-    }else if(controller.bottomNavigationEnum.value == BottomNavigationEnum.MyProfile){
+    } else if (controller.bottomNavigationEnum.value ==
+        BottomNavigationEnum.MyProfile) {
       /*Get.put(ProfileScreenController());
       return ProfileScreen();*/
       return commonNoDataWidget();
-    }else{
+    } else {
       return commonNoDataWidget();
     }
-
   }
-
-
 }

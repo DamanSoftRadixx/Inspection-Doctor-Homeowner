@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
-
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -20,44 +19,45 @@ class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+      backgroundColor: lightColorPalette.backgroundColor,
       body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(height: 30.h),
-              Stack(
-                children: [
-                  Obx(() => Container(
-                      color: lightColorPalette.backgroundColor,
-                      margin: EdgeInsets.only(top: 21.h),
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      height: 0.9.sh,
-                      width: 1.sw,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          getWelcomeLoginView(),
-                          //Email
-                          Column(
-                            children: [
-                              showEmailField(),
-                              showPasswordField(),
-                              showForgotPassword().paddingOnly(top: 10.h),
-                              showLoginButton().paddingOnly(top: 50.h),
-                              showSignupButton(),
-                              showDivider(),
-                              showOtherLoginOption(),
-                            ],
-                          )
-                        ],
-                      ))),
-                  getTopLogo(),
-                ],
-              ),
-            ],
-          ),
+        child: ListView(
+          children: [
+            Container(
+                height: 35.h,
+                color: lightColorPalette.whiteColorPrimary.shade900),
+            Stack(
+              children: [
+                Obx(() => SizedBox(
+                    // height: 0.9.sh,
+                    width: 1.sw,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                            width: 1.sw,
+                            height: 23.h,
+                            color:
+                                lightColorPalette.whiteColorPrimary.shade900),
+                        getWelcomeLoginView(),
+                        //Email
+                        Column(
+                          children: [
+                            showEmailField(),
+                            showPasswordField(),
+                            showForgotPassword().paddingOnly(top: 10.h),
+                            showLoginButton().paddingOnly(top: 50.h),
+                            showSignupButton(),
+                            showDivider(),
+                            showOtherLoginOption(),
+                          ],
+                        ).paddingOnly(left: 20.w, right: 20.w)
+                      ],
+                    ))),
+                getTopLogo(),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -239,7 +239,7 @@ class LoginScreen extends GetView<LoginController> {
             Get.toNamed(Routes.signupScreen);
           },
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
             text: AppStrings.signup.tr,
           ),

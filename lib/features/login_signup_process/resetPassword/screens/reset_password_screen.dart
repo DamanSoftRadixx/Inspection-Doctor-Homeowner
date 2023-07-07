@@ -96,8 +96,8 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
     return commonPasswordText(
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
-      title: AppStrings.confirmPassword.tr,
-      hint: AppStrings.confirmPassword.tr,
+      title: AppStrings.confirmpassword.tr,
+      hint: AppStrings.confirmpassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {
