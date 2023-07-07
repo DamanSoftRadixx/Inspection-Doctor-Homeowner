@@ -28,6 +28,8 @@ class SignupController extends GetxController {
 
   RxString selectedCountryCode = "1".obs;
 
+  var selectedProfile = "".obs;
+
   RxBool isHidePassword = true.obs;
   RxBool isHideConfirmPassword = true.obs;
 

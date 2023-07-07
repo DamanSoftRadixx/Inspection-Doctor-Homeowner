@@ -233,6 +233,8 @@ class AppStrings {
   static const alreadyAccount = "Already have an account! ";
   static const mailingAddress = "Mailing Address (Optional)";
   static const login = "Log in";
+  static const uploadPhoto = "Upload photo";
+  static const removePhoto = "Remove photo";
 
   //OTP
   static const otp = "OTP";

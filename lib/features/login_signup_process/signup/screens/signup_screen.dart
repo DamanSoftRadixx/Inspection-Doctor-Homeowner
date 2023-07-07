@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
@@ -11,6 +12,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 
 class SignupScreen extends GetView<SignupController> {
@@ -34,6 +36,7 @@ class SignupScreen extends GetView<SignupController> {
                   showHeadingText(),
                   Column(
                     children: [
+                      uploadPhotoWidget().paddingOnly(top: 30.h, bottom: 30.h),
                       showFirstNameField().paddingOnly(bottom: 11.h),
                       showLastNameField().paddingOnly(bottom: 11.h),
                       showEmailField().paddingOnly(bottom: 11.h),
@@ -54,6 +57,82 @@ class SignupScreen extends GetView<SignupController> {
         ),
       ),
     );
+  }
+
+  Widget uploadPhotoWidget() {
+    return Obx(() => controller.selectedProfile.isEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 60.h,
+                width: 60.w,
+                decoration: BoxDecoration(
+                    color: lightColorPalette.primaryBlue,
+                    borderRadius: BorderRadius.circular(4.r)),
+                child: Center(
+                  child: AssetWidget(
+                    asset: Asset(
+                        type: AssetType.svg, path: ImageResource.uploadPhoto),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              GestureDetector(
+                onTap: () {
+                  // controller.onTapUploadOrRemovePhoto();
+                },
+                child: AppTextWidget(
+                  textAlign: TextAlign.start,
+                  text: AppStrings.uploadPhoto.tr,
+                  style: CustomTextTheme.normalText(
+                    color: lightColorPalette.primaryDarkblue,
+                  ),
+                ),
+              )
+            ],
+          )
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 60.h,
+                width: 60.w,
+                decoration: BoxDecoration(
+                  border: Border.all(color: lightColorPalette.primaryBlue),
+                  borderRadius: BorderRadius.all(Radius.circular(4.r)),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(4.r)),
+                  child: AssetWidget(
+                    asset: Asset(
+                        type: AssetType.network,
+                        path: "https://picsum.photos/id/237/200/300"),
+                    height: 56.h,
+                    boxFit: BoxFit.fill,
+                    width: 56.w,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              GestureDetector(
+                onTap: () {
+                  // controller.onTapUploadOrRemovePhoto();
+                },
+                child: AppTextWidget(
+                  textAlign: TextAlign.start,
+                  text: AppStrings.removePhoto.tr,
+                  style: CustomTextTheme.normalText(
+                    color: lightColorPalette.redDark,
+                  ),
+                ),
+              )
+            ],
+          ));
   }
 
   Row showMailingAddress() {

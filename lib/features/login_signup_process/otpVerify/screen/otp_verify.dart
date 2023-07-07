@@ -48,8 +48,8 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         CustomInkwell(
           padding: EdgeInsets.only(left: 3.w),
           onTap: () {
-            dismissKeyboard();
-            Get.toNamed(Routes.forgetScreen);
+            // dismissKeyboard();
+            // Get.toNamed(Routes.forgetScreen);
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
