@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/controller/otp_verify_controller.dart';
 import 'package:pinput/pinput.dart';
@@ -21,14 +19,16 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-        child: Column(
-          children: [
-            showHeadingText(),
-            showPinView(),
-            showVerifyButton(),
-            showResendOTP()
-          ],
-        ),
+        child: Obx(() => SingleChildScrollView(
+              child: Column(
+                children: [
+                  showHeadingText(),
+                  showPinView(),
+                  showVerifyButton(),
+                  showResendOTP()
+                ],
+              ),
+            )),
       ),
     );
   }
@@ -67,29 +67,42 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.verify.tr,
         onPress: () {
-          dismissKeyboard();
-
-          Get.until((route) =>
-              route.settings.name == Routes.loginScreen ? true : false);
+          controller.onTapVerifyButton();
         }).paddingOnly(left: 20.w, right: 20.w, top: 50.h);
   }
 
   showPinView() {
-    return Pinput(
-      defaultPinTheme: defaultPinTheme,
-      focusedPinTheme: focusedPinTheme,
-      submittedPinTheme: submittedPinTheme,
-      showCursor: true,
-      onCompleted: (pin) {
-        controller.verifyCode.value = pin;
-        controller.isSubmitVisible.value = true;
-      },
-      onChanged: (text) {
-        if (text.length < 4) {
-          controller.isSubmitVisible.value = false;
-        }
-      },
-    ).paddingOnly(top: 50.h);
+    return Column(
+      children: [
+        Pinput(
+          defaultPinTheme: defaultPinTheme,
+          focusedPinTheme: focusedPinTheme,
+          submittedPinTheme: submittedPinTheme,
+          showCursor: true,
+          onCompleted: (pin) {
+            controller.verifyCode.value = pin;
+            controller.isOtpError.value = true;
+          },
+          onChanged: (text) {
+            if (text.length < 4) {
+              controller.isOtpError.value = false;
+            }
+          },
+        ).paddingOnly(top: 50.h),
+        Visibility(
+          visible: controller.isOtpError.value,
+          child: Align(
+            alignment: Alignment.center,
+            child: AppTextWidget(
+              text: ErrorMessages.otpIsEmpty,
+              style: CustomTextTheme.subtext(
+                color: lightColorPalette.redDark,
+              ),
+            ).paddingOnly(top: 10.h),
+          ),
+        )
+      ],
+    );
   }
 
   AppBar showAppBar() {

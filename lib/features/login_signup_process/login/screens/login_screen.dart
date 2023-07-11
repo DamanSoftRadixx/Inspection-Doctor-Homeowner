@@ -168,18 +168,33 @@ class LoginScreen extends GetView<LoginController> {
 
   Widget showEmailField() {
     return commonTextFieldWidget(
+      errorMsg: controller.emailErrorMessage.value,
+      isError: controller.emailError.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty && controller.emailController.text.isEmail) {
+          controller.emailError.value = false;
+        }
+      },
     ).paddingOnly(bottom: 11.h);
   }
 
   showPasswordField() {
     return commonPasswordText(
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          if (controller.passwordController.text.length >= 8) {
+            controller.passwordError.value = false;
+          }
+        }
+      },
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
       title: AppStrings.loginScreenPassword.tr,

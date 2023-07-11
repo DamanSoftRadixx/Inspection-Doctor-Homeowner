@@ -320,3 +320,26 @@ class HomeScreenType {
   static const journal = "journal";
   static const guidedJournal = "guidedJournal";
 }
+
+class ErrorMessages {
+  static const emailIsEmpty = "Please enter your email.";
+  static const emailIsNotValid = "Please enter valid email.";
+  static const firstNameIsEmpty = "Please enter your  first name.";
+  static const lastNameIsEmpty = "Please enter your last name.";
+  static const addressIsEmpty = "Please enter your address.";
+  static const phoneIsEmpty = "Please enter your phone number.";
+  static const phoneValid = "Please enter valid phone number.";
+  static const passwordIsEmpty = "Please enter your password.";
+  static const newPasswordIsEmpty = "Please enter your new password.";
+  static const oldPasswordIsEmpty = "Please enter your old password.";
+  static const confirmPasswordIsEmpty = "Please enter your confirm password.";
+  static const passwordLength =
+      "Password should be of minimum 8 characters with combination of uppercase, lowercase and special character";
+  static const passwordMatches =
+      "Password and confirm password does not match.";
+  static const restPasswordMatches =
+      "New password and confirm password does not match.";
+  static const noDataFound = "No data found";
+  static const otpIsEmpty = "Please enter your otp.";
+  static const pleaseSelectAppLanguage = "Please select app language.";
+}

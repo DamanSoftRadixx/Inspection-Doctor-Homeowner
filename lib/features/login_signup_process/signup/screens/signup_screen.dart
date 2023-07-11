@@ -10,7 +10,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
@@ -177,8 +176,7 @@ class SignupScreen extends GetView<SignupController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.signup.tr,
         onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
+          controller.onTapSignButton();
         });
   }
 
@@ -213,13 +211,19 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showFirstNameField() {
     return commonTextFieldWidget(
+      isError: controller.firstNameError.value,
+      errorMsg: controller.firstNameErrorMessage.value,
       focusNode: controller.firstNameFocusNode.value,
       controller: controller.firstNameController,
       title: AppStrings.firstName.tr,
       hint: AppStrings.firstName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          controller.firstNameError.value = false;
+        }
+      },
     );
   }
 
@@ -227,35 +231,53 @@ class SignupScreen extends GetView<SignupController> {
     return commonTextFieldWidget(
       focusNode: controller.lastNameFocusNode.value,
       controller: controller.lastNameController,
+      isError: controller.lastNameError.value,
+      errorMsg: controller.lastNameErrorMessage.value,
       title: AppStrings.lastName.tr,
       hint: AppStrings.lastName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          controller.lastNameError.value = false;
+        }
+      },
     );
   }
 
   Widget showEmailField() {
     return commonTextFieldWidget(
+      isError: controller.emailError.value,
+      errorMsg: controller.emailErrorMessage.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty && controller.emailController.text.isEmail) {
+          controller.emailError.value = false;
+        }
+      },
     );
   }
 
   Widget showPhoneNumberField() {
     return commonPhoneText(
+      onChanged: (value) {
+        if (controller.phoneNumberController.text.length > 8) {
+          controller.phoneError.value = false;
+        }
+      },
+      isError: controller.phoneError.value,
+      errorMsg: controller.phoneErrorMessage.value,
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController,
       title: AppStrings.phoneNumber.tr,
       hint: AppStrings.phoneNumber.tr,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
       countryCode: controller.selectedCountryCode.value,
       onSelect: (Country country) {
         controller.selectedCountryCode.value = country.phoneCode;
@@ -265,12 +287,25 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPasswordField() {
     return commonPasswordText(
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
       title: AppStrings.loginScreenPassword.tr,
       hint: AppStrings.loginScreenPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          if (!(controller.passwordController.text.length < 8 ||
+              controller.passwordController.text.contains(RegExp(r'[A-Z]')) ==
+                  false ||
+              controller.passwordController.text.contains(RegExp(r'[a-z]')) ==
+                  false)) {
+            controller.passwordError.value = false;
+          }
+        }
+      },
       onPress: () {
         if (controller.isHidePassword.value == false) {
           controller.isHidePassword.value = true;
@@ -284,12 +319,21 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
+      isError: controller.confirmPasswordError.value,
+      errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
       title: AppStrings.confirmpassword.tr,
       hint: AppStrings.confirmpassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty &&
+            (controller.passwordController.text ==
+                controller.confirmPasswordController.text)) {
+          controller.confirmPasswordError.value = false;
+        }
+      },
       onPress: () {
         if (controller.isHideConfirmPassword.value == false) {
           controller.isHideConfirmPassword.value = true;

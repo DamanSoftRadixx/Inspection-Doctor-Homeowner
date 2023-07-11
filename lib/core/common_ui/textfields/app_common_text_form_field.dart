@@ -79,7 +79,7 @@ Widget commonTextFieldWidget(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -184,7 +184,7 @@ Widget commonPasswordText(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -266,7 +266,7 @@ Widget commonPhoneText({
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
                 ],
                 decoration: InputDecoration(
-                  border: InputBorder.none,
+                  border: InputBorder.none, hintText: hint,
 
                   isCollapsed: true,
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.w),
@@ -290,7 +290,7 @@ Widget commonPhoneText({
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -524,7 +524,7 @@ Widget dropdownField(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),

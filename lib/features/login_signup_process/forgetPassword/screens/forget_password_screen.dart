@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/controller/forget_password_controller.dart';
 
@@ -21,15 +19,18 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-        child: Column(
-          children: [
-            showHeadingText(),
-            showEmailField(),
-            showSendLinkButton(),
-            showResendOTP(),
-          ],
-        ).paddingSymmetric(horizontal: 20.w),
-      ),
+          child: Obx(
+        () => SingleChildScrollView(
+          child: Column(
+            children: [
+              showHeadingText(),
+              showEmailField(),
+              showSendLinkButton(),
+              showResendOTP(),
+            ],
+          ).paddingSymmetric(horizontal: 20.w),
+        ),
+      )),
     );
   }
 
@@ -60,8 +61,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.sendlink.tr,
         onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.resetPassword);
+          controller.onTapSendLinkBotton();
         }).paddingOnly(top: 50.h);
   }
 
@@ -104,13 +104,19 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
 
   Widget showEmailField() {
     return commonTextFieldWidget(
+      isError: controller.emailError.value,
+      errorMsg: controller.emailErrorMessage.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty && controller.emailController.text.isEmail) {
+          controller.emailError.value = false;
+        }
+      },
     ).paddingOnly(bottom: 11.h, top: 50.h);
   }
 }
