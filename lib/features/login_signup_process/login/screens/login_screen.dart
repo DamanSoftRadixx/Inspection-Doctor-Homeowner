@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/controller/login_controller.dart';
@@ -250,8 +248,7 @@ class LoginScreen extends GetView<LoginController> {
         CustomInkwell(
           padding: EdgeInsets.zero,
           onTap: () {
-            dismissKeyboard();
-            Get.toNamed(Routes.signupScreen);
+            controller.onTapSignupButton();
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(

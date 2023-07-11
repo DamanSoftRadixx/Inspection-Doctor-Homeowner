@@ -49,6 +49,12 @@ class LoginController extends GetxController {
     Get.toNamed(Routes.forgetScreen);
   }
 
+  void onTapSignupButton() {
+    dismissKeyboard();
+    clearTextField();
+    Get.toNamed(Routes.signupScreen);
+  }
+
   void onPressLoginButton() {
     dismissKeyboard();
 
@@ -92,5 +98,13 @@ class LoginController extends GetxController {
 
       Get.toNamed(Routes.dashboard);
     }
+  }
+
+  clearTextField() {
+    emailController.clear();
+    passwordController.clear();
+    emailError.value = false;
+    passwordError.value = false;
+    isHidePassword.value = false;
   }
 }
