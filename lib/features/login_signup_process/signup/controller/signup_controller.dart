@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
@@ -193,5 +196,35 @@ class SignupController extends GetxController {
         phone: phoneNumberController.text,
         password: passwordController.text,
         confirmPassword: confirmPasswordController.text);
+  }
+
+  KeyboardActionsConfig buildConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.grey[200],
+      nextFocus: true,
+      actions: [
+        KeyboardActionsItem(
+            focusNode: phoneNumberFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => passwordFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+      ],
+    );
   }
 }

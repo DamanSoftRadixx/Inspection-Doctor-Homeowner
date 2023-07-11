@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
@@ -75,6 +76,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
     return Column(
       children: [
         Pinput(
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           defaultPinTheme: defaultPinTheme,
           focusedPinTheme: focusedPinTheme,
           submittedPinTheme: submittedPinTheme,

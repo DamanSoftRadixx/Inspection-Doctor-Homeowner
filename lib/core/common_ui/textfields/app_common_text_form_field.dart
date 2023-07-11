@@ -24,7 +24,9 @@ Widget commonTextFieldWidget(
     bool? readOnly,
     bool? autoFocus,
     TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+    TextInputAction? textInputAction,
+    TextCapitalization? textCapitalization,
+    List<TextInputFormatter>? inputFormatters}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +50,7 @@ Widget commonTextFieldWidget(
           decoration: decoration(isSelected: focusNode.hasFocus),
           child: Center(
             child: TextFormField(
+              textCapitalization: textCapitalization ?? TextCapitalization.none,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               controller: controller,
@@ -58,6 +61,7 @@ Widget commonTextFieldWidget(
               readOnly: readOnly ?? false,
               autofocus: autoFocus ?? false,
               focusNode: focusNode,
+              inputFormatters: inputFormatters ?? const [],
               decoration: InputDecoration(
                 isCollapsed: true,
                 contentPadding: EdgeInsets.only(left: 15.0, right: 15.w),
@@ -262,9 +266,7 @@ Widget commonPhoneText({
                 onChanged: onChanged,
                 keyboardType: keyboardType,
                 textInputAction: textInputAction,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ],
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                   border: InputBorder.none, hintText: hint,
 

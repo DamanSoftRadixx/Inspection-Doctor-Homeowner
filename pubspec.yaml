@@ -52,6 +52,7 @@ dependencies:
   pinput: ^2.2.31
   country_picker: ^2.0.20
   dotted_border: ^2.0.0+3
+  keyboard_actions: ^4.2.0
 
 
 dev_dependencies:

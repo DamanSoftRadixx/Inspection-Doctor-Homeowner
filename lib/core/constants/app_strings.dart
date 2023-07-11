@@ -271,6 +271,8 @@ class AppStrings {
 
   //Common
   static const noDataFound = "No Data Found";
+  static const done = "Done";
+  static const next = "Next";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";

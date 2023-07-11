@@ -1,5 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
@@ -13,6 +14,7 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupScreen extends GetView<SignupController> {
   const SignupScreen({Key? key}) : super(key: key);
@@ -27,32 +29,36 @@ class SignupScreen extends GetView<SignupController> {
         },
         title: AppStrings.signup.tr,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Obx(() => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  showHeadingText(),
-                  Column(
-                    children: [
-                      uploadPhotoWidget().paddingOnly(top: 30.h, bottom: 30.h),
-                      showFirstNameField().paddingOnly(bottom: 11.h),
-                      showLastNameField().paddingOnly(bottom: 11.h),
-                      showEmailField().paddingOnly(bottom: 11.h),
-                      showPhoneNumberField().paddingOnly(bottom: 11.h),
-                      showPasswordField().paddingOnly(bottom: 11.h),
-                      showConfirmPasswordField().paddingOnly(bottom: 11.h),
-                      showMailingAddress(),
-                      showStreetField().paddingOnly(bottom: 11.h),
-                      showCityField().paddingOnly(bottom: 11.h),
-                      showStateField().paddingOnly(bottom: 11.h),
-                      showZipCodeField(),
-                      showSignUpButton().paddingOnly(top: 40.h),
-                      showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
-                    ],
-                  ).paddingSymmetric(horizontal: 20.w),
-                ],
-              )),
+      body: KeyboardActions(
+        config: controller.buildConfig(context),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Obx(() => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    showHeadingText(),
+                    Column(
+                      children: [
+                        uploadPhotoWidget()
+                            .paddingOnly(top: 30.h, bottom: 30.h),
+                        showFirstNameField().paddingOnly(bottom: 11.h),
+                        showLastNameField().paddingOnly(bottom: 11.h),
+                        showEmailField().paddingOnly(bottom: 11.h),
+                        showPhoneNumberField().paddingOnly(bottom: 11.h),
+                        showPasswordField().paddingOnly(bottom: 11.h),
+                        showConfirmPasswordField().paddingOnly(bottom: 11.h),
+                        showMailingAddress(),
+                        showStreetField().paddingOnly(bottom: 11.h),
+                        showCityField().paddingOnly(bottom: 11.h),
+                        showStateField().paddingOnly(bottom: 11.h),
+                        showZipCodeField(),
+                        showSignUpButton().paddingOnly(top: 40.h),
+                        showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
+                      ],
+                    ).paddingSymmetric(horizontal: 20.w),
+                  ],
+                )),
+          ),
         ),
       ),
     );
@@ -211,6 +217,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showFirstNameField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       isError: controller.firstNameError.value,
       errorMsg: controller.firstNameErrorMessage.value,
       focusNode: controller.firstNameFocusNode.value,
@@ -229,6 +236,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showLastNameField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.lastNameFocusNode.value,
       controller: controller.lastNameController,
       isError: controller.lastNameError.value,
@@ -347,6 +355,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
       title: AppStrings.street.tr,
@@ -359,6 +368,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.cityFocusNode.value,
       controller: controller.cityController,
       title: AppStrings.city.tr,
@@ -371,6 +381,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.stateFocusNode.value,
       controller: controller.stateController,
       title: AppStrings.state.tr,
@@ -383,11 +394,12 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       focusNode: controller.zipCodeFocusNode.value,
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );
