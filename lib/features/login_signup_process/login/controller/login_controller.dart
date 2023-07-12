@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
 
 class LoginController extends GetxController {
   RxBool isHidePassword = true.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  Rx<Language> selectedLanguage = Language().obs;
 
   var emailFocusNode = FocusNode().obs;
   var passwordFocusNode = FocusNode().obs;
@@ -34,6 +36,7 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    getArguments();
     addFocusListeners();
     super.onInit();
   }
@@ -52,7 +55,9 @@ class LoginController extends GetxController {
   void onTapSignupButton() {
     dismissKeyboard();
     clearTextField();
-    Get.toNamed(Routes.signupScreen);
+    Get.toNamed(Routes.signupScreen, arguments: {
+      GetArgumentConstants.selectedLanguage: selectedLanguage.value
+    });
   }
 
   void onPressLoginButton() {
@@ -106,5 +111,13 @@ class LoginController extends GetxController {
     emailError.value = false;
     passwordError.value = false;
     isHidePassword.value = false;
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      selectedLanguage.value =
+          args[GetArgumentConstants.selectedLanguage] ?? "";
+    }
   }
 }

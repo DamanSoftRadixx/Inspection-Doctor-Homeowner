@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+const double _kSize = 80;
 
 class CommonLoader extends StatelessWidget {
-  const CommonLoader({Key? key}) : super(key: key);
+  final bool isLoading;
+
+  const CommonLoader({Key? key, required this.isLoading}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100.h,
-      width: 100.w,
-      child: Card(
-        color: lightColorPalette.backgroundColor,
-        child: const Center(
-          child: CircularProgressIndicator(
-            color: Colors.brown,
+    return Visibility(
+      visible: isLoading,
+      child: SizedBox(
+        height: Get.height,
+        width: Get.width,
+        child: Center(
+          child: LoadingAnimationWidget.staggeredDotsWave(
+            color: lightColorPalette.primaryBlue,
+            size: _kSize,
           ),
         ),
       ),

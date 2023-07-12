@@ -22,9 +22,7 @@ class DashBoardScreen extends GetView<DashboardController> {
                           Expanded(child: tabScreens()),
                         ],
                       ),
-                      controller.isLoading.value
-                          ? const CommonLoader()
-                          : const SizedBox()
+                      CommonLoader(isLoading: controller.isLoading.value)
                     ],
                   ))),
         ));

@@ -36,7 +36,7 @@ Widget commonTextFieldWidget(
           style: CustomTextTheme.normalText(
             color: lightColorPalette.primaryDarkblue,
           ),
-          text: title ?? "",
+          text: title,
           textAlign: TextAlign.center,
         ).paddingOnly(bottom: 3.0.h),
       GestureDetector(

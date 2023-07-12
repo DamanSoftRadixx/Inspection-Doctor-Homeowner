@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 
 class Prefs {
-  static const String TOKEN = "token";
-  static const String selectedLang = "languageType";
+  static const String token = "token";
+  static const String selectedLangId = "languageType";
   static const String email = "email";
+  static const signUpOtp = "signUpOtp";
+  static const homeownerRollId = "Homeowner";
 
   static read(String key) {
     var box = GetStorage();
@@ -35,6 +37,6 @@ class Prefs {
 
   static storeUserData({required String email, required String accessToken}) {
     Prefs.write(Prefs.email, email);
-    Prefs.write(Prefs.TOKEN, accessToken);
+    Prefs.write(Prefs.token, accessToken);
   }
 }

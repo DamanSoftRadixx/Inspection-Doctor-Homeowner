@@ -332,6 +332,8 @@
 //   }
 // }
 
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -344,15 +346,6 @@ class ApiHitter {
   static CancelToken cancelToken = CancelToken();
   final GlobalKey key = GlobalKey();
   NetworkCheck networkCheck = NetworkCheck();
-  static Map<String, String> headers = {
-    'language_id': '6243ed27139b3b6b45b5b6dc',
-    'Content-Type': 'application/json'
-  };
-
-  Options options = Options(
-      receiveTimeout: const Duration(minutes: 4000),
-      sendTimeout: const Duration(minutes: 4000),
-      headers: headers);
 
   postApi(
       {required String endPoint,
@@ -360,7 +353,8 @@ class ApiHitter {
       void Function(int, int)? onSendProgress,
       void Function(int, int)? onReceiveProgress,
       CancelToken? cancelToken,
-      Map<String, dynamic>? queryParameters}) async {
+      Map<String, dynamic>? queryParameters,
+      required Options options}) async {
     try {
       String baseurl = "${EndPoints.baseUrl}$endPoint";
 
@@ -369,6 +363,36 @@ class ApiHitter {
         options: options,
         data: body,
         onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken,
+        queryParameters: queryParameters,
+      );
+      return response;
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
+      }
+    }
+  }
+
+  getApi(
+      {required String endPoint,
+      Object? body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters,
+      required Options options}) async {
+    log(" getLanguages>>>>  A");
+    try {
+      String baseurl = "${EndPoints.baseUrl}$endPoint";
+
+      Response response = await dio.get(
+        baseurl,
+        options: options,
+        data: body,
         onReceiveProgress: onReceiveProgress,
         cancelToken: cancelToken,
         queryParameters: queryParameters,

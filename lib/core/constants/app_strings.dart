@@ -302,12 +302,9 @@ class AppStrings {
 }
 
 class GetArgumentConstants {
-  static const title = "title";
-  static const url = "url";
-  static const signupToOtpModel = "signupToOtpModel";
-  static const navigateToChapterIndexModel = "navigateToChapterIndexModel";
-  static const navigateToContentDataModel = "navigateToContentDataModel";
-  static const navigateToAddEditJournalModel = "navigateToAddEditJournalModel";
+  static const languageList = "languageList";
+  static const selectedLanguage = "selectedLanguage";
+  static const signUpOtp = "signUpOtp";
 }
 
 class WeekDays {

@@ -235,9 +235,7 @@ class HomeScreen extends GetView<HomeController> {
             ],
           ),
         ),
-        Obx(() => controller.isLoading.value == true
-            ? const CommonLoader()
-            : Container())
+        Obx(() => CommonLoader(isLoading: controller.isLoading.value))
       ],
     );
   }

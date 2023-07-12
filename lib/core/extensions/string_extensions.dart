@@ -1,32 +1,32 @@
-
 import 'package:get/get.dart';
 
-extension StringExtensions on String?{
-  String? toStringConversion(){
-    if(this == "null" || this == null) return null;
+extension StringExtensions on String? {
+  String? toStringConversion() {
+    if (this == "null" || this == null) return null;
     return this;
   }
 
-  int toIntConversion(){
+  int toIntConversion() {
     var string = this ?? "";
-    if(string != "" && string != "null" && string.isNumericOnly){
+    if (string != "" && string != "null" && string.isNumericOnly) {
       return int.parse(string);
     }
     return 0;
   }
 
-  int toIntConversionDefaultOne(){
+  int toIntConversionDefaultOne() {
     var string = this ?? "";
-    if(string != "" && string != "null" && string.isNumericOnly){
+    if (string != "" && string != "null" && string.isNumericOnly) {
       return int.parse(string);
     }
     return 1;
   }
 
-  double toDoubleConversionWithRoundOff(){
+  double toDoubleConversionWithRoundOff() {
     var string = this ?? "";
-    if(string != "" && string != "null" && RegExp(r'\d+([\.]\d+)?$').hasMatch(string)){
-
+    if (string != "" &&
+        string != "null" &&
+        RegExp(r'\d+([\.]\d+)?$').hasMatch(string)) {
       var stringWithRound = double.parse(string).toStringAsFixed(2);
 
       return double.parse(stringWithRound);
@@ -34,23 +34,24 @@ extension StringExtensions on String?{
     return 0.0;
   }
 
-  double toDoubleConversionWithoutRoundOff(){
+  double toDoubleConversionWithoutRoundOff() {
     var string = this ?? "";
-    if(string != "" && string != "null" && RegExp(r'\d+([\.]\d+)?$').hasMatch(string)){
+    if (string != "" &&
+        string != "null" &&
+        RegExp(r'\d+([\.]\d+)?$').hasMatch(string)) {
       return double.parse(string);
     }
     return 0.0;
   }
 
-  bool isEmptyOrNull(){
+  bool isEmptyOrNull() {
     // var string = this ?? "";
     var string = stripHtmlIfNeeded(this ?? "").trim();
-    if(string == "" && string != "null"){
+    if (string == "" && string != "null") {
       return true;
     }
     return false;
   }
-
 }
 
 String stripHtmlIfNeeded(String text) {

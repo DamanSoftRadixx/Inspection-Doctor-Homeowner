@@ -1,15 +1,26 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
+import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/signup_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/provider/signup_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:platform_device_id_v3/platform_device_id.dart';
 
 class SignupController extends GetxController {
+  SignUpProvider signUpProvider = SignUpProvider();
+
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -47,13 +58,18 @@ class SignupController extends GetxController {
   RxString emailErrorMessage = "".obs;
   RxString passwordErrorMessage = "".obs;
   RxString confirmPasswordErrorMessage = "".obs;
-
   RxString selectedCountryCode = "1".obs;
 
   var selectedProfile = "".obs;
 
+  RxBool isShowLoader = false.obs;
+
   RxBool isHidePassword = true.obs;
   RxBool isHideConfirmPassword = true.obs;
+
+  Rx<Language> selectedLanguage = Language().obs;
+
+  Rx<SignUpResponseData> signUpResponse = SignUpResponseData().obs;
 
   addFocusListeners() {
     firstNameFocusNode.value.addListener(() {
@@ -122,8 +138,6 @@ class SignupController extends GetxController {
     required String password,
     required String confirmPassword,
   }) async {
-    print("fjghfjshgjfshg");
-
     String pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regExp = RegExp(pattern);
@@ -185,7 +199,8 @@ class SignupController extends GetxController {
       phoneError.value = false;
       passwordError.value = false;
       confirmPasswordError.value = false;
-      Get.toNamed(Routes.otpVerifyScreen);
+
+      getSignUp();
     }
   }
 
@@ -228,5 +243,65 @@ class SignupController extends GetxController {
             ]),
       ],
     );
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      selectedLanguage.value =
+          args[GetArgumentConstants.selectedLanguage] ?? "";
+    }
+  }
+
+  getSignUp() async {
+    isShowLoader.value = true;
+
+    String? deviceId = await PlatformDeviceId.getDeviceId;
+
+    String homeownerRollId = await Prefs.read(Prefs.homeownerRollId) ?? "";
+    String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+    var body = json.encode({
+      "role_id": homeownerRollId,
+      "register_type": "Email",
+      "first_name": firstNameController.text,
+      "last_name": lastNameController.text,
+      "email": emailController.text,
+      "phone": phoneNumberController.text,
+      "password": passwordController.text,
+      "language_id": selectedLangId,
+      "country_code": selectedCountryCode.value,
+      "state": stateController.text,
+      "zip_code":
+          zipCodeController.text == "" ? null : zipCodeController.text == "",
+      "street": streetController.text,
+      "city": cityController.text,
+      "image": "621ca6da33032d8eb3c3b236",
+      "device_type": isIos ? DeviceTypeEnum.iOS : DeviceTypeEnum.android.value,
+      "device_token": "eydhghjd",
+      "device_id": deviceId
+    });
+
+    log("bodyData $body");
+    SignUpResponseModel response =
+        await signUpProvider.signUpUser(body: body) ?? SignUpResponseModel();
+
+    try {
+      if (response.success == true && response.status == 201) {
+        signUpResponse.value = response.data ?? SignUpResponseData();
+        isShowLoader.value = false;
+        snackbar(response.message ?? "");
+        Prefs.write(Prefs.token, signUpResponse.value.token);
+        Future.delayed(const Duration(milliseconds: 2000), () {
+          Get.toNamed(Routes.otpVerifyScreen, arguments: {
+            GetArgumentConstants.signUpOtp: signUpResponse.value.otp
+          });
+        });
+      } else {
+        isShowLoader.value = false;
+        snackbar(response.message ?? "");
+      }
+    } catch (e) {
+      isShowLoader.value = false;
+    }
   }
 }

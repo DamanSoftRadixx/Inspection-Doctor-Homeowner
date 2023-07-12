@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AssetWidget extends StatelessWidget {
@@ -116,13 +115,12 @@ class AssetWidget extends StatelessWidget {
   }
 }
 
-enum AssetType { png, svg,file,network}
-
+enum AssetType { png, svg, file, network }
 
 class Asset {
   String path;
   AssetType type;
   File? file;
 
-  Asset({required this.path, required this.type,this.file});
+  Asset({required this.path, required this.type, this.file});
 }

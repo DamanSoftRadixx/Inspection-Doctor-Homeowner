@@ -7,13 +7,13 @@ import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.
 import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/signup_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/model/verifiy_model.dart';
 
-class SignUpProvider {
+class OtpVerifyProvider {
   NetworkCheck networkCheck = NetworkCheck();
   ApiHitter apiHitter = ApiHitter();
 
-  Future<SignUpResponseModel?> signUpUser({required Object body}) async {
+  Future<OtpVerifyResponse?> otpVerification({required Object body}) async {
     String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
     Map<String, String> headers = {
@@ -27,7 +27,9 @@ class SignUpProvider {
         Response response = await apiHitter.postApi(
             endPoint: EndPoints.register, body: body, options: options);
 
-        SignUpResponseModel data = SignUpResponseModel.fromJson(response.data);
+        log("response>>>> $response");
+
+        OtpVerifyResponse data = OtpVerifyResponse.fromJson(response.data);
 
         showResponseData(data, type: 'signUpUser');
 

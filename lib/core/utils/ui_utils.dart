@@ -1,7 +1,9 @@
-
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 
 DateTime? loginClickTime;
 
@@ -23,9 +25,9 @@ bool isRedundentClick(DateTime currentTime) {
 class NoLeadingSpaceFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.startsWith(' ')) {
       final String trimedText = newValue.text.trimLeft();
 
@@ -40,4 +42,17 @@ class NoLeadingSpaceFormatter extends TextInputFormatter {
 
     return newValue;
   }
+}
+
+void showResponseData(var data, {required String type}) {
+  String json = jsonEncode(data);
+  log("********************** $type response start **********************");
+  log("$type $json");
+  log("********************** $type  response end **********************");
+}
+
+Widget disableScreen({required bool isDisable}) {
+  return isDisable
+      ? Container(color: lightColorPalette.transparentColor)
+      : const SizedBox();
 }
