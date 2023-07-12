@@ -20,6 +20,12 @@ class LoginScreen extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightColorPalette.backgroundColor,
+      appBar: PreferredSize(
+          preferredSize: Size(0, 0.h),
+          child: Container(
+            color: lightColorPalette.whiteColorPrimary.shade900,
+            height: 40.h,
+          )),
       body: SafeArea(
         child: ListView(
           children: [

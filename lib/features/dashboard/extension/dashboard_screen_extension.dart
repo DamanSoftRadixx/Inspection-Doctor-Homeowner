@@ -7,6 +7,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
+import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/controller/home_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/screens/home_screen.dart';
@@ -19,7 +20,7 @@ extension DashboardScreenExtension on DashBoardScreen {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          // height: 84.h,
+          height: isIos ? 84.h : 70.h,
           width: 1.sw,
           padding: EdgeInsets.only(bottom: 8.h),
           decoration: BoxDecoration(
