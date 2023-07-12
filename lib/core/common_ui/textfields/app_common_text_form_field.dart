@@ -24,7 +24,9 @@ Widget commonTextFieldWidget(
     bool? readOnly,
     bool? autoFocus,
     TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+    TextInputAction? textInputAction,
+    TextCapitalization? textCapitalization,
+    List<TextInputFormatter>? inputFormatters}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +50,7 @@ Widget commonTextFieldWidget(
           decoration: decoration(isSelected: focusNode.hasFocus),
           child: Center(
             child: TextFormField(
+              textCapitalization: textCapitalization ?? TextCapitalization.none,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               controller: controller,
@@ -58,6 +61,7 @@ Widget commonTextFieldWidget(
               readOnly: readOnly ?? false,
               autofocus: autoFocus ?? false,
               focusNode: focusNode,
+              inputFormatters: inputFormatters ?? const [],
               decoration: InputDecoration(
                 isCollapsed: true,
                 contentPadding: EdgeInsets.only(left: 15.0, right: 15.w),
@@ -79,7 +83,7 @@ Widget commonTextFieldWidget(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -184,7 +188,7 @@ Widget commonPasswordText(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -262,11 +266,9 @@ Widget commonPhoneText({
                 onChanged: onChanged,
                 keyboardType: keyboardType,
                 textInputAction: textInputAction,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                ],
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
-                  border: InputBorder.none,
+                  border: InputBorder.none, hintText: hint,
 
                   isCollapsed: true,
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.w),
@@ -290,7 +292,7 @@ Widget commonPhoneText({
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),
@@ -524,7 +526,7 @@ Widget dropdownField(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.redDark,
             ),
           ),
         ),

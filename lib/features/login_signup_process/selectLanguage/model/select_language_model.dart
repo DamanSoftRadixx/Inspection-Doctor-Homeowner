@@ -17,7 +17,7 @@ List<LanguageModel> languageList = [
   LanguageModel(
       languageName: AppStrings.english.tr,
       icon: ImageResource.flagUSA,
-      isSeleceted: false),
+      isSeleceted: true),
   LanguageModel(
       languageName: AppStrings.spanish.tr,
       icon: ImageResource.flagSpain,

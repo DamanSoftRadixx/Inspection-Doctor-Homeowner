@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
@@ -25,6 +31,20 @@ class SignupController extends GetxController {
   Rx<FocusNode> cityFocusNode = FocusNode().obs;
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
+
+  RxBool emailError = false.obs;
+  RxBool firstNameError = false.obs;
+  RxBool lastNameError = false.obs;
+  RxBool phoneError = false.obs;
+  RxBool passwordError = false.obs;
+  RxBool confirmPasswordError = false.obs;
+
+  RxString firstNameErrorMessage = "".obs;
+  RxString lastNameErrorMessage = "".obs;
+  RxString phoneErrorMessage = "".obs;
+  RxString emailErrorMessage = "".obs;
+  RxString passwordErrorMessage = "".obs;
+  RxString confirmPasswordErrorMessage = "".obs;
 
   RxString selectedCountryCode = "1".obs;
 
@@ -90,5 +110,121 @@ class SignupController extends GetxController {
   void onClose() {
     disposeFocusListeners();
     super.onClose();
+  }
+
+  void validate({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    print("fjghfjshgjfshg");
+
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = RegExp(pattern);
+
+    /* logger("password ${AutoValidate.password(password.toString())}");*/
+    if (firstName.isEmpty &&
+        lastName.isEmpty &&
+        email.isEmpty &&
+        phone.isEmpty &&
+        password.isEmpty &&
+        confirmPassword.isEmpty) {
+      print("testtt");
+      firstNameError.value = true;
+      lastNameError.value = true;
+      emailError.value = true;
+      phoneError.value = true;
+      passwordError.value = true;
+      confirmPasswordError.value = true;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+    } else if (firstName.isEmpty) {
+      firstNameError.value = true;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+    } else if (lastName.isEmpty) {
+      lastNameError.value = true;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+    } else if (email.isEmpty) {
+      emailError.value = true;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+    } else if (!email.isEmail) {
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailError.value = true;
+    } else if (phone.isEmpty) {
+      phoneError.value = true;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+    } else if (phone.length < 8 || phone.length > 15) {
+      phoneError.value = true;
+      phoneErrorMessage.value = ErrorMessages.phoneValid;
+    } else if (password.isEmpty) {
+      passwordError.value = true;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+    } else if (password.length < 8 || !regExp.hasMatch(password)) {
+      passwordError.value = true;
+      passwordErrorMessage.value = ErrorMessages.passwordLength;
+    } else if (confirmPassword.isEmpty) {
+      confirmPasswordError.value = true;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+    } else if (password != confirmPassword) {
+      confirmPasswordError.value = true;
+      confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches;
+    } else {
+      firstNameError.value = false;
+      lastNameError.value = false;
+      emailError.value = false;
+      phoneError.value = false;
+      passwordError.value = false;
+      confirmPasswordError.value = false;
+      Get.toNamed(Routes.otpVerifyScreen);
+    }
+  }
+
+  void onTapSignButton() {
+    dismissKeyboard();
+    validate(
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        email: emailController.text,
+        phone: phoneNumberController.text,
+        password: passwordController.text,
+        confirmPassword: confirmPasswordController.text);
+  }
+
+  KeyboardActionsConfig buildConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.grey[200],
+      nextFocus: true,
+      actions: [
+        KeyboardActionsItem(
+            focusNode: phoneNumberFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => passwordFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+      ],
+    );
   }
 }

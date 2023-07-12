@@ -23,6 +23,23 @@ class SelectLanguageController extends GetxController {
   }
 
   void onTapContinueButton() {
+    // var contain =
+    //     languageListObs.where((element) => element.isSeleceted == true);
+    // if (contain.isNotEmpty) {
+    //   Get.toNamed(Routes.loginScreen);
+    // } else {
+    //   showCommonAlertWithTwoActionsDialog(
+    //       title: AppStrings.alert,
+    //       subHeader: ErrorMessages.pleaseSelectAppLanguage,
+    //       rightButtonTitle: AppStrings.ok,
+    //       yesPressed: () {
+    //         Get.back();
+    //       },
+    //       noPressed: () {
+    //         Get.back();
+    //       });
+    // }
+
     Get.toNamed(Routes.loginScreen);
   }
 }

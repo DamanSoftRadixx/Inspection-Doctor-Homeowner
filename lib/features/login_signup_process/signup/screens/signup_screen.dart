@@ -1,5 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
@@ -10,10 +11,10 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupScreen extends GetView<SignupController> {
   const SignupScreen({Key? key}) : super(key: key);
@@ -28,32 +29,36 @@ class SignupScreen extends GetView<SignupController> {
         },
         title: AppStrings.signup.tr,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Obx(() => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  showHeadingText(),
-                  Column(
-                    children: [
-                      uploadPhotoWidget().paddingOnly(top: 30.h, bottom: 30.h),
-                      showFirstNameField().paddingOnly(bottom: 11.h),
-                      showLastNameField().paddingOnly(bottom: 11.h),
-                      showEmailField().paddingOnly(bottom: 11.h),
-                      showPhoneNumberField().paddingOnly(bottom: 11.h),
-                      showPasswordField().paddingOnly(bottom: 11.h),
-                      showConfirmPasswordField().paddingOnly(bottom: 11.h),
-                      showMailingAddress(),
-                      showStreetField().paddingOnly(bottom: 11.h),
-                      showCityField().paddingOnly(bottom: 11.h),
-                      showStateField().paddingOnly(bottom: 11.h),
-                      showZipCodeField(),
-                      showSignUpButton().paddingOnly(top: 40.h),
-                      showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
-                    ],
-                  ).paddingSymmetric(horizontal: 20.w),
-                ],
-              )),
+      body: KeyboardActions(
+        config: controller.buildConfig(context),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Obx(() => Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    showHeadingText(),
+                    Column(
+                      children: [
+                        uploadPhotoWidget()
+                            .paddingOnly(top: 30.h, bottom: 30.h),
+                        showFirstNameField().paddingOnly(bottom: 11.h),
+                        showLastNameField().paddingOnly(bottom: 11.h),
+                        showEmailField().paddingOnly(bottom: 11.h),
+                        showPhoneNumberField().paddingOnly(bottom: 11.h),
+                        showPasswordField().paddingOnly(bottom: 11.h),
+                        showConfirmPasswordField().paddingOnly(bottom: 11.h),
+                        showMailingAddress(),
+                        showStreetField().paddingOnly(bottom: 11.h),
+                        showCityField().paddingOnly(bottom: 11.h),
+                        showStateField().paddingOnly(bottom: 11.h),
+                        showZipCodeField(),
+                        showSignUpButton().paddingOnly(top: 40.h),
+                        showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
+                      ],
+                    ).paddingSymmetric(horizontal: 20.w),
+                  ],
+                )),
+          ),
         ),
       ),
     );
@@ -177,8 +182,7 @@ class SignupScreen extends GetView<SignupController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.signup.tr,
         onPress: () {
-          dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
+          controller.onTapSignButton();
         });
   }
 
@@ -213,49 +217,75 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showFirstNameField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
+      isError: controller.firstNameError.value,
+      errorMsg: controller.firstNameErrorMessage.value,
       focusNode: controller.firstNameFocusNode.value,
       controller: controller.firstNameController,
       title: AppStrings.firstName.tr,
       hint: AppStrings.firstName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          controller.firstNameError.value = false;
+        }
+      },
     );
   }
 
   Widget showLastNameField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.lastNameFocusNode.value,
       controller: controller.lastNameController,
+      isError: controller.lastNameError.value,
+      errorMsg: controller.lastNameErrorMessage.value,
       title: AppStrings.lastName.tr,
       hint: AppStrings.lastName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          controller.lastNameError.value = false;
+        }
+      },
     );
   }
 
   Widget showEmailField() {
     return commonTextFieldWidget(
+      isError: controller.emailError.value,
+      errorMsg: controller.emailErrorMessage.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.isNotEmpty && controller.emailController.text.isEmail) {
+          controller.emailError.value = false;
+        }
+      },
     );
   }
 
   Widget showPhoneNumberField() {
     return commonPhoneText(
+      onChanged: (value) {
+        if (controller.phoneNumberController.text.length > 8) {
+          controller.phoneError.value = false;
+        }
+      },
+      isError: controller.phoneError.value,
+      errorMsg: controller.phoneErrorMessage.value,
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController,
       title: AppStrings.phoneNumber.tr,
       hint: AppStrings.phoneNumber.tr,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
       countryCode: controller.selectedCountryCode.value,
       onSelect: (Country country) {
         controller.selectedCountryCode.value = country.phoneCode;
@@ -265,12 +295,25 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPasswordField() {
     return commonPasswordText(
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
       title: AppStrings.loginScreenPassword.tr,
       hint: AppStrings.loginScreenPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          if (!(controller.passwordController.text.length < 8 ||
+              controller.passwordController.text.contains(RegExp(r'[A-Z]')) ==
+                  false ||
+              controller.passwordController.text.contains(RegExp(r'[a-z]')) ==
+                  false)) {
+            controller.passwordError.value = false;
+          }
+        }
+      },
       onPress: () {
         if (controller.isHidePassword.value == false) {
           controller.isHidePassword.value = true;
@@ -284,12 +327,21 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
+      isError: controller.confirmPasswordError.value,
+      errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
       title: AppStrings.confirmpassword.tr,
       hint: AppStrings.confirmpassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty &&
+            (controller.passwordController.text ==
+                controller.confirmPasswordController.text)) {
+          controller.confirmPasswordError.value = false;
+        }
+      },
       onPress: () {
         if (controller.isHideConfirmPassword.value == false) {
           controller.isHideConfirmPassword.value = true;
@@ -303,6 +355,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
       title: AppStrings.street.tr,
@@ -315,6 +368,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.cityFocusNode.value,
       controller: controller.cityController,
       title: AppStrings.city.tr,
@@ -327,6 +381,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       focusNode: controller.stateFocusNode.value,
       controller: controller.stateController,
       title: AppStrings.state.tr,
@@ -339,11 +394,12 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       focusNode: controller.zipCodeFocusNode.value,
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );

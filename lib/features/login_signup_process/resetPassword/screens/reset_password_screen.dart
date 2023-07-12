@@ -19,22 +19,28 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       appBar: showAppBar(),
       body: SafeArea(
           child: Obx(
-        () => Column(
-          children: [
-            showHeadingText(),
-            showPasswordField(),
-            showConfirmPasswordField(),
-            showSendLinkButton(),
-          ],
-        ).paddingSymmetric(horizontal: 20.w),
+        () => SingleChildScrollView(
+          child: Column(
+            children: [
+              showHeadingText(),
+              showPasswordField(),
+              showConfirmPasswordField(),
+              showSendLinkButton(),
+            ],
+          ).paddingSymmetric(horizontal: 20.w),
+        ),
       )),
     );
   }
 
   showSendLinkButton() {
     return CommonButton(
-            commonButtonBottonText: AppStrings.reset.tr, onPress: () {})
-        .paddingOnly(top: 50.h);
+        commonButtonBottonText: AppStrings.reset.tr,
+        onPress: () {
+          controller.validate(
+              password: controller.passwordController.text,
+              confirmPassword: controller.confirmPasswordController.text);
+        }).paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {
@@ -75,12 +81,25 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
 
   Widget showPasswordField() {
     return commonPasswordText(
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
       title: AppStrings.resetNewPassword.tr,
       hint: AppStrings.resetNewPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          if (!(controller.passwordController.text.length < 8 ||
+              controller.passwordController.text.contains(RegExp(r'[A-Z]')) ==
+                  false ||
+              controller.passwordController.text.contains(RegExp(r'[a-z]')) ==
+                  false)) {
+            controller.passwordError.value = false;
+          }
+        }
+      },
       onPress: () {
         if (controller.isHidePassword.value == false) {
           controller.isHidePassword.value = true;
@@ -94,12 +113,21 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
+      isError: controller.confirmPasswordError.value,
+      errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
       title: AppStrings.confirmpassword.tr,
       hint: AppStrings.confirmpassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.isNotEmpty &&
+            (controller.passwordController.text ==
+                controller.confirmPasswordController.text)) {
+          controller.confirmPasswordError.value = false;
+        }
+      },
       onPress: () {
         if (controller.isHideConfirmPassword.value == false) {
           controller.isHideConfirmPassword.value = true;
