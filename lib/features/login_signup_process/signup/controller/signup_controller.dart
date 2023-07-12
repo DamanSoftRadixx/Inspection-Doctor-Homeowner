@@ -6,6 +6,8 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 
 class SignupController extends GetxController {
   TextEditingController firstNameController = TextEditingController();
