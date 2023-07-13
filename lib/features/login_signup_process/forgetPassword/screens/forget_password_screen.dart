@@ -71,7 +71,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       onPressBackButton: () {
         Get.back();
       },
-      title: AppStrings.forgot.tr,
+      title: AppStrings.forgotpassword.tr,
     );
   }
 

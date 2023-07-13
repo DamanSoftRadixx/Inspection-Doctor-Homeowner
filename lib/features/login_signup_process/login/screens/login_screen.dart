@@ -28,6 +28,7 @@ class LoginScreen extends GetView<LoginController> {
           )),
       body: SafeArea(
         child: ListView(
+          physics: const RangeMaintainingScrollPhysics(),
           children: [
             Container(
                 height: 35.h,

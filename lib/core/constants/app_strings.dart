@@ -247,6 +247,7 @@ class AppStrings {
 
   //Forgot
   static const forgot = "Forgot";
+  static const forgotpassword = "Forgot password";
   static const sendlink = "Send link";
   static const sendOTP = "Send OTP";
   static const dontYouReceivedLink = "Don’t you received link?";
