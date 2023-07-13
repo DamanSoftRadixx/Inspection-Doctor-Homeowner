@@ -178,7 +178,8 @@ class SignupScreen extends GetView<SignupController> {
         commonButtonBottonText: AppStrings.signup.tr,
         onPress: () {
           dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen);
+          Get.toNamed(Routes.otpVerifyScreen,
+              arguments: GetArgumentConstants.otpFromSignUp);
         });
   }
 

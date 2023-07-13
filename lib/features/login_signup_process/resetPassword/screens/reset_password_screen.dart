@@ -6,6 +6,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/controller/reset_password_controller.dart';
 
@@ -33,8 +34,11 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
 
   showSendLinkButton() {
     return CommonButton(
-            commonButtonBottonText: AppStrings.reset.tr, onPress: () {})
-        .paddingOnly(top: 50.h);
+        commonButtonBottonText: AppStrings.reset.tr,
+        onPress: () {
+          Get.until((route) =>
+              route.settings.name == Routes.loginScreen ? true : false);
+        }).paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {

@@ -248,6 +248,7 @@ class AppStrings {
   //Forgot
   static const forgot = "Forgot";
   static const sendlink = "Send link";
+  static const sendOTP = "Send OTP";
   static const dontYouReceivedLink = "Don’t you received link?";
   static const resendlink = "Resend link";
   static const donworryItOccurs = "Don’t worry! It occurs";
@@ -304,6 +305,9 @@ class GetArgumentConstants {
   static const navigateToChapterIndexModel = "navigateToChapterIndexModel";
   static const navigateToContentDataModel = "navigateToContentDataModel";
   static const navigateToAddEditJournalModel = "navigateToAddEditJournalModel";
+
+  static const otpFromForget = "otpFromForget";
+  static const otpFromSignUp = "otpFromSignUp";
 }
 
 class WeekDays {

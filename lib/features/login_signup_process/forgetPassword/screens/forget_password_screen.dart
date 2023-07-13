@@ -26,7 +26,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
             showHeadingText(),
             showEmailField(),
             showSendLinkButton(),
-            showResendOTP(),
+            // showResendOTP(),
           ],
         ).paddingSymmetric(horizontal: 20.w),
       ),
@@ -58,10 +58,11 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
 
   showSendLinkButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.sendlink.tr,
+        commonButtonBottonText: AppStrings.sendOTP.tr,
         onPress: () {
           dismissKeyboard();
-          Get.toNamed(Routes.resetPassword);
+          Get.toNamed(Routes.otpVerifyScreen,
+              arguments: GetArgumentConstants.otpFromForget);
         }).paddingOnly(top: 50.h);
   }
 
