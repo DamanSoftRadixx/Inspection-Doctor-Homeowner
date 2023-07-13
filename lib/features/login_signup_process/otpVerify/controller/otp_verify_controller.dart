@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
@@ -10,6 +12,7 @@ import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/model/verifiy_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/provider/otp_provider.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 
 class OtpVerifyController extends GetxController {
   OtpVerifyProvider otpVerifyProvider = OtpVerifyProvider();
@@ -78,6 +81,27 @@ class OtpVerifyController extends GetxController {
       }
     } catch (e) {
       isShowLoader.value = false;
+    }
+  }
+
+  RxBool isOTPFromForget = false.obs;
+
+  @override
+  void onInit() {
+    getArguments();
+
+    super.onInit();
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      log("getArguments $args");
+      log("getArguments ${GetArgumentConstants.otpFromForget}");
+      if (GetArgumentConstants.otpFromForget == args) {
+        log("getArguments ${GetArgumentConstants.otpFromForget == args}");
+        isOTPFromForget.value = true;
+      }
     }
   }
 }

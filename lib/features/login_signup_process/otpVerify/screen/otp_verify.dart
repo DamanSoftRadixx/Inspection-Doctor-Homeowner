@@ -69,6 +69,11 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         commonButtonBottonText: AppStrings.verify.tr,
         onPress: () {
           controller.onTapVerifyButton();
+          dismissKeyboard();
+          controller.isOTPFromForget.value
+              ? Get.toNamed(Routes.resetPassword)
+              : Get.until((route) =>
+                  route.settings.name == Routes.loginScreen ? true : false);
         }).paddingOnly(left: 20.w, right: 20.w, top: 50.h);
   }
 
@@ -125,26 +130,28 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            AppTextWidget(
-              textAlign: TextAlign.center,
-              text: AppStrings.oTPSent.tr,
-              style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryGrey,
-              ),
-            ),
-            AppTextWidget(
-              textAlign: TextAlign.center,
-              text: " +1 8451265847",
-              style: CustomTextTheme.categoryText(
-                color: lightColorPalette.primaryDarkblue,
-              ),
-            ).paddingOnly(top: 3.h)
-          ],
-        ),
+        Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                AppTextWidget(
+                  textAlign: TextAlign.center,
+                  text: AppStrings.oTPSent.tr,
+                  style: CustomTextTheme.normalText(
+                    color: lightColorPalette.primaryGrey,
+                  ),
+                ),
+                AppTextWidget(
+                  textAlign: TextAlign.center,
+                  text: controller.isOTPFromForget.value
+                      ? " itika21real@gmail.com"
+                      : " +1 8451265847",
+                  style: CustomTextTheme.categoryText(
+                    color: lightColorPalette.primaryDarkblue,
+                  ),
+                ).paddingOnly(top: 3.h)
+              ],
+            )),
       ],
     );
   }

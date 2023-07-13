@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
-            title: 'Inspection Doctor Homeowner',
+            title: 'Construction Inspection',
             translations: LocalString(),
             locale: const Locale('en', 'US'),
             debugShowCheckedModeBanner: false,

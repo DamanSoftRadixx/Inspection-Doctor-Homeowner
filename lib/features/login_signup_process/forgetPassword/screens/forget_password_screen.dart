@@ -31,6 +31,15 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           ).paddingSymmetric(horizontal: 20.w),
         ),
       )),
+        child: Column(
+          children: [
+            showHeadingText(),
+            showEmailField(),
+            showSendLinkButton(),
+            // showResendOTP(),
+          ],
+        ).paddingSymmetric(horizontal: 20.w),
+      ),
     );
   }
 
@@ -59,9 +68,12 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
 
   showSendLinkButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.sendlink.tr,
+        commonButtonBottonText: AppStrings.sendOTP.tr,
         onPress: () {
           controller.onTapSendLinkBotton();
+          dismissKeyboard();
+          Get.toNamed(Routes.otpVerifyScreen,
+              arguments: GetArgumentConstants.otpFromForget);
         }).paddingOnly(top: 50.h);
   }
 
@@ -70,7 +82,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       onPressBackButton: () {
         Get.back();
       },
-      title: AppStrings.forgot.tr,
+      title: AppStrings.forgotpassword.tr,
     );
   }
 
