@@ -292,7 +292,9 @@ class SignupController extends GetxController {
         Prefs.write(Prefs.token, signUpResponse.value.token);
         Future.delayed(const Duration(milliseconds: 2000), () {
           Get.toNamed(Routes.otpVerifyScreen, arguments: {
-            GetArgumentConstants.signUpOtp: signUpResponse.value.otp
+            GetArgumentConstants.signUpOtp: signUpResponse.value.otp,
+            GetArgumentConstants.otpFromSignUp:
+                GetArgumentConstants.otpFromSignUp
           });
         });
       } else {

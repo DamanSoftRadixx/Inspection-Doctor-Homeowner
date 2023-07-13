@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 
 class ResetPasswordController extends GetxController {
   Rx<FocusNode> passwordFocusNode = FocusNode().obs;
@@ -73,6 +74,9 @@ class ResetPasswordController extends GetxController {
     } else {
       passwordError.value = false;
       confirmPasswordError.value = false;
+
+      Get.until(
+          (route) => route.settings.name == Routes.loginScreen ? true : false);
     }
   }
 }

@@ -69,11 +69,6 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         commonButtonBottonText: AppStrings.verify.tr,
         onPress: () {
           controller.onTapVerifyButton();
-          dismissKeyboard();
-          controller.isOTPFromForget.value
-              ? Get.toNamed(Routes.resetPassword)
-              : Get.until((route) =>
-                  route.settings.name == Routes.loginScreen ? true : false);
         }).paddingOnly(left: 20.w, right: 20.w, top: 50.h);
   }
 

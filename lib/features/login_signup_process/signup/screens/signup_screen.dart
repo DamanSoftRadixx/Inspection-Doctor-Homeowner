@@ -192,8 +192,6 @@ class SignupScreen extends GetView<SignupController> {
         onPress: () {
           controller.onTapSignButton();
           dismissKeyboard();
-          Get.toNamed(Routes.otpVerifyScreen,
-              arguments: GetArgumentConstants.otpFromSignUp);
         });
   }
 

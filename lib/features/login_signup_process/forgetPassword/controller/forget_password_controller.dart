@@ -43,7 +43,9 @@ class ForgetPasswordController extends GetxController {
       emailErrorMessage.value = ErrorMessages.emailIsNotValid;
       emailError.value = true;
     } else {
-      Get.toNamed(Routes.resetPassword);
+      Get.toNamed(Routes.otpVerifyScreen, arguments: {
+        GetArgumentConstants.otpFromForget: GetArgumentConstants.otpFromForget
+      });
     }
   }
 
