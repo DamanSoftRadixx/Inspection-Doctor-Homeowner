@@ -73,38 +73,37 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
   }
 
   showPinView() {
-    return Column(
-      children: [
-        Pinput(
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          defaultPinTheme: defaultPinTheme,
-          focusedPinTheme: focusedPinTheme,
-          submittedPinTheme: submittedPinTheme,
-          showCursor: true,
-          onCompleted: (pin) {
-            controller.verifyCode.value = pin;
-            controller.isOtpError.value = true;
-          },
-          onChanged: (text) {
-            if (text.length < 4) {
-              controller.isOtpError.value = false;
-            }
-          },
-        ).paddingOnly(top: 50.h),
-        Visibility(
-          visible: controller.isOtpError.value,
-          child: Align(
-            alignment: Alignment.center,
-            child: AppTextWidget(
-              text: ErrorMessages.otpIsEmpty,
-              style: CustomTextTheme.subtext(
-                color: lightColorPalette.redDark,
+    return Obx(() => Column(
+          children: [
+            Pinput(
+              controller: controller.pinPutController,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              defaultPinTheme: defaultPinTheme,
+              focusedPinTheme: focusedPinTheme,
+              submittedPinTheme: submittedPinTheme,
+              showCursor: true,
+              onCompleted: (pin) {
+                controller.verifyCode.value = pin;
+                controller.isOtpError.value = false;
+              },
+              onChanged: (text) {
+                controller.verifyCode.value = text;
+                controller.isOtpError.value = false;
+              },
+            ).paddingOnly(top: 50.h),
+            Visibility(
+              visible: controller.isOtpError.value,
+              child: Align(
+                alignment: Alignment.center,
+                child: AppTextWidget(
+                  text: ErrorMessages.otpIsEmpty,
+                  style:
+                      CustomTextTheme.subtext(color: lightColorPalette.redDark),
+                ).paddingOnly(top: 10.h),
               ),
-            ).paddingOnly(top: 10.h),
-          ),
-        )
-      ],
-    );
+            )
+          ],
+        ));
   }
 
   AppBar showAppBar() {
