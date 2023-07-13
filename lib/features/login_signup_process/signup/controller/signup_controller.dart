@@ -269,10 +269,9 @@ class SignupController extends GetxController {
       "phone": phoneNumberController.text,
       "password": passwordController.text,
       "language_id": selectedLangId,
-      "country_code": selectedCountryCode.value,
+      "country_code": int.parse(selectedCountryCode.value),
       "state": stateController.text,
-      "zip_code":
-          zipCodeController.text == "" ? null : zipCodeController.text == "",
+      "zip_code": zipCodeController.text,
       "street": streetController.text,
       "city": cityController.text,
       "image": "621ca6da33032d8eb3c3b236",

@@ -17,10 +17,12 @@ class SignUpProvider {
     String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
     Map<String, String> headers = {
-      'language_id': selectedLangId,
       'Content-Type': 'application/json',
-      'accept': 'application/json'
+      'accept': 'application/json',
+      'language_id': selectedLangId,
     };
+
+    log("signUpUser Header  $headers");
     Options options = Options(headers: headers);
     if (await networkCheck.hasNetwork()) {
       try {

@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart' as cupertino_dialog;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 
-import '../constants/app_strings.dart';
 import '../theme/app_color_palette.dart';
 import 'text/app_text_widget.dart';
 
@@ -12,48 +10,72 @@ Future<void> showCommonAlertSingleButtonDialog(
     {required String title,
     required String subHeader,
     required String buttonTitle,
-    Function()? okPressed}) async {
-  // Get.back(closeOverlays: true);
+    void Function()? okPressed}) async {
   if (Get.isDialogOpen == null || Get.isDialogOpen == false) {
-    Get.dialog(
-      cupertino_dialog.CupertinoAlertDialog(
-        title: Center(
-          child: AppTextWidget(
-            text: title,
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryDarkblue),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        content: AppTextWidget(
-          text: subHeader,
-          style: Theme.of(Get.context!).textTheme.bodyMedium!.copyWith(
-              fontSize: 12.sp,
-              color: lightColorPalette.secondarySwatch.shade900,
-              fontWeight: FontWeight.w400,
-              letterSpacing: -0.08,
-              fontFamily: AppStrings.cancel),
-          textAlign: TextAlign.center,
-        ),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-            onPressed: okPressed,
-            child: Center(
-              child: AppTextWidget(
-                text: buttonTitle,
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue),
-                textAlign: TextAlign.start,
-              ),
+    showDialog(
+        context: Get.context!,
+        builder: (BuildContext context) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(10.0.r)), //this right here
+                  child: SizedBox(
+                    width: 1.sw,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppTextWidget(
+                                style: CustomTextTheme.heading2(
+                                    color: lightColorPalette.primaryDarkblue),
+                                text: title,
+                              ).paddingOnly(bottom: 12.h, top: 10.h),
+                              AppTextWidget(
+                                style: CustomTextTheme.bottomTabs(
+                                    color: lightColorPalette.primaryGrey),
+                                text: subHeader,
+                              ).paddingOnly(bottom: 12.h),
+                            ],
+                          ).paddingOnly(left: 12.w, right: 12.w),
+                        ),
+                        Container(
+                          width: 1.sw,
+                          height: 0.6.h,
+                          color: lightColorPalette.stroke,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomInkwell(
+                              onTap: okPressed,
+                              child: Center(
+                                child: AppTextWidget(
+                                  style: CustomTextTheme.heading2(
+                                      color: lightColorPalette.primaryBlue),
+                                  text: buttonTitle,
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ).paddingOnly(top: 12.h),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-
-      //      ),
-      // ],
-      //  )
-    );
+          );
+        });
   }
 }
 
@@ -62,94 +84,90 @@ Future<void> showCommonAlertWithTwoActionsDialog(
     required String subHeader,
     String? leftButtonTitle,
     String? rightButtonTitle,
-    required Function() okPressed}) async {
-  // Get.back(closeOverlays: true);
-  if (Get.isDialogOpen == null || Get.isDialogOpen == false) {
-    Get.dialog(
-      cupertino_dialog.CupertinoAlertDialog(
-        title: Center(
-          child: AppTextWidget(
-            text: title,
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryDarkblue),
-            textAlign: TextAlign.center,
+    required Function() noPressed,
+    required Function() yesPressed}) async {
+  showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(10.0.r)), //this right here
+                child: SizedBox(
+                  width: 1.sw,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AppTextWidget(
+                              style: CustomTextTheme.heading2(
+                                  color: lightColorPalette.primaryDarkblue),
+                              text: title,
+                            ).paddingOnly(bottom: 12.h, top: 10.h),
+                            AppTextWidget(
+                              style: CustomTextTheme.normalText(
+                                  color: lightColorPalette.primaryGrey),
+                              text: subHeader,
+                            ).paddingOnly(bottom: 12.h),
+                          ],
+                        ).paddingOnly(left: 12.w, right: 12.w),
+                      ),
+                      Container(
+                        width: 1.sw,
+                        height: 0.6.h,
+                        color: lightColorPalette.stroke,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: CustomInkwell(
+                            onTap: noPressed,
+                            child: Container(
+                              child: Center(
+                                child: AppTextWidget(
+                                  style: CustomTextTheme.heading2(
+                                      color: lightColorPalette.redDark),
+                                  text: leftButtonTitle ?? "No",
+                                ),
+                              ),
+                            ),
+                          )),
+                          Container(
+                            width: 0.6.w,
+                            height: 50.h,
+                            color: lightColorPalette.stroke,
+                          ),
+                          Expanded(
+                              child: CustomInkwell(
+                            onTap: yesPressed,
+                            child: Container(
+                              child: Center(
+                                child: AppTextWidget(
+                                  style: CustomTextTheme.heading2(
+                                      color: lightColorPalette.primaryBlue),
+                                  text: rightButtonTitle ?? "Yes",
+                                ),
+                              ),
+                            ),
+                          ))
+                        ],
+                      )
+                    ],
+                  ).paddingOnly(top: 12.h),
+                ),
+              ),
+            ],
           ),
-        ),
-        content: AppTextWidget(
-          text: subHeader,
-          style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue),
-          textAlign: TextAlign.center,
-        ),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-            onPressed: () {
-              Get.back();
-            },
-            child: AppTextWidget(
-              text: leftButtonTitle ?? AppStrings.cancel,
-              style: CustomTextTheme.normalText(
-                  color: lightColorPalette.primaryDarkblue),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          CupertinoDialogAction(
-            onPressed: () {
-              okPressed();
-            },
-            child: AppTextWidget(
-              text: rightButtonTitle ?? AppStrings.ok,
-              style: CustomTextTheme.normalText(
-                  color: lightColorPalette.primaryDarkblue),
-              textAlign: TextAlign.start,
-            ),
-          ),
-        ],
-      ),
-
-      //      ),
-      // ],
-      //  )
-    );
-  }
+        );
+      });
 }
-
-/*showCupertinoModalPopup<void>(
-    context: context,
-    builder: (BuildContext context) => CupertinoAlertDialog(
-      title: Center(
-        child: AppTextWidget(
-          text: title,
-          style: Theme.of(Get.context!).textTheme.bodyText1!.copyWith(
-              fontSize: 16.sp,
-              color: lightColorPalette.primarySwatch.shade900,
-              fontWeight: FontWeight.w600,
-              fontFamily: CommonStrings.sfProFont),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      content: AppTextWidget(
-        text: subHeader,
-        style: Theme.of(Get.context!).textTheme.bodyText2!.copyWith(
-            fontSize: 13.sp,
-            color: lightColorPalette.primarySwatch.shade700,
-            fontWeight: FontWeight.w300,
-            fontFamily: CommonStrings.sfProFont),
-        textAlign: TextAlign.center,
-      ),
-      actions: <CupertinoDialogAction>[
-        CupertinoDialogAction(
-          onPressed: okPressed,
-          child: AppTextWidget(
-            text: "Ok",
-            style: Theme.of(Get.context!).textTheme.bodyText1!.copyWith(
-                fontSize: 17.sp,
-                color: lightColorPalette.primarySwatch.shade800,
-                fontWeight: FontWeight.w400,
-                fontFamily: CommonStrings.sfProFont),
-            textAlign: TextAlign.start,
-          ),
-        ),
-      ],
-    ),
-  );*/

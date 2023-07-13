@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
@@ -5,6 +7,7 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 
 class DioExceptions implements Exception {
   DioExceptions.fromDioError({required DioException dioError}) {
+    log("DioException $dioError}");
     switch (dioError.type) {
       case DioExceptionType.cancel:
         // apiErrorDialog(
