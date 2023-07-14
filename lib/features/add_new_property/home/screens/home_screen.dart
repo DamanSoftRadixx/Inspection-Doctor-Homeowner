@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/controller/home_controller.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/home/widget/property_card.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,17 +22,24 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           backgroundColor: lightColorPalette.backgroundColor,
-          floatingActionButton: controller.homeList.isNotEmpty
+          floatingActionButton: controller.propertyList.isNotEmpty
               ? showFloatingButton()
               : const SizedBox(),
           body: SafeArea(
-            child: GestureDetector(
-              onTap: () {
-                dismissKeyboard();
-              },
-              child: controller.homeList.isEmpty
-                  ? showAddProperty()
-                  : showPropertyUi(),
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    dismissKeyboard();
+                  },
+                  child: controller.propertyList.isEmpty &&
+                          controller.isShowLoader.value == false &&
+                          controller.isShowNoDataFound.value == false
+                      ? showAddProperty()
+                      : showPropertyUi(),
+                ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
+              ],
             ),
           ),
         ));
@@ -69,141 +77,30 @@ class HomeScreen extends GetView<HomeController> {
   Widget showSearchBar() {
     return commonSearchFieldWidget(
         controller: controller.searchController,
-        onChanged: (value) {},
+        onChanged: (value) {
+          controller.onSeacrh(value);
+        },
         focusNode: controller.seacrhFocusNode.value,
         searchHint: AppStrings.searchNameAddress);
   }
 
   Expanded showPropertyList() {
     return Expanded(
-      child: ListView.builder(
+        child: RefreshIndicator(
+      onRefresh: () => Future.sync(() {
+        controller.pagingController.refresh();
+      }),
+      child: PagedListView<int, PropertyListData>(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.only(top: 18.h),
         shrinkWrap: true,
-        physics: const RangeMaintainingScrollPhysics(),
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) {
-          return CustomInkwell(
-            padding: EdgeInsets.zero,
-            onTap: () {
-              Get.toNamed(Routes.propertyDetailScreen);
-            },
-            child: Container(
-              margin: EdgeInsets.only(bottom: 20.h, left: 20.w, right: 20.w),
-              padding: EdgeInsets.only(
-                  left: 20.w, top: 15.h, right: 20.w, bottom: 14.h),
-              decoration: decorationHome(),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: AppTextWidget(
-                          style: CustomTextTheme.heading3(
-                              color: lightColorPalette.primaryDarkblue),
-                          text: "ABC Property name",
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          index == 0
-                              ? AssetWidget(
-                                  asset: Asset(
-                                    type: AssetType.svg,
-                                    path: ImageResource.updateIcon,
-                                  ),
-                                ).paddingOnly(right: 10.w)
-                              : const SizedBox(),
-                          AssetWidget(
-                            asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.forwordArrow,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      AssetWidget(
-                        asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.pinLocation,
-                        ),
-                      ).paddingOnly(right: 5.w),
-                      Expanded(
-                        child: AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.primaryGrey),
-                          text: "4001 Anderson Road, Nashville TN 37217",
-                        ),
-                      ),
-                    ],
-                  ).paddingOnly(top: 12.h, bottom: 12.h),
-                  Divider(
-                    color: lightColorPalette.stroke,
-                    height: 0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AssetWidget(
-                            asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.hashLogo,
-                            ),
-                          ).paddingOnly(right: 5.w),
-                          AppTextWidget(
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryGrey),
-                            text: "Lot#33",
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AssetWidget(
-                            asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.hashLogo,
-                            ),
-                          ).paddingOnly(right: 5.w),
-                          AppTextWidget(
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryGrey),
-                            text: "20224-0705",
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppTextWidget(
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue),
-                            text: '\u2022 ',
-                          ),
-                          AppTextWidget(
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue),
-                            text: "Scheduled",
-                          ),
-                        ],
-                      ),
-                    ],
-                  ).paddingOnly(top: 12.h)
-                ],
-              ),
-            ),
-          );
-        },
+        pagingController: controller.pagingController,
+        builderDelegate: PagedChildBuilderDelegate<PropertyListData>(
+            itemBuilder: (context, item, index) {
+          return PropertyCard(property: item);
+        }),
       ),
-    );
+    ));
   }
 
   Stack showAddProperty() {

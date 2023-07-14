@@ -12,6 +12,7 @@ class EndPoints {
 
   static const String getCounties = "user/get-counties";
   static const String addProperty = "property/add-property";
+  static const String propertyList = "property/property/list";
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

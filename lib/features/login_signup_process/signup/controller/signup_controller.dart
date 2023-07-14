@@ -273,7 +273,7 @@ class SignupController extends GetxController {
       "zip_code": zipCodeController.text,
       "street": streetController.text,
       "city": cityController.text,
-      "image": "621ca6da33032d8eb3c3b236",
+      "image": "",
       "device_type":
           isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
       "device_token": "eydhghjd",

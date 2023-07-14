@@ -321,6 +321,7 @@ class GetArgumentConstants {
   static const from = "from";
   static const phoneNumber = "phoneNumber";
   static const email = "email";
+  static const propertyCard = "propertyCard";
 }
 
 class WeekDays {

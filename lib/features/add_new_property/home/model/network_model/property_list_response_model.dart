@@ -1,11 +1,12 @@
 class PropertyListResponseModel {
   PropertyListResponseModel({
-      this.status, 
-      this.success, 
-      this.message, 
-      this.data, 
-      this.recordsTotal, 
-      this.recordsFiltered,});
+    this.status,
+    this.success,
+    this.message,
+    this.data,
+    this.recordsTotal,
+    this.recordsFiltered,
+  });
 
   PropertyListResponseModel.fromJson(dynamic json) {
     status = json['status'];
@@ -14,7 +15,7 @@ class PropertyListResponseModel {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(PropertyListData.fromJson(v));
       });
     }
     recordsTotal = json['recordsTotal'];
@@ -23,7 +24,7 @@ class PropertyListResponseModel {
   int? status;
   bool? success;
   String? message;
-  List<Data>? data;
+  List<PropertyListData>? data;
   int? recordsTotal;
   int? recordsFiltered;
 
@@ -39,31 +40,31 @@ class PropertyListResponseModel {
     map['recordsFiltered'] = recordsFiltered;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.id, 
-      this.assignedUserId, 
-      this.createdById, 
-      this.propertyName, 
-      this.street, 
-      this.state, 
-      this.city, 
-      this.zipCode, 
-      this.lotNumber, 
-      this.blockNumber, 
-      this.permitNumber, 
-      this.countyId, 
-      this.acrhitecturelDrawing, 
-      this.latestUpdate, 
-      this.deletedAt, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,});
+class PropertyListData {
+  PropertyListData({
+    this.id,
+    this.assignedUserId,
+    this.createdById,
+    this.propertyName,
+    this.street,
+    this.state,
+    this.city,
+    this.zipCode,
+    this.lotNumber,
+    this.blockNumber,
+    this.permitNumber,
+    this.countyId,
+    this.acrhitecturelDrawing,
+    this.latestUpdate,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
-  Data.fromJson(dynamic json) {
+  PropertyListData.fromJson(dynamic json) {
     id = json['_id'];
     assignedUserId = json['assigned_user_id'];
     createdById = json['created_by_id'];
@@ -124,5 +125,4 @@ class Data {
     map['__v'] = v;
     return map;
   }
-
 }

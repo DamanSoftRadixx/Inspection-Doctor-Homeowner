@@ -8,6 +8,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
+import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/controller/property_detail_controller.dart';
 
 class PropertyDetailScreen extends GetView<PropertyDetailController> {
@@ -52,7 +53,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             child: AppTextWidget(
               style: CustomTextTheme.heading3(
                   color: lightColorPalette.primaryDarkblue),
-              text: "ABC Property name",
+              text: controller.property.propertyName ?? "",
             ),
           ),
           Row(
@@ -67,7 +68,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               AppTextWidget(
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryGrey),
-                text: "4001 Anderson Road, Nashville TN 37217",
+                text: getAddressFormat(controller.property),
               ),
             ],
           ).paddingOnly(top: 5.h, bottom: 5.h),
@@ -83,7 +84,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               AppTextWidget(
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryGrey),
-                text: "LIN0000000310",
+                text: controller.property.permitNumber ?? "",
               ),
             ],
           ),
@@ -102,7 +103,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
                         color: lightColorPalette.primaryGrey),
-                    text: "Lot#33",
+                    text: controller.property.lotNumber ?? "",
                   ),
                 ],
               ).paddingOnly(right: 20.w),
@@ -118,7 +119,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
                         color: lightColorPalette.primaryGrey),
-                    text: "20224-0705",
+                    text: controller.property.blockNumber ?? "",
                   ),
                 ],
               ),

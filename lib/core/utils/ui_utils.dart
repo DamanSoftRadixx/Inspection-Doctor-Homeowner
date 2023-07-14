@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
 
 DateTime? loginClickTime;
 
@@ -55,4 +56,8 @@ Widget disableScreen({required bool isDisable}) {
   return isDisable
       ? Container(color: lightColorPalette.transparentColor)
       : const SizedBox();
+}
+
+String getAddressFormat(PropertyListData property) {
+  return "${property.street}, ${property.city}, ${property.state}, ${property.zipCode}";
 }
