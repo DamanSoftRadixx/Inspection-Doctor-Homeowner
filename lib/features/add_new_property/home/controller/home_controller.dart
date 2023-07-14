@@ -9,6 +9,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/provider/home_provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
   HomeProvider homeProvider = HomeProvider();
@@ -41,6 +42,8 @@ class HomeController extends GetxController {
   }
 
   static const pageSize = 2;
+
+  RefreshController refreshController = RefreshController();
 
   final PagingController<int, PropertyListData> pagingController =
       PagingController(firstPageKey: 0);
@@ -134,6 +137,8 @@ class HomeController extends GetxController {
             pagingController.appendPage(propertyList, nextPageKey);
           }
         }
+
+        refreshController.refreshCompleted();
 
         log("message ${propertyList.length}");
       } else {

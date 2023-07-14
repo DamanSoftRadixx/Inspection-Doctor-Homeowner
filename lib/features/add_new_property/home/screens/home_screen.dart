@@ -6,6 +6,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_ke
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/refresh_indicator/common_refresh_indicator.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -22,9 +23,7 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           backgroundColor: lightColorPalette.backgroundColor,
-          floatingActionButton: controller.propertyList.isNotEmpty
-              ? showFloatingButton()
-              : const SizedBox(),
+          floatingActionButton: showFloatingButton(),
           body: SafeArea(
             child: Stack(
               children: [
@@ -86,10 +85,11 @@ class HomeScreen extends GetView<HomeController> {
 
   Expanded showPropertyList() {
     return Expanded(
-        child: RefreshIndicator(
+        child: CommonRefreshIndicator(
       onRefresh: () => Future.sync(() {
         controller.pagingController.refresh();
       }),
+      controller: controller.refreshController,
       child: PagedListView<int, PropertyListData>(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.only(top: 18.h),

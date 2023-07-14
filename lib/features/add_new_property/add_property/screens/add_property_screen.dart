@@ -62,8 +62,8 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showAddDocmentBox() {
     return GestureDetector(
-      onTap: () {
-        controller.uploadDocuments();
+      onTap: () async {
+        await controller.onTapUploadPDF();
       },
       child: commonDocumentPicker(
           title: AppStrings.uploadArchitecturalDrawing.tr,

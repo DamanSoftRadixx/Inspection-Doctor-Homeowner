@@ -235,6 +235,9 @@ class AppStrings {
   static const login = "Log in";
   static const uploadPhoto = "Upload photo";
   static const removePhoto = "Remove photo";
+  static const takePhoto = "Take photo";
+  static const uploadFromDevice = "Upload from device";
+  static const addFile = "Add file";
 
   //OTP
   static const otp = "OTP";
@@ -277,6 +280,7 @@ class AppStrings {
   static const next = "Next";
   static const cancel = "Cancel";
   static const String connectionTimeOut = "The connection has timed out";
+  static const close = "Close";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
@@ -301,6 +305,11 @@ class AppStrings {
   static const edit = "Edit";
   static const delete = "Delete";
   static const scheduleInspection = "Schedule inspection";
+
+  //Permissions
+  static const permissionDenied = "Permission Denied";
+  static const openSettings = "Open Settings ";
+  static const accessWasPreviouslyDenied = "Access Was Previously Denied";
 }
 
 class GetArgumentConstants {

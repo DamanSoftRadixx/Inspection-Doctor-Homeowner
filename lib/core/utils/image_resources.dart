@@ -27,7 +27,10 @@ class ImageResource {
   static const selectedRadioIcon = "assets/images/svg/selected_radio_icon.svg";
 
   //SignUp
+
   static String uploadPhoto = "assets/images/svg/upload_photo.svg";
+  static String bottomIcon = "assets/images/svg/BottomIcon.svg";
+  static String crossIcon = "assets/images/svg/crossIcon.svg";
 
   //Dashboard
   static const selectedHomeIcon = "assets/images/svg/selected_home_icon.svg";

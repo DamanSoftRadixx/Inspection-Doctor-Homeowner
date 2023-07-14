@@ -26,7 +26,7 @@ class CommonRefreshIndicator extends StatelessWidget {
       },
       physics: const BouncingScrollPhysics(),
       header: WaterDropMaterialHeader(
-        backgroundColor: lightColorPalette.primarySwatch.shade900,
+        backgroundColor: lightColorPalette.primaryBlue,
         color: lightColorPalette.whiteColorPrimary.shade900,
       ),
       onLoading: onLoading,
