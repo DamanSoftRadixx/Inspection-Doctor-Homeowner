@@ -1,23 +1,43 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
 
 class AddPropertyProvider {
   ApiHitter apiHitter = ApiHitter();
 
-  Future<SignUpResponseModel?> addProperty({required Object body}) async {
+  Future<AddPropertyResponseModel?> addProperty({required Object body}) async {
     try {
       Response response =
-          await apiHitter.postApi(endPoint: EndPoints.register, body: body);
+          await apiHitter.postApi(endPoint: EndPoints.addProperty, body: body);
 
-      log("response $response");
-      SignUpResponseModel data = SignUpResponseModel.fromJson(response.data);
-      showResponseData(data, type: 'signUpUser');
+      AddPropertyResponseModel data =
+          AddPropertyResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'addProperty');
+
+      return data;
+    } catch (e) {
+      if (e is DioException) {
+        //This is the custom message coming from the backend
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception(e.toString());
+      }
+    }
+  }
+
+  Future<GetCountyResponseModel?> counties() async {
+    try {
+      Response response = await apiHitter.getApi(
+        endPoint: EndPoints.getCounties,
+      );
+
+      GetCountyResponseModel data =
+          GetCountyResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'counties');
 
       return data;
     } catch (e) {

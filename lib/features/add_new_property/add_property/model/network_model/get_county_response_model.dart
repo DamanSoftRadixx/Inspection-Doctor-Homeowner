@@ -1,15 +1,18 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class GetCountyResponseModel {
   GetCountyResponseModel({
-      this.status, 
-      this.success, 
-      this.data, 
-      this.message,});
+    this.status,
+    this.success,
+    this.data,
+    this.message,
+  });
 
   GetCountyResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
@@ -26,12 +29,12 @@ class GetCountyResponseModel {
     map['message'] = message;
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.counties,});
+    this.counties,
+  });
 
   Data.fromJson(dynamic json) {
     if (json['counties'] != null) {
@@ -50,29 +53,30 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Counties {
   Counties({
-      this.id, 
-      this.name, 
-      this.stateId, 
-      this.isActive, 
-      this.deletedAt, 
-      this.v, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.name,
+    this.stateId,
+    this.isActive,
+    this.deletedAt,
+    this.v,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Counties.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
-    stateId = json['state_id'];
+    id = json['_id'].toString().toStringConversion();
+    name = json['name'].toString().toStringConversion();
+
+    stateId = json['state_id'].toString().toStringConversion();
     isActive = json['is_active'];
-    deletedAt = json['deleted_at'];
-    v = json['__v'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    deletedAt = json['deleted_at'].toString().toStringConversion();
+    v = json['__v'].toString().toIntConversion();
+    createdAt = json['createdAt'].toString().toStringConversion();
+    updatedAt = json['updatedAt'].toString().toStringConversion();
   }
   String? id;
   String? name;
@@ -95,5 +99,4 @@ class Counties {
     map['updatedAt'] = updatedAt;
     return map;
   }
-
 }

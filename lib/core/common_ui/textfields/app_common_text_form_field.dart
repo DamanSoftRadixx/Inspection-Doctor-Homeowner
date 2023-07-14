@@ -15,19 +15,19 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 Widget commonTextFieldWidget(
     {required TextEditingController controller,
-      String? title,
-      String? hint,
-      required FocusNode focusNode,
-      Function(String value)? onChanged,
-      String? errorMsg,
-      bool? isError,
-      bool? readOnly,
-      bool? autoFocus,
-      TextInputType? keyboardType,
-      TextInputAction? textInputAction,
-      int? maxLength,
-      TextCapitalization? textCapitalization,
-      List<TextInputFormatter>? inputFormatters}) {
+    String? title,
+    String? hint,
+    required FocusNode focusNode,
+    Function(String value)? onChanged,
+    String? errorMsg,
+    bool? isError,
+    bool? readOnly,
+    bool? autoFocus,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+    int? maxLength,
+    TextCapitalization? textCapitalization,
+    List<TextInputFormatter>? inputFormatters}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -97,16 +97,16 @@ Widget commonTextFieldWidget(
 
 Widget commonPasswordText(
     {required final String title,
-      required bool passwordVisible,
-      final VoidCallback? onPress,
-      required final TextEditingController controller,
-      required FocusNode focusNode,
-      String? errorMsg,
-      bool? isError,
-      String? hint,
-      Function(String value)? onChanged,
-      TextInputType? keyboardType,
-      TextInputAction? textInputAction}) {
+    required bool passwordVisible,
+    final VoidCallback? onPress,
+    required final TextEditingController controller,
+    required FocusNode focusNode,
+    String? errorMsg,
+    bool? isError,
+    String? hint,
+    Function(String value)? onChanged,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,7 +153,7 @@ Widget commonPasswordText(
                   decoration: InputDecoration(
                     hintStyle: CustomTextTheme.normalText(
                         color:
-                        lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                            lightColorPalette.primaryDarkblue.withOpacity(0.5)),
                     border: InputBorder.none,
                     counterText: "",
                     hintText: hint ?? "",
@@ -171,19 +171,19 @@ Widget commonPasswordText(
                     onTap: onPress == null
                         ? null
                         : () {
-                      onPress();
-                    },
+                            onPress();
+                          },
                     child: passwordVisible
                         ? AssetWidget(
-                      asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.hideEye),
-                    )
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.hideEye),
+                          )
                         : AssetWidget(
-                      asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.openEye),
-                    ),
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.openEye),
+                          ),
                   )),
             ],
           ),
@@ -249,7 +249,7 @@ Widget commonPhoneText({
                   showPhoneCode: true,
                   onSelect: onSelect,
                   countryListTheme:
-                  CountryListThemeData(bottomSheetHeight: .80.sh),
+                      CountryListThemeData(bottomSheetHeight: .80.sh),
                 );
               },
               child: Row(
@@ -257,11 +257,11 @@ Widget commonPhoneText({
                 children: [
                   Flexible(
                     child: Text(
-                        countryCode.contains("+")
-                            ? countryCode
-                            : "+$countryCode",
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.primaryDarkblue))
+                            countryCode.contains("+")
+                                ? countryCode
+                                : "+$countryCode",
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryDarkblue))
                         .paddingOnly(left: 15.w, top: 1.h),
                   ),
                 ],
@@ -286,7 +286,7 @@ Widget commonPhoneText({
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.w),
                   hintStyle: CustomTextTheme.normalText(
                       color:
-                      lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                          lightColorPalette.primaryDarkblue.withOpacity(0.5)),
 
                   // contentPadding: EdgeInsets.only(left:10.w,right: 10.w,bottom: 7.5.h,top: 0.h),
                 ),
@@ -410,22 +410,21 @@ Widget commonDateFieldWidget({
   );
 }
 
-
 Widget dropdownField(
-    {String hint = "",
-      required DropdownModel selectedValue,
-      required Function(DropdownModel value) onClick,
-      EdgeInsetsGeometry? padding,
-      required List<DropdownModel> list,
-      bool? isExpanded,
-      bool isMandatory = false,
-      bool isShowRightButton = false,
-      String? title,
-      Widget? rightButtonDesign,
-      bool isError = false,
-      Function()? onTap,
-      String? errorMsg,
-      bool hasFocus = false}) {
+    {String? hint,
+    required DropdownModel selectedValue,
+    required Function(DropdownModel value) onClick,
+    EdgeInsetsGeometry? padding,
+    required List<DropdownModel> list,
+    bool? isExpanded,
+    bool isMandatory = false,
+    bool isShowRightButton = false,
+    String? title,
+    Widget? rightButtonDesign,
+    bool isError = false,
+    Function()? onTap,
+    String? errorMsg,
+    bool hasFocus = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -498,17 +497,14 @@ Widget dropdownField(
             iconStyleData: IconStyleData(
               icon: Center(
                 child: Icon(Icons.arrow_drop_down,
-                    color: lightColorPalette.primaryDarkblue, size: 25.h)
+                        color: lightColorPalette.primaryDarkblue, size: 25.h)
                     .paddingOnly(right: 4.w),
               ),
             ),
-            hint: Text(
-              hint,
-              style: TextStyle(
-                color: lightColorPalette.primaryDarkblue,
-                fontWeight: FontWeight.w500,
-                fontSize: 14.sp,
-              ),
+            hint: AppTextWidget(
+              text: hint ?? "",
+              style: CustomTextTheme.normalText(
+                  color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
             ),
             buttonStyleData: ButtonStyleData(
               padding: EdgeInsets.only(left: 2.w, right: 5.w),
@@ -534,46 +530,46 @@ Widget dropdownField(
             },
             items: list
                 .map((DropdownModel model) => DropdownMenuItem<DropdownModel>(
-              value: model,
-              child: DropdownMenuItem(
-                value: model,
-                child: StatefulBuilder(builder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
-                    child: Row(
-                      children: [
-                        AppTextWidget(
-                          text: model.name.toString(),
-                          style: TextStyle(
-                            fontSize: 14.w,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: CommonStrings.generalSans,
-                            color: lightColorPalette.primaryDarkblue,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Spacer(),
-                        selectedValue.id == model.id
-                            ? Padding(
-                            padding: EdgeInsets.only(left: 8.w),
-                            child: Icon(
-                              Icons.check_sharp,
-                              color: lightColorPalette.primaryBlue,
-                              size: 15.r,
-                            )
+                      value: model,
+                      child: DropdownMenuItem(
+                        value: model,
+                        child: StatefulBuilder(builder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
+                            child: Row(
+                              children: [
+                                AppTextWidget(
+                                  text: model.name.toString(),
+                                  style: TextStyle(
+                                    fontSize: 14.w,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: CommonStrings.generalSans,
+                                    color: lightColorPalette.primaryDarkblue,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const Spacer(),
+                                selectedValue.id == model.id
+                                    ? Padding(
+                                        padding: EdgeInsets.only(left: 8.w),
+                                        child: Icon(
+                                          Icons.check_sharp,
+                                          color: lightColorPalette.primaryBlue,
+                                          size: 15.r,
+                                        )
 
-                          // AssetWidget(
-                          //     asset: Asset(
-                          //         type: AssetType.svg,
-                          //         path: ImageResource.checked)),
-                        )
-                            : Container(),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-            ))
+                                        // AssetWidget(
+                                        //     asset: Asset(
+                                        //         type: AssetType.svg,
+                                        //         path: ImageResource.checked)),
+                                        )
+                                    : Container(),
+                              ],
+                            ),
+                          );
+                        }),
+                      ),
+                    ))
                 .toList(),
             onChanged: (DropdownModel? value) {
               onClick(value!);
@@ -585,10 +581,10 @@ Widget dropdownField(
           alignment: Alignment.topLeft,
           child: AppTextWidget(
             text: errorMsg ?? "",
-            style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+            style: CustomTextTheme.bottomTabs(
+              color: lightColorPalette.redDark,
             ),
-          ),
+          ).paddingOnly(top: 5.h),
         ),
       ),
     ],
@@ -596,14 +592,15 @@ Widget dropdownField(
 }
 
 class DropdownModel extends Equatable {
-  String id, name, status, type;
+  String id, name, status, type, stateId;
   bool isActive;
   DropdownModel(
       {this.id = "",
-        this.name = "",
-        this.status = "",
-        this.type = "",
-        this.isActive = true});
+      this.name = "",
+      this.status = "",
+      this.type = "",
+      this.stateId = "",
+      this.isActive = true});
   @override
   String toString() => name;
   @override

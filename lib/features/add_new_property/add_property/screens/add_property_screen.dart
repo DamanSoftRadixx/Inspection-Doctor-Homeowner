@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/common_document_picker.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyScreen extends GetView<AddPropertyController> {
   const AddPropertyScreen({Key? key}) : super(key: key);
@@ -24,30 +26,37 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
             Get.back();
           }),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Obx(() => Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      showPropertyNameField()
-                          .paddingOnly(bottom: 11.h, top: 20.h),
-                      showStreetNameField().paddingOnly(bottom: 11.h),
-                      showCityField().paddingOnly(bottom: 11.h),
-                      showStateField().paddingOnly(bottom: 11.h),
-                      showZipCodeField().paddingOnly(bottom: 11.h),
-                      showPermitNumberield().paddingOnly(bottom: 11.h),
-                      showLotNumberField().paddingOnly(bottom: 11.h),
-                      showBlockNumberField().paddingOnly(bottom: 11.h),
-                      showCountyDropDown().paddingOnly(bottom: 11.h),
-                      showAddDocmentBox(),
-                      showAddPropertyButton().paddingSymmetric(vertical: 20.h),
-                    ],
-                  ).paddingSymmetric(horizontal: 20.w),
-                ],
-              )),
+          child: Obx(
+        () => Stack(
+          children: [
+            KeyboardActions(
+                config: controller.buildConfig(context),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        showPropertyNameField()
+                            .paddingOnly(bottom: 11.h, top: 20.h),
+                        showStreetNameField().paddingOnly(bottom: 11.h),
+                        showCityField().paddingOnly(bottom: 11.h),
+                        showStateField().paddingOnly(bottom: 11.h),
+                        showZipCodeField().paddingOnly(bottom: 11.h),
+                        showPermitNumberield().paddingOnly(bottom: 11.h),
+                        showLotNumberField().paddingOnly(bottom: 11.h),
+                        showBlockNumberField().paddingOnly(bottom: 11.h),
+                        showCountyDropDown().paddingOnly(bottom: 11.h),
+                        showAddDocmentBox(),
+                        showAddPropertyButton()
+                            .paddingSymmetric(vertical: 20.h),
+                      ],
+                    ).paddingSymmetric(horizontal: 20.w),
+                  ],
+                )),
+            CommonLoader(isLoading: controller.isShowLoader.value)
+          ],
         ),
-      ),
+      )),
     );
   }
 
@@ -67,12 +76,16 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showCountyDropDown() {
     return dropdownField(
+        isError: controller.countyError.value,
+        errorMsg: controller.countyErrorMessage.value,
+        hint: AppStrings.county.tr,
         title: AppStrings.county.tr,
         selectedValue: controller.selectedBaseMaterialDropDown.value,
         onClick: (DropdownModel value) {
           controller.onSelectBaseMaterialDropdown(value: value);
+          controller.countyError.value = false;
         },
-        list: controller.beddingMaterialList,
+        list: controller.countiesList,
         isExpanded: true);
   }
 
@@ -112,7 +125,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
     return commonTextFieldWidget(
       maxLength: 30,
       isError: controller.streetError.value,
-      errorMsg: controller.stateErrorMessage.value,
+      errorMsg: controller.streetErrorMessage.value,
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
       title: AppStrings.street.tr,
@@ -174,7 +187,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedZipCodeTextField(value: value);
@@ -193,7 +206,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       controller: controller.permitNumberController,
       title: AppStrings.permitNumber.tr,
       hint: AppStrings.permitNumber.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedPermitNumberTextField(value: value);
@@ -213,7 +226,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       controller: controller.lotNumberController,
       title: AppStrings.lotNumber.tr,
       hint: AppStrings.lotNumber.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedLotNumberTextField(value: value);
@@ -233,7 +246,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       controller: controller.blockNumberController,
       title: AppStrings.blockNumber.tr,
       hint: AppStrings.blockNumber.tr,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedBlocTextField(value: value);

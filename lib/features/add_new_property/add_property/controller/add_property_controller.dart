@@ -2,9 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/provider/add_property_provider.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyController extends GetxController {
   AddPropertyProvider addPropertyProvider = AddPropertyProvider();
@@ -26,8 +33,8 @@ class AddPropertyController extends GetxController {
   Rx<FocusNode> lotNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> blockNumberFocusNode = FocusNode().obs;
 
-  RxList<DropdownModel> beddingMaterialList = <DropdownModel>[].obs;
-  var selectedBaseMaterialDropDown = DropdownModel().obs;
+  // RxList<DropdownModel> beddingMaterialList = <DropdownModel>[].obs;
+
   RxBool isShowLoader = false.obs;
 
   RxBool propertyNameError = false.obs;
@@ -91,10 +98,14 @@ class AddPropertyController extends GetxController {
     blockNumberFocusNode.value.removeListener(() {});
   }
 
+  RxList<DropdownModel> countiesList = <DropdownModel>[].obs;
+  var selectedBaseMaterialDropDown = DropdownModel().obs;
+
   @override
   void onInit() {
+    getCounties();
     addFocusListeners();
-    initBaseMaterialList();
+
     super.onInit();
   }
 
@@ -108,14 +119,6 @@ class AddPropertyController extends GetxController {
     selectedBaseMaterialDropDown.value = value;
   }
 
-  initBaseMaterialList() {
-    beddingMaterialList.value = [
-      DropdownModel(name: "one", id: "1"),
-      DropdownModel(name: "two", id: "2"),
-      DropdownModel(name: "three", id: "3"),
-    ];
-  }
-
   onPressAddPropertyButton() {
     validate(
         perpertyName: propertyController.text,
@@ -125,7 +128,8 @@ class AddPropertyController extends GetxController {
         zipCode: zipCodeController.text,
         permitNumber: permitNumberController.text,
         lotNumber: lotNumberController.text,
-        blockNumber: blockNumberController.text);
+        blockNumber: blockNumberController.text,
+        county: selectedBaseMaterialDropDown.value.id);
   }
 
   setShowLoader({required bool value}) {
@@ -146,41 +150,31 @@ class AddPropertyController extends GetxController {
       "block_number": blockNumberController.text,
       "permit_number": permitNumberController.text,
       "state": stateController.text,
-      "county_id": "6243ed27139b3b6b45b4a6f2",
+      "county_id": selectedBaseMaterialDropDown.value.id,
       "acrhitecturel_drawing": "6243ed27139b3b6b45b4a6f2"
     });
 
-    await addPropertyProvider.addProperty(body: body);
-
-    // try {
-    //   SignUpResponseModel response =
-    //       await addPropertyProvider.addProperty(body: body) ??
-    //           SignUpResponseModel();
-    //   setShowLoader(value: false);
-    //   if (response.success == true &&
-    //       (response.status == 201 || response.status == 200)) {
-    //     signUpResponse.value = response.data ?? SignUpResponseData();
-    //     var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-    //     if (token != "") Prefs.write(Prefs.token, token);
-    //     Get.toNamed(Routes.otpVerifyScreen, arguments: {
-    //       GetArgumentConstants.otp: signUpResponse.value.otp,
-    //       GetArgumentConstants.phoneNumber:
-    //           "+$selectedCountryCode ${phoneNumberController.text}",
-    //       GetArgumentConstants.from: Routes.signupScreen
-    //     });
-    //     snackbar(response.message ?? "");
-    //   } else {
-    //     setShowLoader(value: false);
-    //     apiErrorDialog(
-    //       message: response.message ?? AppStrings.somethingWentWrong,
-    //       okButtonPressed: () {
-    //         Get.back();
-    //       },
-    //     );
-    //   }
-    // } catch (e) {
-    //   setShowLoader(value: false);
-    // }
+    try {
+      AddPropertyResponseModel response =
+          await addPropertyProvider.addProperty(body: body) ??
+              AddPropertyResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        snackbar(response.message ?? "");
+        Get.back(closeOverlays: true);
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
   }
 
   void validate({
@@ -192,6 +186,7 @@ class AddPropertyController extends GetxController {
     required String permitNumber,
     required String lotNumber,
     required String blockNumber,
+    required String county,
   }) async {
     if (perpertyName.isEmpty &&
         street.isEmpty &&
@@ -200,7 +195,8 @@ class AddPropertyController extends GetxController {
         zipCode.isEmpty &&
         permitNumber.isEmpty &&
         lotNumber.isEmpty &&
-        blockNumber.isEmpty) {
+        blockNumber.isEmpty &&
+        county.isEmpty) {
       propertyNameError.value = true;
       streetError.value = true;
       cityError.value = true;
@@ -209,6 +205,17 @@ class AddPropertyController extends GetxController {
       permitNumberError.value = true;
       lotNumberError.value = true;
       blockNumberError.value = true;
+      countyError.value = true;
+      propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
+      propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
+      streetErrorMessage.value = ErrorMessages.streetEmty;
+      cityErrorMessage.value = ErrorMessages.cityEmty;
+      zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
+      permitNumberErrorMessage.value = ErrorMessages.permitEmty;
+      lotNumberErrorMessage.value = ErrorMessages.lotEmty;
+      blockNumberErrorMessage.value = ErrorMessages.blockEmty;
+      stateErrorMessage.value = ErrorMessages.stateEmty;
+      countyErrorMessage.value = ErrorMessages.countyEmty;
     } else if (perpertyName.isEmpty) {
       propertyNameError.value = true;
       propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
@@ -218,6 +225,9 @@ class AddPropertyController extends GetxController {
     } else if (city.isEmpty) {
       cityError.value = true;
       cityErrorMessage.value = ErrorMessages.cityEmty;
+    } else if (state.isEmpty) {
+      stateError.value = true;
+      stateErrorMessage.value = ErrorMessages.stateEmty;
     } else if (zipCode.isEmpty) {
       zipCodeError.value = true;
       zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
@@ -230,6 +240,9 @@ class AddPropertyController extends GetxController {
     } else if (blockNumber.isEmpty) {
       blockNumberError.value = true;
       blockNumberErrorMessage.value = ErrorMessages.blockEmty;
+    } else if (county.isEmpty) {
+      countyError.value = true;
+      countyErrorMessage.value = ErrorMessages.countyEmty;
     } else {
       propertyNameError.value = false;
       streetError.value = false;
@@ -239,6 +252,7 @@ class AddPropertyController extends GetxController {
       permitNumberError.value = false;
       lotNumberError.value = false;
       blockNumberError.value = false;
+      countyError.value = false;
 
       getAddProperty();
     }
@@ -270,7 +284,7 @@ class AddPropertyController extends GetxController {
 
   void onChangedZipCodeTextField({required String value}) {
     if (value.length >= 2) {
-      streetError.value = false;
+      zipCodeError.value = false;
     }
   }
 
@@ -289,6 +303,131 @@ class AddPropertyController extends GetxController {
   void onChangedBlocTextField({required String value}) {
     if (value.length >= 2) {
       blockNumberError.value = false;
+    }
+  }
+
+  KeyboardActionsConfig buildConfig(BuildContext context) {
+    return KeyboardActionsConfig(
+      keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+      keyboardBarColor: Colors.grey[200],
+      nextFocus: true,
+      actions: [
+        KeyboardActionsItem(
+            focusNode: zipCodeFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => zipCodeFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+        KeyboardActionsItem(
+            focusNode: permitNumberFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => permitNumberFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+        KeyboardActionsItem(
+            focusNode: lotNumberFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => lotNumberFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+        KeyboardActionsItem(
+            focusNode: blockNumberFocusNode.value,
+            displayArrows: false,
+            toolbarButtons: [
+              (node) {
+                return GestureDetector(
+                  onTap: () => blockNumberFocusNode.value.requestFocus(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: AppStrings.next.tr,
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.primaryDarkblue,
+                      ),
+                    ),
+                  ),
+                );
+              }
+            ]),
+      ],
+    );
+  }
+
+  getCounties() async {
+    setShowLoader(value: true);
+    try {
+      GetCountyResponseModel response =
+          await addPropertyProvider.counties() ?? GetCountyResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        if (response.data?.counties != []) {
+          DropdownModel();
+
+          response.data?.counties
+              ?.map((e) => countiesList.add(DropdownModel(
+                    id: e.id ?? "",
+                    name: e.name ?? "",
+                    stateId: e.stateId ?? "",
+                  )))
+              .toList();
+        }
+
+        snackbar(response.message ?? "");
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
     }
   }
 }

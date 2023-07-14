@@ -16,11 +16,12 @@ class ApiHitter {
 
   postApi(
       {required String endPoint,
-      required Object body,
+      Object? body,
       void Function(int, int)? onSendProgress,
       void Function(int, int)? onReceiveProgress,
       CancelToken? cancelToken,
-      Map<String, dynamic>? queryParameters}) async {
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headersParm}) async {
     try {
       String url = "${EndPoints.baseUrl}$endPoint";
       print("URL $endPoint >> $url");
@@ -28,16 +29,17 @@ class ApiHitter {
       print("POST $endPoint >> $queryParameters");
 
       if (await networkCheck.hasNetwork()) {
-        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
         String token = await Prefs.read(Prefs.token) ?? "";
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
         Map<String, String> headers = {
           'Content-Type': 'application/json',
           'language_id': selectedLangId,
+          'authorization': "Bearer $token",
         };
 
-        print("headers : $headers");
-        print("token : $token");
+        headers.addAll(headersParm ?? {});
+
         Options options = Options(headers: headers);
 
         var response = await dio.post(
@@ -111,21 +113,32 @@ class ApiHitter {
     }
   }
 
-  getApi({
-    required String endPoint,
-    Object? body,
-    void Function(int, int)? onSendProgress,
-    void Function(int, int)? onReceiveProgress,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? queryParameters,
-  }) async {
+  getApi(
+      {required String endPoint,
+      Object? body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headersParm}) async {
     try {
       String url = "${EndPoints.baseUrl}$endPoint";
       print("URL $endPoint >> $url");
       print("GET $endPoint >> $queryParameters");
       if (await networkCheck.hasNetwork()) {
-        Map<String, String> headers = {'Content-Type': 'application/json'};
+        String token = await Prefs.read(Prefs.token) ?? "";
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'language_id': selectedLangId,
+          'authorization': "Bearer $token",
+        };
+
+        headers.addAll(headersParm ?? {});
+
         Options options = Options(headers: headers);
+
         print("headers : $headers");
 
         Response response = await dio.get(

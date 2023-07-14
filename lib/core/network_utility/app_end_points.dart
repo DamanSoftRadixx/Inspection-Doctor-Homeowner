@@ -10,7 +10,8 @@ class EndPoints {
   static const String forgotPassword = "auth/forgot-password";
   static const String resetPassword = "user/reset-password";
 
-
+  static const String getCounties = "user/get-counties";
+  static const String addProperty = "property/add-property";
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

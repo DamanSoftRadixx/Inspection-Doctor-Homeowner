@@ -10,12 +10,12 @@ class DioExceptions implements Exception {
     log("DioException $dioError}");
     switch (dioError.type) {
       case dio.DioExceptionType.cancel:
-      // apiErrorDialog(
-      //   message: AppStrings.strSometingWentWrong,
-      //   okButtonPressed: () {
-      //     Get.back();
-      //   },
-      // );
+        // apiErrorDialog(
+        //   message: AppStrings.strSometingWentWrong,
+        //   okButtonPressed: () {
+        //     Get.back();
+        //   },
+        // );
         break;
       case dio.DioExceptionType.connectionTimeout:
         apiErrorDialog(
@@ -43,7 +43,6 @@ class DioExceptions implements Exception {
         break;
 
       case dio.DioExceptionType.badResponse:
-
         dio.Response? response = dioError.response;
         var data = response?.data;
         var message = data["message"];
@@ -83,13 +82,14 @@ class DioExceptions implements Exception {
     }
   }
 }
+
 apiErrorDialog(
     {String? title, required String message, Function()? okButtonPressed}) {
   showCommonAlertSingleButtonDialog(
       title: title ?? AppStrings.strError,
       subHeader: message,
       okPressed: () {
-        (okButtonPressed != null) ? okButtonPressed() :  Get.back();
+        (okButtonPressed != null) ? okButtonPressed() : Get.back();
       },
       buttonTitle: 'Ok');
 }

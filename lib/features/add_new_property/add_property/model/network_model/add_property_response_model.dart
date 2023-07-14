@@ -1,15 +1,18 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class AddPropertyResponseModel {
   AddPropertyResponseModel({
-      this.status, 
-      this.success, 
-      this.data, 
-      this.message,});
+    this.status,
+    this.success,
+    this.data,
+    this.message,
+  });
 
   AddPropertyResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
     data = json['data'];
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
@@ -24,5 +27,4 @@ class AddPropertyResponseModel {
     map['message'] = message;
     return map;
   }
-
 }
