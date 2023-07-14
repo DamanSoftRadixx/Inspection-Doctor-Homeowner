@@ -53,9 +53,13 @@ class SignupScreen extends GetView<SignupController> {
                               showCityField().paddingOnly(bottom: 11.h),
                               showStateField().paddingOnly(bottom: 11.h),
                               showZipCodeField(),
-                              showSignUpButton()
-                                  .paddingOnly(top: 40.h, bottom: 0),
-                              showLoginOption()
+                              showSignUpButton().paddingOnly(
+                                top: 40.h,
+                              ),
+                              showLoginOption().paddingOnly(
+                                top: 30.h,
+                                bottom: 40.h,
+                              ),
                             ],
                           ).paddingSymmetric(horizontal: 20.w),
                         ],
