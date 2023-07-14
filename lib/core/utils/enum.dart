@@ -20,6 +20,16 @@ enum DeviceTypeEnum {
   const DeviceTypeEnum(this.value);
 }
 
+enum RegisterTypeEnum {
+  email("Email"),
+  google("Google"),
+  facebook("Facebook"),
+  apple("Apple");
+
+  final String value;
+  const RegisterTypeEnum(this.value);
+}
+
 enum RoleTypeEnum {
   admin("Admin"),
   homeowner("Homeowner"),

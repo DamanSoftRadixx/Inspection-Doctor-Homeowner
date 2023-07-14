@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -18,22 +19,26 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-          child: Obx(
-        () => SingleChildScrollView(
-          child: Column(
-            children: [
-              showHeadingText(),
-              showPasswordField(),
-              showConfirmPasswordField(),
-              showSendLinkButton(),
-            ],
-          ).paddingSymmetric(horizontal: 20.w),
-        ),
-      )),
+        child: Obx(() => Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  showHeadingText(),
+                  showPasswordField(),
+                  showConfirmPasswordField(),
+                  showResetButton(),
+                ],
+              ).paddingSymmetric(horizontal: 20.w),
+            ),
+            CommonLoader(isLoading: controller.isShowLoader.value)
+          ],
+        )),
+      ),
     );
   }
 
-  showSendLinkButton() {
+  showResetButton() {
     return CommonButton(
         commonButtonBottonText: AppStrings.reset.tr,
         onPress: () {
@@ -41,14 +46,16 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
               password: controller.passwordController.text,
               confirmPassword: controller.confirmPasswordController.text);
         }).paddingOnly(top: 50.h);
+
   }
 
   AppBar showAppBar() {
     return commonAppBarWithElevation(
-        title: AppStrings.reset.tr,
-        onPressBackButton: () {
-          Get.back();
-        });
+      onPressBackButton: () {
+        Get.back();
+      },
+      title: AppStrings.reset.tr,
+    );
   }
 
   Column showHeadingText() {
@@ -90,22 +97,10 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          if (!(controller.passwordController.text.length < 8 ||
-              controller.passwordController.text.contains(RegExp(r'[A-Z]')) ==
-                  false ||
-              controller.passwordController.text.contains(RegExp(r'[a-z]')) ==
-                  false)) {
-            controller.passwordError.value = false;
-          }
-        }
+        controller.onChangedPasswordTextField(value : value);
       },
       onPress: () {
-        if (controller.isHidePassword.value == false) {
-          controller.isHidePassword.value = true;
-        } else {
-          controller.isHidePassword.value = false;
-        }
+       controller.onPressPasswordEyeIcon();
       },
       passwordVisible: controller.isHidePassword.value,
     ).paddingOnly(bottom: 11.h, top: 50.h);
@@ -117,23 +112,15 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
-      title: AppStrings.confirmpassword.tr,
-      hint: AppStrings.confirmpassword.tr,
+      title: AppStrings.confirmPassword.tr,
+      hint: AppStrings.confirmPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        if (value.isNotEmpty &&
-            (controller.passwordController.text ==
-                controller.confirmPasswordController.text)) {
-          controller.confirmPasswordError.value = false;
-        }
+       controller.onChangedConfirmPasswordTextField(value : value);
       },
       onPress: () {
-        if (controller.isHideConfirmPassword.value == false) {
-          controller.isHideConfirmPassword.value = true;
-        } else {
-          controller.isHideConfirmPassword.value = false;
-        }
+        controller.onPressConfirmPasswordEyeIcon();
       },
       passwordVisible: controller.isHideConfirmPassword.value,
     );

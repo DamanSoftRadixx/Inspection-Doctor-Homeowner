@@ -1,10 +1,7 @@
-// To parse this JSON data, do
-//
-//     final getLangaugeResponseModel = getLangaugeResponseModelFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 
 GetLangaugeResponseModel getLangaugeResponseModelFromJson(String str) =>
     GetLangaugeResponseModel.fromJson(json.decode(str));
@@ -15,7 +12,7 @@ String getLangaugeResponseModelToJson(GetLangaugeResponseModel data) =>
 class GetLangaugeResponseModel {
   int? status;
   bool? success;
-  GetLangaugeResponseData? data;
+  GetLanguageResponseData? data;
   String? message;
 
   GetLangaugeResponseModel({
@@ -31,7 +28,7 @@ class GetLangaugeResponseModel {
         success: json["success"],
         data: json["data"] == null
             ? null
-            : GetLangaugeResponseData.fromJson(json["data"]),
+            : GetLanguageResponseData.fromJson(json["data"]),
         message: json["message"].toString().toStringConversion(),
       );
 
@@ -43,15 +40,15 @@ class GetLangaugeResponseModel {
       };
 }
 
-class GetLangaugeResponseData {
+class GetLanguageResponseData {
   List<Language>? languages;
 
-  GetLangaugeResponseData({
+  GetLanguageResponseData({
     this.languages,
   });
 
-  factory GetLangaugeResponseData.fromJson(Map<String, dynamic> json) =>
-      GetLangaugeResponseData(
+  factory GetLanguageResponseData.fromJson(Map<String, dynamic> json) =>
+      GetLanguageResponseData(
         languages: json["languages"] == null
             ? []
             : List<Language>.from(
@@ -69,10 +66,10 @@ class Language {
   String? id;
   String? name;
   bool? isActive;
-  dynamic deletedAt;
+  String? deletedAt;
   int? v;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  String? createdAt;
+  String? updatedAt;
 
   Language({
     this.id,
@@ -90,12 +87,8 @@ class Language {
         isActive: json["is_active"],
         deletedAt: json["deleted_at"].toString().toStringConversion(),
         v: json["__v"].toString().toIntConversion(),
-        createdAt: json["createdAt"] == null
-            ? null
-            : DateTime.parse(json["createdAt"]),
-        updatedAt: json["updatedAt"] == null
-            ? null
-            : DateTime.parse(json["updatedAt"]),
+        createdAt: json["createdAt"].toString().toStringConversion(),
+        updatedAt: json["updatedAt"].toString().toStringConversion(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -104,7 +97,7 @@ class Language {
         "is_active": isActive,
         "deleted_at": deletedAt,
         "__v": v,
-        "createdAt": createdAt?.toIso8601String(),
-        "updatedAt": updatedAt?.toIso8601String(),
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
       };
 }

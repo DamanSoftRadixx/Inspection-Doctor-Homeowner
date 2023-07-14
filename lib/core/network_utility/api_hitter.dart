@@ -340,6 +340,7 @@ import 'package:flutter/material.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 
 class ApiHitter {
   static Dio dio = Dio();
@@ -349,25 +350,45 @@ class ApiHitter {
 
   postApi(
       {required String endPoint,
-      required Object body,
-      void Function(int, int)? onSendProgress,
-      void Function(int, int)? onReceiveProgress,
-      CancelToken? cancelToken,
-      Map<String, dynamic>? queryParameters,
-      required Options options}) async {
+        required Object body,
+        void Function(int, int)? onSendProgress,
+        void Function(int, int)? onReceiveProgress,
+        CancelToken? cancelToken,
+        Map<String, dynamic>? queryParameters}) async {
     try {
-      String baseurl = "${EndPoints.baseUrl}$endPoint";
+      String url = "${EndPoints.baseUrl}$endPoint";
+      print("URL ${endPoint} >> ${url}");
+      print("POST ${endPoint} >> ${body}");
+      print("POST ${endPoint} >> ${queryParameters}");
 
-      Response response = await dio.post(
-        baseurl,
-        options: options,
-        data: body,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-        cancelToken: cancelToken,
-        queryParameters: queryParameters,
-      );
-      return response;
+      if (await networkCheck.hasNetwork()) {
+
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+        String token = await Prefs.read(Prefs.token) ?? "";
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'language_id': selectedLangId,
+        };
+
+        print("headers : ${headers}");
+        print("token : ${token}");
+        Options options = Options(headers: headers);
+
+        var response = await dio.post(
+          url,
+          options: options,
+          data: body,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+          cancelToken: cancelToken,
+          queryParameters: queryParameters,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
     } catch (e) {
       if (e is DioException) {
         throw DioExceptions.fromDioError(dioError: e);
@@ -377,27 +398,46 @@ class ApiHitter {
     }
   }
 
-  getApi(
+  putApi(
       {required String endPoint,
-      Object? body,
-      void Function(int, int)? onSendProgress,
-      void Function(int, int)? onReceiveProgress,
-      CancelToken? cancelToken,
-      Map<String, dynamic>? queryParameters,
-      required Options options}) async {
-    log(" getLanguages>>>>  A");
+        required Object body,
+        void Function(int, int)? onSendProgress,
+        void Function(int, int)? onReceiveProgress,
+        CancelToken? cancelToken,
+        Map<String, dynamic>? queryParameters}) async {
     try {
-      String baseurl = "${EndPoints.baseUrl}$endPoint";
+      String url = "${EndPoints.baseUrl}$endPoint";
+      print("URL ${endPoint} >> ${url}");
+      print("PUT ${endPoint} >> ${body}");
 
-      Response response = await dio.get(
-        baseurl,
-        options: options,
-        data: body,
-        onReceiveProgress: onReceiveProgress,
-        cancelToken: cancelToken,
-        queryParameters: queryParameters,
-      );
-      return response;
+      if (await networkCheck.hasNetwork()) {
+
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+        String token = await Prefs.read(Prefs.token) ?? "";
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'language_id': selectedLangId,
+        };
+
+        print("headers : ${headers}");
+        print("token : ${token}");
+        Options options = Options(headers: headers);
+
+        var response = await dio.put(
+          url,
+          options: options,
+          data: body,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+          cancelToken: cancelToken,
+          queryParameters: queryParameters,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
     } catch (e) {
       if (e is DioException) {
         throw DioExceptions.fromDioError(dioError: e);
@@ -407,206 +447,47 @@ class ApiHitter {
     }
   }
 
-  // Future<ApiResponse> postMultipartRequest(
-  //   String endPoint, {
-  //   Map<String, dynamic>? headers,
-  //   Map<String, dynamic>? data,
-  // }) async {
-  //   final result = await InternetAddress.lookup('google.com');
-  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //     FormData formData = FormData.fromMap(data!);
-  //     var response = await getDio().post(endPoint,
-  //         options: Options(headers: headers),
-  //         data: formData,
-  //         onSendProgress: (int sent, int total) {});
-  //     return ApiResponse(false, response.statusCode!,
-  //         response: response, statusMessage: response.statusMessage!);
-  //   } else {
-  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //   }
-  // }
+  getApi({
+    required String endPoint,
+    Object? body,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      String url = "${EndPoints.baseUrl}$endPoint";
+      print("URL ${endPoint} >> ${url}");
+      print("GET ${endPoint} >> ${queryParameters}");
+      if (await networkCheck.hasNetwork()) {
+        Map<String, String> headers = {'Content-Type': 'application/json'};
+        Options options = Options(headers: headers);
+        print("headers : ${headers}");
 
-  // Future<ApiResponse> postMultipart(String endPoint,
-  //     {Map<String, dynamic>? headers,
-  //     Map<String, dynamic>? data,
-  //     String? pic,
-  //     String imageParamKey = "file"}) async {
-  //   final result = await InternetAddress.lookup('google.com');
-  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //     FormData formData = FormData.fromMap({});
-  //     if (pic != null && pic != "") {
-  //       try {
-  //         var file = File(pic);
-  //         String fileName = file.path.split('/').last;
-  //         formData = FormData.fromMap({
-  //           imageParamKey:
-  //               await MultipartFile.fromFile(file.path, filename: fileName),
-  //           ...data!
-  //         });
-  //       } catch (e) {}
-  //     } else {
-  //       formData = FormData.fromMap({imageParamKey: "", ...data!});
-  //     }
-  //     var response = await getDio().post(endPoint,
-  //         options: Options(headers: headers),
-  //         data: formData,
-  //         onSendProgress: (int sent, int total) {});
-  //     return ApiResponse(false, response.statusCode!,
-  //         response: response, statusMessage: response.statusMessage!);
-  //   } else {
-  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //   }
-  // }
-
-  // Future<ApiResponse> postMultipartArray(String endPoint,
-  //     {Map<String, dynamic>? headers,
-  //     Map<String, dynamic>? data,
-  //     List<String>? picList,
-  //     String imageParamKey = "file"}) async {
-  //   final result = await InternetAddress.lookup('google.com');
-  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //     FormData formData = FormData.fromMap({});
-  //     if (picList != null && picList.isNotEmpty) {
-  //       var arr = [];
-  //       for (var i = 0; i < picList.length; i++) {
-  //         try {
-  //           var file = File(picList[i]);
-  //           String fileName = file.path.split('/').last;
-  //           var multipart =
-  //               await MultipartFile.fromFile(file.path, filename: fileName);
-  //           arr.add(multipart);
-  //         } catch (e) {}
-  //       }
-  //       formData = FormData.fromMap({imageParamKey: arr, ...data!});
-  //     } else {
-  //       formData = FormData.fromMap({imageParamKey: [], ...data!});
-  //     }
-  //     // print("formData for ticket creation : ${formData.toString()}");
-  //     var response = await getDio().post(endPoint,
-  //         options: Options(headers: headers),
-  //         data: formData,
-  //         onSendProgress: (int sent, int total) {});
-  //     return ApiResponse(false, response.statusCode!,
-  //         response: response, statusMessage: response.statusMessage!);
-  //   } else {
-  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //   }
-  // }
-
-  // Future<ApiResponse> postWithFormData(String endPoint,
-  //     {Map<String, dynamic>? headers, required FormData formDataParams}) async {
-  //   final result = await InternetAddress.lookup('google.com');
-  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //     FormData formData = formDataParams;
-  //     print("formData for ticket creation : ${formData.toString()}");
-  //     var response = await getDio().post(endPoint,
-  //         options: Options(headers: headers),
-  //         data: formData,
-  //         onSendProgress: (int sent, int total) {});
-  //     return ApiResponse(false, response.statusCode!,
-  //         response: response, statusMessage: response.statusMessage!);
-  //   } else {
-  //     return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //   }
-  // }
-
-  // Future<ApiResponse> getPostApiResponse(String endPoint,
-  //     {Map<String, dynamic>? headers,
-  //     Map<String, dynamic>? data,
-  //     FormData? formData,
-  //     bool isFormData = false}) async {
-  //   try {
-  //     print(data);
-  //     final result = await InternetAddress.lookup('google.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       try {
-  //         var response = await getDio().post(endPoint,
-  //             options: Options(headers: headers),
-  //             data: isFormData ? formData : data,
-  //             onSendProgress: (int sent, int total) {});
-  //         if (response.statusCode == 200) {
-  //           if (response.statusCode == 200 || response.statusCode == null) {
-  //             return ApiResponse(true, response.statusCode!,
-  //                 response: response, statusMessage: response.data["message"]);
-  //           } else {
-  //             return ApiResponse(true, response.statusCode!,
-  //                 response: response, statusMessage: response.data["message"]);
-  //           }
-  //         } else if (response.statusCode == 402) {
-  //           return ApiResponse(false, response.statusCode!,
-  //               response: response, statusMessage: response.statusMessage!);
-  //         } else if (response.statusCode == 400) {
-  //           return ApiResponse(false, response.statusCode!,
-  //               response: response, statusMessage: response.statusMessage!);
-  //         } else {
-  //           return ApiResponse(false, response.statusCode!,
-  //               response: response, statusMessage: response.statusMessage!);
-  //         }
-  //       } catch (error) {
-  //         return ApiResponse(
-  //             false,
-  //             error.toString().contains("402")
-  //                 ? 402
-  //                 : int.parse(error.toString()),
-  //             statusMessage: error.toString());
-  //       }
-  //     } else {
-  //       return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //     }
-  //   } catch (e) {
-  //     return ApiResponse(false, e.toString().contains("402") ? 402 : 301,
-  //         statusMessage: errorNoInternet);
-  //   }
-  // }
-
-  // Future<ApiResponse> getRawPostApiResponse(String endPoint,
-  //     {Map<String, dynamic>? headers,
-  //     String? data,
-  //     FormData? formData,
-  //     bool isFormData = false}) async {
-  //   try {
-  //     final result = await InternetAddress.lookup('google.com');
-  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //       try {
-  //         var response = await getDio().post(endPoint,
-  //             options: Options(headers: headers),
-  //             data: isFormData ? formData : data,
-  //             onSendProgress: (int sent, int total) {});
-  //         if (response.statusCode == 200) {
-  //           if (response.data["code"] == 200) {
-  //             return ApiResponse(true, response.data["code"],
-  //                 response: response, statusMessage: response.data["message"]);
-  //           } else {
-  //             return ApiResponse(false, response.data["code"],
-  //                 response: response, statusMessage: response.data["message"]);
-  //           }
-  //         } else if (response.statusCode == 402) {
-  //           return ApiResponse(false, response.statusCode!,
-  //               response: response, statusMessage: response.statusMessage!);
-  //         } else {
-  //           return ApiResponse(false, response.statusCode!,
-  //               response: response, statusMessage: response.statusMessage!);
-  //         }
-  //       } catch (error) {
-  //         return ApiResponse(
-  //             false,
-  //             error.toString().contains("402")
-  //                 ? 402
-  //                 : int.parse(error.toString()),
-  //             statusMessage: error.toString());
-  //       }
-  //     } else {
-  //       return ApiResponse(false, 301, statusMessage: errorNoInternet);
-  //     }
-  //   } catch (e) {
-  //     return ApiResponse(false, e.toString().contains("402") ? 402 : 301,
-  //         statusMessage: errorNoInternet);
-  //   }
-  // }
+        Response response = await dio.get(
+          url,
+          options: options,
+          data: body,
+          onReceiveProgress: onReceiveProgress,
+          cancelToken: cancelToken,
+          queryParameters: queryParameters,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
+      }
+    }
+  }
 
   Future<bool> cancelRequests() async {
     cancelToken.cancel();
-
     return cancelToken.isCancelled;
   }
 }

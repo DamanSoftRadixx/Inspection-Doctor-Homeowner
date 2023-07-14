@@ -1,56 +1,50 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
-import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/model/verifiy_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/model/network_model/resend_otp_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/model/network_model/verify_otp_response_model.dart';
 
 class OtpVerifyProvider {
-  NetworkCheck networkCheck = NetworkCheck();
   ApiHitter apiHitter = ApiHitter();
 
-  Future<OtpVerifyResponse?> otpVerification({required Object body}) async {
-    String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+  Future<VerifyOtpResponseModel?> otpVerification({required Object body}) async {
+    try {
+      Response response =
+          await apiHitter.postApi(endPoint: EndPoints.otpVerification, body: body);
 
-    Map<String, String> headers = {
-      'language_id': selectedLangId,
-      'Content-Type': 'application/json',
-      'accept': 'application/json'
-    };
-    Options options = Options(headers: headers);
-    if (await networkCheck.hasNetwork()) {
-      try {
-        Response response = await apiHitter.postApi(
-            endPoint: EndPoints.register, body: body, options: options);
+      VerifyOtpResponseModel data = VerifyOtpResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'OtpVerification');
 
-        log("response>>>> $response");
-
-        OtpVerifyResponse data = OtpVerifyResponse.fromJson(response.data);
-
-        showResponseData(data, type: 'signUpUser');
-
-        return data;
-      } catch (e) {
-        if (e is DioException) {
-          //This is the custom message coming from the backend
-          throw DioExceptions.fromDioError(dioError: e);
-        } else {
-          throw Exception(e.toString());
-        }
+      return data;
+    } catch (e) {
+      if (e is DioException) {
+        //This is the custom message coming from the backend
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception(e.toString());
       }
-    } else {
-      log("no internet issue");
-
-      networkCheck.noInternetConnectionDialog(
-          // okPressed: () {
-          //   getTemp.Get.back(closeOverlays: true);
-          // },
-          );
     }
-    return null;
+  }
+
+  Future<ResendOtpResponseModel?> resendOtp({required Object body}) async {
+    try {
+      Response response =
+      await apiHitter.postApi(endPoint: EndPoints.resendOtp, body: body);
+
+      ResendOtpResponseModel data = ResendOtpResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'ResendOtp');
+
+      return data;
+    } catch (e) {
+      if (e is DioException) {
+        //This is the custom message coming from the backend
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception(e.toString());
+      }
+    }
   }
 }

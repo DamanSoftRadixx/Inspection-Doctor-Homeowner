@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/get_role_model.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/network/get_role_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/network/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/provider/select_language_provider.dart';
 
 class SelectLanguageController extends GetxController {
@@ -17,8 +16,8 @@ class SelectLanguageController extends GetxController {
 
   @override
   void onInit() {
-    getLangauge();
-
+    getLanguage();
+    getRole();
     super.onInit();
   }
 
@@ -29,25 +28,20 @@ class SelectLanguageController extends GetxController {
   }
 
   void onTapContinueButton() {
-    Get.toNamed(Routes.loginScreen, arguments: {
-      GetArgumentConstants.selectedLanguage: selectedLanguage.value
-    });
+    Get.toNamed(Routes.loginScreen);
   }
 
-  getLangauge() async {
+  getLanguage() async {
     isShowLoader.value = true;
     GetLangaugeResponseModel response =
         await selectLanguageProvider.getLanguages() ??
             GetLangaugeResponseModel();
+    languageList.clear();
+    isShowLoader.value = false;
 
     if (response.success == true && response.data?.languages != []) {
-      languageList.clear();
       languageList.addAll(response.data?.languages ?? []);
       selectedLanguage.value = languageList.first;
-      getRole();
-      isShowLoader.value = false;
-    } else {
-      isShowLoader.value = false;
     }
   }
 
@@ -55,7 +49,7 @@ class SelectLanguageController extends GetxController {
     GetRolesResponse response =
         await selectLanguageProvider.getRoles() ?? GetRolesResponse();
 
-    if (response.success == true) {
+    if (response.success == true && (response.status == 201 || response.status == 200)) {
       response.data?.roles?.map((e) {
         if (e.name == RoleTypeEnum.homeowner.value) {
           Prefs.write(Prefs.homeownerRollId, e.id);

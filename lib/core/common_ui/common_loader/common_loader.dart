@@ -14,13 +14,16 @@ class CommonLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible: isLoading,
-      child: SizedBox(
-        height: Get.height,
-        width: Get.width,
-        child: Center(
-          child: LoadingAnimationWidget.staggeredDotsWave(
-            color: lightColorPalette.primaryBlue,
-            size: _kSize,
+      child: Container(
+        color: lightColorPalette.transparentColor,
+        child: SizedBox(
+          height: Get.height,
+          width: Get.width,
+          child: Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: lightColorPalette.primaryBlue,
+              size: _kSize,
+            ),
           ),
         ),
       ),

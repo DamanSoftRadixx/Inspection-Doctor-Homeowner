@@ -1,23 +1,23 @@
 import 'dart:developer';
 
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 
 class DioExceptions implements Exception {
-  DioExceptions.fromDioError({required DioException dioError}) {
+  DioExceptions.fromDioError({required dio.DioException dioError}) {
     log("DioException $dioError}");
     switch (dioError.type) {
-      case DioExceptionType.cancel:
-        // apiErrorDialog(
-        //   message: AppStrings.strSometingWentWrong,
-        //   okButtonPressed: () {
-        //     Get.back();
-        //   },
-        // );
+      case dio.DioExceptionType.cancel:
+      // apiErrorDialog(
+      //   message: AppStrings.strSometingWentWrong,
+      //   okButtonPressed: () {
+      //     Get.back();
+      //   },
+      // );
         break;
-      case DioExceptionType.connectionTimeout:
+      case dio.DioExceptionType.connectionTimeout:
         apiErrorDialog(
           message: AppStrings.connectionTimeOut,
           okButtonPressed: () {
@@ -25,7 +25,7 @@ class DioExceptions implements Exception {
           },
         );
         break;
-      case DioExceptionType.receiveTimeout:
+      case dio.DioExceptionType.receiveTimeout:
         apiErrorDialog(
           message: AppStrings.connectionTimeOut,
           okButtonPressed: () {
@@ -33,7 +33,7 @@ class DioExceptions implements Exception {
           },
         );
         break;
-      case DioExceptionType.connectionError:
+      case dio.DioExceptionType.connectionError:
         apiErrorDialog(
           message: AppStrings.connectionTimeOut,
           okButtonPressed: () {
@@ -42,16 +42,20 @@ class DioExceptions implements Exception {
         );
         break;
 
-      case DioExceptionType.badResponse:
+      case dio.DioExceptionType.badResponse:
+
+        dio.Response? response = dioError.response;
+        var data = response?.data;
+        var message = data["message"];
         apiErrorDialog(
-          message: AppStrings.strSometingWentWrong,
+          message: message ?? AppStrings.strSometingWentWrong,
           okButtonPressed: () {
             Get.back();
           },
         );
         break;
 
-      case DioExceptionType.sendTimeout:
+      case dio.DioExceptionType.sendTimeout:
         apiErrorDialog(
           message: AppStrings.connectionTimeOut,
           okButtonPressed: () {
@@ -59,7 +63,7 @@ class DioExceptions implements Exception {
           },
         );
         break;
-      case DioExceptionType.unknown:
+      case dio.DioExceptionType.unknown:
         apiErrorDialog(
           message: AppStrings.strSometingWentWrong,
           okButtonPressed: () {
@@ -78,16 +82,14 @@ class DioExceptions implements Exception {
         break;
     }
   }
-
-  apiErrorDialog(
-      {String? title, required String message, Function()? okButtonPressed}) {
-    showCommonAlertSingleButtonDialog(
-        title: title ?? AppStrings.strError,
-        subHeader: message,
-        okPressed: () {
-          Get.back();
-          if (okButtonPressed != null) okButtonPressed();
-        },
-        buttonTitle: 'Ok');
-  }
+}
+apiErrorDialog(
+    {String? title, required String message, Function()? okButtonPressed}) {
+  showCommonAlertSingleButtonDialog(
+      title: title ?? AppStrings.strError,
+      subHeader: message,
+      okPressed: () {
+        (okButtonPressed != null) ? okButtonPressed() :  Get.back();
+      },
+      buttonTitle: 'Ok');
 }

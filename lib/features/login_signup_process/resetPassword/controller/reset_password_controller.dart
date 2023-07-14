@@ -1,9 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/model/network/reset_password_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/provider/reset_password_provider.dart';
 
 class ResetPasswordController extends GetxController {
+
+  ResetPasswordProvider resetPasswordProvider = ResetPasswordProvider();
+
+
   Rx<FocusNode> passwordFocusNode = FocusNode().obs;
   Rx<FocusNode> confirmPasswordFocusNode = FocusNode().obs;
   TextEditingController passwordController = TextEditingController();
@@ -16,6 +27,9 @@ class ResetPasswordController extends GetxController {
 
   RxString passwordErrorMessage = "".obs;
   RxString confirmPasswordErrorMessage = "".obs;
+
+  RxBool isShowLoader = false.obs;
+
 
   addFocusListeners() {
     passwordFocusNode.value.addListener(() {
@@ -43,17 +57,12 @@ class ResetPasswordController extends GetxController {
     super.onClose();
   }
 
+
+
   void validate({
     required String password,
     required String confirmPassword,
   }) async {
-    print("fjghfjshgjfshg");
-
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = RegExp(pattern);
-
-    /* logger("password ${AutoValidate.password(password.toString())}");*/
     if (password.isEmpty && confirmPassword.isEmpty) {
       passwordError.value = true;
       confirmPasswordError.value = true;
@@ -62,10 +71,12 @@ class ResetPasswordController extends GetxController {
     } else if (password.isEmpty) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
-    } else if (password.length < 8 || !regExp.hasMatch(password)) {
+    }
+    else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordLength;
-    } else if (confirmPassword.isEmpty) {
+    }
+    else if (confirmPassword.isEmpty) {
       confirmPasswordError.value = true;
       confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
     } else if (password != confirmPassword) {
@@ -74,9 +85,73 @@ class ResetPasswordController extends GetxController {
     } else {
       passwordError.value = false;
       confirmPasswordError.value = false;
-
-      Get.until(
-          (route) => route.settings.name == Routes.loginScreen ? true : false);
+      resetPasswordApi();
     }
   }
+
+  setShowLoader({required bool value}) {
+    isShowLoader.value = value;
+    isShowLoader.refresh();
+  }
+
+
+  resetPasswordApi() async {
+    setShowLoader(value: true);
+
+
+    var body = json.encode({"new_password": passwordController.text});
+
+    try {
+      ResetPasswordResponseModel response =
+          await resetPasswordProvider.resetPassword(body: body) ??
+              ResetPasswordResponseModel();
+
+      setShowLoader(value: false);
+      if (response.success == true && (response.status == 201 || response.status == 200)) {
+        Get.until((route) =>
+        route.settings.name == Routes.loginScreen ? true : false);
+        snackbar(response.message ?? "");
+
+      } else {
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },);
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
+  }
+
+  void onChangedConfirmPasswordTextField({required String value}) {
+    if (value.isNotEmpty &&
+        (passwordController.text ==
+            confirmPasswordController.text)) {
+     confirmPasswordError.value = false;
+    }
+  }
+
+  void onPressConfirmPasswordEyeIcon() {
+    if (isHideConfirmPassword.value == false) {
+      isHideConfirmPassword.value = true;
+    } else {
+      isHideConfirmPassword.value = false;
+    }
+  }
+
+  void onPressPasswordEyeIcon() {
+    if (isHidePassword.value == false) {
+      isHidePassword.value = true;
+    } else {
+      isHidePassword.value = false;
+    }
+  }
+
+  void onChangedPasswordTextField({required String value}) {
+      if (isValidPassword(password: value)) {
+        passwordError.value = false;
+    }
+  }
+
 }

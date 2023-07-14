@@ -24,28 +24,27 @@ class SignupScreen extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: lightColorPalette.backgroundColor,
-        appBar: commonAppBarWithElevation(
-          onPressBackButton: () {
-            Get.back();
-          },
-          title: AppStrings.signup.tr,
-        ),
-        body: Obx(
-          () => Stack(
-            children: [
-              KeyboardActions(
+      backgroundColor: lightColorPalette.backgroundColor,
+      appBar: commonAppBarWithElevation(
+        title: AppStrings.signup.tr,
+        onPressBackButton: () {
+          Get.back();
+        },
+      ),
+      body: SafeArea(
+        child: Obx(() => Stack(
+          children: [
+            KeyboardActions(
                 config: controller.buildConfig(context),
-                child: SafeArea(
-                    child: SingleChildScrollView(
+
+                child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       showHeadingText(),
                       Column(
                         children: [
-                          uploadPhotoWidget()
-                              .paddingOnly(top: 30.h, bottom: 30.h),
+                          // uploadPhotoWidget().paddingOnly(top: 30.h, bottom: 30.h),
                           showFirstNameField().paddingOnly(bottom: 11.h),
                           showLastNameField().paddingOnly(bottom: 11.h),
                           showEmailField().paddingOnly(bottom: 11.h),
@@ -57,95 +56,22 @@ class SignupScreen extends GetView<SignupController> {
                           showCityField().paddingOnly(bottom: 11.h),
                           showStateField().paddingOnly(bottom: 11.h),
                           showZipCodeField(),
-                          showSignUpButton().paddingOnly(top: 40.h),
-                          showLoginOption().paddingOnly(top: 30.h, bottom: 39.h)
+                          showSignUpButton().paddingOnly(
+                              top: 40.h,
+                              bottom: 0),
+                          showLoginOption()
+
                         ],
                       ).paddingSymmetric(horizontal: 20.w),
                     ],
                   ),
-                )),
-              ),
-              disableScreen(isDisable: controller.isShowLoader.value),
-              CommonLoader(isLoading: controller.isShowLoader.value)
-            ],
-          ),
-        ));
-  }
-
-  Widget uploadPhotoWidget() {
-    return Obx(() => controller.selectedProfile.isEmpty
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 60.h,
-                width: 60.w,
-                decoration: BoxDecoration(
-                    color: lightColorPalette.primaryBlue,
-                    borderRadius: BorderRadius.circular(4.r)),
-                child: Center(
-                  child: AssetWidget(
-                    asset: Asset(
-                        type: AssetType.svg, path: ImageResource.uploadPhoto),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              GestureDetector(
-                onTap: () {
-                  // controller.onTapUploadOrRemovePhoto();
-                },
-                child: AppTextWidget(
-                  textAlign: TextAlign.start,
-                  text: AppStrings.uploadPhoto.tr,
-                  style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue,
-                  ),
-                ),
-              )
-            ],
-          )
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 60.h,
-                width: 60.w,
-                decoration: BoxDecoration(
-                  border: Border.all(color: lightColorPalette.primaryBlue),
-                  borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                  child: AssetWidget(
-                    asset: Asset(
-                        type: AssetType.network,
-                        path: "https://picsum.photos/id/237/200/300"),
-                    height: 56.h,
-                    boxFit: BoxFit.fill,
-                    width: 56.w,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
-              GestureDetector(
-                onTap: () {
-                  // controller.onTapUploadOrRemovePhoto();
-                },
-                child: AppTextWidget(
-                  textAlign: TextAlign.start,
-                  text: AppStrings.removePhoto.tr,
-                  style: CustomTextTheme.normalText(
-                    color: lightColorPalette.redDark,
-                  ),
-                ),
-              )
-            ],
-          ));
+                )
+            ),
+            CommonLoader(isLoading: controller.isShowLoader.value)
+          ],
+        )),
+      ),
+    );
   }
 
   Row showMailingAddress() {
@@ -153,7 +79,7 @@ class SignupScreen extends GetView<SignupController> {
       children: [
         AppTextWidget(
           style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
           text: AppStrings.mailingAddress.tr,
         ).paddingOnly(top: 30.h, bottom: 15.h),
       ],
@@ -167,7 +93,7 @@ class SignupScreen extends GetView<SignupController> {
       children: [
         AppTextWidget(
           style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
           text: AppStrings.alreadyAccount.tr,
         ),
         CustomInkwell(
@@ -188,10 +114,9 @@ class SignupScreen extends GetView<SignupController> {
 
   CommonButton showSignUpButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.signup.tr,
+        commonButtonBottonText:AppStrings.signup.tr,
         onPress: () {
           controller.onTapSignButton();
-          dismissKeyboard();
         });
   }
 
@@ -200,7 +125,7 @@ class SignupScreen extends GetView<SignupController> {
       children: [
         Center(
           child: AppTextWidget(
-            text: AppStrings.registerStarted.tr,
+            text:  AppStrings.registerStarted.tr,
             style: CustomTextTheme.heading1(
               color: lightColorPalette.primaryDarkblue,
             ),
@@ -219,7 +144,7 @@ class SignupScreen extends GetView<SignupController> {
               color: lightColorPalette.primaryGrey,
             ),
           ),
-        ).paddingOnly(left: 20.w, right: 20.w, bottom: 30.h),
+        ).paddingOnly(left: 20.w, right: 20.w, bottom: 0.h),
       ],
     );
   }
@@ -227,18 +152,20 @@ class SignupScreen extends GetView<SignupController> {
   Widget showFirstNameField() {
     return commonTextFieldWidget(
       textCapitalization: TextCapitalization.sentences,
+      focusNode: controller.firstNameFocusNode.value,
       isError: controller.firstNameError.value,
       errorMsg: controller.firstNameErrorMessage.value,
-      focusNode: controller.firstNameFocusNode.value,
       controller: controller.firstNameController,
       title: AppStrings.firstName.tr,
       hint: AppStrings.firstName.tr,
+      maxLength: 30,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          controller.firstNameError.value = false;
-        }
+        controller.onChangedFirstNameTextField(value : value);
       },
     );
   }
@@ -253,82 +180,72 @@ class SignupScreen extends GetView<SignupController> {
       title: AppStrings.lastName.tr,
       hint: AppStrings.lastName.tr,
       keyboardType: TextInputType.name,
+      maxLength: 30,
       textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          controller.lastNameError.value = false;
-        }
+        controller.onChangedLastNameTextField(value : value);
       },
     );
   }
 
   Widget showEmailField() {
     return commonTextFieldWidget(
-      isError: controller.emailError.value,
-      errorMsg: controller.emailErrorMessage.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
+      isError: controller.emailError.value,
+      errorMsg: controller.emailErrorMessage.value,
+      maxLength: 50,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
+      ],
+      onChanged: (value) {
+        controller.onChangedEmailTextField(value : value);
+      },
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {
-        if (value.isNotEmpty && controller.emailController.text.isEmail) {
-          controller.emailError.value = false;
-        }
-      },
     );
   }
 
   Widget showPhoneNumberField() {
     return commonPhoneText(
-      onChanged: (value) {
-        if (controller.phoneNumberController.text.length > 8) {
-          controller.phoneError.value = false;
-        }
-      },
-      isError: controller.phoneError.value,
-      errorMsg: controller.phoneErrorMessage.value,
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController,
       title: AppStrings.phoneNumber.tr,
       hint: AppStrings.phoneNumber.tr,
+      isError: controller.phoneError.value,
+      errorMsg: controller.phoneErrorMessage.value,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        controller.onChangedPhoneTextField(value : value);
+      },
       countryCode: controller.selectedCountryCode.value,
       onSelect: (Country country) {
-        controller.selectedCountryCode.value = country.phoneCode;
+        controller.onSelectCountryCode(country : country);
       },
     );
   }
 
   Widget showPasswordField() {
     return commonPasswordText(
-      isError: controller.passwordError.value,
-      errorMsg: controller.passwordErrorMessage.value,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
       title: AppStrings.loginScreenPassword.tr,
       hint: AppStrings.loginScreenPassword.tr,
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          if (!(controller.passwordController.text.length < 8 ||
-              controller.passwordController.text.contains(RegExp(r'[A-Z]')) ==
-                  false ||
-              controller.passwordController.text.contains(RegExp(r'[a-z]')) ==
-                  false)) {
-            controller.passwordError.value = false;
-          }
-        }
+        controller.onChangedPasswordTextField(value : value);
       },
       onPress: () {
-        if (controller.isHidePassword.value == false) {
-          controller.isHidePassword.value = true;
-        } else {
-          controller.isHidePassword.value = false;
-        }
+        controller.onPressPasswordEyeIcon();
       },
       passwordVisible: controller.isHidePassword.value,
     );
@@ -336,27 +253,19 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
-      isError: controller.confirmPasswordError.value,
-      errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController,
-      title: AppStrings.confirmpassword.tr,
-      hint: AppStrings.confirmpassword.tr,
+      title: AppStrings.confirmPassword.tr,
+      hint: AppStrings.confirmPassword.tr,
+      isError: controller.confirmPasswordError.value,
+      errorMsg: controller.confirmPasswordErrorMessage.value,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        if (value.isNotEmpty &&
-            (controller.passwordController.text ==
-                controller.confirmPasswordController.text)) {
-          controller.confirmPasswordError.value = false;
-        }
+        controller.onChangedConfirmPasswordTextField(value : value);
       },
       onPress: () {
-        if (controller.isHideConfirmPassword.value == false) {
-          controller.isHideConfirmPassword.value = true;
-        } else {
-          controller.isHideConfirmPassword.value = false;
-        }
+        controller.onPressConfirmPasswordEyeIcon();
       },
       passwordVisible: controller.isHideConfirmPassword.value,
     );
@@ -368,6 +277,7 @@ class SignupScreen extends GetView<SignupController> {
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
       title: AppStrings.street.tr,
+      maxLength: 30,
       hint: AppStrings.street.tr,
       keyboardType: TextInputType.streetAddress,
       textInputAction: TextInputAction.next,
@@ -381,7 +291,11 @@ class SignupScreen extends GetView<SignupController> {
       focusNode: controller.cityFocusNode.value,
       controller: controller.cityController,
       title: AppStrings.city.tr,
+      maxLength: 30,
       hint: AppStrings.city.tr,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
@@ -395,6 +309,10 @@ class SignupScreen extends GetView<SignupController> {
       controller: controller.stateController,
       title: AppStrings.state.tr,
       hint: AppStrings.state.tr,
+      maxLength: 30,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
@@ -408,7 +326,8 @@ class SignupScreen extends GetView<SignupController> {
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
-      keyboardType: TextInputType.number,
+      maxLength: 10,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );

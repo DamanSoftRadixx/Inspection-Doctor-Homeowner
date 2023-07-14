@@ -2,18 +2,21 @@ import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/model/network/reset_password_response_model.dart';
 
-class SignUpProvider {
+class ResetPasswordProvider {
   ApiHitter apiHitter = ApiHitter();
 
-  Future<SignUpResponseModel?> signUpUser({required Object body}) async {
+  Future<ResetPasswordResponseModel?> resetPassword({required Object body}) async {
       try {
-        Response response = await apiHitter.postApi(
-            endPoint: EndPoints.register, body: body);
-        SignUpResponseModel data = SignUpResponseModel.fromJson(response.data);
-        showResponseData(data, type: 'signUpUser');
+
+        String token = await Prefs.read(Prefs.token) ?? "";
+        Response response = await apiHitter.putApi(
+            endPoint: "${EndPoints.resetPassword}/${token}", body: body);
+        ResetPasswordResponseModel data = ResetPasswordResponseModel.fromJson(response.data);
+        showResponseData(data, type: 'ResetPassword');
 
         return data;
       } catch (e) {

@@ -1,22 +1,23 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/signup_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/provider/signup_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:platform_device_id_v3/platform_device_id.dart';
 
 class SignupController extends GetxController {
   SignUpProvider signUpProvider = SignUpProvider();
@@ -45,6 +46,11 @@ class SignupController extends GetxController {
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
 
+  RxString selectedCountryCode = "1".obs;
+
+  RxBool isHidePassword = true.obs;
+  RxBool isHideConfirmPassword = true.obs;
+
   RxBool emailError = false.obs;
   RxBool firstNameError = false.obs;
   RxBool lastNameError = false.obs;
@@ -58,18 +64,9 @@ class SignupController extends GetxController {
   RxString emailErrorMessage = "".obs;
   RxString passwordErrorMessage = "".obs;
   RxString confirmPasswordErrorMessage = "".obs;
-  RxString selectedCountryCode = "1".obs;
-
-  var selectedProfile = "".obs;
-
-  RxBool isShowLoader = false.obs;
-
-  RxBool isHidePassword = true.obs;
-  RxBool isHideConfirmPassword = true.obs;
-
-  Rx<Language> selectedLanguage = Language().obs;
 
   Rx<SignUpResponseData> signUpResponse = SignUpResponseData().obs;
+  RxBool isShowLoader = false.obs;
 
   addFocusListeners() {
     firstNameFocusNode.value.addListener(() {
@@ -121,6 +118,7 @@ class SignupController extends GetxController {
   @override
   void onInit() {
     addFocusListeners();
+    getArguments();
     super.onInit();
   }
 
@@ -128,6 +126,18 @@ class SignupController extends GetxController {
   void onClose() {
     disposeFocusListeners();
     super.onClose();
+  }
+
+  setShowLoader({required bool value}) {
+    isShowLoader.value = value;
+    isShowLoader.refresh();
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+
+    }
   }
 
   void validate({
@@ -138,11 +148,7 @@ class SignupController extends GetxController {
     required String password,
     required String confirmPassword,
   }) async {
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = RegExp(pattern);
 
-    /* logger("password ${AutoValidate.password(password.toString())}");*/
     if (firstName.isEmpty &&
         lastName.isEmpty &&
         email.isEmpty &&
@@ -165,9 +171,15 @@ class SignupController extends GetxController {
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+    }else if (firstName.length < 2) {
+      firstNameError.value = true;
+      firstNameErrorMessage.value = ErrorMessages.firstNameMatch;
     } else if (lastName.isEmpty) {
       lastNameError.value = true;
       lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+    }else if (lastName.length < 2) {
+      lastNameError.value = true;
+      lastNameErrorMessage.value = ErrorMessages.lastNameMatch;
     } else if (email.isEmpty) {
       emailError.value = true;
       emailErrorMessage.value = ErrorMessages.emailIsEmpty;
@@ -183,7 +195,7 @@ class SignupController extends GetxController {
     } else if (password.isEmpty) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
-    } else if (password.length < 8 || !regExp.hasMatch(password)) {
+    } else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordLength;
     } else if (confirmPassword.isEmpty) {
@@ -225,7 +237,7 @@ class SignupController extends GetxController {
             focusNode: phoneNumberFocusNode.value,
             displayArrows: false,
             toolbarButtons: [
-              (node) {
+                  (node) {
                 return GestureDetector(
                   onTap: () => passwordFocusNode.value.requestFocus(),
                   child: Padding(
@@ -245,24 +257,15 @@ class SignupController extends GetxController {
     );
   }
 
-  getArguments() {
-    var args = Get.arguments;
-    if (args != null) {
-      selectedLanguage.value =
-          args[GetArgumentConstants.selectedLanguage] ?? "";
-    }
-  }
-
   getSignUp() async {
-    isShowLoader.value = true;
+    setShowLoader(value: true);
+    // String? deviceId = await PlatformDeviceId.getDeviceId;
 
-    String? deviceId = await PlatformDeviceId.getDeviceId;
-
-    String homeownerRollId = await Prefs.read(Prefs.homeownerRollId) ?? "";
+    String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
     String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
     var body = json.encode({
-      "role_id": homeownerRollId,
-      "register_type": "Email",
+      "role_id": inspectorRoleId,
+      "register_type": RegisterTypeEnum.email.value,
       "first_name": firstNameController.text,
       "last_name": lastNameController.text,
       "email": emailController.text,
@@ -275,34 +278,95 @@ class SignupController extends GetxController {
       "street": streetController.text,
       "city": cityController.text,
       "image": "621ca6da33032d8eb3c3b236",
-      "device_type": isIos ? DeviceTypeEnum.iOS : DeviceTypeEnum.android.value,
+      "device_type": isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
       "device_token": "eydhghjd",
-      "device_id": deviceId
+      "device_id": "deviceId"
     });
 
-    log("bodyData $body");
-    SignUpResponseModel response =
-        await signUpProvider.signUpUser(body: body) ?? SignUpResponseModel();
 
     try {
-      if (response.success == true && response.status == 201) {
+      SignUpResponseModel response =
+          await signUpProvider.signUpUser(body: body) ?? SignUpResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true && (response.status == 201 || response.status == 200)) {
         signUpResponse.value = response.data ?? SignUpResponseData();
-        isShowLoader.value = false;
-        snackbar(response.message ?? "");
-        Prefs.write(Prefs.token, signUpResponse.value.token);
-        Future.delayed(const Duration(milliseconds: 2000), () {
-          Get.toNamed(Routes.otpVerifyScreen, arguments: {
-            GetArgumentConstants.signUpOtp: signUpResponse.value.otp,
-            GetArgumentConstants.otpFromSignUp:
-                GetArgumentConstants.otpFromSignUp
-          });
+        var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
+        if(token != "") Prefs.write(Prefs.token, token);
+        Get.toNamed(Routes.otpVerifyScreen, arguments: {
+          GetArgumentConstants.otp: signUpResponse.value.otp,
+          GetArgumentConstants.phoneNumber: "+${selectedCountryCode} ${phoneNumberController.text}",
+          GetArgumentConstants.from: Routes.signupScreen
         });
-      } else {
-        isShowLoader.value = false;
         snackbar(response.message ?? "");
-      }
+
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );      }
     } catch (e) {
-      isShowLoader.value = false;
+      setShowLoader(value: false);
+    }
+  }
+
+  void onChangedFirstNameTextField({required String value}) {
+    if (value.length >= 2) {
+      firstNameError.value = false;
+    }
+  }
+
+  void onChangedLastNameTextField({required String value}) {
+    if (value.length >= 2) {
+      lastNameError.value = false;
+    }
+  }
+
+  void onChangedEmailTextField({required String value}) {
+    if (value.isNotEmpty && emailController.text.isEmail) {
+      emailError.value = false;
+    }
+  }
+
+  void onChangedPhoneTextField({required String value}) {
+    if (phoneNumberController.text.length > 8) {
+      phoneError.value = false;
+    }
+  }
+
+  void onSelectCountryCode({required Country country}) {
+    selectedCountryCode.value = country.phoneCode;
+  }
+
+  void onChangedPasswordTextField({required String value}) {
+    if (isValidPassword(password: passwordController.text)) {
+      passwordError.value = false;
+    }
+  }
+
+  void onPressPasswordEyeIcon() {
+    if (isHidePassword.value == false) {
+      isHidePassword.value = true;
+    } else {
+      isHidePassword.value = false;
+    }
+  }
+
+  void onChangedConfirmPasswordTextField({required String value}) {
+    if (value.isNotEmpty &&
+        (passwordController.text ==
+            confirmPasswordController.text)) {
+      confirmPasswordError.value = false;
+    }
+  }
+
+  void onPressConfirmPasswordEyeIcon() {
+    if (isHideConfirmPassword.value == false) {
+      isHideConfirmPassword.value = true;
+    } else {
+      isHideConfirmPassword.value = false;
     }
   }
 }

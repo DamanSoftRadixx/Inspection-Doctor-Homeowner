@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -25,45 +27,50 @@ class LoginScreen extends GetView<LoginController> {
             height: 40.h,
           )),
       body: SafeArea(
-        child: ListView(
-          physics: const RangeMaintainingScrollPhysics(),
+        child: Obx(() => Stack(
           children: [
-            Container(
-                height: 35.h,
-                color: lightColorPalette.whiteColorPrimary.shade900),
-            Stack(
+            ListView(
+              physics: const RangeMaintainingScrollPhysics(),
               children: [
-                Obx(() => SizedBox(
-                    // height: 0.9.sh,
-                    width: 1.sw,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                            width: 1.sw,
-                            height: 23.h,
-                            color:
-                                lightColorPalette.whiteColorPrimary.shade900),
-                        getWelcomeLoginView(),
-                        //Email
-                        Column(
+                Container(
+                    height: 35.h,
+                    color: lightColorPalette.whiteColorPrimary.shade900),
+                Stack(
+                  children: [
+                    SizedBox(
+                      // height: 0.9.sh,
+                        width: 1.sw,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
-                            showEmailField(),
-                            showPasswordField(),
-                            showForgotPassword().paddingOnly(top: 10.h),
-                            showLoginButton().paddingOnly(top: 50.h),
-                            showSignupButton(),
-                            showDivider(),
-                            showOtherLoginOption(),
+                            Container(
+                                width: 1.sw,
+                                height: 23.h,
+                                color:
+                                lightColorPalette.whiteColorPrimary.shade900),
+                            getWelcomeLoginView(),
+                            //Email
+                            Column(
+                              children: [
+                                showEmailField(),
+                                showPasswordField(),
+                                showForgotPassword().paddingOnly(top: 10.h),
+                                showLoginButton().paddingOnly(top: 50.h),
+                                showSignupButton(),
+                                showDivider(),
+                                showOtherLoginOption(),
+                              ],
+                            ).paddingOnly(left: 20.w, right: 20.w)
                           ],
-                        ).paddingOnly(left: 20.w, right: 20.w)
-                      ],
-                    ))),
-                getTopLogo(),
+                        )),
+                    getTopLogo(),
+                  ],
+                ),
               ],
             ),
+            CommonLoader(isLoading: controller.isShowLoader.value)
           ],
-        ),
+        )),
       ),
     );
   }
@@ -173,50 +180,43 @@ class LoginScreen extends GetView<LoginController> {
 
   Widget showEmailField() {
     return commonTextFieldWidget(
-      errorMsg: controller.emailErrorMessage.value,
-      isError: controller.emailError.value,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController,
+      isError: controller.emailError.value,
+      errorMsg: controller.emailErrorMessage.value,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
+      maxLength: 50,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
+      ],
       onChanged: (value) {
-        if (value.isNotEmpty && controller.emailController.text.isEmail) {
-          controller.emailError.value = false;
-        }
+        controller.onChangedEmailTextField(value : value);
       },
     ).paddingOnly(bottom: 11.h);
   }
 
   showPasswordField() {
     return commonPasswordText(
-      isError: controller.passwordError.value,
-      errorMsg: controller.passwordErrorMessage.value,
       onChanged: (value) {
-        if (value.isNotEmpty) {
-          if (controller.passwordController.text.length >= 8) {
-            controller.passwordError.value = false;
-          }
-        }
+        controller.onChangedPasswordTextField(value : value);
       },
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
+      isError: controller.passwordError.value,
+      errorMsg: controller.passwordErrorMessage.value,
       title: AppStrings.loginScreenPassword.tr,
       hint: AppStrings.loginScreenPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {
-        if (controller.isHidePassword.value == false) {
-          controller.isHidePassword.value = true;
-        } else {
-          controller.isHidePassword.value = false;
-        }
+        controller.onPressPasswordEyeIcon();
       },
       passwordVisible: controller.isHidePassword.value,
     );
   }
-
   Align showForgotPassword() {
     return Align(
       alignment: Alignment.topLeft,

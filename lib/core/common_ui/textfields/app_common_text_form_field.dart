@@ -15,18 +15,19 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 Widget commonTextFieldWidget(
     {required TextEditingController controller,
-    String? title,
-    String? hint,
-    required FocusNode focusNode,
-    Function(String value)? onChanged,
-    String? errorMsg,
-    bool? isError,
-    bool? readOnly,
-    bool? autoFocus,
-    TextInputType? keyboardType,
-    TextInputAction? textInputAction,
-    TextCapitalization? textCapitalization,
-    List<TextInputFormatter>? inputFormatters}) {
+      String? title,
+      String? hint,
+      required FocusNode focusNode,
+      Function(String value)? onChanged,
+      String? errorMsg,
+      bool? isError,
+      bool? readOnly,
+      bool? autoFocus,
+      TextInputType? keyboardType,
+      TextInputAction? textInputAction,
+      int? maxLength,
+      TextCapitalization? textCapitalization,
+      List<TextInputFormatter>? inputFormatters}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +37,7 @@ Widget commonTextFieldWidget(
           style: CustomTextTheme.normalText(
             color: lightColorPalette.primaryDarkblue,
           ),
-          text: title,
+          text: title ?? "",
           textAlign: TextAlign.center,
         ).paddingOnly(bottom: 3.0.h),
       GestureDetector(
@@ -50,20 +51,22 @@ Widget commonTextFieldWidget(
           decoration: decoration(isSelected: focusNode.hasFocus),
           child: Center(
             child: TextFormField(
+              inputFormatters: inputFormatters ?? const [],
               textCapitalization: textCapitalization ?? TextCapitalization.none,
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               controller: controller,
               maxLines: 1,
               minLines: 1,
+              maxLength: maxLength ?? 300,
               onChanged: onChanged,
               expands: false,
               readOnly: readOnly ?? false,
               autofocus: autoFocus ?? false,
               focusNode: focusNode,
-              inputFormatters: inputFormatters ?? const [],
               decoration: InputDecoration(
                 isCollapsed: true,
+                counterText: "",
                 contentPadding: EdgeInsets.only(left: 15.0, right: 15.w),
                 border: InputBorder.none,
                 hintText: hint ?? "",
@@ -82,10 +85,10 @@ Widget commonTextFieldWidget(
           alignment: Alignment.topLeft,
           child: AppTextWidget(
             text: errorMsg ?? "",
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.bottomTabs(
               color: lightColorPalette.redDark,
             ),
-          ),
+          ).paddingOnly(top: 5.h),
         ),
       )
     ],
@@ -94,16 +97,16 @@ Widget commonTextFieldWidget(
 
 Widget commonPasswordText(
     {required final String title,
-    required bool passwordVisible,
-    final VoidCallback? onPress,
-    required final TextEditingController controller,
-    required FocusNode focusNode,
-    String? errorMsg,
-    bool? isError,
-    String? hint,
-    Function(String value)? onChanged,
-    TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+      required bool passwordVisible,
+      final VoidCallback? onPress,
+      required final TextEditingController controller,
+      required FocusNode focusNode,
+      String? errorMsg,
+      bool? isError,
+      String? hint,
+      Function(String value)? onChanged,
+      TextInputType? keyboardType,
+      TextInputAction? textInputAction}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,15 +142,20 @@ Widget commonPasswordText(
                   maxLines: 1,
                   minLines: 1,
                   expands: false,
+                  maxLength: 50,
                   focusNode: focusNode,
                   controller: controller,
                   obscureText: passwordVisible,
                   onChanged: onChanged,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
+                  ],
                   decoration: InputDecoration(
                     hintStyle: CustomTextTheme.normalText(
                         color:
-                            lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                        lightColorPalette.primaryDarkblue.withOpacity(0.5)),
                     border: InputBorder.none,
+                    counterText: "",
                     hintText: hint ?? "",
                     isCollapsed: true,
                     contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -163,19 +171,19 @@ Widget commonPasswordText(
                     onTap: onPress == null
                         ? null
                         : () {
-                            onPress();
-                          },
+                      onPress();
+                    },
                     child: passwordVisible
                         ? AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.hideEye),
-                          )
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.hideEye),
+                    )
                         : AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.openEye),
-                          ),
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.openEye),
+                    ),
                   )),
             ],
           ),
@@ -187,10 +195,10 @@ Widget commonPasswordText(
           alignment: Alignment.topLeft,
           child: AppTextWidget(
             text: errorMsg ?? "",
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.bottomTabs(
               color: lightColorPalette.redDark,
             ),
-          ),
+          ).paddingOnly(top: 5.h),
         ),
       ),
     ],
@@ -241,7 +249,7 @@ Widget commonPhoneText({
                   showPhoneCode: true,
                   onSelect: onSelect,
                   countryListTheme:
-                      CountryListThemeData(bottomSheetHeight: .80.sh),
+                  CountryListThemeData(bottomSheetHeight: .80.sh),
                 );
               },
               child: Row(
@@ -249,11 +257,11 @@ Widget commonPhoneText({
                 children: [
                   Flexible(
                     child: Text(
-                            countryCode.contains("+")
-                                ? countryCode
-                                : "+$countryCode",
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue))
+                        countryCode.contains("+")
+                            ? countryCode
+                            : "+$countryCode",
+                        style: CustomTextTheme.normalText(
+                            color: lightColorPalette.primaryDarkblue))
                         .paddingOnly(left: 15.w, top: 1.h),
                   ),
                 ],
@@ -266,15 +274,19 @@ Widget commonPhoneText({
                 onChanged: onChanged,
                 keyboardType: keyboardType,
                 textInputAction: textInputAction,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                maxLength: 15,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                ],
                 decoration: InputDecoration(
-                  border: InputBorder.none, hintText: hint,
-
+                  border: InputBorder.none,
+                  hintText: hint,
                   isCollapsed: true,
+                  counterText: "",
                   contentPadding: EdgeInsets.only(left: 10.0, right: 10.w),
                   hintStyle: CustomTextTheme.normalText(
                       color:
-                          lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                      lightColorPalette.primaryDarkblue.withOpacity(0.5)),
 
                   // contentPadding: EdgeInsets.only(left:10.w,right: 10.w,bottom: 7.5.h,top: 0.h),
                 ),
@@ -291,10 +303,10 @@ Widget commonPhoneText({
           alignment: Alignment.topLeft,
           child: AppTextWidget(
             text: errorMsg ?? "",
-            style: CustomTextTheme.normalText(
+            style: CustomTextTheme.bottomTabs(
               color: lightColorPalette.redDark,
             ),
-          ),
+          ).paddingOnly(top: 5.h),
         ),
       ), /*paddingOnly(left: 20.w, right: 20.w, top: 4.h),*/
     ],
@@ -351,21 +363,69 @@ Widget commonSearchFieldWidget({
   );
 }
 
+Widget commonDateFieldWidget({
+  required String selectedText,
+  required Function() onTap,
+  required FocusNode focusNode,
+}) {
+  return GestureDetector(
+    onTap: () {
+      focusNode.requestFocus();
+    },
+    child: Container(
+      width: 1.sw,
+      height: 32.h,
+      decoration: decorationDateTextField(isSelected: selectedText != ""),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: TextFormField(
+              controller: TextEditingController(text: selectedText),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              minLines: 1,
+              readOnly: true,
+              onTap: () {
+                onTap();
+              },
+              expands: false,
+              focusNode: focusNode,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: EdgeInsets.only(left: 8.0, right: 8.w),
+                border: InputBorder.none,
+                hintText: "00:00",
+                hintStyle: CustomTextTheme.normalText2(
+                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+              ),
+              style: CustomTextTheme.normalText2(
+                  color: lightColorPalette.primaryDarkblue),
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+
 Widget dropdownField(
     {String hint = "",
-    required DropdownModel selectedValue,
-    required Function(DropdownModel value) onClick,
-    EdgeInsetsGeometry? padding,
-    required List<DropdownModel> list,
-    bool? isExpanded,
-    bool isMandatory = false,
-    bool isShowRightButton = false,
-    String? title,
-    Widget? rightButtonDesign,
-    bool isError = false,
-    Function()? onTap,
-    String? errorMsg,
-    bool hasFocus = false}) {
+      required DropdownModel selectedValue,
+      required Function(DropdownModel value) onClick,
+      EdgeInsetsGeometry? padding,
+      required List<DropdownModel> list,
+      bool? isExpanded,
+      bool isMandatory = false,
+      bool isShowRightButton = false,
+      String? title,
+      Widget? rightButtonDesign,
+      bool isError = false,
+      Function()? onTap,
+      String? errorMsg,
+      bool hasFocus = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -438,7 +498,7 @@ Widget dropdownField(
             iconStyleData: IconStyleData(
               icon: Center(
                 child: Icon(Icons.arrow_drop_down,
-                        color: lightColorPalette.primaryDarkblue, size: 25.h)
+                    color: lightColorPalette.primaryDarkblue, size: 25.h)
                     .paddingOnly(right: 4.w),
               ),
             ),
@@ -474,46 +534,46 @@ Widget dropdownField(
             },
             items: list
                 .map((DropdownModel model) => DropdownMenuItem<DropdownModel>(
-                      value: model,
-                      child: DropdownMenuItem(
-                        value: model,
-                        child: StatefulBuilder(builder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
-                            child: Row(
-                              children: [
-                                AppTextWidget(
-                                  text: model.name.toString(),
-                                  style: TextStyle(
-                                    fontSize: 14.w,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: CommonStrings.generalSans,
-                                    color: lightColorPalette.primaryDarkblue,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const Spacer(),
-                                selectedValue.id == model.id
-                                    ? Padding(
-                                        padding: EdgeInsets.only(left: 8.w),
-                                        child: Icon(
-                                          Icons.check_sharp,
-                                          color: lightColorPalette.primaryBlue,
-                                          size: 15.r,
-                                        )
+              value: model,
+              child: DropdownMenuItem(
+                value: model,
+                child: StatefulBuilder(builder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
+                    child: Row(
+                      children: [
+                        AppTextWidget(
+                          text: model.name.toString(),
+                          style: TextStyle(
+                            fontSize: 14.w,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: CommonStrings.generalSans,
+                            color: lightColorPalette.primaryDarkblue,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+                        selectedValue.id == model.id
+                            ? Padding(
+                            padding: EdgeInsets.only(left: 8.w),
+                            child: Icon(
+                              Icons.check_sharp,
+                              color: lightColorPalette.primaryBlue,
+                              size: 15.r,
+                            )
 
-                                        // AssetWidget(
-                                        //     asset: Asset(
-                                        //         type: AssetType.svg,
-                                        //         path: ImageResource.checked)),
-                                        )
-                                    : Container(),
-                              ],
-                            ),
-                          );
-                        }),
-                      ),
-                    ))
+                          // AssetWidget(
+                          //     asset: Asset(
+                          //         type: AssetType.svg,
+                          //         path: ImageResource.checked)),
+                        )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
+              ),
+            ))
                 .toList(),
             onChanged: (DropdownModel? value) {
               onClick(value!);
@@ -526,7 +586,7 @@ Widget dropdownField(
           child: AppTextWidget(
             text: errorMsg ?? "",
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.redDark,
+              color: lightColorPalette.primaryDarkblue,
             ),
           ),
         ),
@@ -540,10 +600,10 @@ class DropdownModel extends Equatable {
   bool isActive;
   DropdownModel(
       {this.id = "",
-      this.name = "",
-      this.status = "",
-      this.type = "",
-      this.isActive = true});
+        this.name = "",
+        this.status = "",
+        this.type = "",
+        this.isActive = true});
   @override
   String toString() => name;
   @override

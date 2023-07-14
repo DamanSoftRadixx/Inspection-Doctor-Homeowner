@@ -243,6 +243,29 @@ BoxDecoration decorationWithElevationOnly() {
       border: Border.all(color: lightColorPalette.stroke, width: 0.3));
 }
 
+BoxDecoration decorationDateTextField({required bool isSelected}) {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(4.r),
+      shape: BoxShape.rectangle,
+      boxShadow: isSelected
+          ? [
+        BoxShadow(
+          blurRadius: 14,
+          color: lightColorPalette.primaryBlue.withOpacity(0.25),
+          offset: const Offset(0, 6),
+          spreadRadius: 0,
+        ),
+      ]
+          : [],
+      border: Border.all(
+          color: isSelected
+              ? lightColorPalette.primaryBlue
+              : lightColorPalette.primaryGrey,
+          width: isSelected ? 1 : 0.3));
+}
+
+
 BoxDecoration decorationHome() {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,

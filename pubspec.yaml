@@ -55,7 +55,7 @@ dependencies:
   keyboard_actions: ^4.2.0
   dio: ^5.2.1+1
   loading_animation_widget: ^1.2.0+4
-  platform_device_id_v3: ^1.0.0
+#  platform_device_id_v3: ^1.0.0
  
 
 

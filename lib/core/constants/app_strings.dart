@@ -225,7 +225,7 @@ class AppStrings {
   static const lastName = "Last name";
   static const phoneNumber = "Phone number";
   static const password = "Password";
-  static const confirmpassword = "Confirm password";
+  static const confirmPassword = "Confirm password";
   static const street = "Street";
   static const city = "City";
   static const state = "State";
@@ -316,6 +316,11 @@ class GetArgumentConstants {
 
   static const otpFromForget = "otpFromForget";
   static const otpFromSignUp = "otpFromSignUp";
+
+  static const otp = "otp";
+  static const from = "from";
+  static const phoneNumber = "phoneNumber";
+  static const email = "email";
 }
 
 class WeekDays {
@@ -337,6 +342,8 @@ class ErrorMessages {
   static const emailIsEmpty = "Please enter your email.";
   static const emailIsNotValid = "Please enter valid email.";
   static const firstNameIsEmpty = "Please enter your  first name.";
+  static const firstNameMatch = "Your first name must have at least two letters and no unusual characters.";
+  static const lastNameMatch = "Your last name must have at least two letters and no unusual characters.";
   static const lastNameIsEmpty = "Please enter your last name.";
   static const addressIsEmpty = "Please enter your address.";
   static const phoneIsEmpty = "Please enter your phone number.";
@@ -354,4 +361,7 @@ class ErrorMessages {
   static const noDataFound = "No data found";
   static const otpIsEmpty = "Please enter your otp.";
   static const pleaseSelectAppLanguage = "Please select app language.";
+  static const pleaseEnter4DigitOtp = "Please enter 4 digit otp.";
+  static const otpIsIncorrect = "Otp is incorrect.";
+
 }

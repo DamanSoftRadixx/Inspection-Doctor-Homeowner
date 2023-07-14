@@ -1,15 +1,25 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/model/select_language_model.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
+import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
+import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/provider/login_provider.dart';
 
 class LoginController extends GetxController {
+  LoginProvider loginProvider = LoginProvider();
+
   RxBool isHidePassword = true.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Rx<Language> selectedLanguage = Language().obs;
 
   var emailFocusNode = FocusNode().obs;
   var passwordFocusNode = FocusNode().obs;
@@ -19,6 +29,8 @@ class LoginController extends GetxController {
 
   RxString emailErrorMessage = "".obs;
   RxString passwordErrorMessage = "".obs;
+
+  RxBool isShowLoader = false.obs;
 
   addFocusListeners() {
     emailFocusNode.value.addListener(() {
@@ -36,7 +48,6 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
-    getArguments();
     addFocusListeners();
     super.onInit();
   }
@@ -47,22 +58,19 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void onPressForgotPasswordButton() {
-    dismissKeyboard();
-    Get.toNamed(Routes.forgetScreen);
+  setShowLoader({required bool value}) {
+    isShowLoader.value = value;
+    isShowLoader.refresh();
   }
 
-  void onTapSignupButton() {
+  void onPressForgotPasswordButton() {
     dismissKeyboard();
     clearTextField();
-    Get.toNamed(Routes.signupScreen, arguments: {
-      GetArgumentConstants.selectedLanguage: selectedLanguage.value
-    });
+    Get.toNamed(Routes.forgetScreen);
   }
 
   void onPressLoginButton() {
     dismissKeyboard();
-
     validate(email: emailController.text, password: passwordController.text);
   }
 
@@ -70,16 +78,7 @@ class LoginController extends GetxController {
     required String email,
     required String password,
   }) async {
-    print("fjghfjshgjfshg");
-
-    String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-    RegExp regExp = RegExp(pattern);
-
-    /* logger("password ${AutoValidate.password(password.toString())}");*/
     if (email.isEmpty && password.isEmpty) {
-      print("testtt");
-
       emailError.value = true;
       passwordError.value = true;
 
@@ -94,14 +93,13 @@ class LoginController extends GetxController {
     } else if (password.isEmpty) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
-    } else if (password.length < 8 || !regExp.hasMatch(password)) {
+    } else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordLength;
     } else {
       emailError.value = false;
       passwordError.value = false;
-
-      Get.toNamed(Routes.dashboard);
+      hitLoginApi();
     }
   }
 
@@ -113,11 +111,66 @@ class LoginController extends GetxController {
     isHidePassword.value = false;
   }
 
-  getArguments() {
-    var args = Get.arguments;
-    if (args != null) {
-      selectedLanguage.value =
-          args[GetArgumentConstants.selectedLanguage] ?? "";
+  void onTapSignupButton() {
+    dismissKeyboard();
+    clearTextField();
+    Get.toNamed(Routes.signupScreen);
+  }
+
+
+  hitLoginApi() async {
+    // String? deviceId = await PlatformDeviceId.getDeviceId;
+    setShowLoader(value: true);
+
+    var body = json.encode({
+      "email": emailController.text.trim(),
+      "password": passwordController.text.trim(),
+      "device_type":
+      isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+      "device_token": "eydhghjd",
+      "device_id": "A4"
+    });
+
+    try {
+      LoginResponseModel response =
+          await loginProvider.login(body: body) ?? LoginResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true && (response.status == 201 || response.status == 200)) {
+        var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
+        if(token != "") Prefs.write(Prefs.token, token);
+        Get.toNamed(Routes.dashboard);
+        snackbar(response.message ?? "");
+      } else {
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );       }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
+  }
+
+  void onChangedEmailTextField({required String value}) {
+    if (value.isNotEmpty && emailController.text.isEmail) {
+      emailError.value = false;
+    }
+  }
+
+  void onChangedPasswordTextField({required String value}) {
+    if (value.isNotEmpty) {
+      if (isValidPassword(password: passwordController.text)) {
+        passwordError.value = false;
+      }
+    }
+  }
+
+  void onPressPasswordEyeIcon() {
+    if (isHidePassword.value == false) {
+      isHidePassword.value = true;
+    } else {
+      isHidePassword.value = false;
     }
   }
 }

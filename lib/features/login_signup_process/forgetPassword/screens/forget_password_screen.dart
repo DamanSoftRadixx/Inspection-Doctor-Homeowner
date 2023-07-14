@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -19,18 +21,23 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-          child: Obx(
-        () => SingleChildScrollView(
-          child: Column(
-            children: [
-              showHeadingText(),
-              showEmailField(),
-              showSendLinkButton(),
-              // showResendOTP(),
-            ],
-          ).paddingSymmetric(horizontal: 20.w),
-        ),
-      )),
+        child: Obx(() => Stack(
+          children: [
+            SingleChildScrollView(
+              physics: RangeMaintainingScrollPhysics(),
+              child: Column(
+                children: [
+                  showHeadingText(),
+                  showEmailField(),
+                  showSendLinkButton(),
+                  // showResendOTP(),
+                ],
+              ).paddingSymmetric(horizontal: 20.w),
+            ),
+            CommonLoader(isLoading: controller.isShowLoader.value)
+          ],
+        )),
+      ),
     );
   }
 
@@ -110,12 +117,14 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       controller: controller.emailController,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
+      maxLength: 50,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
+      ],
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        if (value.isNotEmpty && controller.emailController.text.isEmail) {
-          controller.emailError.value = false;
-        }
+       controller.onChangedEmailTextField(value : value);
       },
     ).paddingOnly(bottom: 11.h, top: 50.h);
   }

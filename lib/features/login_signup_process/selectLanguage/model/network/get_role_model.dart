@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getRolesResponse = getRolesResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
@@ -27,7 +23,8 @@ class GetRolesResponse {
 
   factory GetRolesResponse.fromJson(Map<String, dynamic> json) =>
       GetRolesResponse(
-        status: json["status"].toString().toIntConversion(),
+        status: json["status"].toString().toIntConversion
+          (),
         success: json["success"],
         data: json["data"] == null
             ? null

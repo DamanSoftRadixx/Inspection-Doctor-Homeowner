@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -20,16 +21,21 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       backgroundColor: lightColorPalette.backgroundColor,
       appBar: showAppBar(),
       body: SafeArea(
-        child: Obx(() => SingleChildScrollView(
-              child: Column(
-                children: [
-                  showHeadingText(),
-                  showPinView(),
-                  showVerifyButton(),
-                  showResendOTP()
-                ],
-              ),
-            )),
+        child: Obx(() => Stack(
+          children: [
+            SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      showHeadingText(),
+                      showPinView(),
+                      showVerifyButton(),
+                      showResendOTP()
+                    ],
+                  ),
+                ),
+            CommonLoader(isLoading: controller.isShowLoader.value)
+          ],
+        )),
       ),
     );
   }
@@ -42,21 +48,20 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         AppTextWidget(
           style:
               CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
-          text: controller.isNeedResendOTP.value
+          text: controller.timerCountdown.value > 0
               ? AppStrings.expiresIn.tr
               : AppStrings.dontYouReceivedOTP.tr,
         ),
         CustomInkwell(
           padding: EdgeInsets.only(left: 3.w),
           onTap: () {
-            // dismissKeyboard();
-            // Get.toNamed(Routes.forgetScreen);
+            controller.resendOtpButtonPressed();
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
-            text: controller.isNeedResendOTP.value
-                ? "02:05"
+            text:  controller.timerCountdown.value > 0
+                ? "${controller.getTimerLabel()}"
                 : AppStrings.resendOTP.tr,
           ),
         ),
@@ -73,45 +78,49 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
   }
 
   showPinView() {
-    return Obx(() => Column(
-          children: [
-            Pinput(
-              controller: controller.pinPutController,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              defaultPinTheme: defaultPinTheme,
-              focusedPinTheme: focusedPinTheme,
-              submittedPinTheme: submittedPinTheme,
-              showCursor: true,
-              onCompleted: (pin) {
-                controller.verifyCode.value = pin;
-                controller.isOtpError.value = false;
-              },
-              onChanged: (text) {
-                controller.verifyCode.value = text;
-                controller.isOtpError.value = false;
-              },
-            ).paddingOnly(top: 50.h),
-            Visibility(
-              visible: controller.isOtpError.value,
-              child: Align(
-                alignment: Alignment.center,
-                child: AppTextWidget(
-                  text: ErrorMessages.otpIsEmpty,
-                  style:
-                      CustomTextTheme.subtext(color: lightColorPalette.redDark),
-                ).paddingOnly(top: 10.h),
+    return Column(
+      children: [
+        Pinput(
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          defaultPinTheme: defaultPinTheme,
+          focusedPinTheme: focusedPinTheme,
+          submittedPinTheme: submittedPinTheme,
+          showCursor: true,
+          onCompleted: (pin) {
+            controller.verifyCode.value = pin;
+            controller.isOtpError.value = false;
+          },
+          onChanged: (text) {
+            controller.verifyCode.value = text;
+            controller.isOtpError.value = false;
+
+           /* if (text.length < 4) {
+            }*/
+          },
+        ).paddingOnly(top: 50.h),
+        Visibility(
+          visible: controller.isOtpError.value,
+          child: Align(
+            alignment: Alignment.center,
+            child: AppTextWidget(
+              text: controller.otpError.value,
+              style: CustomTextTheme.subtext(
+                color: lightColorPalette.redDark,
               ),
-            )
-          ],
-        ));
+            ).paddingOnly(top: 10.h),
+          ),
+        )
+      ],
+    );
   }
 
   AppBar showAppBar() {
     return commonAppBarWithElevation(
-        onPressBackButton: () {
-          Get.back();
-        },
-        title: AppStrings.otp.tr);
+      onPressBackButton: () {
+        Get.back();
+      },
+      title: AppStrings.otp.tr,
+    );
   }
 
   Column showHeadingText() {
@@ -125,28 +134,25 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
-        Obx(() => Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AppTextWidget(
-                  textAlign: TextAlign.center,
-                  text: AppStrings.oTPSent.tr,
-                  style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey,
-                  ),
-                ),
-                AppTextWidget(
-                  textAlign: TextAlign.center,
-                  text: controller.isOTPFromForget.value
-                      ? " itika21real@gmail.com"
-                      : " +1 8451265847",
-                  style: CustomTextTheme.categoryText(
-                    color: lightColorPalette.primaryDarkblue,
-                  ),
-                ).paddingOnly(top: 3.h)
-              ],
-            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppTextWidget(
+              textAlign: TextAlign.center,
+              text: AppStrings.oTPSent.tr,
+              style: CustomTextTheme.normalText(
+                color: lightColorPalette.primaryGrey,
+              ),
+            ),
+            AppTextWidget(
+              textAlign: TextAlign.center,
+              text: " ${controller.phoneNumberOrEmail.value}",
+              style: CustomTextTheme.categoryText(
+                color: lightColorPalette.primaryDarkblue,
+              ),
+            ).paddingOnly(top: 3.h)
+          ],
+        ),
       ],
     );
   }

@@ -1,30 +1,26 @@
-// To parse this JSON data, do
-//
-//     final stateListingResponse = stateListingResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
-StateListingResponse stateListingResponseFromJson(String str) =>
-    StateListingResponse.fromJson(json.decode(str));
+CountryListingResponse countryListingResponseFromJson(String str) =>
+    CountryListingResponse.fromJson(json.decode(str));
 
-String stateListingResponseToJson(StateListingResponse data) =>
+String countryListingResponseToJson(CountryListingResponse data) =>
     json.encode(data.toJson());
 
-class StateListingResponse {
+class CountryListingResponse {
   int? code;
   bool? status;
   List<Datum>? data;
 
-  StateListingResponse({
+  CountryListingResponse({
     this.code,
     this.status,
     this.data,
   });
 
-  factory StateListingResponse.fromJson(Map<String, dynamic> json) =>
-      StateListingResponse(
+  factory CountryListingResponse.fromJson(Map<String, dynamic> json) =>
+      CountryListingResponse(
         code: json["code"].toString().toIntConversion(),
         status: json["status"],
         data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
@@ -42,16 +38,18 @@ class StateListingResponse {
 class Datum {
   int? id;
   String? name;
-  int? countryId;
-  String? countryCode;
+  String? iso3;
+  String? numericCode;
+  String? phonecode;
   String? createdAt;
   String? updatedAt;
 
   Datum({
     this.id,
     this.name,
-    this.countryId,
-    this.countryCode,
+    this.iso3,
+    this.numericCode,
+    this.phonecode,
     this.createdAt,
     this.updatedAt,
   });
@@ -59,8 +57,9 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"].toString().toIntConversion(),
         name: json["name"].toString().toStringConversion(),
-        countryId: json["country_id "].toString().toIntConversion(),
-        countryCode: json["country_code"].toString().toStringConversion(),
+        iso3: json["iso3"].toString().toStringConversion(),
+        numericCode: json["numeric_code"].toString().toStringConversion(),
+        phonecode: json["phonecode"].toString().toStringConversion(),
         createdAt:
             DateTime.parse(json["created_at"]).toString().toStringConversion(),
         updatedAt:
@@ -70,8 +69,9 @@ class Datum {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "country_id ": countryId,
-        "country_code": countryCode,
+        "iso3": iso3,
+        "numeric_code": numericCode,
+        "phonecode": phonecode,
         "created_at": createdAt,
         "updated_at": updatedAt,
       };
