@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
@@ -89,109 +90,157 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showPropertyNameField() {
     return commonTextFieldWidget(
+      maxLength: 30,
+      isError: controller.propertyNameError.value,
+      errorMsg: controller.propertyNameErrorMessage.value,
       focusNode: controller.propertyFocusNode.value,
       controller: controller.propertyController,
       title: AppStrings.propertyNameNickName.tr,
       hint: AppStrings.propertyNameNickName.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedPropertyNameTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
     );
   }
 
   Widget showStreetNameField() {
     return commonTextFieldWidget(
+      maxLength: 30,
+      isError: controller.streetError.value,
+      errorMsg: controller.stateErrorMessage.value,
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
       title: AppStrings.street.tr,
       hint: AppStrings.street.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
-    );
-  }
-
-  Widget showStreetField() {
-    return commonTextFieldWidget(
-      focusNode: controller.streetFocusNode.value,
-      controller: controller.streetController,
-      title: AppStrings.street.tr,
-      hint: AppStrings.street.tr,
-      keyboardType: TextInputType.streetAddress,
-      textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedStreetTextField(value: value);
+      },
     );
   }
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      maxLength: 20,
+      isError: controller.cityError.value,
+      errorMsg: controller.cityErrorMessage.value,
       focusNode: controller.cityFocusNode.value,
       controller: controller.cityController,
       title: AppStrings.city.tr,
       hint: AppStrings.city.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedCityTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
     );
   }
 
   Widget showStateField() {
     return commonTextFieldWidget(
+      maxLength: 20,
+      isError: controller.stateError.value,
+      errorMsg: controller.stateErrorMessage.value,
       focusNode: controller.stateFocusNode.value,
       controller: controller.stateController,
       title: AppStrings.state.tr,
       hint: AppStrings.state.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedStateTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+      ],
     );
   }
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      maxLength: 10,
+      isError: controller.zipCodeError.value,
+      errorMsg: controller.zipCodeErrorMessage.value,
       focusNode: controller.zipCodeFocusNode.value,
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedZipCodeTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     );
   }
 
   Widget showPermitNumberield() {
     return commonTextFieldWidget(
+      isError: controller.permitNumberError.value,
+      errorMsg: controller.permitNumberErrorMessage.value,
       focusNode: controller.permitNumberFocusNode.value,
       controller: controller.permitNumberController,
       title: AppStrings.permitNumber.tr,
       hint: AppStrings.permitNumber.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedPermitNumberTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     );
   }
 
   Widget showLotNumberField() {
     return commonTextFieldWidget(
+      maxLength: 15,
+      isError: controller.lotNumberError.value,
+      errorMsg: controller.lotNumberErrorMessage.value,
       focusNode: controller.lotNumberFocusNode.value,
       controller: controller.lotNumberController,
       title: AppStrings.lotNumber.tr,
       hint: AppStrings.lotNumber.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedLotNumberTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     );
   }
 
   Widget showBlockNumberField() {
     return commonTextFieldWidget(
+      maxLength: 15,
+      isError: controller.blockNumberError.value,
+      errorMsg: controller.blockNumberErrorMessage.value,
       focusNode: controller.blockNumberFocusNode.value,
       controller: controller.blockNumberController,
       title: AppStrings.blockNumber.tr,
       hint: AppStrings.blockNumber.tr,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        controller.onChangedBlocTextField(value: value);
+      },
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     );
   }
 }

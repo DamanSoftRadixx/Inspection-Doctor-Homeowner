@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -135,9 +134,7 @@ class SignupController extends GetxController {
 
   getArguments() {
     var args = Get.arguments;
-    if (args != null) {
-
-    }
+    if (args != null) {}
   }
 
   void validate({
@@ -148,7 +145,6 @@ class SignupController extends GetxController {
     required String password,
     required String confirmPassword,
   }) async {
-
     if (firstName.isEmpty &&
         lastName.isEmpty &&
         email.isEmpty &&
@@ -171,13 +167,13 @@ class SignupController extends GetxController {
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
-    }else if (firstName.length < 2) {
+    } else if (firstName.length < 2) {
       firstNameError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameMatch;
     } else if (lastName.isEmpty) {
       lastNameError.value = true;
       lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
-    }else if (lastName.length < 2) {
+    } else if (lastName.length < 2) {
       lastNameError.value = true;
       lastNameErrorMessage.value = ErrorMessages.lastNameMatch;
     } else if (email.isEmpty) {
@@ -237,7 +233,7 @@ class SignupController extends GetxController {
             focusNode: phoneNumberFocusNode.value,
             displayArrows: false,
             toolbarButtons: [
-                  (node) {
+              (node) {
                 return GestureDetector(
                   onTap: () => passwordFocusNode.value.requestFocus(),
                   child: Padding(
@@ -278,27 +274,28 @@ class SignupController extends GetxController {
       "street": streetController.text,
       "city": cityController.text,
       "image": "621ca6da33032d8eb3c3b236",
-      "device_type": isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+      "device_type":
+          isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
       "device_token": "eydhghjd",
       "device_id": "deviceId"
     });
-
 
     try {
       SignUpResponseModel response =
           await signUpProvider.signUpUser(body: body) ?? SignUpResponseModel();
       setShowLoader(value: false);
-      if (response.success == true && (response.status == 201 || response.status == 200)) {
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
         signUpResponse.value = response.data ?? SignUpResponseData();
         var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if(token != "") Prefs.write(Prefs.token, token);
+        if (token != "") Prefs.write(Prefs.token, token);
         Get.toNamed(Routes.otpVerifyScreen, arguments: {
           GetArgumentConstants.otp: signUpResponse.value.otp,
-          GetArgumentConstants.phoneNumber: "+${selectedCountryCode} ${phoneNumberController.text}",
+          GetArgumentConstants.phoneNumber:
+              "+$selectedCountryCode ${phoneNumberController.text}",
           GetArgumentConstants.from: Routes.signupScreen
         });
         snackbar(response.message ?? "");
-
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -306,7 +303,8 @@ class SignupController extends GetxController {
           okButtonPressed: () {
             Get.back();
           },
-        );      }
+        );
+      }
     } catch (e) {
       setShowLoader(value: false);
     }
@@ -356,8 +354,7 @@ class SignupController extends GetxController {
 
   void onChangedConfirmPasswordTextField({required String value}) {
     if (value.isNotEmpty &&
-        (passwordController.text ==
-            confirmPasswordController.text)) {
+        (passwordController.text == confirmPasswordController.text)) {
       confirmPasswordError.value = false;
     }
   }

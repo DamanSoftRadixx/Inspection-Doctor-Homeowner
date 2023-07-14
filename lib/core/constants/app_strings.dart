@@ -342,8 +342,10 @@ class ErrorMessages {
   static const emailIsEmpty = "Please enter your email.";
   static const emailIsNotValid = "Please enter valid email.";
   static const firstNameIsEmpty = "Please enter your  first name.";
-  static const firstNameMatch = "Your first name must have at least two letters and no unusual characters.";
-  static const lastNameMatch = "Your last name must have at least two letters and no unusual characters.";
+  static const firstNameMatch =
+      "Your first name must have at least two letters and no unusual characters.";
+  static const lastNameMatch =
+      "Your last name must have at least two letters and no unusual characters.";
   static const lastNameIsEmpty = "Please enter your last name.";
   static const addressIsEmpty = "Please enter your address.";
   static const phoneIsEmpty = "Please enter your phone number.";
@@ -364,4 +366,14 @@ class ErrorMessages {
   static const pleaseEnter4DigitOtp = "Please enter 4 digit otp.";
   static const otpIsIncorrect = "Otp is incorrect.";
 
+//add property
+
+  static const propertyEmty = "Please enter property name.";
+  static const streetEmty = "Please enter street name.";
+  static const cityEmty = "Please enter city name.";
+  static const stateEmty = "Please enter state name.";
+  static const zipCodeEmty = "Please enter zip code.";
+  static const permitEmty = "Please enter permit number.";
+  static const lotEmty = "Please enter LOT number.";
+  static const blockEmty = "Please enter block number.";
 }

@@ -1,19 +1,23 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
 
-class LoginProvider {
+class AddPropertyProvider {
   ApiHitter apiHitter = ApiHitter();
 
-  Future<LoginResponseModel?> login({required Object body}) async {
+  Future<SignUpResponseModel?> addProperty({required Object body}) async {
     try {
       Response response =
-          await apiHitter.postApi(endPoint: EndPoints.login, body: body);
-      LoginResponseModel data = LoginResponseModel.fromJson(response.data);
-      showResponseData(data, type: 'login');
+          await apiHitter.postApi(endPoint: EndPoints.register, body: body);
+
+      log("response $response");
+      SignUpResponseModel data = SignUpResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'signUpUser');
 
       return data;
     } catch (e) {
