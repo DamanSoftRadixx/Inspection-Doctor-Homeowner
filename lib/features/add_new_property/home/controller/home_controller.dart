@@ -134,6 +134,8 @@ class HomeController extends GetxController {
             pagingController.appendPage(propertyList, nextPageKey);
           }
         }
+
+        log("message ${propertyList.length}");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

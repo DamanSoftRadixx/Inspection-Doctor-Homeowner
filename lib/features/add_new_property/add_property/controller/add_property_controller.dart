@@ -57,6 +57,8 @@ class AddPropertyController extends GetxController {
   RxString blockNumberErrorMessage = "".obs;
   RxString countyErrorMessage = "".obs;
 
+  RxBool isUplodedingFile = false.obs;
+
   addFocusListeners() {
     propertyFocusNode.value.addListener(() {
       propertyFocusNode.refresh();
@@ -429,5 +431,25 @@ class AddPropertyController extends GetxController {
     } catch (e) {
       setShowLoader(value: false);
     }
+  }
+
+  void uploadDocuments() async {
+    isUplodedingFile.value = true;
+
+    // var response = await profileProvider.uploadProfile(pickedImageFile.value);
+
+    // print("pickedImageFile<<<<<<${pickedImageFile.value}");
+
+    // if (response != null) {
+    //   if (response.statusCode == 200) {
+    //     isImageUpload.value = false;
+
+    //     imageCache.clear();
+    //     imageCache.clearLiveImages();
+    //   } else {
+    //     isImageUpload.value = false;
+    //   }
+    // }
+    // isImageUpload.value = false;
   }
 }

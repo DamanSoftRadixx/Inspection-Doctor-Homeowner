@@ -40,7 +40,6 @@ class SignupScreen extends GetView<SignupController> {
                           showHeadingText(),
                           Column(
                             children: [
-                              // uploadPhotoWidget().paddingOnly(top: 30.h, bottom: 30.h),
                               showFirstNameField().paddingOnly(bottom: 11.h),
                               showLastNameField().paddingOnly(bottom: 11.h),
                               showEmailField().paddingOnly(bottom: 11.h),

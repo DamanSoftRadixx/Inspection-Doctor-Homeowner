@@ -61,9 +61,14 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   }
 
   Widget showAddDocmentBox() {
-    return commonDocumentPicker(
-        title: AppStrings.uploadArchitecturalDrawing.tr,
-        text: AppStrings.uploadAPdf.tr);
+    return GestureDetector(
+      onTap: () {
+        controller.uploadDocuments();
+      },
+      child: commonDocumentPicker(
+          title: AppStrings.uploadArchitecturalDrawing.tr,
+          text: AppStrings.uploadAPdf.tr),
+    );
   }
 
   CommonButton showAddPropertyButton() {
