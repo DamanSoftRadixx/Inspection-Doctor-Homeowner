@@ -282,6 +282,9 @@ class AppStrings {
   static const String connectionTimeOut = "The connection has timed out";
   static const close = "Close";
 
+  static const noData = "No Data Found";
+  static const listEmpty = "List is empty ";
+
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
   static const youHaveNotAddedPropertyYet =

@@ -250,13 +250,13 @@ BoxDecoration decorationDateTextField({required bool isSelected}) {
       shape: BoxShape.rectangle,
       boxShadow: isSelected
           ? [
-        BoxShadow(
-          blurRadius: 14,
-          color: lightColorPalette.primaryBlue.withOpacity(0.25),
-          offset: const Offset(0, 6),
-          spreadRadius: 0,
-        ),
-      ]
+              BoxShadow(
+                blurRadius: 14,
+                color: lightColorPalette.primaryBlue.withOpacity(0.25),
+                offset: const Offset(0, 6),
+                spreadRadius: 0,
+              ),
+            ]
           : [],
       border: Border.all(
           color: isSelected
@@ -264,7 +264,6 @@ BoxDecoration decorationDateTextField({required bool isSelected}) {
               : lightColorPalette.primaryGrey,
           width: isSelected ? 1 : 0.3));
 }
-
 
 BoxDecoration decorationHome() {
   return BoxDecoration(

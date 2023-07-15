@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,8 +45,6 @@ class HomeController extends GetxController {
     seacrhFocusNode.value.removeListener(() {});
   }
 
-  static const pageSize = 2;
-
   RefreshController refreshController = RefreshController();
 
   @override
@@ -74,7 +71,7 @@ class HomeController extends GetxController {
   void pagination() {
     if ((listController.position.pixels ==
         listController.position.maxScrollExtent)) {
-      if ((propertyList.length) > start.value) {
+      if (propertyList.length > start.value) {
         loadMore.value = true;
         start.value += length;
         print("start.value<<<<${start.value}");
@@ -132,14 +129,12 @@ class HomeController extends GetxController {
           }
           setShowLoader(value: false);
 
-          propertyList.value = response.data ?? [];
+          propertyList.addAll(response.data ?? <PropertyListData>[]);
           propertyList.refresh();
           loadMore.refresh();
         }
 
         refreshController.refreshCompleted();
-
-        log("message ${propertyList.length}");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
