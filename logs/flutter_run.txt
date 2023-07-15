@@ -1,0 +1,663 @@
+[7:54:33 AM]: Spawning /Users/deepak/Documents/flutter_sdk/bin/flutter with args ["run","--machine","--start-paused","-d","1028831367113640","--devtools-server-address","http://127.0.0.1:9100/","--target","lib/main.dart"]
+[7:54:33 AM]: ..  in /Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner
+[7:54:33 AM]: ..  with {"toolEnv":{"FLUTTER_HOST":"VSCode","PUB_ENVIRONMENT":"vscode.dart-code"}}
+[7:54:33 AM]: PID: 2906
+[7:54:36 AM]: <== [{"event":"daemon.connected","params":{"version":"0.6.1","pid":2907}}]
+[7:54:36 AM]: <== [{"event":"app.start","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","deviceId":"1028831367113640","directory":"/Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner","supportsRestart":true,"launchMode":"run","mode":"debug"}}]
+[7:54:37 AM]: <== Launching lib/main.dart on TECNO CK8n in debug mode...
+[7:54:38 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"0","progressId":null,"message":"Running Gradle task 'assembleDebug'...","finished":false}}]
+[7:56:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"0","progressId":null,"finished":true}}]
+[7:56:07 AM]: <== ✓  Built build/app/outputs/flutter-apk/app-debug.apk.
+[7:56:07 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"1","progressId":null,"message":"Installing build/app/outputs/flutter-apk/app-debug.apk...","finished":false}}]
+[7:56:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"1","progressId":null,"finished":true}}]
+[7:56:12 AM]: Error: ADB exited with exit code 1
+[7:56:12 AM]: Performing Streamed Install
+
+adb: failed to install /Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner/build/app/outputs/flutter-apk/app-debug.apk: Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE: Existing package com.example.inspection_doctor_homeowner signatures do not match newer version; ignoring!]
+[7:56:12 AM]: <== Uninstalling old version...
+[7:56:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"2","progressId":null,"message":"Installing build/app/outputs/flutter-apk/app-debug.apk...","finished":false}}]
+[7:56:19 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"2","progressId":null,"finished":true}}]
+[7:56:22 AM]: <== [{"event":"app.debugPort","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","port":50499,"wsUri":"ws://127.0.0.1:50499/HO55csZJKJc=/ws","baseUri":"file:///data/user/0/com.example.inspection_doctor_homeowner/code_cache/Inspection-Doctor-HomeownerNFZTNK/Inspection-Doctor-Homeowner/"}}]
+[7:56:22 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"3","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[7:56:22 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"3","progressId":null,"finished":true}}]
+[7:56:22 AM]: <== [{"event":"app.started","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d"}}]
+[7:56:26 AM]: <== D/ProfileInstaller(15542): Installing profile for com.example.inspection_doctor_homeowner
+[7:58:13 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[7:58:13 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[7:58:13 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000000,api:0,p:-1,c:15542) connect: controlledByApp=false
+[7:58:13 AM]: <== E/FBI     (15542): Can't load library: dlopen failed: library "libmagtsync.so" not found
+[7:58:13 AM]: <== I/config_debug(15542): updateDecorCaptionStatus: {1.0 405mcc867mnc [en_IN,en_US] ldltr sw360dp w360dp h724dp 480dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 108 - 1080, 2280) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mMultiWindowMode=normal mMultiWindowId=0 mWindowResiable=6 mInLargeScreen=-1 mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mDisplayUniqueId=0} s.1 fontWeightAdjustment=0} fromMultiWindow: true
+[7:58:13 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:13 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:13 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:13 AM]: <== D/libMEOW (15542): meow new tls: 0xb400007da6a18220
+[7:58:13 AM]: <== D/libMEOW (15542): applied 1 plugins for [com.example.inspection_doctor_homeowner]:
+[7:58:13 AM]: <== D/libMEOW (15542):   plugin 1: [libMEOW_gift.so]: 0xb400007d66826880
+[7:58:13 AM]: <== D/libMEOW (15542): rebuild call chain: 0xb400007da68b80c0
+[7:58:13 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[7:58:13 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000001,api:0,p:-1,c:15542) connect: controlledByApp=false
+[7:58:13 AM]: <== D/skia    (15542): GrGLMakeAssembledInterface verStr OpenGL ES 3.2 v1.r32p1-01eac0.efd03ef21f136842c0935bd4f493fe81
+[7:58:13 AM]: <== D/skia    (15542): GrGLMakeAssembledGLESInterface verStr OpenGL ES 3.2 v1.r32p1-01eac0.efd03ef21f136842c0935bd4f493fe81
+[7:58:13 AM]: <== D/skia    (15542): extensions init verString=OpenGL ES 3.2 v1.r32p1-01eac0.efd03ef21f136842c0935bd4f493fe81
+[7:58:13 AM]: <== D/libMEOW (15542): meow new tls: 0xb400007da6be83f0
+[7:58:13 AM]: <== D/libMEOW (15542): applied 1 plugins for [com.example.inspection_doctor_homeowner]:
+[7:58:13 AM]: <== D/libMEOW (15542):   plugin 1: [libMEOW_gift.so]: 0xb400007d66826880
+[7:58:13 AM]: <== D/libMEOW (15542): rebuild call chain: 0xb400007da6908110
+[7:58:13 AM]: <== I/flutter (15542): URL auth/public-dropdown/get-languages >> http://api.cidusa.net/auth/public-dropdown/get-languages
+[7:58:13 AM]: <== I/flutter (15542): GET auth/public-dropdown/get-languages >> null
+[7:58:13 AM]: <== I/flutter (15542): URL auth/get-roles >> http://api.cidusa.net/auth/get-roles
+[7:58:13 AM]: <== I/flutter (15542): GET auth/get-roles >> null
+[7:58:14 AM]: <== I/flutter (15542): headers : {Content-Type: application/json, language_id: , authorization: Bearer }
+[7:58:14 AM]: <== D/hw-ProcessState(15542): Binder ioctl to enable oneway spam detection failed: Invalid argument
+[7:58:14 AM]: <== I/mali    (15542): [DebugProp] GPU Debug-Mechanism Disable !
+[7:58:14 AM]: <== I/flutter (15542): headers : {Content-Type: application/json, language_id: , authorization: Bearer }
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== I/config_debug(15542): updateDecorCaptionStatus: {1.0 405mcc867mnc [en_IN,en_US] ldltr sw360dp w360dp h724dp 480dpi nrml long hdr widecg port finger -keyb/v/h -nav/h winConfig={ mBounds=Rect(0, 0 - 1080, 2400) mAppBounds=Rect(0, 108 - 1080, 2280) mMaxBounds=Rect(0, 0 - 1080, 2400) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mDisplayWindowingMode=fullscreen mMultiWindowMode=normal mMultiWindowId=0 mWindowResiable=6 mInLargeScreen=-1 mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0 mDisplayUniqueId=0} s.1 fontWeightAdjustment=0} fromMultiWindow: false
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#1](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=77537738593774(auto) mPendingTransactions.size=0 graphicBufferId=66752381714432 transform=0
+[7:58:14 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#0](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=77537755348313(auto) mPendingTransactions.size=0 graphicBufferId=66752381714434 transform=0
+[7:58:14 AM]: <== W/Parcel  (15542): Expecting binder but got null!
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== I/octor_homeowner(15542): Compiler allocated 5031KB to compile void android.view.ViewRootImpl.performTraversals()
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[7:58:14 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:01:46 AM]: <== D/os.LiceInfo(15542): instance successfully. com.transsion.message.bank.v1.MessageBankLice@307353e from com.transsion.message.bank.IMessageBankLice
+[8:01:46 AM]: <== I/flutter (15542): first click
+[8:01:46 AM]: <== I/flutter (15542): unhandled element filter; Picture key: Svg loader
+[8:01:50 AM]: <== D/InputMethodManager(15542): invalidateInput servedInputConnection: RemoteInputConnectionImpl{connection=io.flutter.plugin.editing.InputConnectionAdaptor@a0ab984 finished=false mParentInputMethodManager.isActive()=true mServedView=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F....ID 0,0-1080,2280 #1 aid=1073741824}} sessionid: 0
+[8:01:50 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F....ID 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:50 AM]: <== W/OnBackInvokedCallback(15542): OnBackInvokedCallback is not enabled for the application.
+[8:01:50 AM]: <== W/OnBackInvokedCallback(15542): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+[8:01:50 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:50 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:01:50 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:01:50 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:01:50 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:01:51 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:51 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:51 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:51 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:51 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:51 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:52 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:52 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:52 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:52 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:53 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:53 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:53 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:53 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:54 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:54 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:54 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:54 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:55 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:55 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:55 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:55 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:56 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:56 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:56 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:56 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:56 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:56 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:56 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:56 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:56 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:56 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InputMethodManager(15542): invalidateInput servedInputConnection: RemoteInputConnectionImpl{connection=io.flutter.plugin.editing.InputConnectionAdaptor@a5f3c98 finished=false mParentInputMethodManager.isActive()=true mServedView=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824}} sessionid: 0
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:57 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:58 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:58 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:59 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:59 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:59 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:59 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:01:59 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:01:59 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:00 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:00 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:00 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:00 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:00 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:00 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:00 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:00 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:01 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:01 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:01 AM]: <== D/InputMethodManager(15542): showSoftInput() view=io.flutter.embedding.android.FlutterView{b2f656d VFE...... .F...... 0,0-1080,2280 #1 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+[8:02:01 AM]: <== D/InsetsController(15542): show(ime(), fromIme=true)
+[8:02:02 AM]: <== I/flutter (15542): URL auth/login >> http://api.cidusa.net/auth/login
+[8:02:02 AM]: <== I/flutter (15542): POST auth/login >> {"email":"deepak56@yopmail.com","password":"Test@12345","device_type":"Android","device_token":"eydhghjd","device_id":"A4"}
+[8:02:02 AM]: <== I/flutter (15542): POST auth/login >> null
+[8:02:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:02:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:02:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:02:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:02:03 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:03 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":0,"length":2,"filter_user_createdby_admin":""}
+[8:02:03 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:03 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:03 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":0,"length":2,"filter_user_createdby_admin":""}
+[8:02:03 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:04 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":2,"length":2,"filter_user_createdby_admin":""}
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:04 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":2,"length":2,"filter_user_createdby_admin":""}
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:04 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":4,"length":2,"filter_user_createdby_admin":""}
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:04 AM]: <== I/flutter (15542): URL property/property/list >> http://api.cidusa.net/property/property/list
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> {"search":"","start":4,"length":2,"filter_user_createdby_admin":""}
+[8:02:04 AM]: <== I/flutter (15542): POST property/property/list >> null
+[8:02:10 AM]: <== D/TranClassInfo(15542): instance successfully. com.transsion.hubcore.magellan.Implement.TranMagellanComponentImpl@2b617d1 from com.transsion.hubcore.magellan.ITranMagellanComponent
+[8:02:10 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = -3568.212 ksmooth-value = -3568.212 strengthVelocity = -3568.212 final velocity = -3568.212
+[8:02:10 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:11 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = -2290.7827 ksmooth-value = -2290.7827 strengthVelocity = -2290.7827 final velocity = -2290.7827
+[8:02:11 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:12 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = 3211.7107 ksmooth-value = 3211.7107 strengthVelocity = 3211.7107 final velocity = 3211.7107
+[8:02:12 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:13 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = 4812.948 ksmooth-value = 4812.948 strengthVelocity = 4812.948 final velocity = 4812.948
+[8:02:13 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:17 AM]: <== I/flutter (15542): URL user/get-counties >> http://api.cidusa.net/user/get-counties
+[8:02:17 AM]: <== I/flutter (15542): GET user/get-counties >> null
+[8:02:18 AM]: <== I/flutter (15542): headers : {Content-Type: application/json, language_id: , authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Il9pZCI6IjY0YjBkYjQ4Y2VmYTI3MmNjN2U0MGRlNCIsInJvbGVfaWQiOnsiX2lkIjoiNjIwY2E2ZGEzMzAzMmQ4ZWIzYzNiMjM2IiwibmFtZSI6IkhvbWVvd25lciJ9LCJyZWdpc3Rlcl90eXBlIjoiRW1haWwiLCJzb2NpYWxfa2V5IjpudWxsLCJmaXJzdF9uYW1lIjoiRGVlcGFrIiwibGFzdF9uYW1lIjoia3VtYXIiLCJpbWFnZSI6IjYyMWNhNmRhMzMwMzJkOGViM2MzYjIzNiIsImVtYWlsIjoiZGVlcGFrNTZAeW9wbWFpbC5jb20iLCJwaG9uZSI6Ijg5NTQ2NDk3OTQ2OTQiLCJjb3VudHJ5X2NvZGUiOiIxIiwib3RwIjoiNDY0OSIsImlzX290cF92ZXJpZmllZCI6MSwic3RhdGVfaWQiOm51bGwsImNpdHkiOm51bGwsImxhbmd1YWdlX2lkIjpudWxsLCJjb3VudHlfaWQiOltdLCJjYXRlZ29yeV9pZCI6W10sImRvY3VtZW50cyI6W10sImRvY3VtZW50VXBsb2FkZWQiOltdLCJkZXZpY2VfaWQiOiJBNCIsImRldmljZV90eXBlIjoiQW5kcm9pZCIsImRldmljZV90b2tlbiI6ImV5ZGhnaGpkIiwibG9naW50aW1lIjoxNjg5Mzg4MzI0MDM0LCJzdGF0dXMiOiIxIiwiaXNhcHByb3ZlZCI6IjEiLCJ6aXBfY29kZSI6bnVsbCwiZGVsZXRlZF9hdCI6bnVsbCwiY3JlYXRlZEF0IjoiMjAyMy0wNy0xNFQwNToyMToxMi43OThaIiwidXBkYXRlZEF0IjoiMjAyMy0wNy0xNFQxNDowMjoyNC4zNT
+[8:02:20 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = 3227.1255 ksmooth-value = 3227.1257 strengthVelocity = 3227.1255 final velocity = 3227.1257
+[8:02:20 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:21 AM]: <== D/TranFlingManagerImpl(15542): getYVelocity origin-value = -2106.834 ksmooth-value = -2106.834 strengthVelocity = -2106.834 final velocity = -2106.834
+[8:02:21 AM]: <== I/ScrollIdentify(15542): on fling
+[8:02:24 AM]: <== D/FilePickerDelegate(15542): Selected type */*
+[8:02:24 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#1](f:0,a:5) destructor()
+[8:02:24 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#1(BLAST Consumer)1](id:3cb600000001,api:0,p:-1,c:15542) disconnect
+[8:02:24 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#0](f:0,a:5) destructor()
+[8:02:24 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#0(BLAST Consumer)0](id:3cb600000000,api:0,p:-1,c:15542) disconnect
+[8:02:24 AM]: <== I/libPerfCtl(15542): fbcNotifySbeRescue ret=-1
+[8:02:32 AM]: <== D/CompatibilityChangeReporter(15542): Compat change id reported: 78294732; UID 10344; state: ENABLED
+[8:02:32 AM]: <== I/FilePickerUtils(15542): Caching from URI: content://com.android.providers.media.documents/document/image%3A1000017644
+[8:02:32 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[8:02:32 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[8:02:32 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000002,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:02:32 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[8:02:32 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000003,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:02:32 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#2](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=77796422755636(auto) mPendingTransactions.size=0 graphicBufferId=66752381714450 transform=0
+[8:02:32 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#3](f:0,a:1) acquireNextBufferLocked size=1080x2280 mFrameNumber=1 applyTransaction=true mTimestamp=77796434031944(auto) mPendingTransactions.size=0 graphicBufferId=66752381714451 transform=0
+[8:02:32 AM]: <== D/FilePickerUtils(15542): File loaded and cached at:/data/user/0/com.example.inspection_doctor_homeowner/cache/file_picker/IMG-20230715-WA0002.jpg
+[8:02:32 AM]: <== D/FilePickerDelegate(15542): File path:[com.mr.flutter.plugin.filepicker.FileInfo@d09a44b]
+[8:03:53 AM]: ==> [{"id":"1","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:03:54 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"4","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:03:54 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"5","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:03:54 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"5","progressId":null,"finished":true}}]
+[8:03:55 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"4","progressId":"hot.reload","finished":true}}]
+[8:03:55 AM]: <== Reloaded 2 of 2076 libraries in 1,567ms (compile: 280 ms, reload: 422 ms, reassemble: 441 ms).
+[8:03:55 AM]: <== [{"id":"1","result":{"code":0,"message":"Reloaded 2 of 2076 libraries"}}]
+[8:04:04 AM]: ==> [{"id":"2","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:04:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"6","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:04:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"7","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:04:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"7","progressId":null,"finished":true}}]
+[8:04:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"6","progressId":"hot.reload","finished":true}}]
+[8:04:05 AM]: <== Reloaded 1 of 2076 libraries in 1,108ms (compile: 169 ms, reload: 415 ms, reassemble: 436 ms).
+[8:04:05 AM]: <== [{"id":"2","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:04:10 AM]: <== D/FilePickerUtils(15542): Allowed file extensions mimes: [application/pdf]
+[8:04:10 AM]: <== D/FilePickerDelegate(15542): Selected type */*
+[8:04:10 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#3](f:0,a:1) destructor()
+[8:04:10 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#3(BLAST Consumer)3](id:3cb600000003,api:0,p:-1,c:15542) disconnect
+[8:04:11 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#2](f:0,a:1) destructor()
+[8:04:11 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#2(BLAST Consumer)2](id:3cb600000002,api:0,p:-1,c:15542) disconnect
+[8:04:15 AM]: ==> [{"id":"3","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:04:15 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"8","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:04:15 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"9","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:04:16 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"9","progressId":null,"finished":true}}]
+[8:04:19 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"8","progressId":"hot.reload","finished":true}}]
+[8:04:19 AM]: <== Reloaded 1 of 2076 libraries in 3,369ms (compile: 102 ms, reload: 1352 ms, reassemble: 1837 ms).
+[8:04:19 AM]: <== [{"id":"3","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:09:49 AM]: <== I/FilePickerDelegate(15542): User cancelled the picker request
+[8:09:49 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[8:09:49 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[8:09:49 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000004,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:09:49 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[8:09:49 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000005,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:09:49 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#4](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=78232492131739(auto) mPendingTransactions.size=0 graphicBufferId=66752381714456 transform=0
+[8:09:49 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#5](f:0,a:1) acquireNextBufferLocked size=1080x2280 mFrameNumber=1 applyTransaction=true mTimestamp=78232507218739(auto) mPendingTransactions.size=0 graphicBufferId=66752381714458 transform=0
+[8:09:51 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#5](f:0,a:1) destructor()
+[8:09:51 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#5(BLAST Consumer)5](id:3cb600000005,api:0,p:-1,c:15542) disconnect
+[8:09:51 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#4](f:0,a:1) destructor()
+[8:09:51 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#4(BLAST Consumer)4](id:3cb600000004,api:0,p:-1,c:15542) disconnect
+[8:09:56 AM]: <== W/System  (15542): A resource failed to call close.
+[8:09:56 AM]: <== W/System  (15542): A resource failed to call close.
+[8:10:00 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[8:10:00 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[8:10:00 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000006,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:10:00 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[8:10:00 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000007,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:10:00 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#6](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=78243553066201(auto) mPendingTransactions.size=0 graphicBufferId=66752381714460 transform=0
+[8:10:00 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#7](f:0,a:1) acquireNextBufferLocked size=1080x2280 mFrameNumber=1 applyTransaction=true mTimestamp=78243559157201(auto) mPendingTransactions.size=0 graphicBufferId=66752381714461 transform=0
+[8:10:07 AM]: ==> [{"id":"4","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:10:07 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"10","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:10:07 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"11","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:10:07 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"11","progressId":null,"finished":true}}]
+[8:10:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"10","progressId":"hot.reload","finished":true}}]
+[8:10:08 AM]: <== Reloaded 1 of 2076 libraries in 1,047ms (compile: 95 ms, reload: 446 ms, reassemble: 433 ms).
+[8:10:08 AM]: <== [{"id":"4","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:11:37 AM]: ==> [{"id":"5","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:11:37 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"12","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:11:37 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"13","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:11:37 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"13","progressId":null,"finished":true}}]
+[8:11:39 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"12","progressId":"hot.reload","finished":true}}]
+[8:11:39 AM]: <== Reloaded 31 of 2076 libraries in 1,767ms (compile: 362 ms, reload: 807 ms, reassemble: 512 ms).
+[8:11:39 AM]: <== [{"id":"5","result":{"code":0,"message":"Reloaded 31 of 2076 libraries"}}]
+[8:11:49 AM]: ==> [{"id":"6","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:11:49 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"14","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:11:49 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"15","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:11:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"15","progressId":null,"finished":true}}]
+[8:11:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"14","progressId":"hot.reload","finished":true}}]
+[8:11:50 AM]: <== Reloaded 1 of 2076 libraries in 916ms (compile: 88 ms, reload: 355 ms, reassemble: 416 ms).
+[8:11:50 AM]: <== [{"id":"6","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:11:58 AM]: ==> [{"id":"7","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:11:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"16","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:11:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"17","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:11:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"17","progressId":null,"finished":true}}]
+[8:11:59 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"16","progressId":"hot.reload","finished":true}}]
+[8:11:59 AM]: <== Reloaded 1 of 2076 libraries in 1,027ms (compile: 142 ms, reload: 359 ms, reassemble: 454 ms).
+[8:11:59 AM]: <== [{"id":"7","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:12:27 AM]: ==> [{"id":"8","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:12:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"18","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:12:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"19","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:12:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"19","progressId":null,"finished":true}}]
+[8:12:28 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"18","progressId":"hot.reload","finished":true}}]
+[8:12:28 AM]: <== Reloaded 1 of 2076 libraries in 984ms (compile: 104 ms, reload: 376 ms, reassemble: 431 ms).
+[8:12:28 AM]: <== [{"id":"8","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:12:31 AM]: ==> [{"id":"9","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:12:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"20","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:12:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"21","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:12:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"21","progressId":null,"finished":true}}]
+[8:12:32 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"20","progressId":"hot.reload","finished":true}}]
+[8:12:32 AM]: <== Reloaded 1 of 2076 libraries in 1,016ms (compile: 95 ms, reload: 404 ms, reassemble: 446 ms).
+[8:12:32 AM]: <== [{"id":"9","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:12:36 AM]: <== D/FilePickerUtils(15542): Allowed file extensions mimes: [application/pdf]
+[8:12:36 AM]: <== D/FilePickerDelegate(15542): Selected type */*
+[8:12:37 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#7](f:0,a:5) destructor()
+[8:12:37 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#7(BLAST Consumer)7](id:3cb600000007,api:0,p:-1,c:15542) disconnect
+[8:12:37 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#6](f:0,a:1) destructor()
+[8:12:37 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#6(BLAST Consumer)6](id:3cb600000006,api:0,p:-1,c:15542) disconnect
+[8:12:42 AM]: <== I/FilePickerUtils(15542): Caching from URI: content://com.android.providers.media.documents/document/document%3A1000007611
+[8:12:42 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[8:12:42 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[8:12:42 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000008,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:12:42 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[8:12:42 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb600000009,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:12:42 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#8](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=78405824206826(auto) mPendingTransactions.size=0 graphicBufferId=66752381714468 transform=0
+[8:12:42 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#9](f:0,a:1) acquireNextBufferLocked size=1080x2280 mFrameNumber=1 applyTransaction=true mTimestamp=78405837117903(auto) mPendingTransactions.size=0 graphicBufferId=66752381714469 transform=0
+[8:12:42 AM]: <== D/FilePickerUtils(15542): File loaded and cached at:/data/user/0/com.example.inspection_doctor_homeowner/cache/file_picker/30X60 PLAN 1-Model.pdf final.pdf
+[8:12:42 AM]: <== D/FilePickerDelegate(15542): File path:[com.mr.flutter.plugin.filepicker.FileInfo@208d2]
+[8:12:52 AM]: ==> [{"id":"10","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:12:52 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"22","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:12:52 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"23","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:12:52 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"23","progressId":null,"finished":true}}]
+[8:12:53 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"22","progressId":"hot.reload","finished":true}}]
+[8:12:53 AM]: <== Reloaded 1 of 2076 libraries in 1,112ms (compile: 90 ms, reload: 504 ms, reassemble: 463 ms).
+[8:12:53 AM]: <== [{"id":"10","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:13:43 AM]: ==> [{"id":"11","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:13:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"24","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:13:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"25","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:13:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"25","progressId":null,"finished":true}}]
+[8:13:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"24","progressId":"hot.reload","finished":true}}]
+[8:13:44 AM]: <== Reloaded 30 of 2076 libraries in 1,307ms (compile: 426 ms, reload: 376 ms, reassemble: 430 ms).
+[8:13:44 AM]: <== [{"id":"11","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:13:49 AM]: ==> [{"id":"12","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:13:49 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"26","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:13:49 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"27","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:13:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"27","progressId":null,"finished":true}}]
+[8:13:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"26","progressId":"hot.reload","finished":true}}]
+[8:13:50 AM]: <== Reloaded 30 of 2076 libraries in 1,323ms (compile: 519 ms, reload: 335 ms, reassemble: 411 ms).
+[8:13:50 AM]: <== [{"id":"12","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:14:36 AM]: ==> [{"id":"13","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:14:36 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"28","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:14:36 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"29","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:14:37 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"29","progressId":null,"finished":true}}]
+[8:14:38 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"28","progressId":"hot.reload","finished":true}}]
+[8:14:38 AM]: <== Reloaded 30 of 2076 libraries in 1,319ms (compile: 397 ms, reload: 393 ms, reassemble: 449 ms).
+[8:14:38 AM]: <== [{"id":"13","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:14:56 AM]: ==> [{"id":"14","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:14:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"30","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:14:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"31","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:14:57 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"31","progressId":null,"finished":true}}]
+[8:14:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"30","progressId":"hot.reload","finished":true}}]
+[8:14:58 AM]: <== Reloaded 30 of 2076 libraries in 1,347ms (compile: 446 ms, reload: 375 ms, reassemble: 460 ms).
+[8:14:58 AM]: <== [{"id":"14","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:15:01 AM]: ==> [{"id":"15","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:15:01 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"32","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:15:01 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"33","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:15:01 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"33","progressId":null,"finished":true}}]
+[8:15:02 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"32","progressId":"hot.reload","finished":true}}]
+[8:15:02 AM]: <== Reloaded 30 of 2076 libraries in 1,275ms (compile: 339 ms, reload: 374 ms, reassemble: 487 ms).
+[8:15:02 AM]: <== [{"id":"15","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:15:12 AM]: ==> [{"id":"16","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:15:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"34","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:15:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"35","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:15:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"35","progressId":null,"finished":true}}]
+[8:15:13 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"34","progressId":"hot.reload","finished":true}}]
+[8:15:13 AM]: <== Reloaded 1 of 2076 libraries in 916ms (compile: 47 ms, reload: 373 ms, reassemble: 426 ms).
+[8:15:13 AM]: <== [{"id":"16","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:15:16 AM]: ==> [{"id":"17","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:15:16 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"36","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:15:16 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"37","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:15:16 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"37","progressId":null,"finished":true}}]
+[8:15:17 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"36","progressId":"hot.reload","finished":true}}]
+[8:15:17 AM]: <== Reloaded 1 of 2076 libraries in 1,009ms (compile: 97 ms, reload: 372 ms, reassemble: 434 ms).
+[8:15:17 AM]: <== [{"id":"17","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:15:20 AM]: ==> [{"id":"18","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:15:20 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"38","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:15:20 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"39","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:15:21 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"39","progressId":null,"finished":true}}]
+[8:15:22 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"38","progressId":"hot.reload","finished":true}}]
+[8:15:22 AM]: <== Reloaded 30 of 2076 libraries in 1,431ms (compile: 369 ms, reload: 452 ms, reassemble: 538 ms).
+[8:15:22 AM]: <== [{"id":"18","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:15:24 AM]: ==> [{"id":"19","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:15:24 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"40","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:15:24 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"41","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:15:25 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"41","progressId":null,"finished":true}}]
+[8:15:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"40","progressId":"hot.reload","finished":true}}]
+[8:15:26 AM]: <== Reloaded 30 of 2076 libraries in 1,395ms (compile: 232 ms, reload: 514 ms, reassemble: 580 ms).
+[8:15:26 AM]: <== [{"id":"19","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:16:05 AM]: ==> [{"id":"20","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:16:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"42","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:16:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"43","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:16:05 AM]: lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[8:16:06 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"43","progressId":null,"finished":true}}]
+[8:16:06 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"42","progressId":"hot.reload","finished":true}}]
+[8:16:06 AM]: <== [{"id":"20","result":{"code":1,"message":"DevFS synchronization failed"}}]
+[8:16:26 AM]: ==> [{"id":"21","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:16:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"44","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:16:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"45","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:16:26 AM]: lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[8:16:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"45","progressId":null,"finished":true}}]
+[8:16:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"44","progressId":"hot.reload","finished":true}}]
+[8:16:26 AM]: <== [{"id":"21","result":{"code":1,"message":"DevFS synchronization failed"}}]
+[8:16:30 AM]: ==> [{"id":"22","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:16:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"46","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:16:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"47","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:16:31 AM]: lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[8:16:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"47","progressId":null,"finished":true}}]
+[8:16:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"46","progressId":"hot.reload","finished":true}}]
+[8:16:31 AM]: <== [{"id":"22","result":{"code":1,"message":"DevFS synchronization failed"}}]
+[8:16:41 AM]: ==> [{"id":"23","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:16:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"48","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:16:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"49","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:16:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"49","progressId":null,"finished":true}}]
+[8:16:42 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"48","progressId":"hot.reload","finished":true}}]
+[8:16:42 AM]: <== Reloaded 30 of 2076 libraries in 1,345ms (compile: 400 ms, reload: 392 ms, reassemble: 415 ms).
+[8:16:42 AM]: <== [{"id":"23","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:17:46 AM]: ==> [{"id":"24","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:17:46 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"50","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:17:46 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"51","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:17:46 AM]: lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'widget' must be provided.
+      child: commonDocumentPicker(
+[8:17:46 AM]: ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+[8:17:46 AM]: Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[8:17:46 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"51","progressId":null,"finished":true}}]
+[8:17:46 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"50","progressId":"hot.reload","finished":true}}]
+[8:17:46 AM]: <== [{"id":"24","result":{"code":1,"message":"DevFS synchronization failed"}}]
+[8:17:56 AM]: ==> [{"id":"25","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:17:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"52","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:17:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"53","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:17:56 AM]: lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'widget' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[8:17:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"53","progressId":null,"finished":true}}]
+[8:17:56 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"52","progressId":"hot.reload","finished":true}}]
+[8:17:56 AM]: <== [{"id":"25","result":{"code":1,"message":"DevFS synchronization failed"}}]
+[8:18:09 AM]: ==> [{"id":"26","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:18:09 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"54","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:18:09 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"55","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:18:09 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"55","progressId":null,"finished":true}}]
+[8:18:10 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"54","progressId":"hot.reload","finished":true}}]
+[8:18:10 AM]: <== Reloaded 30 of 2076 libraries in 1,410ms (compile: 268 ms, reload: 497 ms, reassemble: 561 ms).
+[8:18:10 AM]: <== [{"id":"26","result":{"code":0,"message":"Reloaded 30 of 2076 libraries"}}]
+[8:18:34 AM]: ==> [{"id":"27","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:18:34 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"56","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:18:34 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"57","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:18:34 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"57","progressId":null,"finished":true}}]
+[8:18:35 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"56","progressId":"hot.reload","finished":true}}]
+[8:18:35 AM]: <== Reloaded 1 of 2076 libraries in 1,005ms (compile: 83 ms, reload: 352 ms, reassemble: 514 ms).
+[8:18:35 AM]: <== [{"id":"27","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:22:42 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#9](f:0,a:1) destructor()
+[8:22:42 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#9(BLAST Consumer)9](id:3cb600000009,api:0,p:-1,c:15542) disconnect
+[8:22:42 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#8](f:0,a:1) destructor()
+[8:22:42 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#8(BLAST Consumer)8](id:3cb600000008,api:0,p:-1,c:15542) disconnect
+[8:22:52 AM]: ==> [{"id":"28","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:22:52 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"58","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:22:52 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"59","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:22:53 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"59","progressId":null,"finished":true}}]
+[8:22:55 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"58","progressId":"hot.reload","finished":true}}]
+[8:22:55 AM]: <== Reloaded 37 of 2076 libraries in 3,768ms (compile: 407 ms, reload: 1170 ms, reassemble: 1582 ms).
+[8:22:55 AM]: <== [{"id":"28","result":{"code":0,"message":"Reloaded 37 of 2076 libraries"}}]
+[8:22:57 AM]: ==> [{"id":"29","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:22:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"60","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:22:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"61","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:22:58 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"61","progressId":null,"finished":true}}]
+[8:23:02 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"60","progressId":"hot.reload","finished":true}}]
+[8:23:02 AM]: <== Reloaded 1 of 2076 libraries in 4,012ms (compile: 70 ms, reload: 1417 ms, reassemble: 2463 ms).
+[8:23:02 AM]: <== [{"id":"29","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:23:02 AM]: <== D/TranActivityAppturboImpl(15542): onResumeHork
+[8:23:02 AM]: <== D/TranAppturboServiceImpl(15542): onResumeHork
+[8:23:02 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb60000000a,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/View    (15542): title:com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity
+[8:23:02 AM]: <== D/BufferQueueConsumer(15542): [](id:3cb60000000b,api:0,p:-1,c:15542) connect: controlledByApp=false
+[8:23:02 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#10](f:0,a:1) acquireNextBufferLocked size=1080x2400 mFrameNumber=1 applyTransaction=true mTimestamp=79026028681325(auto) mPendingTransactions.size=0 graphicBufferId=66752381714476 transform=0
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:02 AM]: <== D/os.SingleLiceFactory(15542): using com.android.internal.IInternalViewLice$DefaultImpl@4792400 instead of com.transsion.activityembedding.ActivityEmbeddingLiceFactory  from com.android.internal.IInternalViewLice
+[8:23:03 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#11](f:0,a:1) acquireNextBufferLocked size=1080x2280 mFrameNumber=1 applyTransaction=true mTimestamp=79026618941940(auto) mPendingTransactions.size=0 graphicBufferId=66752381714479 transform=0
+[8:23:26 AM]: ==> [{"id":"30","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:23:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"62","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:23:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"63","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:23:26 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"63","progressId":null,"finished":true}}]
+[8:23:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"62","progressId":"hot.reload","finished":true}}]
+[8:23:27 AM]: <== Reloaded 1 of 2076 libraries in 891ms (compile: 69 ms, reload: 358 ms, reassemble: 408 ms).
+[8:23:27 AM]: <== [{"id":"30","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:24:43 AM]: ==> [{"id":"31","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:24:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"64","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:24:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"65","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:24:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"65","progressId":null,"finished":true}}]
+[8:24:45 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"64","progressId":"hot.reload","finished":true}}]
+[8:24:45 AM]: <== Reloaded 1 of 2076 libraries in 1,439ms (compile: 83 ms, reload: 362 ms, reassemble: 473 ms).
+[8:24:45 AM]: <== [{"id":"31","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:25:02 AM]: ==> [{"id":"32","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:25:02 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"66","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:25:02 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"67","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:25:03 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"67","progressId":null,"finished":true}}]
+[8:25:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"66","progressId":"hot.reload","finished":true}}]
+[8:25:04 AM]: <== Reloaded 37 of 2076 libraries in 1,452ms (compile: 429 ms, reload: 476 ms, reassemble: 476 ms).
+[8:25:04 AM]: <== [{"id":"32","result":{"code":0,"message":"Reloaded 37 of 2076 libraries"}}]
+[8:25:08 AM]: ==> [{"id":"33","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:25:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"68","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:25:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"69","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:25:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"69","progressId":null,"finished":true}}]
+[8:25:09 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"68","progressId":"hot.reload","finished":true}}]
+[8:25:09 AM]: <== Reloaded 1 of 2076 libraries in 997ms (compile: 96 ms, reload: 393 ms, reassemble: 452 ms).
+[8:25:09 AM]: <== [{"id":"33","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:25:32 AM]: ==> [{"id":"34","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:25:32 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"70","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:25:32 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"71","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:25:32 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"71","progressId":null,"finished":true}}]
+[8:25:33 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"70","progressId":"hot.reload","finished":true}}]
+[8:25:33 AM]: <== Reloaded 1 of 2076 libraries in 1,102ms (compile: 77 ms, reload: 371 ms, reassemble: 596 ms).
+[8:25:33 AM]: <== [{"id":"34","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:25:43 AM]: ==> [{"id":"35","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:25:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"72","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:25:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"73","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:25:43 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"73","progressId":null,"finished":true}}]
+[8:25:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"72","progressId":"hot.reload","finished":true}}]
+[8:25:44 AM]: <== Reloaded 1 of 2076 libraries in 1,000ms (compile: 84 ms, reload: 310 ms, reassemble: 550 ms).
+[8:25:44 AM]: <== [{"id":"35","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:25:59 AM]: ==> [{"id":"36","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:25:59 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"74","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:25:59 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"75","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:25:59 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"75","progressId":null,"finished":true}}]
+[8:26:01 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"74","progressId":"hot.reload","finished":true}}]
+[8:26:01 AM]: <== Reloaded 1 of 2076 libraries in 1,227ms (compile: 83 ms, reload: 521 ms, reassemble: 564 ms).
+[8:26:01 AM]: <== [{"id":"36","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:03 AM]: ==> [{"id":"37","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:03 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"76","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:03 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"77","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:03 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"77","progressId":null,"finished":true}}]
+[8:26:04 AM]: <== W/System  (15542): A resource failed to call close.
+[8:26:04 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"76","progressId":"hot.reload","finished":true}}]
+[8:26:04 AM]: <== Reloaded 1 of 2076 libraries in 1,102ms (compile: 100 ms, reload: 392 ms, reassemble: 556 ms).
+[8:26:04 AM]: <== [{"id":"37","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:08 AM]: ==> [{"id":"38","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"78","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"79","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:08 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"79","progressId":null,"finished":true}}]
+[8:26:09 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"78","progressId":"hot.reload","finished":true}}]
+[8:26:09 AM]: <== Reloaded 1 of 2076 libraries in 1,076ms (compile: 106 ms, reload: 364 ms, reassemble: 544 ms).
+[8:26:09 AM]: <== [{"id":"38","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:12 AM]: ==> [{"id":"39","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"80","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"81","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:12 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"81","progressId":null,"finished":true}}]
+[8:26:13 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"80","progressId":"hot.reload","finished":true}}]
+[8:26:13 AM]: <== Reloaded 1 of 2076 libraries in 1,049ms (compile: 68 ms, reload: 379 ms, reassemble: 562 ms).
+[8:26:13 AM]: <== [{"id":"39","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:19 AM]: ==> [{"id":"40","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:19 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"82","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:19 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"83","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:19 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"83","progressId":null,"finished":true}}]
+[8:26:20 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"82","progressId":"hot.reload","finished":true}}]
+[8:26:20 AM]: <== Reloaded 1 of 2076 libraries in 1,126ms (compile: 84 ms, reload: 404 ms, reassemble: 565 ms).
+[8:26:20 AM]: <== [{"id":"40","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:26 AM]: ==> [{"id":"41","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"84","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"85","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"85","progressId":null,"finished":true}}]
+[8:26:27 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"84","progressId":"hot.reload","finished":true}}]
+[8:26:27 AM]: <== Reloaded 1 of 2076 libraries in 947ms (compile: 87 ms, reload: 371 ms, reassemble: 441 ms).
+[8:26:27 AM]: <== [{"id":"41","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:30 AM]: ==> [{"id":"42","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"86","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"87","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"87","progressId":null,"finished":true}}]
+[8:26:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"86","progressId":"hot.reload","finished":true}}]
+[8:26:31 AM]: <== Reloaded 1 of 2076 libraries in 998ms (compile: 69 ms, reload: 454 ms, reassemble: 432 ms).
+[8:26:31 AM]: <== [{"id":"42","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:40 AM]: ==> [{"id":"43","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:40 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"88","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:40 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"89","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:40 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"89","progressId":null,"finished":true}}]
+[8:26:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"88","progressId":"hot.reload","finished":true}}]
+[8:26:41 AM]: <== Reloaded 1 of 2076 libraries in 992ms (compile: 80 ms, reload: 458 ms, reassemble: 409 ms).
+[8:26:41 AM]: <== [{"id":"43","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:26:44 AM]: ==> [{"id":"44","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:26:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"90","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:26:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"91","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:26:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"91","progressId":null,"finished":true}}]
+[8:26:45 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"90","progressId":"hot.reload","finished":true}}]
+[8:26:45 AM]: <== Reloaded 1 of 2076 libraries in 1,023ms (compile: 67 ms, reload: 431 ms, reassemble: 456 ms).
+[8:26:45 AM]: <== [{"id":"44","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:27:05 AM]: ==> [{"id":"45","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:27:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"92","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:27:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"93","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:27:05 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"93","progressId":null,"finished":true}}]
+[8:27:06 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"92","progressId":"hot.reload","finished":true}}]
+[8:27:06 AM]: <== Reloaded 1 of 2076 libraries in 996ms (compile: 68 ms, reload: 428 ms, reassemble: 432 ms).
+[8:27:06 AM]: <== [{"id":"45","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:27:13 AM]: ==> [{"id":"46","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:27:14 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"94","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:27:14 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"95","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:27:14 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"95","progressId":null,"finished":true}}]
+[8:27:15 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"94","progressId":"hot.reload","finished":true}}]
+[8:27:15 AM]: <== Reloaded 1 of 2076 libraries in 1,044ms (compile: 73 ms, reload: 495 ms, reassemble: 424 ms).
+[8:27:15 AM]: <== [{"id":"46","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:27:50 AM]: ==> [{"id":"47","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:27:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"96","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:27:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"97","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:27:50 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"97","progressId":null,"finished":true}}]
+[8:27:51 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"96","progressId":"hot.reload","finished":true}}]
+[8:27:51 AM]: <== Reloaded 1 of 2076 libraries in 987ms (compile: 72 ms, reload: 401 ms, reassemble: 448 ms).
+[8:27:51 AM]: <== [{"id":"47","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:27:53 AM]: ==> [{"id":"48","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:27:53 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"98","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:27:53 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"99","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:27:53 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"99","progressId":null,"finished":true}}]
+[8:27:55 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"98","progressId":"hot.reload","finished":true}}]
+[8:27:55 AM]: <== Reloaded 1 of 2076 libraries in 1,218ms (compile: 76 ms, reload: 623 ms, reassemble: 468 ms).
+[8:27:55 AM]: <== [{"id":"48","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:28:30 AM]: ==> [{"id":"49","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:28:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"100","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:28:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"101","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:28:30 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"101","progressId":null,"finished":true}}]
+[8:28:31 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"100","progressId":"hot.reload","finished":true}}]
+[8:28:31 AM]: <== Reloaded 29 of 2076 libraries in 1,377ms (compile: 323 ms, reload: 541 ms, reassemble: 440 ms).
+[8:28:31 AM]: <== [{"id":"49","result":{"code":0,"message":"Reloaded 29 of 2076 libraries"}}]
+[8:28:34 AM]: <== D/FilePickerUtils(15542): Allowed file extensions mimes: [application/pdf]
+[8:28:34 AM]: <== D/FilePickerDelegate(15542): Selected type */*
+[8:28:35 AM]: <== D/BLASTBufferQueue(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#11](f:0,a:5) destructor()
+[8:28:35 AM]: <== D/BufferQueueConsumer(15542): [SurfaceView[com.example.inspection_doctor_homeowner/com.example.inspection_doctor_homeowner.MainActivity]#11(BLAST Consumer)11](id:3cb60000000b,api:0,p:-1,c:15542) disconnect
+[8:28:35 AM]: <== D/BLASTBufferQueue(15542): [VRI[MainActivity]#10](f:0,a:1) destructor()
+[8:28:35 AM]: <== D/BufferQueueConsumer(15542): [VRI[MainActivity]#10(BLAST Consumer)10](id:3cb60000000a,api:0,p:-1,c:15542) disconnect
+[8:28:41 AM]: ==> [{"id":"50","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:28:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"102","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:28:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"103","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:28:41 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"103","progressId":null,"finished":true}}]
+[8:28:44 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"102","progressId":"hot.reload","finished":true}}]
+[8:28:44 AM]: <== Reloaded 1 of 2076 libraries in 3,131ms (compile: 65 ms, reload: 1184 ms, reassemble: 1829 ms).
+[8:28:44 AM]: <== [{"id":"50","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:28:45 AM]: ==> [{"id":"51","method":"app.restart","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","fullRestart":false,"pause":true,"reason":"save","debounce":true}}]
+[8:28:45 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"104","progressId":"hot.reload","message":"Performing hot reload...","finished":false}}]
+[8:28:45 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"105","progressId":null,"message":"Syncing files to device TECNO CK8n...","finished":false}}]
+[8:28:45 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"105","progressId":null,"finished":true}}]
+[8:28:48 AM]: <== [{"event":"app.progress","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d","id":"104","progressId":"hot.reload","finished":true}}]
+[8:28:48 AM]: <== Reloaded 1 of 2076 libraries in 3,121ms (compile: 71 ms, reload: 1307 ms, reassemble: 1686 ms).
+[8:28:48 AM]: <== [{"id":"51","result":{"code":0,"message":"Reloaded 1 of 2076 libraries"}}]
+[8:28:52 AM]: <== Lost connection to device.
+[8:28:53 AM]: <== [{"event":"app.stop","params":{"appId":"998401df-158d-492c-bb26-6b0a54e9578d"}}]

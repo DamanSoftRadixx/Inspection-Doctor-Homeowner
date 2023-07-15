@@ -1,0 +1,79 @@
+!! PLEASE REVIEW THIS LOG FOR SENSITIVE INFORMATION BEFORE SHARING !!
+
+Dart Code extension: 3.68.1
+Flutter extension: 3.68.0 (not activated)
+
+App: Visual Studio Code
+Version: 1.80.1
+Platform: mac
+
+HTTP_PROXY: undefined
+NO_PROXY: undefined
+
+Logging Categories:
+    FlutterDaemon
+
+Sat Jul 15 2023 [07:53:49 GMT+0530 (India Standard Time)] Log file started
+[07:53:49] [FlutterDaemon] [Info] Spawning /Users/deepak/Documents/flutter_sdk/bin/flutter with args ["daemon"]
+[07:53:49] [FlutterDaemon] [Info] ..  in /Users/deepak/Documents/flutter_sdk
+[07:53:49] [FlutterDaemon] [Info] ..  with {"toolEnv":{"FLUTTER_HOST":"VSCode","PUB_ENVIRONMENT":"vscode.dart-code"}}
+[07:53:49] [FlutterDaemon] [Info]     PID: 2700
+[07:53:50] [FlutterDaemon] [Error] Building flutter tool...
+[07:53:50] [FlutterDaemon] [Info] <== Resolving dependencies...
+[07:53:56] [FlutterDaemon] [Info] <== Got dependencies.
+[07:54:24] [FlutterDaemon] [Info] <== [{"event":"daemon.connected","params":{"version":"0.6.1","pid":2703}}]
+[07:54:24] [FlutterDaemon] [Info] ==> [{"id":"1","method":"device.enable"}]
+[07:54:24] [FlutterDaemon] [Info] ==> [{"id":"2","method":"emulator.getEmulators"}]
+[07:54:24] [FlutterDaemon] [Info] ==> [{"id":"3","method":"emulator.getEmulators"}]
+[07:54:24] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"status","message":"Starting device daemon..."}}]
+[07:54:25] [FlutterDaemon] [Info] <== [{"id":"1"}]
+[07:54:25] [FlutterDaemon] [Info] <== [{"id":"2","result":[{"id":"apple_ios_simulator","name":"iOS Simulator","category":"mobile","platformType":"ios"}]}]
+[07:54:25] [FlutterDaemon] [Info] <== [{"id":"3","result":[{"id":"apple_ios_simulator","name":"iOS Simulator","category":"mobile","platformType":"ios"}]}]
+[07:54:28] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"1028831367113640","name":"TECNO CK8n","platform":"android-arm64","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null,"sdk":"Android 13 (API 33)","capabilities":{"hotReload":true,"hotRestart":true,"screenshot":true,"fastStart":true,"flutterExit":true,"hardwareRendering":true,"startPaused":true}}}]
+[07:54:28] [FlutterDaemon] [Info] ==> [{"id":"4","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner"}}]
+[07:54:28] [FlutterDaemon] [Info] <== [{"id":"4","result":{"platforms":["linux","macos","windows","ios","android","web"]}}]
+[07:54:29] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"macos","name":"macOS","platform":"darwin","emulator":false,"category":"desktop","platformType":"macos","ephemeral":false,"emulatorId":null,"sdk":"macOS 13.4.1 22F770820d darwin-x64","capabilities":{"hotReload":true,"hotRestart":true,"screenshot":false,"fastStart":false,"flutterExit":true,"hardwareRendering":true,"startPaused":true}}}]
+[07:54:29] [FlutterDaemon] [Info] <== [{"event":"device.added","params":{"id":"chrome","name":"Chrome","platform":"web-javascript","emulator":false,"category":"web","platformType":"web","ephemeral":false,"emulatorId":null,"sdk":"Google Chrome 114.0.5735.198","capabilities":{"hotReload":true,"hotRestart":true,"screenshot":false,"fastStart":false,"flutterExit":false,"hardwareRendering":true,"startPaused":true}}}]
+[07:54:32] [FlutterDaemon] [Info] ==> [{"id":"5","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner"}}]
+[07:54:32] [FlutterDaemon] [Info] <== [{"id":"5","result":{"platforms":["linux","macos","windows","ios","android","web"]}}]
+[07:54:32] [FlutterDaemon] [Info] ==> [{"id":"6","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner"}}]
+[07:54:32] [FlutterDaemon] [Info] <== [{"id":"6","result":{"platforms":["linux","macos","windows","ios","android","web"]}}]
+[07:56:12] [FlutterRun] [Error] [Flutter (TECNO CK8n)] Error: ADB exited with exit code 1
+[07:56:12] [FlutterRun] [Error] [Flutter (TECNO CK8n)] Performing Streamed Install
+
+adb: failed to install /Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner/build/app/outputs/flutter-apk/app-debug.apk: Failure [INSTALL_FAILED_UPDATE_INCOMPATIBLE: Existing package com.example.inspection_doctor_homeowner signatures do not match newer version; ignoring!]
+[08:16:05] [FlutterRun] [Error] [Flutter (TECNO CK8n)] lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[08:16:26] [FlutterRun] [Error] [Flutter (TECNO CK8n)] lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[08:16:31] [FlutterRun] [Error] [Flutter (TECNO CK8n)] lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'isFilePick' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[08:17:46] [FlutterRun] [Error] [Flutter (TECNO CK8n)] lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'widget' must be provided.
+      child: commonDocumentPicker(
+[08:17:46] [FlutterRun] [Error] [Flutter (TECNO CK8n)]                                  ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+[08:17:46] [FlutterRun] [Error] [Flutter (TECNO CK8n)] Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[08:17:56] [FlutterRun] [Error] [Flutter (TECNO CK8n)] lib/features/add_new_property/add_property/screens/add_property_screen.dart:68:34: Error: Required named parameter 'widget' must be provided.
+      child: commonDocumentPicker(
+                                 ^
+lib/core/common_ui/document_picker/common_document_picker.dart:11:8: Context: Found this candidate, but the arguments don't match.
+Widget commonDocumentPicker({
+       ^^^^^^^^^^^^^^^^^^^^
+[08:28:55] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"Error 1 retrieving device properties for TECNO CK8n:"}}]
+[08:28:55] [FlutterDaemon] [Info] <== [{"event":"daemon.logMessage","params":{"level":"error","message":"adb: device '1028831367113640' not found\n"}}]
+[08:28:55] [FlutterDaemon] [Info] <== [{"event":"device.removed","params":{"id":"1028831367113640","name":"TECNO CK8n","platform":"android-arm","emulator":false,"category":"mobile","platformType":"android","ephemeral":true,"emulatorId":null,"sdk":"Android null (API null)","capabilities":{"hotReload":true,"hotRestart":true,"screenshot":true,"fastStart":true,"flutterExit":true,"hardwareRendering":true,"startPaused":true}}}]
+[08:28:55] [FlutterDaemon] [Info] ==> [{"id":"7","method":"daemon.getSupportedPlatforms","params":{"projectRoot":"/Users/deepak/Documents/flutter_project/Inspection-Doctor-Homeowner"}}]
+[08:28:55] [FlutterDaemon] [Info] <== [{"id":"7","result":{"platforms":["linux","macos","windows","ios","android","web"]}}]

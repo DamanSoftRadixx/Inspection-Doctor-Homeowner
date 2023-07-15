@@ -53,6 +53,8 @@ class ImageResource {
       "assets/images/svg/add_property_bg.svg";
   static const addPropertyImage = "assets/images/svg/add_property_image.svg";
   static const downArrow = "assets/images/svg/down_arrow.svg";
+  static const deleteButton = "assets/images/svg/deleteButton.svg";
+  static const pdf = "assets/images/svg/pdf.svg";
 
   //HomeList
   static const forwordArrow = "assets/images/svg/forwordArrow.svg";

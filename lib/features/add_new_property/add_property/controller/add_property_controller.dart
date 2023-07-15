@@ -39,6 +39,8 @@ class AddPropertyController extends GetxController {
 
   RxBool isShowLoader = false.obs;
 
+  Rx<File> pdfFile = File("").obs;
+
   RxBool propertyNameError = false.obs;
   RxBool streetError = false.obs;
   RxBool cityError = false.obs;
@@ -456,10 +458,11 @@ class AddPropertyController extends GetxController {
   }
 
   Future<void> onTapUploadPDF() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
 
     if (result != null) {
-      File file = File(result.files.single.path ?? "");
+      pdfFile.value = File(result.files.single.path ?? "");
     } else {
       // User canceled the picker
     }

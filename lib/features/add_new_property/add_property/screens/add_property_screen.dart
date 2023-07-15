@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/common_document_picker.dart';
@@ -10,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
@@ -67,7 +71,29 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       },
       child: commonDocumentPicker(
           title: AppStrings.uploadArchitecturalDrawing.tr,
-          text: AppStrings.uploadAPdf.tr),
+          text: AppStrings.uploadAPdf.tr,
+          isFilePick: controller.pdfFile.value.path.isNotEmpty,
+          widget: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AssetWidget(
+                  asset: Asset(type: AssetType.svg, path: ImageResource.pdf),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onDoubleTap: () {
+                    controller.pdfFile.value = File("");
+                  },
+                  child: AssetWidget(
+                    asset: Asset(
+                        type: AssetType.svg, path: ImageResource.deleteButton),
+                  ),
+                ),
+              ),
+            ],
+          )),
     );
   }
 
