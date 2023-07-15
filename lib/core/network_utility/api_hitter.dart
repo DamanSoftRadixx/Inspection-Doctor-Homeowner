@@ -163,6 +163,56 @@ class ApiHitter {
     }
   }
 
+  multiPart(
+      {required String endPoint,
+      Object? body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headersParm}) async {
+    try {
+      String url = "${EndPoints.baseUrl}$endPoint";
+      print("URL $endPoint >> $url");
+      print("POST $endPoint >> $body");
+      print("POST $endPoint >> $queryParameters");
+
+      if (await networkCheck.hasNetwork()) {
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+        Map<String, String> headers = {
+          'accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+          'language_id': selectedLangId,
+        };
+
+        headers.addAll(headersParm ?? {});
+
+        Options options = Options(headers: headers);
+
+        var response = await dio.post(
+          url,
+          options: options,
+          data: body,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+          cancelToken: cancelToken,
+          queryParameters: queryParameters,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
+      }
+    }
+  }
+
   Future<bool> cancelRequests() async {
     cancelToken.cancel();
     return cancelToken.isCancelled;

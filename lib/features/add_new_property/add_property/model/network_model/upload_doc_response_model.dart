@@ -1,24 +1,27 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class UploadDocResponseModel {
   UploadDocResponseModel({
-      this.status, 
-      this.success, 
-      this.data, 
-      this.message,});
+    this.status,
+    this.success,
+    this.data,
+    this.message,
+  });
 
   UploadDocResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(UploadDocResponseData.fromJson(v));
       });
     }
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
-  List<Data>? data;
+  List<UploadDocResponseData>? data;
   String? message;
 
   Map<String, dynamic> toJson() {
@@ -31,26 +34,26 @@ class UploadDocResponseModel {
     map['message'] = message;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.url, 
-      this.key, 
-      this.deletedAt, 
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,});
+class UploadDocResponseData {
+  UploadDocResponseData({
+    this.url,
+    this.key,
+    this.deletedAt,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
-  Data.fromJson(dynamic json) {
-    url = json['url'];
-    key = json['key'];
+  UploadDocResponseData.fromJson(dynamic json) {
+    url = json['url'].toString().toStringConversion();
+    key = json['key'].toString().toStringConversion();
     deletedAt = json['deleted_at'];
-    id = json['_id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+    id = json['_id'].toString().toStringConversion();
+    createdAt = json['createdAt'].toString().toStringConversion();
+    updatedAt = json['updatedAt'].toString().toStringConversion();
     v = json['__v'];
   }
   String? url;
@@ -72,5 +75,4 @@ class Data {
     map['__v'] = v;
     return map;
   }
-
 }

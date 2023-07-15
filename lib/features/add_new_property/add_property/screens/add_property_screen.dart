@@ -65,36 +65,42 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   }
 
   Widget showAddDocmentBox() {
-    return GestureDetector(
-      onTap: () async {
-        await controller.onTapUploadPDF();
-      },
-      child: commonDocumentPicker(
-          title: AppStrings.uploadArchitecturalDrawing.tr,
-          text: AppStrings.uploadAPdf.tr,
-          isFilePick: controller.pdfFile.value.path.isNotEmpty,
-          widget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: AssetWidget(
-                  asset: Asset(type: AssetType.svg, path: ImageResource.pdf),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onDoubleTap: () {
-                    controller.pdfFile.value = File("");
-                  },
-                  child: AssetWidget(
-                    asset: Asset(
-                        type: AssetType.svg, path: ImageResource.deleteButton),
+    return Obx(() => GestureDetector(
+          onTap: () async {
+            if (controller.pdfFile.value.path.isEmpty) {
+              await controller.onTapUploadPDF();
+            }
+          },
+          child: commonDocumentPicker(
+              isError: controller.documentError.value,
+              errorMsg: controller.documentErrorMessage.value,
+              title: AppStrings.uploadArchitecturalDrawing.tr,
+              text: AppStrings.uploadAPdf.tr,
+              isFilePick: controller.pdfFile.value.path.isNotEmpty,
+              widget: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: AssetWidget(
+                      asset:
+                          Asset(type: AssetType.svg, path: ImageResource.pdf),
+                    ),
                   ),
-                ),
-              ),
-            ],
-          )),
-    );
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.pdfFile.value = File("");
+                      },
+                      child: AssetWidget(
+                        asset: Asset(
+                            type: AssetType.svg,
+                            path: ImageResource.deleteButton),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        ));
   }
 
   CommonButton showAddPropertyButton() {

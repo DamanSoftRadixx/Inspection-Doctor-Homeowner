@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
@@ -12,6 +11,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
+import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/controller/home_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/widget/property_card.dart';
@@ -85,22 +85,39 @@ class HomeScreen extends GetView<HomeController> {
 
   Expanded showPropertyList() {
     return Expanded(
-        child: CommonRefreshIndicator(
-      onRefresh: () => Future.sync(() {
-        controller.pagingController.refresh();
-      }),
-      controller: controller.refreshController,
-      child: PagedListView<int, PropertyListData>(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.only(top: 18.h),
-        shrinkWrap: true,
-        pagingController: controller.pagingController,
-        builderDelegate: PagedChildBuilderDelegate<PropertyListData>(
-            itemBuilder: (context, item, index) {
-          return PropertyCard(property: item);
-        }),
-      ),
-    ));
+        child: controller.propertyList.isNotEmpty
+            ? CommonRefreshIndicator(
+                onRefresh: () => Future.sync(() {
+                      controller.onRefresh();
+                    }),
+                controller: controller.refreshController,
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(top: 18.h),
+                  shrinkWrap: true,
+                  controller: controller.listController,
+                  itemCount: controller.propertyList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    PropertyListData item = controller.propertyList[index];
+
+                    return PropertyCard(property: item);
+                  },
+                ))
+            : CommonRefreshIndicator(
+                onRefresh: () => Future.sync(() {
+                  controller.onRefresh();
+                }),
+                controller: controller.refreshController,
+                child: ListView(
+                  children: [
+                    Align(
+                        alignment: Alignment.center,
+                        child: somethingWentWrongWidget(
+                            text: AppStrings.alert,
+                            image: ImageResource.selectedHomeIcon)),
+                  ],
+                ),
+              ));
   }
 
   Stack showAddProperty() {

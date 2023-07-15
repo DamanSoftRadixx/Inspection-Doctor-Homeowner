@@ -5,12 +5,13 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 
 DateTime? loginClickTime;
@@ -231,4 +232,29 @@ goToSettingDialog() async {
         openAppSettings();
         Get.back();
       });
+}
+
+Widget somethingWentWrongWidget({required String text, required String image}) {
+  return SizedBox(
+    width: Get.width,
+    height: Get.height / 1.5,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        image != ""
+            ? Image.asset(
+                image,
+                height: 200.h,
+              ).paddingOnly(bottom: 40.h)
+            : const SizedBox(),
+        AppTextWidget(
+          style: CustomTextTheme.categoryText(
+            color: lightColorPalette.redDark,
+          ),
+          text: text,
+        )
+      ],
+    ),
+  );
 }

@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -27,6 +26,12 @@ class HomeController extends GetxController {
 
   RxList<PropertyListData> propertyList = <PropertyListData>[].obs;
 
+  ScrollController listController = ScrollController();
+
+  RxInt start = 0.obs;
+  RxBool loadMore = false.obs;
+  final int length = 2;
+
   onPressAddPropertyButton() {
     Get.toNamed(Routes.addPropertyScreen);
   }
@@ -45,24 +50,18 @@ class HomeController extends GetxController {
 
   RefreshController refreshController = RefreshController();
 
-  final PagingController<int, PropertyListData> pagingController =
-      PagingController(firstPageKey: 0);
-
   @override
   void onInit() {
-    getAddProperty(pageKey: 0, isShowLoader: true);
-    pagingController.addPageRequestListener((pageKey) {
-      log("addPageRequestListener $pageKey");
-      getAddProperty(pageKey: pageKey, isShowLoader: false);
-    });
-    //
     addFocusListeners();
     super.onInit();
+    listController.addListener(pagination);
+    getAddProperty();
   }
 
   @override
   void dispose() {
-    pagingController.dispose();
+    refreshController.dispose();
+    listController.dispose();
     super.dispose();
   }
 
@@ -72,6 +71,22 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
+  void pagination() {
+    if ((listController.position.pixels ==
+        listController.position.maxScrollExtent)) {
+      if ((propertyList.length) > start.value) {
+        loadMore.value = true;
+        start.value += length;
+        print("start.value<<<<${start.value}");
+        getAddProperty();
+      }
+    }
+  }
+
+  void onRefresh() async {
+    getAddProperty(isFromRefresh: true);
+  }
+
   setShowLoader({required bool value}) {
     isShowLoader.value = value;
     isShowLoader.refresh();
@@ -79,24 +94,23 @@ class HomeController extends GetxController {
 
   onSeacrh(String searchText) {
     search.value = searchText;
-    getAddProperty(
-      pageKey: 0,
-      isShowLoader: true,
-    );
+    getAddProperty();
   }
 
-  getAddProperty({
-    required int pageKey,
-    required bool isShowLoader,
-  }) async {
-    if (isShowLoader == true) {
+  getAddProperty({bool isFromRefresh = false}) async {
+    if (isFromRefresh) {
+      start.value = 0;
+      start.refresh();
+    }
+
+    if (loadMore.value == false) {
       setShowLoader(value: true);
     }
 
     var body = json.encode({
       "search": search.value,
-      "start": pageKey,
-      "length": pageSize,
+      "start": start.value,
+      "length": length,
       "filter_user_createdby_admin": ""
     });
 
@@ -106,36 +120,21 @@ class HomeController extends GetxController {
               PropertyListResponseModel();
       setShowLoader(value: false);
 
-      if (search.value.isNotEmpty) {
-        pagingController.itemList?.clear();
-      }
-
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         final int length = response.data?.length ?? 0;
         if (length == 0) {
-          isShowNoDataFound.value = true;
-          propertyList.value = response.data ?? [];
-          propertyList.refresh();
-          final isLastPage = propertyList.length < pageSize;
-          if (isLastPage) {
-            pagingController.appendLastPage(propertyList);
-          } else {
-            final nextPageKey = pageKey + propertyList.length;
-            pagingController.appendPage(propertyList, nextPageKey);
-          }
+          setShowLoader(value: false);
+          loadMore.value = false;
         } else {
-          isShowNoDataFound.value = false;
+          if (isFromRefresh) {
+            propertyList.clear();
+          }
+          setShowLoader(value: false);
+
           propertyList.value = response.data ?? [];
           propertyList.refresh();
-          final isLastPage = propertyList.length < pageSize;
-
-          if (isLastPage) {
-            pagingController.appendLastPage(propertyList);
-          } else {
-            final nextPageKey = pageKey + propertyList.length;
-            pagingController.appendPage(propertyList, nextPageKey);
-          }
+          loadMore.refresh();
         }
 
         refreshController.refreshCompleted();

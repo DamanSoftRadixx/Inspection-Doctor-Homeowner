@@ -387,4 +387,5 @@ class ErrorMessages {
   static const lotEmty = "Please enter LOT number.";
   static const blockEmty = "Please enter block number.";
   static const countyEmty = "Please select county.";
+  static const docEmty = "Please upload architectural drawing.";
 }

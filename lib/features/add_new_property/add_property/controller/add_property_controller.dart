@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/upload_doc_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/provider/add_property_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
@@ -50,6 +52,7 @@ class AddPropertyController extends GetxController {
   RxBool lotNumberError = false.obs;
   RxBool blockNumberError = false.obs;
   RxBool countyError = false.obs;
+  RxBool documentError = false.obs;
 
   RxString propertyNameErrorMessage = "".obs;
   RxString streetErrorMessage = "".obs;
@@ -60,8 +63,11 @@ class AddPropertyController extends GetxController {
   RxString lotNumberErrorMessage = "".obs;
   RxString blockNumberErrorMessage = "".obs;
   RxString countyErrorMessage = "".obs;
+  RxString documentErrorMessage = "".obs;
 
   RxBool isUplodedingFile = false.obs;
+
+  Rx<UploadDocResponseData> uploadData = UploadDocResponseData().obs;
 
   addFocusListeners() {
     propertyFocusNode.value.addListener(() {
@@ -135,52 +141,13 @@ class AddPropertyController extends GetxController {
         permitNumber: permitNumberController.text,
         lotNumber: lotNumberController.text,
         blockNumber: blockNumberController.text,
-        county: selectedBaseMaterialDropDown.value.id);
+        county: selectedBaseMaterialDropDown.value.id,
+        docment: pdfFile.value.path);
   }
 
   setShowLoader({required bool value}) {
     isShowLoader.value = value;
     isShowLoader.refresh();
-  }
-
-  getAddProperty() async {
-    setShowLoader(value: true);
-
-    var body = json.encode({
-      "assigned_user_id": "",
-      "property_name": propertyController.text,
-      "street": streetController.text,
-      "city": cityController.text,
-      "zip_code": zipCodeController.text,
-      "lot_number": lotNumberController.text,
-      "block_number": blockNumberController.text,
-      "permit_number": permitNumberController.text,
-      "state": stateController.text,
-      "county_id": selectedBaseMaterialDropDown.value.id,
-      "acrhitecturel_drawing": "6243ed27139b3b6b45b4a6f2"
-    });
-
-    try {
-      AddPropertyResponseModel response =
-          await addPropertyProvider.addProperty(body: body) ??
-              AddPropertyResponseModel();
-      setShowLoader(value: false);
-      if (response.success == true &&
-          (response.status == 201 || response.status == 200)) {
-        snackbar(response.message ?? "");
-        Get.back(closeOverlays: true);
-      } else {
-        setShowLoader(value: false);
-        apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
-          okButtonPressed: () {
-            Get.back();
-          },
-        );
-      }
-    } catch (e) {
-      setShowLoader(value: false);
-    }
   }
 
   void validate({
@@ -193,6 +160,7 @@ class AddPropertyController extends GetxController {
     required String lotNumber,
     required String blockNumber,
     required String county,
+    required String docment,
   }) async {
     if (perpertyName.isEmpty &&
         street.isEmpty &&
@@ -202,7 +170,8 @@ class AddPropertyController extends GetxController {
         permitNumber.isEmpty &&
         lotNumber.isEmpty &&
         blockNumber.isEmpty &&
-        county.isEmpty) {
+        county.isEmpty &&
+        docment.isEmpty) {
       propertyNameError.value = true;
       streetError.value = true;
       cityError.value = true;
@@ -212,6 +181,7 @@ class AddPropertyController extends GetxController {
       lotNumberError.value = true;
       blockNumberError.value = true;
       countyError.value = true;
+      documentError.value = true;
       propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
       propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
       streetErrorMessage.value = ErrorMessages.streetEmty;
@@ -222,6 +192,7 @@ class AddPropertyController extends GetxController {
       blockNumberErrorMessage.value = ErrorMessages.blockEmty;
       stateErrorMessage.value = ErrorMessages.stateEmty;
       countyErrorMessage.value = ErrorMessages.countyEmty;
+      documentErrorMessage.value = ErrorMessages.docEmty;
     } else if (perpertyName.isEmpty) {
       propertyNameError.value = true;
       propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
@@ -249,6 +220,9 @@ class AddPropertyController extends GetxController {
     } else if (county.isEmpty) {
       countyError.value = true;
       countyErrorMessage.value = ErrorMessages.countyEmty;
+    } else if (docment.isEmpty) {
+      documentError.value = true;
+      documentErrorMessage.value = ErrorMessages.docEmty;
     } else {
       propertyNameError.value = false;
       streetError.value = false;
@@ -259,8 +233,9 @@ class AddPropertyController extends GetxController {
       lotNumberError.value = false;
       blockNumberError.value = false;
       countyError.value = false;
+      documentError.value = false;
 
-      getAddProperty();
+      uploadDocuments();
     }
   }
 
@@ -402,6 +377,18 @@ class AddPropertyController extends GetxController {
     );
   }
 
+  Future<void> onTapUploadPDF() async {
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+
+    if (result != null) {
+      pdfFile.value = File(result.files.single.path ?? "");
+      documentError.value = false;
+    } else {
+      // User canceled the picker
+    }
+  }
+
   getCounties() async {
     setShowLoader(value: true);
     try {
@@ -438,33 +425,75 @@ class AddPropertyController extends GetxController {
   }
 
   void uploadDocuments() async {
-    isUplodedingFile.value = true;
+    setShowLoader(value: true);
 
-    // var response = await profileProvider.uploadProfile(pickedImageFile.value);
+    var formData = dio.FormData.fromMap({
+      'type': 'architecturel_drawing',
+      'file_type': 'file',
+      "files": await dio.MultipartFile.fromFile(pdfFile.value.path),
+    });
 
-    // print("pickedImageFile<<<<<<${pickedImageFile.value}");
-
-    // if (response != null) {
-    //   if (response.statusCode == 200) {
-    //     isImageUpload.value = false;
-
-    //     imageCache.clear();
-    //     imageCache.clearLiveImages();
-    //   } else {
-    //     isImageUpload.value = false;
-    //   }
-    // }
-    // isImageUpload.value = false;
+    try {
+      UploadDocResponseModel response =
+          await addPropertyProvider.uploadDoc(body: formData) ??
+              UploadDocResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        uploadData.value = response.data?.first ?? UploadDocResponseData();
+        snackbar(response.message ?? "");
+        getAddProperty();
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
   }
 
-  Future<void> onTapUploadPDF() async {
-    FilePickerResult? result = await FilePicker.platform
-        .pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+  getAddProperty() async {
+    // setShowLoader(value: true);
 
-    if (result != null) {
-      pdfFile.value = File(result.files.single.path ?? "");
-    } else {
-      // User canceled the picker
+    var body = json.encode({
+      "assigned_user_id": "",
+      "property_name": propertyController.text,
+      "street": streetController.text,
+      "city": cityController.text,
+      "zip_code": zipCodeController.text,
+      "lot_number": lotNumberController.text,
+      "block_number": blockNumberController.text,
+      "permit_number": permitNumberController.text,
+      "state": stateController.text,
+      "county_id": selectedBaseMaterialDropDown.value.id,
+      "acrhitecturel_drawing": uploadData.value.id
+    });
+
+    try {
+      AddPropertyResponseModel response =
+          await addPropertyProvider.addProperty(body: body) ??
+              AddPropertyResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        snackbar(response.message ?? "");
+        Get.back(closeOverlays: true);
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
     }
   }
 }

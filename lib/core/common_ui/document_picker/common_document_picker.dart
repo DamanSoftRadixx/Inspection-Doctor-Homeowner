@@ -13,6 +13,8 @@ Widget commonDocumentPicker({
   String? text,
   required bool isFilePick,
   required Widget widget,
+  String? errorMsg,
+  bool? isError,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +66,18 @@ Widget commonDocumentPicker({
                     ],
                   ),
           ),
+        ),
+      ),
+      Visibility(
+        visible: isError ?? false,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: AppTextWidget(
+            text: errorMsg ?? "",
+            style: CustomTextTheme.bottomTabs(
+              color: lightColorPalette.redDark,
+            ),
+          ).paddingOnly(top: 5.h),
         ),
       )
     ],
