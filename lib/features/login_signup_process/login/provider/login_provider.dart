@@ -25,4 +25,22 @@ class LoginProvider {
       }
     }
   }
+
+  Future<LoginResponseModel?> sociaLogin({required Object body}) async {
+    try {
+      Response response =
+          await apiHitter.postApi(endPoint: EndPoints.socialSignup, body: body);
+      LoginResponseModel data = LoginResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'sociaLogin');
+
+      return data;
+    } catch (e) {
+      if (e is DioException) {
+        //This is the custom message coming from the backend
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception(e.toString());
+      }
+    }
+  }
 }

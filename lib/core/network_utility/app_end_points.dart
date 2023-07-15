@@ -3,6 +3,7 @@ class EndPoints {
 
   static const String register = "auth/signup";
   static const String login = "auth/login";
+  static const String socialSignup = "auth/social-signup";
   static const String getLanguages = "auth/public-dropdown/get-languages";
   static const String getRoles = "auth/get-roles";
   static const String resendOtp = "user/resend-otp";

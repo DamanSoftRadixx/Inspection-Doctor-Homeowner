@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:device_uuid/device_uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
@@ -255,7 +256,9 @@ class SignupController extends GetxController {
 
   getSignUp() async {
     setShowLoader(value: true);
-    // String? deviceId = await PlatformDeviceId.getDeviceId;
+    String? deviceId = await DeviceUuid().getUUID();
+    String deviceToken =
+        await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
 
     String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
     String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
@@ -276,8 +279,8 @@ class SignupController extends GetxController {
       "image": "",
       "device_type":
           isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
-      "device_token": "eydhghjd",
-      "device_id": "deviceId"
+      "device_token": deviceToken,
+      "device_id": deviceId
     });
 
     try {

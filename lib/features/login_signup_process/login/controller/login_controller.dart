@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:device_uuid/device_uuid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -33,8 +35,7 @@ class LoginController extends GetxController {
   RxString passwordErrorMessage = "".obs;
 
   RxBool isShowLoader = false.obs;
-  SocialLogin socialLogin=SocialLogin();
-
+  SocialLogin socialLogin = SocialLogin();
 
   addFocusListeners() {
     emailFocusNode.value.addListener(() {
@@ -76,6 +77,22 @@ class LoginController extends GetxController {
   void onPressLoginButton() {
     dismissKeyboard();
     validate(email: emailController.text, password: passwordController.text);
+  }
+
+  String? getFirstName(User user) {
+    String result = "";
+    if (user.displayName?.contains(" ") == true) {
+      result = user.displayName?.split(" ").first ?? "";
+    }
+    return result;
+  }
+
+  String? getLastName(User user) {
+    String result = "";
+    if (user.displayName?.contains(" ") == true) {
+      result = user.displayName?.split(" ")[1] ?? "";
+    }
+    return result;
   }
 
   void validate({
@@ -121,27 +138,30 @@ class LoginController extends GetxController {
     Get.toNamed(Routes.signupScreen);
   }
 
-
   hitLoginApi() async {
-    // String? deviceId = await PlatformDeviceId.getDeviceId;
+    // String? deviceId = await DeviceUuid().getUUID();;
     setShowLoader(value: true);
+    String deviceToken =
+        await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
+    String? deviceId = await DeviceUuid().getUUID();
 
     var body = json.encode({
       "email": emailController.text.trim(),
       "password": passwordController.text.trim(),
       "device_type":
-      isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
-      "device_token": "eydhghjd",
-      "device_id": "A4"
+          isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+      "device_token": deviceToken,
+      "device_id": deviceId
     });
 
     try {
       LoginResponseModel response =
           await loginProvider.login(body: body) ?? LoginResponseModel();
       setShowLoader(value: false);
-      if (response.success == true && (response.status == 201 || response.status == 200)) {
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
         var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if(token != "") Prefs.write(Prefs.token, token);
+        if (token != "") Prefs.write(Prefs.token, token);
         Get.toNamed(Routes.dashboard);
         snackbar(response.message ?? "");
       } else {
@@ -150,7 +170,8 @@ class LoginController extends GetxController {
           okButtonPressed: () {
             Get.back();
           },
-        );       }
+        );
+      }
     } catch (e) {
       setShowLoader(value: false);
     }
@@ -178,9 +199,8 @@ class LoginController extends GetxController {
     }
   }
 
-
   void signInWithGoogle() async {
-    // showLoader.value = true;
+    setShowLoader(value: true);
 
     try {
       User? user = await socialLogin.signInWithGoogle();
@@ -198,36 +218,63 @@ class LoginController extends GetxController {
         socialLogin.lastName = socialLogin.lastName.toString();
         String? email = user.email;
 
-        print("email${email}");
-        print("firstName${socialLogin.firstName}");
-        print("lastName${socialLogin.lastName}");
-        print("social_id${socialLogin.social_id}");
+        String deviceToken =
+            await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
+        String? deviceId = await DeviceUuid().getUUID();
 
+        String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
 
+        var body = json.encode({
+          "role_id": inspectorRoleId,
+          "register_type": "Email",
+          "first_name": socialLogin.firstName,
+          "last_name": socialLogin.lastName,
+          "email": email,
+          "social_key": socialLogin.social_id,
+          "device_type":
+              isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+          "device_token": deviceToken,
+          "device_id": deviceId
+        });
 
+        log("body $body");
 
-        String? socialType = "1";
-        String? deviceType = "1";
-        // getSocialLogin(
-        //     firstName: loginAuthProvider.firstName,
-        //     lastName: loginAuthProvider.lastName,
-        //     email: email,
-        //     social_id: loginAuthProvider.social_id,
-        //     socialType: socialType,
-        //     deviceToken: deviceToken.toString(),
-        //     device_type: deviceType);
+        try {
+          LoginResponseModel response =
+              await loginProvider.sociaLogin(body: body) ??
+                  LoginResponseModel();
+          setShowLoader(value: false);
+          if (response.success == true &&
+              (response.status == 201 || response.status == 200)) {
+            var token =
+                (response.data?.token ?? "").replaceFirst("Bearer ", "");
+            if (token != "") Prefs.write(Prefs.token, token);
+            Get.toNamed(Routes.dashboard);
+            snackbar(response.message ?? "");
+          } else {
+            apiErrorDialog(
+              message: response.message ?? AppStrings.somethingWentWrong,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
+        } catch (e) {
+          setShowLoader(value: false);
+        }
       } else {
-        // showLoader(false);
+        setShowLoader(value: false);
       }
     } catch (e) {
-      // showLoader(false);
+      setShowLoader(value: false);
     }
   }
+
   void signInWithApple() async {
+    setShowLoader(value: true);
     try {
       User? user = await socialLogin.signInWithAple();
       if (user != null) {
-
         print("firstName${user.displayName}");
         print("email${user.email}");
         print("social_id${socialLogin.appleIdCredential?.userIdentifier}");
@@ -240,22 +287,66 @@ class LoginController extends GetxController {
         //     social_id:
         //     loginAuthProvider.appleIdCredential?.userIdentifier.toString(),
         //     email: loginAuthProvider.appleIdCredential?.email ?? "");
+
+        String deviceToken =
+            await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
+        String? deviceId = await DeviceUuid().getUUID();
+
+        String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
+
+        var body = json.encode({
+          "role_id": inspectorRoleId,
+          "register_type": "Email",
+          "first_name": getFirstName(user),
+          "last_name": getLastName(user),
+          "email": user.email,
+          "social_key": socialLogin.appleIdCredential?.userIdentifier,
+          "device_type":
+              isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+          "device_token": deviceToken,
+          "device_id": deviceId
+        });
+
+        log("body $body");
+
+        try {
+          LoginResponseModel response =
+              await loginProvider.sociaLogin(body: body) ??
+                  LoginResponseModel();
+          setShowLoader(value: false);
+          if (response.success == true &&
+              (response.status == 201 || response.status == 200)) {
+            var token =
+                (response.data?.token ?? "").replaceFirst("Bearer ", "");
+            if (token != "") Prefs.write(Prefs.token, token);
+            Get.toNamed(Routes.dashboard);
+            snackbar(response.message ?? "");
+          } else {
+            apiErrorDialog(
+              message: response.message ?? AppStrings.somethingWentWrong,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
+        } catch (e) {
+          setShowLoader(value: false);
+        }
       } else {
-        // showLoader(false);
+        setShowLoader(value: false);
       }
     } catch (e) {
-      // showLoader(false);
+      setShowLoader(value: false);
     }
   }
 
   void signInWithFb() async {
-    // showLoader.value = true;
+    setShowLoader(value: true);
 
     try {
       User? user = await socialLogin.signInWithFb();
       print("facebook response : ${user.toString()}");
       if (user != null) {
-
         // getSocialLogin(
         //     firstName: loginAuthProvider.profile?.firstName ?? '',
         //     lastName: loginAuthProvider.profile?.lastName ?? "",
@@ -264,13 +355,58 @@ class LoginController extends GetxController {
         //     device_type: "2",
         //     social_id: user.uid,
         //     email: loginAuthProvider.fbEmail ?? '');
+
+        String deviceToken =
+            await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
+        // String? deviceId = await DeviceUuid().getUUID();;
+
+        String? deviceId = await DeviceUuid().getUUID();
+
+        String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
+
+        var body = json.encode({
+          "role_id": inspectorRoleId,
+          "register_type": "Email",
+          "first_name": getFirstName(user),
+          "last_name": getLastName(user),
+          "email": user.email,
+          "social_key": socialLogin.appleIdCredential?.userIdentifier,
+          "device_type":
+              isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
+          "device_token": deviceToken,
+          "device_id": deviceId
+        });
+
+        log("body $body");
+
+        try {
+          LoginResponseModel response =
+              await loginProvider.sociaLogin(body: body) ??
+                  LoginResponseModel();
+          setShowLoader(value: false);
+          if (response.success == true &&
+              (response.status == 201 || response.status == 200)) {
+            var token =
+                (response.data?.token ?? "").replaceFirst("Bearer ", "");
+            if (token != "") Prefs.write(Prefs.token, token);
+            Get.toNamed(Routes.dashboard);
+            snackbar(response.message ?? "");
+          } else {
+            apiErrorDialog(
+              message: response.message ?? AppStrings.somethingWentWrong,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
+        } catch (e) {
+          setShowLoader(value: false);
+        }
       } else {
-        // showLoader.value = false;
+        setShowLoader(value: false);
       }
     } catch (e) {
-      // showLoader.value = false;
+      setShowLoader(value: false);
     }
   }
-
-
 }

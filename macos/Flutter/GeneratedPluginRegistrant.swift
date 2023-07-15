@@ -7,6 +7,7 @@ import Foundation
 
 import connectivity_plus
 import device_info_plus
+import device_uuid
 import dynamic_color
 import file_selector_macos
 import firebase_auth
@@ -23,6 +24,7 @@ import url_launcher_macos
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   ConnectivityPlugin.register(with: registry.registrar(forPlugin: "ConnectivityPlugin"))
   DeviceInfoPlusMacosPlugin.register(with: registry.registrar(forPlugin: "DeviceInfoPlusMacosPlugin"))
+  DeviceUuidPlugin.register(with: registry.registrar(forPlugin: "DeviceUuidPlugin"))
   DynamicColorPlugin.register(with: registry.registrar(forPlugin: "DynamicColorPlugin"))
   FileSelectorPlugin.register(with: registry.registrar(forPlugin: "FileSelectorPlugin"))
   FLTFirebaseAuthPlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseAuthPlugin"))

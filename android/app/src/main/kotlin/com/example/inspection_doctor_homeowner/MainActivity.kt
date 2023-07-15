@@ -1,4 +1,4 @@
-package com.example.inspection_doctor_homeowner
+package com.app.dev.homeOwner
 
 import io.flutter.embedding.android.FlutterActivity
 
