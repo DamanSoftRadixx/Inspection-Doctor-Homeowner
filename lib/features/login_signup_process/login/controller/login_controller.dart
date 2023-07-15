@@ -15,6 +15,7 @@ import 'package:inspection_doctor_homeowner/core/social_login/social_login.dart'
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/provider/login_provider.dart';
 
@@ -162,6 +163,8 @@ class LoginController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
         if (token != "") Prefs.write(Prefs.token, token);
+
+        getJsonFromJWTToken(token: token);
         Get.toNamed(Routes.dashboard);
         snackbar(response.message ?? "");
       } else {

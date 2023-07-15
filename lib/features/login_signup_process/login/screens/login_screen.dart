@@ -10,6 +10,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/controller/login_controller.dart';
 
@@ -28,49 +29,49 @@ class LoginScreen extends GetView<LoginController> {
           )),
       body: SafeArea(
         child: Obx(() => Stack(
-          children: [
-            ListView(
-              physics: const RangeMaintainingScrollPhysics(),
               children: [
-                Container(
-                    height: 35.h,
-                    color: lightColorPalette.whiteColorPrimary.shade900),
-                Stack(
+                ListView(
+                  physics: const RangeMaintainingScrollPhysics(),
                   children: [
-                    SizedBox(
-                      // height: 0.9.sh,
-                        width: 1.sw,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                                width: 1.sw,
-                                height: 23.h,
-                                color:
-                                lightColorPalette.whiteColorPrimary.shade900),
-                            getWelcomeLoginView(),
-                            //Email
-                            Column(
+                    Container(
+                        height: 35.h,
+                        color: lightColorPalette.whiteColorPrimary.shade900),
+                    Stack(
+                      children: [
+                        SizedBox(
+                            // height: 0.9.sh,
+                            width: 1.sw,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
                               children: [
-                                showEmailField(),
-                                showPasswordField(),
-                                showForgotPassword().paddingOnly(top: 10.h),
-                                showLoginButton().paddingOnly(top: 50.h),
-                                showSignupButton(),
-                                showDivider(),
-                                showOtherLoginOption(),
+                                Container(
+                                    width: 1.sw,
+                                    height: 23.h,
+                                    color: lightColorPalette
+                                        .whiteColorPrimary.shade900),
+                                getWelcomeLoginView(),
+                                //Email
+                                Column(
+                                  children: [
+                                    showEmailField(),
+                                    showPasswordField(),
+                                    showForgotPassword().paddingOnly(top: 10.h),
+                                    showLoginButton().paddingOnly(top: 50.h),
+                                    showSignupButton(),
+                                    showDivider(),
+                                    showOtherLoginOption(),
+                                  ],
+                                ).paddingOnly(left: 20.w, right: 20.w)
                               ],
-                            ).paddingOnly(left: 20.w, right: 20.w)
-                          ],
-                        )),
-                    getTopLogo(),
+                            )),
+                        getTopLogo(),
+                      ],
+                    ),
                   ],
                 ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
               ],
-            ),
-            CommonLoader(isLoading: controller.isShowLoader.value)
-          ],
-        )),
+            )),
       ),
     );
   }
@@ -87,7 +88,7 @@ class LoginScreen extends GetView<LoginController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomInkwell(
-              onTap: (){
+              onTap: () {
                 controller.signInWithGoogle();
               },
               child: Container(
@@ -108,14 +109,15 @@ class LoginScreen extends GetView<LoginController> {
                         width: 0.3.w, color: lightColorPalette.stroke)),
                 child: Center(
                   child: AssetWidget(
-                    asset: Asset(type: AssetType.svg, path: ImageResource.google),
+                    asset:
+                        Asset(type: AssetType.svg, path: ImageResource.google),
                     boxFit: BoxFit.fitWidth,
                   ),
                 ),
               ),
             ),
             CustomInkwell(
-              onTap: (){
+              onTap: () {
                 controller.signInWithFb();
               },
               child: Container(
@@ -136,41 +138,44 @@ class LoginScreen extends GetView<LoginController> {
                         width: 0.3.w, color: lightColorPalette.stroke)),
                 child: Center(
                   child: AssetWidget(
-                    asset:
-                        Asset(type: AssetType.svg, path: ImageResource.facebook),
+                    asset: Asset(
+                        type: AssetType.svg, path: ImageResource.facebook),
                     boxFit: BoxFit.fitWidth,
                   ),
                 ),
               ).paddingSymmetric(horizontal: 10),
             ),
-            CustomInkwell(
-              onTap: (){
-                controller.signInWithApple();
-              },
-              child: Container(
-                height: 44.h,
-                width: 70.w,
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 0,
-                        color: lightColorPalette.primaryBlue,
-                        offset: const Offset(0, -1),
-                        spreadRadius: 0,
+            isIos
+                ? CustomInkwell(
+                    onTap: () {
+                      controller.signInWithApple();
+                    },
+                    child: Container(
+                      height: 44.h,
+                      width: 70.w,
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 0,
+                              color: lightColorPalette.primaryBlue,
+                              offset: const Offset(0, -1),
+                              spreadRadius: 0,
+                            ),
+                          ],
+                          color: lightColorPalette.whiteColorPrimary.shade900,
+                          borderRadius: BorderRadius.circular(6.r),
+                          border: Border.all(
+                              width: 0.3.w, color: lightColorPalette.stroke)),
+                      child: Center(
+                        child: AssetWidget(
+                          asset: Asset(
+                              type: AssetType.svg, path: ImageResource.apple),
+                          boxFit: BoxFit.fitWidth,
+                        ),
                       ),
-                    ],
-                    color: lightColorPalette.whiteColorPrimary.shade900,
-                    borderRadius: BorderRadius.circular(6.r),
-                    border: Border.all(
-                        width: 0.3.w, color: lightColorPalette.stroke)),
-                child: Center(
-                  child: AssetWidget(
-                    asset: Asset(type: AssetType.svg, path: ImageResource.apple),
-                    boxFit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
-            ),
+                    ),
+                  )
+                : const SizedBox(),
           ],
         )
       ],
@@ -208,7 +213,7 @@ class LoginScreen extends GetView<LoginController> {
         FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
       ],
       onChanged: (value) {
-        controller.onChangedEmailTextField(value : value);
+        controller.onChangedEmailTextField(value: value);
       },
     ).paddingOnly(bottom: 11.h);
   }
@@ -216,7 +221,7 @@ class LoginScreen extends GetView<LoginController> {
   showPasswordField() {
     return commonPasswordText(
       onChanged: (value) {
-        controller.onChangedPasswordTextField(value : value);
+        controller.onChangedPasswordTextField(value: value);
       },
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController,
@@ -232,6 +237,7 @@ class LoginScreen extends GetView<LoginController> {
       passwordVisible: controller.isHidePassword.value,
     );
   }
+
   Align showForgotPassword() {
     return Align(
       alignment: Alignment.topLeft,

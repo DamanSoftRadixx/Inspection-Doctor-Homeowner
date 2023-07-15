@@ -1,10 +1,11 @@
-class TokenDecodeResponseModel {
-  TokenDecodeResponseModel({
-      this.data, 
-      this.iat, 
-      this.exp,});
+class LoginTokenModel {
+  LoginTokenModel({
+    this.data,
+    this.iat,
+    this.exp,
+  });
 
-  TokenDecodeResponseModel.fromJson(dynamic json) {
+  LoginTokenModel.fromJson(dynamic json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     iat = json['iat'];
     exp = json['exp'];
@@ -22,41 +23,41 @@ class TokenDecodeResponseModel {
     map['exp'] = exp;
     return map;
   }
-
 }
 
 class Data {
   Data({
-      this.id, 
-      this.roleId, 
-      this.registerType, 
-      this.socialKey, 
-      this.firstName, 
-      this.lastName, 
-      this.image, 
-      this.email, 
-      this.phone, 
-      this.countryCode, 
-      this.otp, 
-      this.isOtpVerified, 
-      this.stateId, 
-      this.city, 
-      this.languageId, 
-      this.countyId, 
-      this.categoryId, 
-      this.documents, 
-      this.documentUploaded, 
-      this.deviceId, 
-      this.deviceType, 
-      this.deviceToken, 
-      this.logintime, 
-      this.status, 
-      this.isapproved, 
-      this.zipCode, 
-      this.deletedAt, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,});
+    this.id,
+    this.roleId,
+    this.registerType,
+    this.socialKey,
+    this.firstName,
+    this.lastName,
+    this.image,
+    this.email,
+    this.phone,
+    this.countryCode,
+    this.otp,
+    this.isOtpVerified,
+    this.stateId,
+    this.city,
+    this.languageId,
+    this.countyId,
+    this.categoryId,
+    this.documents,
+    this.documentUploaded,
+    this.deviceId,
+    this.deviceType,
+    this.deviceToken,
+    this.logintime,
+    this.status,
+    this.isapproved,
+    this.zipCode,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['_id'];
@@ -74,30 +75,15 @@ class Data {
     stateId = json['state_id'];
     city = json['city'];
     languageId = json['language_id'];
-    if (json['county_id'] != null) {
-      countyId = [];
-      json['county_id'].forEach((v) {
-        countyId?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['category_id'] != null) {
-      categoryId = [];
-      json['category_id'].forEach((v) {
-        categoryId?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['documents'] != null) {
-      documents = [];
-      json['documents'].forEach((v) {
-        documents?.add(Dynamic.fromJson(v));
-      });
-    }
-    if (json['documentUploaded'] != null) {
-      documentUploaded = [];
-      json['documentUploaded'].forEach((v) {
-        documentUploaded?.add(Dynamic.fromJson(v));
-      });
-    }
+    countyId =
+        json['county_id'] != null ? json['county_id'].cast<String>() : [];
+    categoryId =
+        json['category_id'] != null ? json['category_id'].cast<String>() : [];
+    documents =
+        json['documents'] != null ? json['documents'].cast<String>() : [];
+    documentUploaded = json['documentUploaded'] != null
+        ? json['documentUploaded'].cast<String>()
+        : [];
     deviceId = json['device_id'];
     deviceType = json['device_type'];
     deviceToken = json['device_token'];
@@ -125,10 +111,10 @@ class Data {
   String? stateId;
   String? city;
   String? languageId;
-  List<dynamic>? countyId;
-  List<dynamic>? categoryId;
-  List<dynamic>? documents;
-  List<dynamic>? documentUploaded;
+  List<String>? countyId;
+  List<String>? categoryId;
+  List<String>? documents;
+  List<String>? documentUploaded;
   String? deviceId;
   String? deviceType;
   String? deviceToken;
@@ -160,18 +146,10 @@ class Data {
     map['state_id'] = stateId;
     map['city'] = city;
     map['language_id'] = languageId;
-    if (countyId != null) {
-      map['county_id'] = countyId?.map((v) => v.toJson()).toList();
-    }
-    if (categoryId != null) {
-      map['category_id'] = categoryId?.map((v) => v.toJson()).toList();
-    }
-    if (documents != null) {
-      map['documents'] = documents?.map((v) => v.toJson()).toList();
-    }
-    if (documentUploaded != null) {
-      map['documentUploaded'] = documentUploaded?.map((v) => v.toJson()).toList();
-    }
+    map['county_id'] = countyId;
+    map['category_id'] = categoryId;
+    map['documents'] = documents;
+    map['documentUploaded'] = documentUploaded;
     map['device_id'] = deviceId;
     map['device_type'] = deviceType;
     map['device_token'] = deviceToken;
@@ -185,13 +163,13 @@ class Data {
     map['__v'] = v;
     return map;
   }
-
 }
 
 class RoleId {
   RoleId({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   RoleId.fromJson(dynamic json) {
     id = json['_id'];
@@ -206,5 +184,4 @@ class RoleId {
     map['name'] = name;
     return map;
   }
-
 }
