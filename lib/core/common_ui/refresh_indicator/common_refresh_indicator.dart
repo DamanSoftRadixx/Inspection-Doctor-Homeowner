@@ -20,7 +20,7 @@ class CommonRefreshIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return SmartRefresher(
       controller: controller,
-      enablePullUp: true,
+      enablePullUp: false,
       onRefresh: () {
         onRefresh();
       },
@@ -29,7 +29,6 @@ class CommonRefreshIndicator extends StatelessWidget {
         backgroundColor: lightColorPalette.primaryBlue,
         color: lightColorPalette.whiteColorPrimary.shade900,
       ),
-      onLoading: onLoading,
       child: child,
     );
   }

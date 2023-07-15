@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 
 class SplashController extends GetxController {
   @override
@@ -9,13 +10,14 @@ class SplashController extends GetxController {
   }
 
   Future navigateToNext() async {
+    var token = Prefs.read(Prefs.token);
     Future.delayed(const Duration(seconds: 3), () {
-      // var token = Prefs.read(Prefs.TOKEN);
-      // token == null
-      //     ? Get.offNamed(Routes.introScreen)
-      //     : Get.offNamed(Routes.dashboard);
 
-      Get.offNamed(Routes.selectLanguage);
+      token == null
+          ? Get.offNamed(Routes.selectLanguage)
+          : Get.offNamed(Routes.dashboard);
+
+
     });
   }
 }

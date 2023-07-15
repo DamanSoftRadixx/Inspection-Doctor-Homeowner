@@ -5,6 +5,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_ke
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/no_data/no_data_found.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/refresh_indicator/common_refresh_indicator.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
@@ -22,7 +23,9 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           backgroundColor: lightColorPalette.backgroundColor,
-          floatingActionButton: showFloatingButton(),
+          floatingActionButton: controller.propertyList.isEmpty
+              ? const SizedBox()
+              : showFloatingButton(),
           body: SafeArea(
             child: Stack(
               children: [
@@ -30,13 +33,13 @@ class HomeScreen extends GetView<HomeController> {
                   onTap: () {
                     dismissKeyboard();
                   },
-                  child: controller.propertyList.isEmpty &&
-                          controller.isShowLoader.value == false &&
-                          controller.isShowNoDataFound.value == false
-                      ? showAddProperty()
-                      : showPropertyUi(),
+                  child: controller.propertyList.isNotEmpty  || controller.searchController.text.isNotEmpty
+                      ? showPropertyUi()
+                      : (controller.isShowLoader.value
+                          ? const SizedBox()
+                          : showAddProperty()),
                 ),
-                CommonLoader(isLoading: controller.isShowLoader.value)
+                CommonLoader(isLoading: controller.isShowLoader.value || controller.isShowSearchLoader.value)
               ],
             ),
           ),
@@ -76,58 +79,46 @@ class HomeScreen extends GetView<HomeController> {
     return commonSearchFieldWidget(
         controller: controller.searchController,
         onChanged: (value) {
-          controller.onSeacrh(value);
+          controller.onSearch();
         },
-        focusNode: controller.seacrhFocusNode.value,
+        focusNode: controller.searchFocusNode.value,
         searchHint: AppStrings.searchNameAddress);
   }
 
   Expanded showPropertyList() {
     return Expanded(
-        child: controller.propertyList.isNotEmpty
-            ? CommonRefreshIndicator(
-                onRefresh: () => Future.sync(() {
-                      controller.onRefresh();
-                    }),
-                controller: controller.refreshController,
-                child: ListView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(top: 18.h),
-                  shrinkWrap: true,
-                  controller: controller.listController,
-                  itemCount: controller.propertyList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    PropertyListData item = controller.propertyList[index];
+        child: Column(
+          children: [
+            Expanded(
+              child: CommonRefreshIndicator(
+                  onRefresh: () => Future.sync(() {
+                        controller.onRefresh();
+                      }),
+                  controller: controller.refreshController,
+                  child: controller.propertyList.isNotEmpty
+                      ? ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(top: 18.h),
+                          shrinkWrap: true,
+                          controller: controller.listController,
+                          itemCount: controller.propertyList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            PropertyListData item = controller.propertyList[index];
 
-                    return PropertyCard(property: item);
-                  },
-                ))
-            : CommonRefreshIndicator(
-                onRefresh: () => Future.sync(() {
-                  controller.onRefresh();
-                }),
-                controller: controller.refreshController,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AppTextWidget(
-                      textAlign: TextAlign.start,
-                      text: AppStrings.noData.tr,
-                      style: CustomTextTheme.heading1WithLetterSpacing(
-                        color: lightColorPalette.primaryDarkblue,
-                      ),
-                    ),
-                    AppTextWidget(
-                      textAlign: TextAlign.start,
-                      text: AppStrings.listEmpty.tr,
-                      style: CustomTextTheme.normalText(
-                        color: lightColorPalette.stroke,
-                      ),
-                    ),
-                  ],
-                ),
-              ));
+                            return PropertyCard(property: item);
+                          },
+                        )
+                      : (controller.isShowSearchLoader.value
+                          ? const SizedBox()
+                          : showNoDataFound())),
+            ),
+
+            Visibility(
+                visible: controller.loadMore.value == true,
+                child: const CircularProgressIndicator())
+
+          ],
+        ));
   }
 
   Stack showAddProperty() {
@@ -159,7 +150,6 @@ class HomeScreen extends GetView<HomeController> {
             ],
           ),
         ),
-        Obx(() => CommonLoader(isLoading: controller.isLoading.value))
       ],
     );
   }

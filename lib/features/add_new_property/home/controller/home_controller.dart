@@ -11,38 +11,34 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomeController extends GetxController {
   HomeProvider homeProvider = HomeProvider();
-  var isLoading = false.obs;
 
   TextEditingController searchController = TextEditingController();
 
-  var seacrhFocusNode = FocusNode().obs;
+  var searchFocusNode = FocusNode().obs;
 
   RxBool isShowLoader = false.obs;
-
-  RxBool isShowNoDataFound = false.obs;
-
-  RxString search = "".obs;
-
+  RxBool isShowSearchLoader = false.obs;
   RxList<PropertyListData> propertyList = <PropertyListData>[].obs;
 
   ScrollController listController = ScrollController();
 
   RxInt start = 0.obs;
   RxBool loadMore = false.obs;
-  final int length = 2;
+  var totalRecords = 0;
+  final int pageLength = 10;
 
   onPressAddPropertyButton() {
     Get.toNamed(Routes.addPropertyScreen);
   }
 
   addFocusListeners() {
-    seacrhFocusNode.value.addListener(() {
-      seacrhFocusNode.refresh();
+    searchFocusNode.value.addListener(() {
+      searchFocusNode.refresh();
     });
   }
 
   disposeFocusListeners() {
-    seacrhFocusNode.value.removeListener(() {});
+    searchFocusNode.value.removeListener(() {});
   }
 
   RefreshController refreshController = RefreshController();
@@ -50,9 +46,9 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     addFocusListeners();
-    super.onInit();
     listController.addListener(pagination);
     getAddProperty();
+    super.onInit();
   }
 
   @override
@@ -71,9 +67,9 @@ class HomeController extends GetxController {
   void pagination() {
     if ((listController.position.pixels ==
         listController.position.maxScrollExtent)) {
-      if (propertyList.length > start.value) {
+      if (start.value <totalRecords && loadMore.value == false) {
         loadMore.value = true;
-        start.value += length;
+        start.value += pageLength;
         print("start.value<<<<${start.value}");
         getAddProperty();
       }
@@ -89,25 +85,34 @@ class HomeController extends GetxController {
     isShowLoader.refresh();
   }
 
-  onSeacrh(String searchText) {
-    search.value = searchText;
-    getAddProperty();
+  setShowSearchLoader({required bool value}) {
+    isShowSearchLoader.value = value;
+    isShowSearchLoader.refresh();
   }
 
-  getAddProperty({bool isFromRefresh = false}) async {
-    if (isFromRefresh) {
+  onSearch() {
+    getAddProperty(isFromSearch: searchController.text.isEmpty ? false : true);
+  }
+
+  getAddProperty({bool isFromRefresh = false,bool isFromSearch = false}) async {
+    if (isFromRefresh || isFromSearch) {
       start.value = 0;
       start.refresh();
     }
 
     if (loadMore.value == false) {
-      setShowLoader(value: true);
+      if(isFromSearch){
+        setShowSearchLoader(value: true);
+      }else{
+        setShowLoader(value: true);
+      }
+
     }
 
     var body = json.encode({
-      "search": search.value,
+      "search": searchController.text,
       "start": start.value,
-      "length": length,
+      "length": pageLength,
       "filter_user_createdby_admin": ""
     });
 
@@ -116,27 +121,32 @@ class HomeController extends GetxController {
           await homeProvider.propertyList(body: body) ??
               PropertyListResponseModel();
       setShowLoader(value: false);
+      setShowSearchLoader(value: false);
 
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         final int length = response.data?.length ?? 0;
-        if (length == 0) {
-          setShowLoader(value: false);
-          loadMore.value = false;
-        } else {
-          if (isFromRefresh) {
+
+          if (isFromRefresh || isFromSearch) {
             propertyList.clear();
           }
-          setShowLoader(value: false);
 
           propertyList.addAll(response.data ?? <PropertyListData>[]);
+        totalRecords = response.recordsTotal ?? 0;
+          loadMore.value = false;
           propertyList.refresh();
           loadMore.refresh();
-        }
 
         refreshController.refreshCompleted();
+        refreshController.loadComplete();
+
       } else {
+        loadMore.value = false;
         setShowLoader(value: false);
+        loadMore.refresh();
+        refreshController.refreshCompleted();
+
+        setShowSearchLoader(value: false);
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
           okButtonPressed: () {
@@ -146,6 +156,11 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       setShowLoader(value: false);
+      loadMore.value = false;
+      loadMore.refresh();
+      setShowSearchLoader(value: false);
+
+      refreshController.refreshCompleted();
     }
   }
 }
