@@ -86,73 +86,88 @@ class LoginScreen extends GetView<LoginController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              height: 44.h,
-              width: 70.w,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0,
-                      color: lightColorPalette.primaryBlue,
-                      offset: const Offset(0, -1),
-                      spreadRadius: 0,
-                    ),
-                  ],
-                  color: lightColorPalette.whiteColorPrimary.shade900,
-                  borderRadius: BorderRadius.circular(6.r),
-                  border: Border.all(
-                      width: 0.3.w, color: lightColorPalette.stroke)),
-              child: Center(
-                child: AssetWidget(
-                  asset: Asset(type: AssetType.svg, path: ImageResource.google),
-                  boxFit: BoxFit.fitWidth,
+            CustomInkwell(
+              onTap: (){
+                controller.signInWithGoogle();
+              },
+              child: Container(
+                height: 44.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0,
+                        color: lightColorPalette.primaryBlue,
+                        offset: const Offset(0, -1),
+                        spreadRadius: 0,
+                      ),
+                    ],
+                    color: lightColorPalette.whiteColorPrimary.shade900,
+                    borderRadius: BorderRadius.circular(6.r),
+                    border: Border.all(
+                        width: 0.3.w, color: lightColorPalette.stroke)),
+                child: Center(
+                  child: AssetWidget(
+                    asset: Asset(type: AssetType.svg, path: ImageResource.google),
+                    boxFit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
             ),
-            Container(
-              height: 44.h,
-              width: 70.w,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0,
-                      color: lightColorPalette.primaryBlue,
-                      offset: const Offset(0, -1),
-                      spreadRadius: 0,
-                    ),
-                  ],
-                  color: lightColorPalette.whiteColorPrimary.shade900,
-                  borderRadius: BorderRadius.circular(6.r),
-                  border: Border.all(
-                      width: 0.3.w, color: lightColorPalette.stroke)),
-              child: Center(
-                child: AssetWidget(
-                  asset:
-                      Asset(type: AssetType.svg, path: ImageResource.facebook),
-                  boxFit: BoxFit.fitWidth,
+            CustomInkwell(
+              onTap: (){
+                controller.signInWithFb();
+              },
+              child: Container(
+                height: 44.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0,
+                        color: lightColorPalette.primaryBlue,
+                        offset: const Offset(0, -1),
+                        spreadRadius: 0,
+                      ),
+                    ],
+                    color: lightColorPalette.whiteColorPrimary.shade900,
+                    borderRadius: BorderRadius.circular(6.r),
+                    border: Border.all(
+                        width: 0.3.w, color: lightColorPalette.stroke)),
+                child: Center(
+                  child: AssetWidget(
+                    asset:
+                        Asset(type: AssetType.svg, path: ImageResource.facebook),
+                    boxFit: BoxFit.fitWidth,
+                  ),
                 ),
-              ),
-            ).paddingSymmetric(horizontal: 10),
-            Container(
-              height: 44.h,
-              width: 70.w,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 0,
-                      color: lightColorPalette.primaryBlue,
-                      offset: const Offset(0, -1),
-                      spreadRadius: 0,
-                    ),
-                  ],
-                  color: lightColorPalette.whiteColorPrimary.shade900,
-                  borderRadius: BorderRadius.circular(6.r),
-                  border: Border.all(
-                      width: 0.3.w, color: lightColorPalette.stroke)),
-              child: Center(
-                child: AssetWidget(
-                  asset: Asset(type: AssetType.svg, path: ImageResource.apple),
-                  boxFit: BoxFit.fitWidth,
+              ).paddingSymmetric(horizontal: 10),
+            ),
+            CustomInkwell(
+              onTap: (){
+                controller.signInWithApple();
+              },
+              child: Container(
+                height: 44.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 0,
+                        color: lightColorPalette.primaryBlue,
+                        offset: const Offset(0, -1),
+                        spreadRadius: 0,
+                      ),
+                    ],
+                    color: lightColorPalette.whiteColorPrimary.shade900,
+                    borderRadius: BorderRadius.circular(6.r),
+                    border: Border.all(
+                        width: 0.3.w, color: lightColorPalette.stroke)),
+                child: Center(
+                  child: AssetWidget(
+                    asset: Asset(type: AssetType.svg, path: ImageResource.apple),
+                    boxFit: BoxFit.fitWidth,
+                  ),
                 ),
               ),
             ),

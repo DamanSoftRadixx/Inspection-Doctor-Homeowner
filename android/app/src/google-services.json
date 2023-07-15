@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "317080197282",
+    "project_id": "construction-inspection-278b2",
+    "storage_bucket": "construction-inspection-278b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317080197282:android:1644bc97c96ee3f864dffb",
+        "android_client_info": {
+          "package_name": "com.app.dev.homeOwner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317080197282-3kkf48lv4sik271ov5943d4i95srve9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZowBJXVGk-9u8Z4oU3RlTQLIojhBYpHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317080197282-3kkf48lv4sik271ov5943d4i95srve9c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "317080197282-g9dq3i8nhjd8m1fm8h87kdgcfhu3qrgh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.dev.inspector"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

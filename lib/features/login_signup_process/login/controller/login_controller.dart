@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
@@ -8,6 +9,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dar
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/social_login/social_login.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
@@ -31,6 +33,8 @@ class LoginController extends GetxController {
   RxString passwordErrorMessage = "".obs;
 
   RxBool isShowLoader = false.obs;
+  SocialLogin socialLogin=SocialLogin();
+
 
   addFocusListeners() {
     emailFocusNode.value.addListener(() {
@@ -173,4 +177,100 @@ class LoginController extends GetxController {
       isHidePassword.value = false;
     }
   }
+
+
+  void signInWithGoogle() async {
+    // showLoader.value = true;
+
+    try {
+      User? user = await socialLogin.signInWithGoogle();
+
+      if (user != null) {
+        if (socialLogin.name!.split(" ").length > 1) {
+          socialLogin.lastName = socialLogin.name
+              ?.substring(socialLogin.name!.lastIndexOf(" ") + 1);
+          socialLogin.firstName = socialLogin.name
+              ?.substring(0, socialLogin.name?.lastIndexOf(' '));
+        } else {
+          socialLogin.firstName = socialLogin.name;
+        }
+        socialLogin.firstName = socialLogin.firstName.toString();
+        socialLogin.lastName = socialLogin.lastName.toString();
+        String? email = user.email;
+
+        print("email${email}");
+        print("firstName${socialLogin.firstName}");
+        print("lastName${socialLogin.lastName}");
+        print("social_id${socialLogin.social_id}");
+
+
+
+
+        String? socialType = "1";
+        String? deviceType = "1";
+        // getSocialLogin(
+        //     firstName: loginAuthProvider.firstName,
+        //     lastName: loginAuthProvider.lastName,
+        //     email: email,
+        //     social_id: loginAuthProvider.social_id,
+        //     socialType: socialType,
+        //     deviceToken: deviceToken.toString(),
+        //     device_type: deviceType);
+      } else {
+        // showLoader(false);
+      }
+    } catch (e) {
+      // showLoader(false);
+    }
+  }
+  void signInWithApple() async {
+    try {
+      User? user = await socialLogin.signInWithAple();
+      if (user != null) {
+
+        print("firstName${user.displayName}");
+        print("email${user.email}");
+        print("social_id${socialLogin.appleIdCredential?.userIdentifier}");
+        // getSocialLogin(
+        //     firstName: loginAuthProvider.appleIdCredential?.givenName ?? "",
+        //     lastName: loginAuthProvider.appleIdCredential?.familyName ?? "",
+        //     socialType: "3",
+        //     deviceToken: deviceToken.toString(),
+        //     device_type: "2",
+        //     social_id:
+        //     loginAuthProvider.appleIdCredential?.userIdentifier.toString(),
+        //     email: loginAuthProvider.appleIdCredential?.email ?? "");
+      } else {
+        // showLoader(false);
+      }
+    } catch (e) {
+      // showLoader(false);
+    }
+  }
+
+  void signInWithFb() async {
+    // showLoader.value = true;
+
+    try {
+      User? user = await socialLogin.signInWithFb();
+      print("facebook response : ${user.toString()}");
+      if (user != null) {
+
+        // getSocialLogin(
+        //     firstName: loginAuthProvider.profile?.firstName ?? '',
+        //     lastName: loginAuthProvider.profile?.lastName ?? "",
+        //     socialType: "2",
+        //     deviceToken: deviceToken.toString(),
+        //     device_type: "2",
+        //     social_id: user.uid,
+        //     email: loginAuthProvider.fbEmail ?? '');
+      } else {
+        // showLoader.value = false;
+      }
+    } catch (e) {
+      // showLoader.value = false;
+    }
+  }
+
+
 }

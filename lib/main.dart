@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:inspection_doctor_homeowner/core/app/app.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/core/notification/firebase_messaging.dart';
 import 'package:inspection_doctor_homeowner/core/translator/local_translation.dart';
 
 import 'core/routes/routes.dart';
@@ -16,6 +19,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   await GetStorage.init();
+  await Firebase.initializeApp();
+  FirebaseMessaging.instance.requestPermission();
+  await Notifications.init();
   // ApiHitter.shared.changeTimeoutTime(timeoutMinutes: 90);
   runApp(const AppContainer(child: MyApp()));
 }
