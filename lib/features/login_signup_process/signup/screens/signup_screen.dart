@@ -159,7 +159,7 @@ class SignupScreen extends GetView<SignupController> {
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       onChanged: (value) {
         controller.onChangedFirstNameTextField(value: value);
@@ -180,7 +180,7 @@ class SignupScreen extends GetView<SignupController> {
       maxLength: 30,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       onChanged: (value) {
         controller.onChangedLastNameTextField(value: value);
@@ -278,7 +278,12 @@ class SignupScreen extends GetView<SignupController> {
       hint: AppStrings.street.tr,
       keyboardType: TextInputType.streetAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.length == 1 && value.contains(" ")) {
+          controller.streetController.text =
+              controller.streetController.text.trim();
+        }
+      },
     );
   }
 
@@ -291,11 +296,16 @@ class SignupScreen extends GetView<SignupController> {
       maxLength: 30,
       hint: AppStrings.city.tr,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.length == 1 && value.contains(" ")) {
+          controller.cityController.text =
+              controller.cityController.text.trim();
+        }
+      },
     );
   }
 
@@ -308,11 +318,16 @@ class SignupScreen extends GetView<SignupController> {
       hint: AppStrings.state.tr,
       maxLength: 30,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      onChanged: (value) {},
+      onChanged: (value) {
+        if (value.length == 1 && value.contains(" ")) {
+          controller.stateController.text =
+              controller.stateController.text.trim();
+        }
+      },
     );
   }
 
@@ -324,7 +339,7 @@ class SignupScreen extends GetView<SignupController> {
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
       maxLength: 5,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );

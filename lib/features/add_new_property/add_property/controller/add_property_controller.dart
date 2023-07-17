@@ -10,6 +10,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
@@ -285,6 +286,9 @@ class AddPropertyController extends GetxController {
   }
 
   void onChangedPropertyNameTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      propertyController.text = propertyController.text.trim();
+    }
     if (value.length >= 2) {
       propertyNameError.value = false;
     }
@@ -579,9 +583,11 @@ class AddPropertyController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        Get.back(closeOverlays: true, result: [
-          {GetArgumentConstants.isPropertyAdded: true}
-        ]);
+        // Get.back(closeOverlays: true, result: [
+        //   {GetArgumentConstants.isPropertyAdded: true}
+        // ]);
+
+        Get.offAllNamed(Routes.addCardScreen);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

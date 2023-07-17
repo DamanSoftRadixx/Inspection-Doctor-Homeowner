@@ -310,6 +310,7 @@ class AppStrings {
   static const edit = "Edit";
   static const delete = "Delete";
   static const scheduleInspection = "Schedule inspection";
+  static const updateProperty = "Update Property";
 
   //Permissions
   static const permissionDenied = "Permission Denied";
@@ -375,7 +376,7 @@ class ErrorMessages {
   static const oldPasswordIsEmpty = "Please enter your old password.";
   static const confirmPasswordIsEmpty = "Please enter your confirm password.";
   static const passwordLength =
-      "Password should be of minimum 8 characters with combination of uppercase, lowercase and special character";
+      "Password must contain 8 characters with combinations (One Uppercase, lowercase letter, Number and Special character).";
   static const passwordMatches =
       "Password and confirm password does not match.";
   static const restPasswordMatches =

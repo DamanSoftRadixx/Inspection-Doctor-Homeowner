@@ -283,12 +283,11 @@ Widget commonPhoneText({
                   hintText: hint,
                   isCollapsed: true,
                   counterText: "",
-                  contentPadding: EdgeInsets.only(left: 10.0, right: 10.w),
+                  contentPadding:
+                      EdgeInsets.only(left: 10.0, right: 10.w, top: 2.h),
                   hintStyle: CustomTextTheme.normalText(
                       color:
                           lightColorPalette.primaryDarkblue.withOpacity(0.5)),
-
-                  // contentPadding: EdgeInsets.only(left:10.w,right: 10.w,bottom: 7.5.h,top: 0.h),
                 ),
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryDarkblue),

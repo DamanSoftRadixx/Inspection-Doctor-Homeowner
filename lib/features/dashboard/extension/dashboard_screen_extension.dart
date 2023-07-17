@@ -132,11 +132,13 @@ extension DashboardScreenExtension on DashBoardScreen {
       /*Get.put(ProfileScreenController());
       return ProfileScreen();*/
       return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           CommonButton(
-              commonButtonBottonText: AppStrings.logout, onPress: (){
-            logoutFunctionality();
-          }),
+              commonButtonBottonText: AppStrings.logout,
+              onPress: () {
+                logoutFunctionality();
+              }).paddingOnly(bottom: 50.h, left: 20.w, right: 20.w),
         ],
       );
     } else {

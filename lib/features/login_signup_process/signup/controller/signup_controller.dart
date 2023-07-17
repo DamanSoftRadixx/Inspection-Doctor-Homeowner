@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:device_uuid/device_uuid.dart';
@@ -145,13 +146,13 @@ class SignupController extends GetxController {
     required String password,
     required String confirmPassword,
   }) async {
+    log("testtt ${phone.length < 7}");
     if (firstName.isEmpty &&
         lastName.isEmpty &&
         email.isEmpty &&
         phone.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty) {
-      print("testtt");
       firstNameError.value = true;
       lastNameError.value = true;
       emailError.value = true;
@@ -185,7 +186,7 @@ class SignupController extends GetxController {
     } else if (phone.isEmpty) {
       phoneError.value = true;
       phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
-    } else if (phone.length < 8 || phone.length > 15) {
+    } else if (phone.length < 7) {
       phoneError.value = true;
       phoneErrorMessage.value = ErrorMessages.phoneValid;
     } else if (password.isEmpty) {
@@ -313,18 +314,28 @@ class SignupController extends GetxController {
   }
 
   void onChangedFirstNameTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      firstNameController.text = firstNameController.text.trim();
+    }
+
     if (value.length >= 2) {
       firstNameError.value = false;
     }
   }
 
   void onChangedLastNameTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      lastNameController.text = lastNameController.text.trim();
+    }
     if (value.length >= 2) {
       lastNameError.value = false;
     }
   }
 
   void onChangedEmailTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      firstNameController.text = firstNameController.text.trim();
+    }
     if (value.isNotEmpty && emailController.text.isEmail) {
       emailError.value = false;
     }

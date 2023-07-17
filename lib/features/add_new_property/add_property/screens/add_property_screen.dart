@@ -105,7 +105,9 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   CommonButton showAddPropertyButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.addPropertyButton.tr,
+        commonButtonBottonText: controller.isPropertyDetailEdit.value
+            ? AppStrings.updateProperty.tr
+            : AppStrings.addPropertyButton.tr,
         onPress: () {
           controller.onPressAddPropertyButton();
         });
@@ -154,7 +156,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         controller.onChangedPropertyNameTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
     );
   }
