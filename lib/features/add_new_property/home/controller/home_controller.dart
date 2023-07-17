@@ -100,14 +100,17 @@ class HomeController extends GetxController {
       start.refresh();
     }
 
-    if (loadMore.value == false) {
-      if(isFromSearch){
-        setShowSearchLoader(value: true);
-      }else{
-        setShowLoader(value: true);
-      }
+    if(!isFromRefresh){
+      if (loadMore.value == false) {
+        if(isFromSearch){
+          setShowSearchLoader(value: true);
+        }else{
+          setShowLoader(value: true);
+        }
 
+      }
     }
+
 
     var body = json.encode({
       "search": searchController.text,

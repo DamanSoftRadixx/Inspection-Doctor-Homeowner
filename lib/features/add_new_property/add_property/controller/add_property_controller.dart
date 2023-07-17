@@ -410,7 +410,8 @@ class AddPropertyController extends GetxController {
         }
 
         snackbar(response.message ?? "");
-      } else {
+      }
+      else {
         setShowLoader(value: false);
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

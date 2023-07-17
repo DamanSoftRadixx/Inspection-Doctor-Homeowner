@@ -16,6 +16,7 @@ import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
+import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/provider/login_provider.dart';
 
@@ -161,12 +162,8 @@ class LoginController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if (token != "") Prefs.write(Prefs.token, token);
+        checkProfileStatus(response: response);
 
-        getJsonFromJWTToken(token: token);
-        Get.toNamed(Routes.dashboard);
-        snackbar(response.message ?? "");
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
@@ -249,11 +246,7 @@ class LoginController extends GetxController {
           setShowLoader(value: false);
           if (response.success == true &&
               (response.status == 201 || response.status == 200)) {
-            var token =
-                (response.data?.token ?? "").replaceFirst("Bearer ", "");
-            if (token != "") Prefs.write(Prefs.token, token);
-            Get.toNamed(Routes.dashboard);
-            snackbar(response.message ?? "");
+            checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
               message: response.message ?? AppStrings.somethingWentWrong,
@@ -270,6 +263,25 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       setShowLoader(value: false);
+    }
+  }
+
+  checkProfileStatus({required LoginResponseModel response}){
+    var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
+    if(token != "") {
+      Prefs.write(Prefs.token, token);
+      LoginTokenModel loginTokenModel = getJsonFromJWTToken(token: token);
+      var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
+      if(isOtpVerified == 1){
+        Get.toNamed(Routes.dashboard);
+      }else{
+        Get.toNamed(Routes.otpVerifyScreen,arguments: {
+          GetArgumentConstants.otp: loginTokenModel.data?.otp ?? "",
+          GetArgumentConstants.email: loginTokenModel.data?.email ?? "",
+          GetArgumentConstants.from: Routes.loginScreen
+        });
+      }
+      snackbar(response.message ?? "");
     }
   }
 
@@ -319,11 +331,7 @@ class LoginController extends GetxController {
           setShowLoader(value: false);
           if (response.success == true &&
               (response.status == 201 || response.status == 200)) {
-            var token =
-                (response.data?.token ?? "").replaceFirst("Bearer ", "");
-            if (token != "") Prefs.write(Prefs.token, token);
-            Get.toNamed(Routes.dashboard);
-            snackbar(response.message ?? "");
+            checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
               message: response.message ?? AppStrings.somethingWentWrong,
@@ -389,11 +397,7 @@ class LoginController extends GetxController {
           setShowLoader(value: false);
           if (response.success == true &&
               (response.status == 201 || response.status == 200)) {
-            var token =
-                (response.data?.token ?? "").replaceFirst("Bearer ", "");
-            if (token != "") Prefs.write(Prefs.token, token);
-            Get.toNamed(Routes.dashboard);
-            snackbar(response.message ?? "");
+            checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
               message: response.message ?? AppStrings.somethingWentWrong,
@@ -412,4 +416,7 @@ class LoginController extends GetxController {
       setShowLoader(value: false);
     }
   }
+
+
+
 }

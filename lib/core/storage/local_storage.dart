@@ -32,7 +32,7 @@ class Prefs {
 
   static erase() {
     var box = GetStorage();
-    box.erase();
+    box.remove(token);
   }
 
   static storeUserData({required String email, required String accessToken}) {

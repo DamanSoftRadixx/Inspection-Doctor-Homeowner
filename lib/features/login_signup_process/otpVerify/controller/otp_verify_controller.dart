@@ -21,7 +21,8 @@ class OtpVerifyController extends GetxController {
   RxBool isOtpError = false.obs;
   var otpError = "".obs;
   RxBool isShowLoader = false.obs;
-  RxBool isOTPFromForget = false.obs;
+  var fromScreen = "".obs;
+
 
   TextEditingController pinPutController = TextEditingController();
 
@@ -46,10 +47,6 @@ class OtpVerifyController extends GetxController {
       isOtpError.value = true;
       otpError.value = ErrorMessages.pleaseEnter4DigitOtp.tr;
       isOtpError.refresh();
-    } else if (verifyCode.value != otp.value) {
-      isOtpError.value = true;
-      otpError.value = ErrorMessages.otpIsIncorrect.tr;
-      isOtpError.refresh();
     } else {
       getOtpVerify();
     }
@@ -63,8 +60,8 @@ class OtpVerifyController extends GetxController {
 
       String from =
           args[GetArgumentConstants.from].toString().toStringConversion() ?? "";
-      if (from == Routes.forgetScreen) {
-        isOTPFromForget.value = true;
+      fromScreen.value = from;
+      if (from == Routes.forgetScreen || from == Routes.loginScreen) {
         phoneNumberOrEmail.value = args[GetArgumentConstants.email]
             .toString()
             .toStringConversion() ??
@@ -85,7 +82,7 @@ class OtpVerifyController extends GetxController {
 
     log("verifyCode ${verifyCode.value}");
     var body =
-        json.encode({"otp": verifyCode.value.toString(), "token": token});
+    json.encode({"otp": verifyCode.value.toString(), "token": token});
 
     log("bodyData $body");
     VerifyOtpResponseModel response =
@@ -96,13 +93,8 @@ class OtpVerifyController extends GetxController {
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         isShowLoader.value = false;
+        navigateToNext(response: response);
 
-        var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if(token != "") Prefs.write(Prefs.token, token);
-        isOTPFromForget.value
-            ? Get.toNamed(Routes.resetPassword)
-            : Get.toNamed(Routes.dashboard);
-        snackbar(response.message ?? "");
       } else {
         isShowLoader.value = false;
         snackbar(response.message ?? "");
@@ -110,6 +102,24 @@ class OtpVerifyController extends GetxController {
     } catch (e) {
       isShowLoader.value = false;
     }
+  }
+
+  navigateToNext({required VerifyOtpResponseModel response}){
+
+    var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
+    if(token != ""){
+      Prefs.write(Prefs.token, token);
+      if(fromScreen.value == Routes.forgetScreen){
+        Get.toNamed(Routes.resetPassword);
+      }else if(fromScreen.value == Routes.signupScreen){
+        Get.toNamed(Routes.dashboard);
+      }else if(fromScreen.value == Routes.loginScreen) {
+        Get.toNamed(Routes.dashboard);
+      }
+      snackbar(response.message ?? "");
+
+    }
+
   }
 
   resendOtpApi() async {
@@ -168,7 +178,7 @@ class OtpVerifyController extends GetxController {
     const oneSec = const Duration(seconds: 1);
     timer = Timer.periodic(
       oneSec,
-      (Timer timer) {
+          (Timer timer) {
         if (timerCountdown.value == 0) {
           timer.cancel();
         } else {

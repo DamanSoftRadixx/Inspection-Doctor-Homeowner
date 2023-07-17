@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/logout_fucntionality.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 
@@ -46,12 +47,19 @@ class DioExceptions implements Exception {
         dio.Response? response = dioError.response;
         var data = response?.data;
         var message = data["message"];
-        apiErrorDialog(
-          message: message ?? AppStrings.strSometingWentWrong,
-          okButtonPressed: () {
-            Get.back();
-          },
-        );
+        var status = data["status"] ?? 0;
+
+        if(status == 401){
+          logoutFunctionality();
+        }else{
+          apiErrorDialog(
+            message: message ?? AppStrings.strSometingWentWrong,
+            okButtonPressed: () {
+              Get.back();
+            },
+          );
+        }
+
         break;
 
       case dio.DioExceptionType.sendTimeout:
