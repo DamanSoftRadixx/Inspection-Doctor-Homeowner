@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
@@ -298,7 +297,7 @@ class SignupController extends GetxController {
               "+$selectedCountryCode ${phoneNumberController.text}",
           GetArgumentConstants.from: Routes.signupScreen
         });
-        snackbar(response.message ?? "");
+        //    //  snackbar(response.message ?? "");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

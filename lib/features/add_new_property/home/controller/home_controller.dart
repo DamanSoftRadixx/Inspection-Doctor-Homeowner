@@ -28,7 +28,30 @@ class HomeController extends GetxController {
   final int pageLength = 10;
 
   onPressAddPropertyButton() {
-    Get.toNamed(Routes.addPropertyScreen);
+    Get.toNamed(Routes.addPropertyScreen)?.then((value) {
+      //  update  list when added new property or update
+      if (value != null) {
+        var result = value;
+        if (result[0][GetArgumentConstants.isPropertyAdded] == true) {
+          propertyList.clear();
+          getAddProperty();
+        }
+      }
+    });
+  }
+
+  void onTapOnPropertyCard({required PropertyListData property}) {
+    Get.toNamed(Routes.propertyDetailScreen,
+            arguments: {GetArgumentConstants.propertyCard: property})
+        ?.then((value) {
+      if (value != null) {
+        propertyList.clear();
+        var result = value;
+        if (result[0][GetArgumentConstants.isPropertyAdded] == true) {
+          getAddProperty();
+        }
+      }
+    });
   }
 
   addFocusListeners() {
@@ -67,7 +90,7 @@ class HomeController extends GetxController {
   void pagination() {
     if ((listController.position.pixels ==
         listController.position.maxScrollExtent)) {
-      if (start.value <totalRecords && loadMore.value == false) {
+      if (start.value < totalRecords && loadMore.value == false) {
         loadMore.value = true;
         start.value += pageLength;
         print("start.value<<<<${start.value}");
@@ -94,23 +117,22 @@ class HomeController extends GetxController {
     getAddProperty(isFromSearch: searchController.text.isEmpty ? false : true);
   }
 
-  getAddProperty({bool isFromRefresh = false,bool isFromSearch = false}) async {
+  getAddProperty(
+      {bool isFromRefresh = false, bool isFromSearch = false}) async {
     if (isFromRefresh || isFromSearch) {
       start.value = 0;
       start.refresh();
     }
 
-    if(!isFromRefresh){
+    if (!isFromRefresh) {
       if (loadMore.value == false) {
-        if(isFromSearch){
+        if (isFromSearch) {
           setShowSearchLoader(value: true);
-        }else{
+        } else {
           setShowLoader(value: true);
         }
-
       }
     }
-
 
     var body = json.encode({
       "search": searchController.text,
@@ -130,19 +152,18 @@ class HomeController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         final int length = response.data?.length ?? 0;
 
-          if (isFromRefresh || isFromSearch) {
-            propertyList.clear();
-          }
+        if (isFromRefresh || isFromSearch) {
+          propertyList.clear();
+        }
 
-          propertyList.addAll(response.data ?? <PropertyListData>[]);
+        propertyList.addAll(response.data ?? <PropertyListData>[]);
         totalRecords = response.recordsTotal ?? 0;
-          loadMore.value = false;
-          propertyList.refresh();
-          loadMore.refresh();
+        loadMore.value = false;
+        propertyList.refresh();
+        loadMore.refresh();
 
         refreshController.refreshCompleted();
         refreshController.loadComplete();
-
       } else {
         loadMore.value = false;
         setShowLoader(value: false);

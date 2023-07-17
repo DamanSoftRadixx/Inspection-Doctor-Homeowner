@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -87,9 +86,8 @@ class ForgetPasswordController extends GetxController {
 
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-
         var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if(token != "") Prefs.write(Prefs.token, token);
+        if (token != "") Prefs.write(Prefs.token, token);
 
         var otpInt = response.data?.otp ?? 0;
         var otpString = otpInt != 0 ? otpInt.toString() : "";
@@ -99,7 +97,7 @@ class ForgetPasswordController extends GetxController {
           GetArgumentConstants.otp: otpString,
           GetArgumentConstants.email: emailController.text
         });
-        snackbar(response.message ?? "");
+        //  snackbar(response.message ?? "");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

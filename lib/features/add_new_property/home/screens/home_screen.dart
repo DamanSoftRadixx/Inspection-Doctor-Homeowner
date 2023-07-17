@@ -33,13 +33,16 @@ class HomeScreen extends GetView<HomeController> {
                   onTap: () {
                     dismissKeyboard();
                   },
-                  child: controller.propertyList.isNotEmpty  || controller.searchController.text.isNotEmpty
+                  child: controller.propertyList.isNotEmpty ||
+                          controller.searchController.text.isNotEmpty
                       ? showPropertyUi()
                       : (controller.isShowLoader.value
                           ? const SizedBox()
                           : showAddProperty()),
                 ),
-                CommonLoader(isLoading: controller.isShowLoader.value || controller.isShowSearchLoader.value)
+                CommonLoader(
+                    isLoading: controller.isShowLoader.value ||
+                        controller.isShowSearchLoader.value)
               ],
             ),
           ),
@@ -88,37 +91,40 @@ class HomeScreen extends GetView<HomeController> {
   Expanded showPropertyList() {
     return Expanded(
         child: Column(
-          children: [
-            Expanded(
-              child: CommonRefreshIndicator(
-                  onRefresh: () => Future.sync(() {
-                        controller.onRefresh();
-                      }),
-                  controller: controller.refreshController,
-                  child: controller.propertyList.isNotEmpty
-                      ? ListView.builder(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          padding: EdgeInsets.only(top: 18.h),
-                          shrinkWrap: true,
-                          controller: controller.listController,
-                          itemCount: controller.propertyList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            PropertyListData item = controller.propertyList[index];
+      children: [
+        Expanded(
+          child: CommonRefreshIndicator(
+              onRefresh: () => Future.sync(() {
+                    controller.onRefresh();
+                  }),
+              controller: controller.refreshController,
+              child: controller.propertyList.isNotEmpty
+                  ? ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(top: 18.h),
+                      shrinkWrap: true,
+                      controller: controller.listController,
+                      itemCount: controller.propertyList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        PropertyListData item = controller.propertyList[index];
 
-                            return PropertyCard(property: item);
+                        return PropertyCard(
+                          property: item,
+                          onTap: () {
+                            controller.onTapOnPropertyCard(property: item);
                           },
-                        )
-                      : (controller.isShowSearchLoader.value
-                          ? const SizedBox()
-                          : showNoDataFound())),
-            ),
-
-            Visibility(
-                visible: controller.loadMore.value == true,
-                child: const CircularProgressIndicator())
-
-          ],
-        ));
+                        );
+                      },
+                    )
+                  : (controller.isShowSearchLoader.value
+                      ? const SizedBox()
+                      : showNoDataFound())),
+        ),
+        Visibility(
+            visible: controller.loadMore.value == true,
+            child: const CircularProgressIndicator())
+      ],
+    ));
   }
 
   Stack showAddProperty() {

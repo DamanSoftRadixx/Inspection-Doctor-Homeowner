@@ -323,7 +323,7 @@ class SignupScreen extends GetView<SignupController> {
       controller: controller.zipCodeController,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
-      maxLength: 10,
+      maxLength: 5,
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {},

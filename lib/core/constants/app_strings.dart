@@ -281,6 +281,8 @@ class AppStrings {
   static const cancel = "Cancel";
   static const String connectionTimeOut = "The connection has timed out";
   static const close = "Close";
+  static const yes = "Yes";
+  static const no = "No";
 
   static const noData = "No Data Found";
   static const listEmpty = "List is empty ";
@@ -313,6 +315,7 @@ class AppStrings {
   static const permissionDenied = "Permission Denied";
   static const openSettings = "Open Settings ";
   static const accessWasPreviouslyDenied = "Access Was Previously Denied";
+  static const areYouWantDelete = "Are you sure you want delete this property?";
 }
 
 class GetArgumentConstants {
@@ -337,6 +340,7 @@ class GetArgumentConstants {
   static const deviceToken = "deviceToken";
   static const propertyDetail = "property";
   static const isPropertyDetailEdit = "isPropertyDetailEdit";
+  static const isPropertyAdded = "isPropertyAdded";
 }
 
 class WeekDays {

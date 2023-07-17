@@ -6,12 +6,10 @@ import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
@@ -465,7 +463,7 @@ class AddPropertyController extends GetxController {
           ).toList();
         }
 
-        // snackbar(response.message ?? "");
+        //   //  snackbar(response.message ?? "");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -497,7 +495,7 @@ class AddPropertyController extends GetxController {
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         uploadData.value = response.data?.first ?? UploadDocResponseData();
-        snackbar(response.message ?? "");
+        //  snackbar(response.message ?? "");
 
         isPropertyDetailEdit.value ? updateAddProperty() : getAddProperty();
       } else {
@@ -531,8 +529,6 @@ class AddPropertyController extends GetxController {
       "acrhitecturel_drawing": uploadData.value.id
     });
 
-    log("body $body");
-
     try {
       AddPropertyResponseModel response =
           await addPropertyProvider.addProperty(body: body) ??
@@ -540,8 +536,9 @@ class AddPropertyController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        snackbar(response.message ?? "");
-        Get.back(closeOverlays: true);
+        Get.back(closeOverlays: true, result: [
+          {GetArgumentConstants.isPropertyAdded: true}
+        ]);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -582,9 +579,9 @@ class AddPropertyController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        snackbar(response.message ?? "");
-
-        Get.offAllNamed(Routes.addCardScreen);
+        Get.back(closeOverlays: true, result: [
+          {GetArgumentConstants.isPropertyAdded: true}
+        ]);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

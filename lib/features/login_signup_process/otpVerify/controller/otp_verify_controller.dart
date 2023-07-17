@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
@@ -22,7 +21,6 @@ class OtpVerifyController extends GetxController {
   var otpError = "".obs;
   RxBool isShowLoader = false.obs;
   var fromScreen = "".obs;
-
 
   TextEditingController pinPutController = TextEditingController();
 
@@ -62,14 +60,13 @@ class OtpVerifyController extends GetxController {
           args[GetArgumentConstants.from].toString().toStringConversion() ?? "";
       fromScreen.value = from;
       if (from == Routes.forgetScreen || from == Routes.loginScreen) {
-        phoneNumberOrEmail.value = args[GetArgumentConstants.email]
-            .toString()
-            .toStringConversion() ??
-            "";
-      }else{
+        phoneNumberOrEmail.value =
+            args[GetArgumentConstants.email].toString().toStringConversion() ??
+                "";
+      } else {
         phoneNumberOrEmail.value = args[GetArgumentConstants.phoneNumber]
-            .toString()
-            .toStringConversion() ??
+                .toString()
+                .toStringConversion() ??
             "";
       }
     }
@@ -82,7 +79,7 @@ class OtpVerifyController extends GetxController {
 
     log("verifyCode ${verifyCode.value}");
     var body =
-    json.encode({"otp": verifyCode.value.toString(), "token": token});
+        json.encode({"otp": verifyCode.value.toString(), "token": token});
 
     log("bodyData $body");
     VerifyOtpResponseModel response =
@@ -94,32 +91,28 @@ class OtpVerifyController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         isShowLoader.value = false;
         navigateToNext(response: response);
-
       } else {
         isShowLoader.value = false;
-        snackbar(response.message ?? "");
+        //  snackbar(response.message ?? "");
       }
     } catch (e) {
       isShowLoader.value = false;
     }
   }
 
-  navigateToNext({required VerifyOtpResponseModel response}){
-
+  navigateToNext({required VerifyOtpResponseModel response}) {
     var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-    if(token != ""){
+    if (token != "") {
       Prefs.write(Prefs.token, token);
-      if(fromScreen.value == Routes.forgetScreen){
+      if (fromScreen.value == Routes.forgetScreen) {
         Get.toNamed(Routes.resetPassword);
-      }else if(fromScreen.value == Routes.signupScreen){
+      } else if (fromScreen.value == Routes.signupScreen) {
         Get.toNamed(Routes.dashboard);
-      }else if(fromScreen.value == Routes.loginScreen) {
+      } else if (fromScreen.value == Routes.loginScreen) {
         Get.toNamed(Routes.dashboard);
       }
-      snackbar(response.message ?? "");
-
+      //  snackbar(response.message ?? "");
     }
-
   }
 
   resendOtpApi() async {
@@ -141,8 +134,8 @@ class OtpVerifyController extends GetxController {
 
         otp.value = otpInt == 0 ? "" : otpInt.toString();
         var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
-        if(token != "") Prefs.write(Prefs.token, token);
-        snackbar(response.message ?? "");
+        if (token != "") Prefs.write(Prefs.token, token);
+        //  snackbar(response.message ?? "");
         resetTimer();
       } else {
         setShowLoader(value: false);
@@ -175,10 +168,10 @@ class OtpVerifyController extends GetxController {
   }
 
   void startTimer() {
-    const oneSec = const Duration(seconds: 1);
+    const oneSec = Duration(seconds: 1);
     timer = Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (timerCountdown.value == 0) {
           timer.cancel();
         } else {

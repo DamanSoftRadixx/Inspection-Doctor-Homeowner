@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -41,6 +42,21 @@ class PropertyDetailController extends GetxController {
   }
 
   void onTapDeleteButton() async {
+    await showCommonAlertWithTwoActionsDialog(
+        title: AppStrings.alert,
+        leftButtonTitle: AppStrings.no,
+        rightButtonTitle: AppStrings.yes,
+        subHeader: AppStrings.areYouWantDelete,
+        noPressed: () {
+          Get.back();
+        },
+        yesPressed: () async {
+          Get.back();
+          await getDeleteProperty();
+        });
+  }
+
+  Future<void> getDeleteProperty() async {
     setShowLoader(value: true);
 
     try {
@@ -49,9 +65,20 @@ class PropertyDetailController extends GetxController {
           DeletePropertyResponseModel();
       setShowLoader(value: false);
       if (response.success == true && (response.status == 204)) {
-        // snackbar(response.message ?? "");
+        //   //  snackbar(response.message ?? "");
 
-        Get.offAllNamed(Routes.addCardScreen);
+        showCommonAlertSingleButtonDialog(
+            title: AppStrings.alert,
+            subHeader: response.message ?? "",
+            okPressed: () {
+              Get.back(closeOverlays: true, result: [
+                {GetArgumentConstants.isPropertyAdded: true}
+              ]);
+              Get.back(closeOverlays: true, result: [
+                {GetArgumentConstants.isPropertyAdded: true}
+              ]);
+            },
+            buttonTitle: AppStrings.cancel);
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

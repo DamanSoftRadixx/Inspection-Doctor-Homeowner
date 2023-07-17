@@ -141,6 +141,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   Widget showPropertyNameField() {
     return commonTextFieldWidget(
       maxLength: 30,
+      textCapitalization: TextCapitalization.sentences,
       isError: controller.propertyNameError.value,
       errorMsg: controller.propertyNameErrorMessage.value,
       focusNode: controller.propertyFocusNode.value,
@@ -160,6 +161,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showStreetNameField() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.sentences,
       maxLength: 30,
       isError: controller.streetError.value,
       errorMsg: controller.streetErrorMessage.value,
@@ -178,6 +180,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   Widget showCityField() {
     return commonTextFieldWidget(
       maxLength: 20,
+      textCapitalization: TextCapitalization.sentences,
       isError: controller.cityError.value,
       errorMsg: controller.cityErrorMessage.value,
       focusNode: controller.cityFocusNode.value,
@@ -198,6 +201,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   Widget showStateField() {
     return commonTextFieldWidget(
       maxLength: 20,
+      textCapitalization: TextCapitalization.sentences,
       isError: controller.stateError.value,
       errorMsg: controller.stateErrorMessage.value,
       focusNode: controller.stateFocusNode.value,
@@ -217,7 +221,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
-      maxLength: 10,
+      maxLength: 5,
       isError: controller.zipCodeError.value,
       errorMsg: controller.zipCodeErrorMessage.value,
       focusNode: controller.zipCodeFocusNode.value,
@@ -237,19 +241,20 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showPermitNumberield() {
     return commonTextFieldWidget(
+      textCapitalization: TextCapitalization.words,
       isError: controller.permitNumberError.value,
       errorMsg: controller.permitNumberErrorMessage.value,
       focusNode: controller.permitNumberFocusNode.value,
       controller: controller.permitNumberController,
       title: AppStrings.permitNumber.tr,
       hint: AppStrings.permitNumber.tr,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedPermitNumberTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.digitsOnly,
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
       ],
     );
   }

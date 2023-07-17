@@ -10,9 +10,11 @@ Future<void> showCommonAlertSingleButtonDialog(
     {required String title,
     required String subHeader,
     required String buttonTitle,
+    bool? barrierDismissible,
     void Function()? okPressed}) async {
   if (Get.isDialogOpen == null || Get.isDialogOpen == false) {
     showDialog(
+        barrierDismissible: barrierDismissible ?? false,
         context: Get.context!,
         builder: (BuildContext context) {
           return Center(
@@ -41,6 +43,7 @@ Future<void> showCommonAlertSingleButtonDialog(
                                 text: title,
                               ).paddingOnly(bottom: 12.h, top: 10.h),
                               AppTextWidget(
+                                textAlign: TextAlign.center,
                                 style: CustomTextTheme.bottomTabs(
                                     color: lightColorPalette.primaryGrey),
                                 text: subHeader,
@@ -84,9 +87,11 @@ Future<void> showCommonAlertWithTwoActionsDialog(
     required String subHeader,
     String? leftButtonTitle,
     String? rightButtonTitle,
+    bool? barrierDismissible,
     required Function() noPressed,
     required Function() yesPressed}) async {
   showDialog(
+      barrierDismissible: barrierDismissible ?? false,
       context: Get.context!,
       builder: (BuildContext context) {
         return Center(
@@ -115,6 +120,7 @@ Future<void> showCommonAlertWithTwoActionsDialog(
                               text: title,
                             ).paddingOnly(bottom: 12.h, top: 10.h),
                             AppTextWidget(
+                              textAlign: TextAlign.center,
                               style: CustomTextTheme.normalText(
                                   color: lightColorPalette.primaryGrey),
                               text: subHeader,
