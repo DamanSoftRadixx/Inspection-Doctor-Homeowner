@@ -26,6 +26,7 @@ class OtpVerifyController extends GetxController {
 
   RxString otp = "".obs;
   RxString phoneNumberOrEmail = "".obs;
+  RxString email = "".obs;
   Timer? timer;
 
   static const timerLength = 120; // in seconds
@@ -68,6 +69,9 @@ class OtpVerifyController extends GetxController {
                 .toString()
                 .toStringConversion() ??
             "";
+        email.value =
+            args[GetArgumentConstants.email].toString().toStringConversion() ??
+                "";
       }
     }
   }

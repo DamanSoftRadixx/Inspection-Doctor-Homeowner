@@ -26,24 +26,27 @@ class HomeScreen extends GetView<HomeController> {
           floatingActionButton: controller.propertyList.isEmpty
               ? const SizedBox()
               : showFloatingButton(),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    dismissKeyboard();
-                  },
-                  child: controller.propertyList.isNotEmpty ||
-                          controller.searchController.text.isNotEmpty
-                      ? showPropertyUi()
-                      : (controller.isShowLoader.value
-                          ? const SizedBox()
-                          : showAddProperty()),
-                ),
-                CommonLoader(
-                    isLoading: controller.isShowLoader.value ||
-                        controller.isShowSearchLoader.value)
-              ],
+          body: WillPopScope(
+            onWillPop: () async => false,
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      dismissKeyboard();
+                    },
+                    child: controller.propertyList.isNotEmpty ||
+                            controller.searchController.text.isNotEmpty
+                        ? showPropertyUi()
+                        : (controller.isShowLoader.value
+                            ? const SizedBox()
+                            : showAddProperty()),
+                  ),
+                  CommonLoader(
+                      isLoading: controller.isShowLoader.value ||
+                          controller.isShowSearchLoader.value)
+                ],
+              ),
             ),
           ),
         ));

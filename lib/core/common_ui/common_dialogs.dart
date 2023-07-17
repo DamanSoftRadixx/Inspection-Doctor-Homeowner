@@ -59,13 +59,15 @@ Future<void> showCommonAlertSingleButtonDialog(
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CustomInkwell(
-                              onTap: okPressed,
-                              child: Center(
-                                child: AppTextWidget(
-                                  style: CustomTextTheme.heading2(
-                                      color: lightColorPalette.primaryBlue),
-                                  text: buttonTitle,
+                            Expanded(
+                              child: CustomInkwell(
+                                onTap: okPressed,
+                                child: Center(
+                                  child: AppTextWidget(
+                                    style: CustomTextTheme.heading2(
+                                        color: lightColorPalette.primaryBlue),
+                                    text: buttonTitle,
+                                  ),
                                 ),
                               ),
                             )

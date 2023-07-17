@@ -131,15 +131,18 @@ extension DashboardScreenExtension on DashBoardScreen {
         BottomNavigationEnum.MyProfile) {
       /*Get.put(ProfileScreenController());
       return ProfileScreen();*/
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          CommonButton(
-              commonButtonBottonText: AppStrings.logout,
-              onPress: () {
-                logoutFunctionality();
-              }).paddingOnly(bottom: 50.h, left: 20.w, right: 20.w),
-        ],
+      return WillPopScope(
+        onWillPop: () async => false,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CommonButton(
+                commonButtonBottonText: AppStrings.logout,
+                onPress: () {
+                  logoutFunctionality();
+                }).paddingOnly(bottom: 50.h, left: 20.w, right: 20.w),
+          ],
+        ),
       );
     } else {
       return commonNoDataWidget();

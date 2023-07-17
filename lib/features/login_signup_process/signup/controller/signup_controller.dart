@@ -296,6 +296,7 @@ class SignupController extends GetxController {
           GetArgumentConstants.otp: signUpResponse.value.otp,
           GetArgumentConstants.phoneNumber:
               "+$selectedCountryCode ${phoneNumberController.text}",
+          GetArgumentConstants.email: emailController.text,
           GetArgumentConstants.from: Routes.signupScreen
         });
         //    //  snackbar(response.message ?? "");
