@@ -78,7 +78,7 @@ class PropertyDetailController extends GetxController {
                 {GetArgumentConstants.isPropertyAdded: true}
               ]);
             },
-            buttonTitle: AppStrings.cancel);
+            buttonTitle: AppStrings.ok);
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

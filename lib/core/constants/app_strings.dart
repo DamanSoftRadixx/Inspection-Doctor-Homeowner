@@ -384,7 +384,7 @@ class ErrorMessages {
   static const noDataFound = "No data found";
   static const otpIsEmpty = "Please enter your otp.";
   static const pleaseSelectAppLanguage = "Please select app language.";
-  static const pleaseEnter4DigitOtp = "Please enter 4 digit otp.";
+  static const pleaseEnter4DigitOtp = "Please enter your OTP.";
   static const otpIsIncorrect = "Otp is incorrect.";
 
 //add property

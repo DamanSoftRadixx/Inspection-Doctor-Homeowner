@@ -22,20 +22,20 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  showHeadingText(),
-                  showPinView(),
-                  showVerifyButton(),
-                  showResendOTP()
-                ],
-              ),
-            ),
-            CommonLoader(isLoading: controller.isShowLoader.value)
-          ],
-        )),
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      showHeadingText(),
+                      showPinView(),
+                      showVerifyButton(),
+                      showResendOTP()
+                    ],
+                  ),
+                ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
+              ],
+            )),
       ),
     );
   }
@@ -47,7 +47,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       children: [
         AppTextWidget(
           style:
-          CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
           text: controller.timerCountdown.value > 0
               ? AppStrings.expiresIn.tr
               : AppStrings.dontYouReceivedOTP.tr,
@@ -60,8 +60,8 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
                 color: lightColorPalette.primaryBlue),
-            text:  controller.timerCountdown.value > 0
-                ? "${controller.getTimerLabel()}"
+            text: controller.timerCountdown.value > 0
+                ? controller.getTimerLabel()
                 : AppStrings.resendOTP.tr,
           ),
         ),

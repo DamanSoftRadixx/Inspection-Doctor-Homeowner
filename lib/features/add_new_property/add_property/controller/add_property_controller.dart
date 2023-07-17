@@ -176,6 +176,8 @@ class AddPropertyController extends GetxController {
         blockNumberController.text = propertyDetail.value.blockNumber ?? "";
         lotNumberController.text = propertyDetail.value.lotNumber ?? "";
 
+        log("message>>>>> ${propertyDetail.value.architecturelDrawing?.url}");
+
         if (propertyDetail.value.architecturelDrawing?.id != "" &&
             propertyDetail.value.architecturelDrawing?.id != null) {
           pdfFile.value =
@@ -530,7 +532,7 @@ class AddPropertyController extends GetxController {
       "permit_number": permitNumberController.text,
       "state": stateController.text,
       "county_id": selectedBaseMaterialDropDown.value.id,
-      "acrhitecturel_drawing": uploadData.value.id
+      "architecturel_drawing": uploadData.value.id
     });
 
     try {

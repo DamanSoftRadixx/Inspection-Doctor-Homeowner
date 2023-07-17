@@ -256,7 +256,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         controller.onChangedPermitNumberTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
       ],
     );
   }

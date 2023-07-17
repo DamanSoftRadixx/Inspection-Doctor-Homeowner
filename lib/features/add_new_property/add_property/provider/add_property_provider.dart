@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
@@ -12,6 +14,7 @@ class AddPropertyProvider {
   ApiHitter apiHitter = ApiHitter();
 
   Future<AddPropertyResponseModel?> addProperty({required Object body}) async {
+    log("body>>>> $body");
     try {
       Response response =
           await apiHitter.postApi(endPoint: EndPoints.addProperty, body: body);
