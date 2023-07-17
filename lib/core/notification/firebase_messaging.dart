@@ -87,7 +87,7 @@ class Notifications {
                 presentSound: true,
                 presentBadge: true,
                 presentAlert: true,
-                threadIdentifier: "Inspection Doctor Homeowner",
+                threadIdentifier: "Homeowner",
                 sound: "default")));
   }
 

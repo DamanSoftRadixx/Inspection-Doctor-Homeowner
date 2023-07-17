@@ -5,21 +5,23 @@ import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/delete_response_model.dart';
 
-class HomeProvider {
+class PropertyDetailProvider {
   ApiHitter apiHitter = ApiHitter();
 
-  Future<PropertyListResponseModel?> propertyList(
-      {required Object body}) async {
+  Future<DeletePropertyResponseModel?> deteleDetail(
+      {required String id}) async {
     try {
-      Response response =
-          await apiHitter.postApi(endPoint: EndPoints.propertyList, body: body);
-      log("message>>>>>>> $response");
+      Response response = await apiHitter.deleteApi(
+        endPoint: "${EndPoints.deleteProperty}/$id",
+      );
 
-      PropertyListResponseModel data =
-          PropertyListResponseModel.fromJson(response.data);
-      showResponseData(data, type: 'propertyList');
+      log("response>>>>  $response");
+
+      DeletePropertyResponseModel data =
+          DeletePropertyResponseModel.fromJson(response.data);
+      showResponseData(data, type: 'deteleDetail');
 
       return data;
     } catch (e) {

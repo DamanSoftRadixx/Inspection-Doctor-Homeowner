@@ -56,7 +56,7 @@ class PropertyListData {
     this.blockNumber,
     this.permitNumber,
     this.countyId,
-    this.acrhitecturelDrawing,
+    this.architecturelDrawing,
     this.latestUpdate,
     this.deletedAt,
     this.createdAt,
@@ -77,7 +77,9 @@ class PropertyListData {
     blockNumber = json['block_number'];
     permitNumber = json['permit_number'];
     countyId = json['county_id'];
-    acrhitecturelDrawing = json['acrhitecturel_drawing'];
+    architecturelDrawing = json['architecturel_drawing'] != null
+        ? ArchitecturelDrawing.fromJson(json['architecturel_drawing'])
+        : null;
     latestUpdate = json['latest_update'];
     deletedAt = json['deleted_at'];
     createdAt = json['createdAt'];
@@ -96,7 +98,7 @@ class PropertyListData {
   String? blockNumber;
   String? permitNumber;
   String? countyId;
-  dynamic acrhitecturelDrawing;
+  ArchitecturelDrawing? architecturelDrawing;
   bool? latestUpdate;
   dynamic deletedAt;
   String? createdAt;
@@ -117,12 +119,35 @@ class PropertyListData {
     map['block_number'] = blockNumber;
     map['permit_number'] = permitNumber;
     map['county_id'] = countyId;
-    map['acrhitecturel_drawing'] = acrhitecturelDrawing;
+    if (architecturelDrawing != null) {
+      map['architecturel_drawing'] = architecturelDrawing?.toJson();
+    }
     map['latest_update'] = latestUpdate;
     map['deleted_at'] = deletedAt;
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
+    return map;
+  }
+}
+
+class ArchitecturelDrawing {
+  ArchitecturelDrawing({
+    this.id,
+    this.url,
+  });
+
+  ArchitecturelDrawing.fromJson(dynamic json) {
+    id = json['_id'];
+    url = json['url'];
+  }
+  String? id;
+  String? url;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['url'] = url;
     return map;
   }
 }

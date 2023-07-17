@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
@@ -10,11 +11,14 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/property_update_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/upload_doc_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/provider/add_property_provider.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyController extends GetxController {
@@ -66,6 +70,9 @@ class AddPropertyController extends GetxController {
   RxString documentErrorMessage = "".obs;
 
   RxBool isUplodedingFile = false.obs;
+  RxBool isPropertyDetailEdit = false.obs;
+
+  Rx<PropertyListData> propertyDetail = PropertyListData().obs;
 
   Rx<UploadDocResponseData> uploadData = UploadDocResponseData().obs;
 
@@ -115,6 +122,7 @@ class AddPropertyController extends GetxController {
 
   @override
   void onInit() {
+    getArguments();
     getCounties();
     addFocusListeners();
 
@@ -133,21 +141,51 @@ class AddPropertyController extends GetxController {
 
   onPressAddPropertyButton() {
     validate(
-        perpertyName: propertyController.text,
-        street: streetController.text,
-        city: cityController.text,
-        state: stateController.text,
-        zipCode: zipCodeController.text,
-        permitNumber: permitNumberController.text,
-        lotNumber: lotNumberController.text,
-        blockNumber: blockNumberController.text,
-        county: selectedBaseMaterialDropDown.value.id,
-        docment: pdfFile.value.path);
+      perpertyName: propertyController.text,
+      street: streetController.text,
+      city: cityController.text,
+      state: stateController.text,
+      zipCode: zipCodeController.text,
+      permitNumber: permitNumberController.text,
+      lotNumber: lotNumberController.text,
+      blockNumber: blockNumberController.text,
+      docment: pdfFile.value.path,
+      county: selectedBaseMaterialDropDown.value.id,
+    );
   }
 
   setShowLoader({required bool value}) {
     isShowLoader.value = value;
     isShowLoader.refresh();
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      isPropertyDetailEdit.value =
+          args[GetArgumentConstants.isPropertyDetailEdit];
+      propertyDetail.value = args[GetArgumentConstants.propertyDetail];
+
+      if (isPropertyDetailEdit.value == true) {
+        propertyController.text = propertyDetail.value.propertyName ?? "";
+        streetController.text = propertyDetail.value.street ?? "";
+        cityController.text = propertyDetail.value.city ?? "";
+        stateController.text = propertyDetail.value.state ?? "";
+        zipCodeController.text = propertyDetail.value.zipCode ?? "";
+        permitNumberController.text = propertyDetail.value.permitNumber ?? "";
+        lotNumberController.text = propertyDetail.value.lotNumber ?? "";
+        blockNumberController.text = propertyDetail.value.blockNumber ?? "";
+        lotNumberController.text = propertyDetail.value.lotNumber ?? "";
+
+        if (propertyDetail.value.architecturelDrawing?.id != "" &&
+            propertyDetail.value.architecturelDrawing?.id != null) {
+          pdfFile.value =
+              File(propertyDetail.value.architecturelDrawing?.url ?? "");
+
+          uploadData.value.id = propertyDetail.value.architecturelDrawing?.id;
+        }
+      }
+    }
   }
 
   void validate({
@@ -235,7 +273,16 @@ class AddPropertyController extends GetxController {
       countyError.value = false;
       documentError.value = false;
 
-      uploadDocuments();
+      if (isPropertyDetailEdit.value) {
+        if (propertyDetail.value.architecturelDrawing?.url !=
+            pdfFile.value.path) {
+          uploadDocuments();
+        } else {
+          updateAddProperty();
+        }
+      } else {
+        uploadDocuments();
+      }
     }
   }
 
@@ -408,8 +455,17 @@ class AddPropertyController extends GetxController {
                   )))
               .toList();
         }
+        if (propertyDetail.value.countyId != "") {
+          countiesList.map(
+            (element) {
+              if (element.id == propertyDetail.value.countyId) {
+                onSelectBaseMaterialDropdown(value: element);
+              }
+            },
+          ).toList();
+        }
 
-        snackbar(response.message ?? "");
+        // snackbar(response.message ?? "");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -442,7 +498,8 @@ class AddPropertyController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         uploadData.value = response.data?.first ?? UploadDocResponseData();
         snackbar(response.message ?? "");
-        getAddProperty();
+
+        isPropertyDetailEdit.value ? updateAddProperty() : getAddProperty();
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -474,6 +531,8 @@ class AddPropertyController extends GetxController {
       "acrhitecturel_drawing": uploadData.value.id
     });
 
+    log("body $body");
+
     try {
       AddPropertyResponseModel response =
           await addPropertyProvider.addProperty(body: body) ??
@@ -483,6 +542,49 @@ class AddPropertyController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         snackbar(response.message ?? "");
         Get.back(closeOverlays: true);
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
+  }
+
+  updateAddProperty() async {
+    setShowLoader(value: true);
+
+    var body = json.encode({
+      "property_name": propertyController.text,
+      "street": streetController.text,
+      "city": cityController.text,
+      "zip_code": zipCodeController.text,
+      "lot_number": lotNumberController.text,
+      "block_number": blockNumberController.text,
+      "permit_number": permitNumberController.text,
+      "state": stateController.text,
+      "county_id": selectedBaseMaterialDropDown.value.id,
+      "acrhitecturel_drawing": uploadData.value.id
+    });
+
+    log("body $body");
+
+    try {
+      PropertyUpdateResponseModel response =
+          await addPropertyProvider.updatePropertyDetail(
+                  body: body, id: propertyDetail.value.id ?? "") ??
+              PropertyUpdateResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        snackbar(response.message ?? "");
+
+        Get.offAllNamed(Routes.addCardScreen);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

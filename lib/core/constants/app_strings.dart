@@ -335,7 +335,8 @@ class GetArgumentConstants {
   static const email = "email";
   static const propertyCard = "propertyCard";
   static const deviceToken = "deviceToken";
-
+  static const propertyDetail = "property";
+  static const isPropertyDetailEdit = "isPropertyDetailEdit";
 }
 
 class WeekDays {

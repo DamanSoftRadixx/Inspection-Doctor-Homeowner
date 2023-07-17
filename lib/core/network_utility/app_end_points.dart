@@ -15,6 +15,9 @@ class EndPoints {
   static const String addProperty = "property/add-property";
   static const String propertyList = "property/property/list";
   static const String uploadDoc = "auth/media-upload";
+
+  static const String updateProperty = "property/update-property";
+  static const String deleteProperty = "property/delete-property";
   // connectTimeout
 
   // receiveTimeout

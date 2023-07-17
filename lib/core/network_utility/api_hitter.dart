@@ -213,6 +213,55 @@ class ApiHitter {
     }
   }
 
+  deleteApi(
+      {required String endPoint,
+      Object? body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headersParm}) async {
+    try {
+      String url = "${EndPoints.baseUrl}$endPoint";
+      print("URL $endPoint >> $url");
+      print("GET $endPoint >> $queryParameters");
+      if (await networkCheck.hasNetwork()) {
+        String token = await Prefs.read(Prefs.token) ?? "";
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json',
+          'language_id': selectedLangId,
+          'authorization': "Bearer $token",
+        };
+
+        headers.addAll(headersParm ?? {});
+
+        Options options = Options(headers: headers);
+
+        print("headers : $headers");
+
+        Response response = await dio.delete(
+          url,
+          options: options,
+          data: body,
+          cancelToken: cancelToken,
+          queryParameters: queryParameters,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
+      }
+    }
+  }
+
   Future<bool> cancelRequests() async {
     cancelToken.cancel();
     return cancelToken.isCancelled;

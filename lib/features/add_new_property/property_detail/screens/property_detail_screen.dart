@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -23,16 +24,21 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
           onPressBackButton: () {
             Get.back();
           }),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            showPropertyDetail(),
-            showScheduleInspection()
-                .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
-          ],
-        ),
-      ),
+      body: Obx(() => SafeArea(
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    showPropertyDetail(),
+                    showScheduleInspection()
+                        .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
+                  ],
+                ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
+              ],
+            ),
+          )),
     );
   }
 
@@ -53,7 +59,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             child: AppTextWidget(
               style: CustomTextTheme.heading3(
                   color: lightColorPalette.primaryDarkblue),
-              text: controller.property.propertyName ?? "",
+              text: controller.propertyDetail.value.propertyName ?? "",
             ),
           ),
           Row(
@@ -68,7 +74,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               AppTextWidget(
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryGrey),
-                text: getAddressFormat(controller.property),
+                text: getAddressFormat(controller.propertyDetail.value),
               ),
             ],
           ).paddingOnly(top: 5.h, bottom: 5.h),
@@ -84,7 +90,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               AppTextWidget(
                 style: CustomTextTheme.normalText(
                     color: lightColorPalette.primaryGrey),
-                text: controller.property.permitNumber ?? "",
+                text: controller.propertyDetail.value.permitNumber ?? "",
               ),
             ],
           ),
@@ -103,7 +109,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
                         color: lightColorPalette.primaryGrey),
-                    text: controller.property.lotNumber ?? "",
+                    text: controller.propertyDetail.value.lotNumber ?? "",
                   ),
                 ],
               ).paddingOnly(right: 20.w),
@@ -119,7 +125,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
                         color: lightColorPalette.primaryGrey),
-                    text: controller.property.blockNumber ?? "",
+                    text: controller.propertyDetail.value.blockNumber ?? "",
                   ),
                 ],
               ),
@@ -128,6 +134,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //
               CommonButton(
                   border: BorderSide(
                     width: 0.3,
@@ -144,25 +151,32 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   ),
                   minWidth: 112.w,
                   commonButtonBottonText: AppStrings.drawing.tr,
-                  onPress: () {}),
+                  onPress: () {
+                    // launchUrlOnBrowser(
+                    //     url: controller.property.architecturelDrawing.url);
+                  }),
+
+              //Edit
               CommonButton(
-                      border: BorderSide(
-                        width: 0.3,
-                        color: lightColorPalette.stroke,
-                      ),
-                      style: CustomTextTheme.normalTextWithWeight600(
-                          color: lightColorPalette.greenDark),
-                      bgColor: lightColorPalette.greenBackground,
-                      icon: AssetWidget(
-                        asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.edit,
-                        ),
-                      ),
-                      minWidth: 99.5.w,
-                      commonButtonBottonText: AppStrings.edit.tr,
-                      onPress: () {})
-                  .paddingSymmetric(horizontal: 10.w),
+                  border: BorderSide(
+                    width: 0.3,
+                    color: lightColorPalette.stroke,
+                  ),
+                  style: CustomTextTheme.normalTextWithWeight600(
+                      color: lightColorPalette.greenDark),
+                  bgColor: lightColorPalette.greenBackground,
+                  icon: AssetWidget(
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.edit,
+                    ),
+                  ),
+                  minWidth: 99.5.w,
+                  commonButtonBottonText: AppStrings.edit.tr,
+                  onPress: () {
+                    controller.onTapEditButton();
+                  }).paddingSymmetric(horizontal: 10.w),
+//Delete
               CommonButton(
                   border: BorderSide(
                     width: 0.3,
@@ -179,7 +193,9 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   ),
                   minWidth: 100.w,
                   commonButtonBottonText: AppStrings.delete.tr,
-                  onPress: () {})
+                  onPress: () {
+                    controller.onTapDeleteButton();
+                  })
             ],
           ),
         ],
