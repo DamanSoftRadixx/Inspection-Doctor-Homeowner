@@ -410,8 +410,7 @@ class AddPropertyController extends GetxController {
         }
 
         snackbar(response.message ?? "");
-      }
-      else {
+      } else {
         setShowLoader(value: false);
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
@@ -438,7 +437,7 @@ class AddPropertyController extends GetxController {
       UploadDocResponseModel response =
           await addPropertyProvider.uploadDoc(body: formData) ??
               UploadDocResponseModel();
-      setShowLoader(value: false);
+
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         uploadData.value = response.data?.first ?? UploadDocResponseData();
