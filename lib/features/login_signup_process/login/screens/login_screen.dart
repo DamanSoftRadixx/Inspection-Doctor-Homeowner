@@ -27,51 +27,55 @@ class LoginScreen extends GetView<LoginController> {
             color: lightColorPalette.whiteColorPrimary.shade900,
             height: 40.h,
           )),
-      body: SafeArea(
-        child: Obx(() => Stack(
-              children: [
-                ListView(
-                  physics: const RangeMaintainingScrollPhysics(),
-                  children: [
-                    Container(
-                        height: 35.h,
-                        color: lightColorPalette.whiteColorPrimary.shade900),
-                    Stack(
-                      children: [
-                        SizedBox(
-                            // height: 0.9.sh,
-                            width: 1.sw,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                    width: 1.sw,
-                                    height: 23.h,
-                                    color: lightColorPalette
-                                        .whiteColorPrimary.shade900),
-                                getWelcomeLoginView(),
-                                //Email
-                                Column(
-                                  children: [
-                                    showEmailField(),
-                                    showPasswordField(),
-                                    showForgotPassword().paddingOnly(top: 10.h),
-                                    showLoginButton().paddingOnly(top: 50.h),
-                                    showSignupButton(),
-                                    showDivider(),
-                                    showOtherLoginOption(),
-                                  ],
-                                ).paddingOnly(left: 20.w, right: 20.w)
-                              ],
-                            )),
-                        getTopLogo(),
-                      ],
-                    ),
-                  ],
-                ),
-                CommonLoader(isLoading: controller.isShowLoader.value)
-              ],
-            )),
+      body: WillPopScope(
+        onWillPop: () async => false,
+        child: SafeArea(
+          child: Obx(() => Stack(
+                children: [
+                  ListView(
+                    physics: const RangeMaintainingScrollPhysics(),
+                    children: [
+                      Container(
+                          height: 35.h,
+                          color: lightColorPalette.whiteColorPrimary.shade900),
+                      Stack(
+                        children: [
+                          SizedBox(
+                              // height: 0.9.sh,
+                              width: 1.sw,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Container(
+                                      width: 1.sw,
+                                      height: 23.h,
+                                      color: lightColorPalette
+                                          .whiteColorPrimary.shade900),
+                                  getWelcomeLoginView(),
+                                  //Email
+                                  Column(
+                                    children: [
+                                      showEmailField(),
+                                      showPasswordField(),
+                                      showForgotPassword()
+                                          .paddingOnly(top: 10.h),
+                                      showLoginButton().paddingOnly(top: 50.h),
+                                      showSignupButton(),
+                                      showDivider(),
+                                      showOtherLoginOption(),
+                                    ],
+                                  ).paddingOnly(left: 20.w, right: 20.w)
+                                ],
+                              )),
+                          getTopLogo(),
+                        ],
+                      ),
+                    ],
+                  ),
+                  CommonLoader(isLoading: controller.isShowLoader.value)
+                ],
+              )),
+        ),
       ),
     );
   }
