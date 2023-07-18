@@ -105,6 +105,16 @@ class CustomTextTheme {
         letterSpacing: 0.56);
   }
 
+  static TextStyle categoryText({required Color color, double? height}) {
+    return TextStyle(
+        letterSpacing: 0.56,
+        fontFamily: CommonStrings.generalSans,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w600,
+        height: height ?? 1,
+        color: color);
+  }
+
   static TextStyle normalText2({required Color color}) {
     return TextStyle(
       fontFamily: CommonStrings.generalSans,
@@ -152,15 +162,6 @@ class CustomTextTheme {
       height: 1,
       color: color,
     );
-  }
-
-  static TextStyle categoryText({required Color color}) {
-    return TextStyle(
-        fontFamily: CommonStrings.generalSans,
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w600,
-        height: 1,
-        color: color);
   }
 
   static TextStyle bottomTabs({required Color color}) {
