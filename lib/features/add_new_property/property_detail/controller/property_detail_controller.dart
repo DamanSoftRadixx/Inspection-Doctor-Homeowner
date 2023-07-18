@@ -38,6 +38,15 @@ class PropertyDetailController extends GetxController {
     Get.toNamed(Routes.addPropertyScreen, arguments: {
       GetArgumentConstants.propertyDetail: propertyDetail.value,
       GetArgumentConstants.isPropertyDetailEdit: true
+    })?.then((value) {
+      if (value != null) {
+        var result = value;
+        if (result[0][GetArgumentConstants.isPropertyDetailEdit] == true) {
+          Get.back(closeOverlays: true, result: [
+            {GetArgumentConstants.isPropertyAdded: true}
+          ]);
+        }
+      }
     });
   }
 

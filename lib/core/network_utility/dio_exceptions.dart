@@ -49,9 +49,9 @@ class DioExceptions implements Exception {
         var message = data["message"];
         var status = data["status"] ?? 0;
 
-        if(status == 401){
+        if (status == 401) {
           logoutFunctionality();
-        }else{
+        } else {
           apiErrorDialog(
             message: message ?? AppStrings.strSometingWentWrong,
             okButtonPressed: () {

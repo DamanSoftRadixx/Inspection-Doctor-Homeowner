@@ -386,6 +386,7 @@ class ErrorMessages {
   static const pleaseSelectAppLanguage = "Please select app language.";
   static const pleaseEnter4DigitOtp = "Please enter your OTP.";
   static const otpIsIncorrect = "Otp is incorrect.";
+  static const pleaseEnterCompleteOTP = "Please enter valid OTP.";
 
 //add property
 

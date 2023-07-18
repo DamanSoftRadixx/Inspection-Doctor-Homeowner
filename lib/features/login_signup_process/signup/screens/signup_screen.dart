@@ -270,6 +270,9 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetField() {
     return commonTextFieldWidget(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.streetFocusNode.value,
       controller: controller.streetController,
@@ -289,15 +292,15 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.cityFocusNode.value,
       controller: controller.cityController,
       title: AppStrings.city.tr,
       maxLength: 30,
       hint: AppStrings.city.tr,
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
-      ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
@@ -311,15 +314,15 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateField() {
     return commonTextFieldWidget(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.stateFocusNode.value,
       controller: controller.stateController,
       title: AppStrings.state.tr,
       hint: AppStrings.state.tr,
       maxLength: 30,
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
-      ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {

@@ -135,6 +135,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
         Wrap(
+          alignment: WrapAlignment.center,
           children: [
             AppTextWidget(
               textAlign: TextAlign.center,
@@ -150,6 +151,15 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
                 color: lightColorPalette.primaryDarkblue,
               ),
             ).paddingOnly(top: 5.h, left: 3.w),
+            controller.email.value.isNotEmpty
+                ? AppTextWidget(
+                    textAlign: TextAlign.center,
+                    text: "&",
+                    style: CustomTextTheme.categoryText(
+                      color: lightColorPalette.primaryDarkblue,
+                    ),
+                  ).paddingOnly(top: 5.h, left: 3.w)
+                : const SizedBox(),
             AppTextWidget(
               textAlign: TextAlign.center,
               text: controller.email.value,

@@ -15,21 +15,28 @@ class SplashController extends GetxController {
     var token = Prefs.read(Prefs.token);
     Future.delayed(const Duration(seconds: 3), () {
       var token = Prefs.read(Prefs.token);
+      var selectedLangId = Prefs.read(Prefs.selectedLangId);
 
-      if(token != null && token !=""){
+      if (token != null && token != "") {
         LoginTokenModel loginTokenModel = getJsonFromJWTToken(token: token);
         var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
 
-        if(isOtpVerified == 0){
-          Get.toNamed(Routes.selectLanguage);
-        }  else{
+        if (isOtpVerified == 0) {
+          if (selectedLangId != null) {
+            Get.toNamed(Routes.loginScreen);
+          } else {
+            Get.toNamed(Routes.selectLanguage);
+          }
+        } else {
           Get.toNamed(Routes.dashboard);
         }
-      }else{
-        Get.toNamed(Routes.selectLanguage);
+      } else {
+        if (selectedLangId != null) {
+          Get.toNamed(Routes.loginScreen);
+        } else {
+          Get.toNamed(Routes.selectLanguage);
+        }
       }
-
-
     });
   }
 }

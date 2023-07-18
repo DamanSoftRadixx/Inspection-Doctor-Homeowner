@@ -195,7 +195,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         controller.onChangedCityTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
     );
   }
@@ -216,7 +216,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         controller.onChangedStateTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
     );
   }

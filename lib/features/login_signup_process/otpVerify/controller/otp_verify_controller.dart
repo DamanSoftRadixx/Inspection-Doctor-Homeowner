@@ -41,12 +41,17 @@ class OtpVerifyController extends GetxController {
 
   void onTapVerifyButton() {
     dismissKeyboard();
-    log("verifyCode ${verifyCode.value.length}");
-    if (verifyCode.value.isEmpty && verifyCode.value.length < 4) {
+
+    if (verifyCode.value.isEmpty) {
+      log("verifyCode ${verifyCode.value.length}");
       isOtpError.value = true;
       otpError.value = ErrorMessages.pleaseEnter4DigitOtp.tr;
       isOtpError.refresh();
-    } else {
+    } else if (verifyCode.value.length < 4) {
+      isOtpError.value = true;
+      otpError.value = ErrorMessages.pleaseEnterCompleteOTP.tr;
+      isOtpError.refresh();
+    } else if (verifyCode.value.length == 4) {
       getOtpVerify();
     }
   }
@@ -98,6 +103,13 @@ class OtpVerifyController extends GetxController {
       } else {
         isShowLoader.value = false;
         //  snackbar(response.message ?? "");
+
+        apiErrorDialog(
+          message: response.message ?? AppStrings.strSometingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
       }
     } catch (e) {
       isShowLoader.value = false;

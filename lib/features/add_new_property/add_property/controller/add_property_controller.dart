@@ -10,7 +10,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
@@ -297,18 +296,27 @@ class AddPropertyController extends GetxController {
   }
 
   void onChangedStreetTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      streetController.text = streetController.text.trim();
+    }
     if (value.length >= 2) {
       streetError.value = false;
     }
   }
 
   void onChangedCityTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      cityController.text = cityController.text.trim();
+    }
     if (value.length >= 2) {
       cityError.value = false;
     }
   }
 
   void onChangedStateTextField({required String value}) {
+    if (value.length == 1 && value.contains(" ")) {
+      stateController.text = stateController.text.trim();
+    }
     if (value.length >= 2) {
       stateError.value = false;
     }
@@ -589,7 +597,11 @@ class AddPropertyController extends GetxController {
         //   {GetArgumentConstants.isPropertyAdded: true}
         // ]);
 
-        Get.offAllNamed(Routes.addCardScreen);
+        // Get.until(
+        //     (route) => route.settings.name == Routes.dashboard ? true : false);
+        Get.back(result: [
+          {GetArgumentConstants.isPropertyDetailEdit: true}
+        ]);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
