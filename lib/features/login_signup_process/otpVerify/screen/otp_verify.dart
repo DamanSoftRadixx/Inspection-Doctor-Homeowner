@@ -97,7 +97,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             /* if (text.length < 4) {
             }*/
           },
-        ).paddingOnly(top: 50.h),
+        ).paddingOnly(top: 31.h),
         Visibility(
           visible: controller.isOtpError.value,
           child: Align(
@@ -134,8 +134,8 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
-        Wrap(
-          alignment: WrapAlignment.center,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AppTextWidget(
               textAlign: TextAlign.center,
@@ -154,21 +154,26 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
             controller.email.value.isNotEmpty
                 ? AppTextWidget(
                     textAlign: TextAlign.center,
-                    text: "&",
-                    style: CustomTextTheme.categoryText(
-                      color: lightColorPalette.primaryDarkblue,
+                    text: AppStrings.and.tr,
+                    style: CustomTextTheme.normalText(
+                      color: lightColorPalette.primaryGrey,
                     ),
-                  ).paddingOnly(top: 5.h, left: 3.w)
+                  )
                 : const SizedBox(),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             AppTextWidget(
               textAlign: TextAlign.center,
               text: controller.email.value,
               style: CustomTextTheme.categoryText(
                 color: lightColorPalette.primaryDarkblue,
               ),
-            ).paddingOnly(top: 3.h)
+            )
           ],
-        ),
+        )
       ],
     );
   }
