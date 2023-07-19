@@ -238,6 +238,10 @@ class AppStrings {
   static const takePhoto = "Take photo";
   static const uploadFromDevice = "Upload from device";
   static const addFile = "Add file";
+  static const chooseOnMap = "Choose on map";
+  static const selectAddress = "Select address";
+
+  static const searchAddress = "Search address";
 
   //OTP
   static const otp = "OTP";

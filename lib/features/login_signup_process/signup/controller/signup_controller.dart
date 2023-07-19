@@ -343,7 +343,7 @@ class SignupController extends GetxController {
   }
 
   void onChangedPhoneTextField({required String value}) {
-    if (phoneNumberController.text.length > 8) {
+    if (phoneNumberController.text.length > 6) {
       phoneError.value = false;
     }
   }

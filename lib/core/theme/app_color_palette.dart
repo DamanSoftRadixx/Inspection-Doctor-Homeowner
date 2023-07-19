@@ -174,6 +174,16 @@ class CustomTextTheme {
     );
   }
 
+  static TextStyle bottomTabsithFontWeight600({required Color color}) {
+    return TextStyle(
+      fontFamily: CommonStrings.generalSans,
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w600,
+      height: 1,
+      color: color,
+    );
+  }
+
   static TextStyle smallText({required Color color}) {
     return TextStyle(
         fontFamily: CommonStrings.generalSans,

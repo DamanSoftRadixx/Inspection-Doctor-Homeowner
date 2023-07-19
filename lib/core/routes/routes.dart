@@ -6,6 +6,8 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/property_d
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_detail_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/binding/choose_map_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/view/choose_map_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/screens/forget_password_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/binding/login_binding.dart';
@@ -35,6 +37,7 @@ class Routes {
   static const String addCardScreen = "/addCardScreen";
   static const String otpVerifyScreen = "/otpVerifyScreen";
   static const String resetPassword = "/resetPassword";
+  static const String chooseMap = "/chooseMap";
 
   //Dashboard
   static const String dashboard = "/dashboard";
@@ -130,6 +133,15 @@ List<GetPage> appPages() => [
         name: Routes.propertyDetailScreen,
         page: () => const PropertyDetailScreen(),
         binding: PropertyDetailBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.chooseMap,
+        page: () => ChooseMapScreen(),
+        binding: ChooseMapBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

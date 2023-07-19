@@ -5,13 +5,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
@@ -52,13 +55,9 @@ class SignupScreen extends GetView<SignupController> {
                               showCityField().paddingOnly(bottom: 11.h),
                               showStateField().paddingOnly(bottom: 11.h),
                               showZipCodeField(),
-                              showSignUpButton().paddingOnly(
-                                top: 40.h,
-                              ),
-                              showLoginOption().paddingOnly(
-                                top: 30.h,
-                                bottom: 40.h,
-                              ),
+                              showSignUpButton().paddingOnly(top: 40.h),
+                              showLoginOption()
+                                  .paddingOnly(top: 30.h, bottom: 40.h),
                             ],
                           ).paddingSymmetric(horizontal: 20.w),
                         ],
@@ -71,15 +70,49 @@ class SignupScreen extends GetView<SignupController> {
     );
   }
 
-  Row showMailingAddress() {
+  showMailingAddress() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         AppTextWidget(
           style:
               CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
           text: AppStrings.mailingAddress.tr,
-        ).paddingOnly(top: 30.h, bottom: 15.h),
+        ),
+
+        // choose map button
+        getChooseMapButton()
       ],
+    ).paddingOnly(top: 30.h, bottom: 15.h);
+  }
+
+  getChooseMapButton() {
+    return CustomInkwell(
+      onTap: () {
+        Get.toNamed(Routes.chooseMap);
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4.r),
+            border:
+                Border.all(color: lightColorPalette.primaryBlue, width: 0.3)),
+        child: Row(
+          children: [
+            AssetWidget(
+              asset: Asset(
+                type: AssetType.svg,
+                path: ImageResource.map,
+              ),
+            ).paddingOnly(right: 4.w),
+            AppTextWidget(
+              style: CustomTextTheme.bottomTabsithFontWeight600(
+                  color: lightColorPalette.primaryBlue),
+              text: AppStrings.chooseOnMap.tr,
+            )
+          ],
+        ),
+      ),
     );
   }
 

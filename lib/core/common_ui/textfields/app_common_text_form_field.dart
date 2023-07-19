@@ -350,7 +350,7 @@ Widget commonSearchFieldWidget({
                 border: InputBorder.none,
                 hintText: searchHint,
                 hintStyle: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                    color: lightColorPalette.primaryGrey),
               ),
               style: CustomTextTheme.normalText(
                   color: lightColorPalette.primaryDarkblue),
