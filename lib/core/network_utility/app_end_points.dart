@@ -18,6 +18,7 @@ class EndPoints {
 
   static const String updateProperty = "property/update-property";
   static const String deleteProperty = "property/delete-property";
+  static const String logOut = "auth/logout";
   // connectTimeout
 
   // receiveTimeout
