@@ -70,7 +70,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
               showCompass: false,
               showMapToolbar: true,
               showTraffic: false,
-              myLocationButtonEnabled: true,
+              myLocationButtonEnabled: false,
               // centerMapOnMarkerTap: true,
             ),
             Center(

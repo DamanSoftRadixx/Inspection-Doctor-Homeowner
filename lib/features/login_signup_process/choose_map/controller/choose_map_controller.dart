@@ -94,11 +94,16 @@ class ChooseMapController extends GetxController {
   getUserLocation() async {
     await getCurrentUserLocation(
             defaultLocation: const LatLng(0.0, 0.0), cached: true)
-        .then((loc) {
+        .then((loc) async {
       initialPosition.value = setCameraPosition(
           target: loc, googleMapController: googleMapController);
 
       googleMapsCenter.value = loc;
+
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(loc.latitude, loc.longitude);
+
+      place.value = placemarks[0];
     });
   }
 
