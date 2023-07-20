@@ -1,84 +1,113 @@
-import 'dart:developer';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/location/location.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 
 class ChooseMapController extends GetxController {
   RxBool isShowSearchLoader = false.obs;
   TextEditingController searchController = TextEditingController();
   var searchFocusNode = FocusNode().obs;
-  GoogleMapController? googleMapController;
+
   //contrller for Google map
-  RxList<Marker> markers = <Marker>[].obs; //markers for google map
-  Rx<LatLng> changingLatLong = const LatLng(0.0, 0.0).obs;
 
-  onSearch() {}
+  Rx<LatLng> googleMapsCenter = const LatLng(0, 0).obs;
 
-  Future<void> displayPrediction(
-      Prediction? p, ScaffoldMessengerState messengerState) async {
+  Rx<LatLng> changingLatLong =
+      const LatLng(37.415768808487435, -122.08440050482749).obs;
+  RxList<Prediction> predictionsList = <Prediction>[].obs;
+
+  Rx<CameraPosition> initialPosition = const CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  ).obs;
+
+  Completer<GoogleMapController> googleMapController =
+      Completer<GoogleMapController>();
+
+  Rx<Placemark> place = Placemark().obs;
+  Rx<LatLng> initialLocation =
+      const LatLng(37.415768808487435, -122.08440050482749).obs;
+
+  late AnimationController animationController;
+  @override
+  void onInit() {
+    getUserLocation();
+    super.onInit();
+  }
+
+  Future<void> handlePressButton({required String value}) async {
+    var result = await GoogleMapsPlaces(
+      apiKey: EndPoints.mapKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    ).autocomplete(value);
+
+    if (value.isEmpty) {
+      predictionsList.value = [];
+      predictionsList.refresh();
+    }
+    {
+      predictionsList.value = result.predictions;
+      predictionsList.refresh();
+    }
+  }
+
+  Future<void> displayPrediction(Prediction? p) async {
     if (p == null) {
       return;
     }
 
     // get detail (lat/lng)
-    final places = GoogleMapsPlaces(
+    GoogleMapsPlaces places = GoogleMapsPlaces(
       apiKey: EndPoints.mapKey,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
-
-    final detail = await places.getDetailsByPlaceId(p.placeId!);
-    final geometry = detail.result.geometry!;
-    final lat = geometry.location.lat;
-    final lng = geometry.location.lng;
-
-    changingLatLong.value = LatLng(lat, lng);
-
-    log("displayPrediction ${changingLatLong.value}");
-
-    var driverMarker = Marker(
-      markerId: const MarkerId("driverLat"),
-      position: (LatLng(lat, lng)),
-      anchor: const Offset(0.5, 0.5),
-      flat: true,
-      draggable: false,
-    );
-
-    markers.add(driverMarker);
-    markers.refresh();
-
-    messengerState.showSnackBar(
-      SnackBar(
-        content: Text('${p.description} - $lat/$lng'),
-      ),
-    );
+    final PlacesDetailsResponse detail =
+        await places.getDetailsByPlaceId(p.placeId!);
+    final Geometry geometry = detail.result.geometry!;
+    getAddressFromLatLng(geometry);
   }
 
-  Future<void> handlePressButton() async {
-    void onError(PlacesAutocompleteResponse response) {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(
-          content: Text(response.errorMessage ?? 'Unknown error'),
-        ),
-      );
-    }
+  Future<void> getAddressFromLatLng(Geometry geometry) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        geometry.location.lat, geometry.location.lng);
 
-    // show input autocomplete with selected mode
-    // then get the Prediction selected
-    final p = await PlacesAutocomplete.show(
-      context: Get.context!,
-      apiKey: EndPoints.mapKey,
-      onError: onError,
-      mode: Mode.overlay,
-      language: 'fr',
-      components: [Component(Component.country, 'fr')],
-      resultTextStyle: Theme.of(Get.context!).textTheme.titleMedium,
-    );
+    changingLatLong.value =
+        LatLng(geometry.location.lat, geometry.location.lng);
 
-    await displayPrediction(p, ScaffoldMessenger.of(Get.context!));
+    place.value = placemarks[0];
+
+    dismissKeyboard();
+
+    setCameraPosition(
+        target: LatLng(geometry.location.lat, geometry.location.lng),
+        googleMapController: googleMapController);
+  }
+
+  getUserLocation() async {
+    await getCurrentUserLocation(
+            defaultLocation: const LatLng(0.0, 0.0), cached: true)
+        .then((loc) {
+      initialPosition.value = setCameraPosition(
+          target: loc, googleMapController: googleMapController);
+
+      googleMapsCenter.value = loc;
+    });
+  }
+
+  void onTapSelectAddressButton() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        googleMapsCenter.value.latitude, googleMapsCenter.value.longitude);
+    Placemark placeData = placemarks[0];
+    Get.back(closeOverlays: true, result: [
+      {GetArgumentConstants.googleAddressPlace: placeData}
+    ]);
   }
 }

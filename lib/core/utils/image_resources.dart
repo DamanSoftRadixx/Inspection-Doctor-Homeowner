@@ -32,6 +32,7 @@ class ImageResource {
   static String bottomIcon = "assets/images/svg/BottomIcon.svg";
   static String crossIcon = "assets/images/svg/crossIcon.svg";
   static String map = "assets/images/svg/map.svg";
+  static String dropLocationPin = "assets/images/svg/dropLocationPin.svg";
 
   //Dashboard
   static const selectedHomeIcon = "assets/images/svg/selected_home_icon.svg";

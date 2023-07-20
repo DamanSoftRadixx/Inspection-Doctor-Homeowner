@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:device_uuid/device_uuid.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
@@ -379,5 +380,21 @@ class SignupController extends GetxController {
     } else {
       isHideConfirmPassword.value = false;
     }
+  }
+
+  void onTapChooseButton() {
+    Get.toNamed(Routes.chooseMap)?.then((value) {
+      if (value != null) {
+        Placemark placeData = value[0][GetArgumentConstants.googleAddressPlace];
+        log("getChooseMapButton $placeData");
+
+        streetController.text = placeData.street ?? "";
+        cityController.text = placeData.locality == ""
+            ? placeData.subLocality ?? ""
+            : placeData.locality ?? "";
+        stateController.text = placeData.administrativeArea ?? "";
+        zipCodeController.text = placeData.postalCode ?? "";
+      }
+    });
   }
 }
