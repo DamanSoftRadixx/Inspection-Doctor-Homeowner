@@ -42,6 +42,7 @@ class SignupScreen extends GetView<SignupController> {
                           showHeadingText(),
                           Column(
                             children: [
+                              showLanguageSelection(),
                               showFirstNameField().paddingOnly(bottom: 11.h),
                               showLastNameField().paddingOnly(bottom: 11.h),
                               showEmailField().paddingOnly(bottom: 11.h),
@@ -67,6 +68,21 @@ class SignupScreen extends GetView<SignupController> {
             )),
       ),
     );
+  }
+
+  Widget showLanguageSelection() {
+    return dropdownField(
+        isError: controller.languageError.value,
+        errorMsg: controller.languageErrorMessage.value,
+        hint: AppStrings.selectLanguage.tr,
+        title: AppStrings.selectLanguage.tr,
+        selectedValue: controller.selectedBaseMaterialDropDown.value,
+        onClick: (DropdownModel value) {
+          controller.onSelectBaseMaterialDropdown(value: value);
+          controller.languageError.value = false;
+        },
+        list: controller.countiesList,
+        isExpanded: true);
   }
 
   showMailingAddress() {

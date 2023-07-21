@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -16,6 +17,7 @@ import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/provider/signup_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
@@ -69,6 +71,18 @@ class SignupController extends GetxController {
   Rx<SignUpResponseData> signUpResponse = SignUpResponseData().obs;
   RxBool isShowLoader = false.obs;
 
+  //Language
+  RxString languageErrorMessage = "".obs;
+  RxBool languageError = false.obs;
+  RxList<DropdownModel> countiesList = <DropdownModel>[].obs;
+  var selectedBaseMaterialDropDown = DropdownModel().obs;
+  onSelectBaseMaterialDropdown({required DropdownModel value}) {
+    selectedBaseMaterialDropDown.value = value;
+  }
+
+  RxList<Language> languageList = <Language>[].obs;
+  Rx<Language> selectedLanguage = Language().obs;
+
   addFocusListeners() {
     firstNameFocusNode.value.addListener(() {
       firstNameFocusNode.refresh();
@@ -118,8 +132,10 @@ class SignupController extends GetxController {
 
   @override
   void onInit() {
+    getLanguage();
     addFocusListeners();
     getArguments();
+
     super.onInit();
   }
 
@@ -139,33 +155,38 @@ class SignupController extends GetxController {
     if (args != null) {}
   }
 
-  void validate({
-    required String firstName,
-    required String lastName,
-    required String email,
-    required String phone,
-    required String password,
-    required String confirmPassword,
-  }) async {
+  void validate(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String phone,
+      required String password,
+      required String confirmPassword,
+      required bool isLanguageSelected}) async {
     log("testtt ${phone.length < 7}");
     if (firstName.isEmpty &&
         lastName.isEmpty &&
         email.isEmpty &&
         phone.isEmpty &&
         password.isEmpty &&
-        confirmPassword.isEmpty) {
+        confirmPassword.isEmpty &&
+        isLanguageSelected == false) {
       firstNameError.value = true;
       lastNameError.value = true;
       emailError.value = true;
       phoneError.value = true;
       passwordError.value = true;
       confirmPasswordError.value = true;
+      lastNameError.value = true;
+
+      languageError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
       lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
       emailErrorMessage.value = ErrorMessages.emailIsEmpty;
       phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
       confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
@@ -202,6 +223,9 @@ class SignupController extends GetxController {
     } else if (password != confirmPassword) {
       confirmPasswordError.value = true;
       confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches;
+    } else if (isLanguageSelected == false) {
+      languageError.value = true;
+      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
     } else {
       firstNameError.value = false;
       lastNameError.value = false;
@@ -209,6 +233,7 @@ class SignupController extends GetxController {
       phoneError.value = false;
       passwordError.value = false;
       confirmPasswordError.value = false;
+      languageError.value = false;
 
       getSignUp();
     }
@@ -222,7 +247,8 @@ class SignupController extends GetxController {
         email: emailController.text,
         phone: phoneNumberController.text,
         password: passwordController.text,
-        confirmPassword: confirmPasswordController.text);
+        confirmPassword: confirmPasswordController.text,
+        isLanguageSelected: selectedBaseMaterialDropDown.value.id.isNotEmpty);
   }
 
   KeyboardActionsConfig buildConfig(BuildContext context) {
@@ -396,5 +422,35 @@ class SignupController extends GetxController {
         zipCodeController.text = placeData.postalCode ?? "";
       }
     });
+  }
+
+  getLanguage() async {
+    isShowLoader.value = true;
+    GetLangaugeResponseModel response =
+        await signUpProvider.getLanguages() ?? GetLangaugeResponseModel();
+    languageList.clear();
+    isShowLoader.value = false;
+
+    if (response.success == true && response.data?.languages != []) {
+      languageList.addAll(response.data?.languages ?? []);
+      selectedLanguage.value = languageList.first;
+
+      DropdownModel();
+
+      response.data?.languages
+          ?.map((e) => countiesList.add(DropdownModel(
+                id: e.id ?? "",
+                name: e.name ?? "",
+              )))
+          .toList();
+    } else {
+      setShowLoader(value: false);
+      apiErrorDialog(
+        message: response.message ?? AppStrings.somethingWentWrong,
+        okButtonPressed: () {
+          Get.back();
+        },
+      );
+    }
   }
 }

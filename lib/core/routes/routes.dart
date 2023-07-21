@@ -16,8 +16,6 @@ import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVer
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/screen/otp_verify.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/binding/reset_password_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/screens/reset_password_screen.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/binding/select_language_binding.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/selectLanguage/screens/select_language.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/binding/signup_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/screens/signup_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/binding/signup_screen_binding.dart';
@@ -57,15 +55,15 @@ List<GetPage> appPages() => [
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
       ),
-      GetPage(
-        name: Routes.selectLanguage,
-        page: () => const SelectLanguageScreen(),
-        fullscreenDialog: true,
-        binding: SelectLanguageBinding(),
-        transition: CommonStrings.transition,
-        transitionDuration:
-            const Duration(milliseconds: CommonStrings.transitionDuration),
-      ),
+      // GetPage(
+      //   name: Routes.selectLanguage,
+      //   page: () => const SelectLanguageScreen(),
+      //   fullscreenDialog: true,
+      //   binding: SelectLanguageBinding(),
+      //   transition: CommonStrings.transition,
+      //   transitionDuration:
+      //       const Duration(milliseconds: CommonStrings.transitionDuration),
+      // ),
       GetPage(
         name: Routes.loginScreen,
         page: () => const LoginScreen(),
@@ -140,7 +138,7 @@ List<GetPage> appPages() => [
       ),
       GetPage(
         name: Routes.chooseMap,
-        page: () => ChooseMapScreen(),
+        page: () => const ChooseMapScreen(),
         binding: ChooseMapBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_place_picker/flutter_place_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
@@ -7,7 +6,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/controller/choose_map_controller.dart';
 
@@ -50,12 +48,9 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
   }
 
   showMap() {
-    return Obx(() => Expanded(
+    return Obx(() => const Expanded(
             child: Stack(
           children: [
-            FlutterPlacePicker(
-                apiKey: EndPoints.mapKey,
-                initialPosition: controller.googleMapsCenter.value)
             // CommonGoogleMap(
             //   controller: controller.googleMapController,
             //   onCameraIdle: (latLng) =>

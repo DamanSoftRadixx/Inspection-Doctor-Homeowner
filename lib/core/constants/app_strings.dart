@@ -392,6 +392,7 @@ class ErrorMessages {
   static const pleaseEnter4DigitOtp = "Please enter your OTP.";
   static const otpIsIncorrect = "Otp is incorrect.";
   static const pleaseEnterCompleteOTP = "Please enter valid OTP.";
+  static const pleasSelectLanguage = "Please select language.";
 
 //add property
 
