@@ -441,80 +441,39 @@ Widget dropdownField(
           width: 1.sw,
           height: 44.h,
           decoration: decoration(isSelected: hasFocus),
-          child: DropdownButton2<DropdownModel>(
-            isDense: true,
-            /* menuItemStyleData:
-                MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
-            dropdownStyleData: DropdownStyleData(
-              offset: const Offset(0, -22),
-              maxHeight: 300.h,
-              decoration: BoxDecoration(
-                color: lightColorPalette.whiteColorPrimary.shade900,
-                boxShadow: [
-                  BoxShadow(
-                      color: lightColorPalette.primaryDarkblue.withOpacity(0.2),
-                      spreadRadius: 4,
-                      blurRadius: 20,
-                      offset: const Offset(1, 1))
-                ],
-                borderRadius: BorderRadius.circular(6.r),
-                shape: BoxShape.rectangle,
-                border: Border.all(
-                    color: lightColorPalette.primaryDarkblue.withOpacity(0.3),
-                    width: 0.3),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton2<DropdownModel>(
+              isDense: true,
+              /* menuItemStyleData:
+                  MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
+              dropdownStyleData: DropdownStyleData(
+                offset: const Offset(0, -5.59),
+                maxHeight: 300.h,
+                decoration: BoxDecoration(
+                  color: lightColorPalette.whiteColorPrimary.shade900,
+                  boxShadow: [
+                    BoxShadow(
+                        color:
+                            lightColorPalette.primaryDarkblue.withOpacity(0.2),
+                        spreadRadius: 4,
+                        blurRadius: 20,
+                        offset: const Offset(1, 1))
+                  ],
+                  borderRadius: BorderRadius.circular(6.r),
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                      color: lightColorPalette.primaryDarkblue.withOpacity(0.3),
+                      width: 0.3),
+                ),
               ),
-            ),
-            isExpanded: isExpanded ?? false,
-            underline: const SizedBox(),
-            customButton: Padding(
-              padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
-              child: Row(
-                children: [
-                  AppTextWidget(
-                    text: selectedValue.name,
-                    style: TextStyle(
-                      fontSize: 14.w,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: CommonStrings.generalSans,
-                      color: lightColorPalette.primaryDarkblue,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8.w),
-                    child: Center(
-                      child: AssetWidget(
-                          asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.downArrow)),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            iconStyleData: IconStyleData(
-              icon: Center(
-                child: Icon(Icons.arrow_drop_down,
-                        color: lightColorPalette.primaryDarkblue, size: 25.h)
-                    .paddingOnly(right: 4.w),
-              ),
-            ),
-            hint: AppTextWidget(
-              text: hint ?? "",
-              style: CustomTextTheme.normalText(
-                  color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
-            ),
-            buttonStyleData: ButtonStyleData(
-              padding: EdgeInsets.only(left: 2.w, right: 5.w),
-            ),
-            value: selectedValue.name == "" ? null : selectedValue,
-            selectedItemBuilder: (_) {
-              return list.map<Widget>((item) {
-                return Row(
+              isExpanded: isExpanded ?? false,
+              underline: const SizedBox(),
+              customButton: Padding(
+                padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
+                child: Row(
                   children: [
                     AppTextWidget(
-                      text: item.name.toString(),
+                      text: selectedValue.name,
                       style: TextStyle(
                         fontSize: 14.w,
                         fontWeight: FontWeight.w500,
@@ -523,56 +482,63 @@ Widget dropdownField(
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ],
-                );
-              }).toList();
-            },
-            items: list
-                .map((DropdownModel model) => DropdownMenuItem<DropdownModel>(
-                      value: model,
-                      child: DropdownMenuItem(
-                        value: model,
-                        child: StatefulBuilder(builder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: 2.0.w, left: 5.0.w),
-                            child: Row(
-                              children: [
-                                AppTextWidget(
-                                  text: model.name.toString(),
-                                  style: TextStyle(
-                                    fontSize: 14.w,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: CommonStrings.generalSans,
-                                    color: lightColorPalette.primaryDarkblue,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const Spacer(),
-                                selectedValue.id == model.id
-                                    ? Padding(
-                                        padding: EdgeInsets.only(left: 8.w),
-                                        child: Icon(
-                                          Icons.check_sharp,
-                                          color: lightColorPalette.primaryBlue,
-                                          size: 15.r,
-                                        )
-
-                                        // AssetWidget(
-                                        //     asset: Asset(
-                                        //         type: AssetType.svg,
-                                        //         path: ImageResource.checked)),
-                                        )
-                                    : Container(),
-                              ],
-                            ),
-                          );
-                        }),
+                    const Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Center(
+                        child: AssetWidget(
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.downArrow)),
                       ),
-                    ))
-                .toList(),
-            onChanged: (DropdownModel? value) {
-              onClick(value!);
-            },
+                    )
+                  ],
+                ),
+              ),
+              iconStyleData: IconStyleData(
+                icon: Center(
+                  child: Icon(Icons.arrow_drop_down,
+                          color: lightColorPalette.primaryDarkblue, size: 25.h)
+                      .paddingOnly(right: 4.w),
+                ),
+              ),
+              hint: AppTextWidget(
+                text: hint ?? "",
+                style: CustomTextTheme.normalText(
+                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+              ),
+              buttonStyleData: ButtonStyleData(
+                padding: EdgeInsets.only(left: 2.w, right: 5.w),
+              ),
+              value: selectedValue.name == "" ? null : selectedValue,
+              selectedItemBuilder: (_) {
+                return list.map<Widget>((item) {
+                  return Row(
+                    children: [
+                      AppTextWidget(
+                        text: item.name.toString(),
+                        style: TextStyle(
+                          fontSize: 14.w,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: CommonStrings.generalSans,
+                          color: lightColorPalette.primaryDarkblue,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  );
+                }).toList();
+              },
+              menuItemStyleData: MenuItemStyleData(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                customHeights: getCustomItemsHeights(items: list),
+              ),
+              items: addDividersAfterItems(
+                  items: list, selectedValue: selectedValue),
+              onChanged: (DropdownModel? value) {
+                onClick(value!);
+              },
+            ),
           )),
       Visibility(
         visible: isError ?? false,
@@ -605,4 +571,58 @@ class DropdownModel extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [id, name, status, type];
+}
+
+List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
+    {required List<DropdownModel> items,
+    required DropdownModel selectedValue}) {
+  List<DropdownMenuItem<DropdownModel>>? menuItems = [];
+  for (final DropdownModel item in items) {
+    menuItems.addAll(
+      [
+        DropdownMenuItem<DropdownModel>(
+          value: item,
+          child: Row(
+            children: [
+              AppTextWidget(
+                text: item.name.toString(),
+                style: CustomTextTheme.normalTextWithWeight600(
+                    color: selectedValue.id == item.id
+                        ? lightColorPalette.primaryBlue
+                        : lightColorPalette.primaryDarkblue),
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+              selectedValue.id == item.id
+                  ? AssetWidget(
+                      asset: Asset(
+                          type: AssetType.svg, path: ImageResource.checked))
+                  : Container(),
+            ],
+          ).paddingSymmetric(horizontal: 15.w),
+        ),
+        //If it's last item, we will not add Divider after it.
+        if (item != items.last)
+          const DropdownMenuItem<DropdownModel>(
+            enabled: false,
+            child: Divider(),
+          ),
+      ],
+    );
+  }
+  return menuItems;
+}
+
+List<double> getCustomItemsHeights({required List<DropdownModel> items}) {
+  final List<double> itemsHeights = [];
+  for (int i = 0; i < (items.length * 2) - 1; i++) {
+    if (i.isEven) {
+      itemsHeights.add(32);
+    }
+    //Dividers indexes will be the odd indexes
+    if (i.isOdd) {
+      itemsHeights.add(4);
+    }
+  }
+  return itemsHeights;
 }
