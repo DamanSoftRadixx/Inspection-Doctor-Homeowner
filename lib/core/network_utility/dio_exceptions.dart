@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/logout/logout_functionality.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 
 class DioExceptions implements Exception {
   DioExceptions.fromDioError({required dio.DioException dioError}) {
@@ -45,19 +47,42 @@ class DioExceptions implements Exception {
 
       case dio.DioExceptionType.badResponse:
         dio.Response? response = dioError.response;
-        var data = response?.data;
-        var message = data["message"];
-        var status = data["status"] ?? 0;
 
-        if (status == 401) {
-          logoutFunctionality();
-        } else {
+        var data = response?.data;
+
+        var statusCode = response?.statusCode ?? 0;
+        var statusMessage =
+            response?.statusMessage ?? AppStrings.strSometingWentWrong;
+
+        if (statusCode == 413) {
           apiErrorDialog(
-            message: message ?? AppStrings.strSometingWentWrong,
+            message: statusMessage,
             okButtonPressed: () {
               Get.back();
             },
           );
+        } else if (statusCode == 401) {
+          apiErrorDialog(
+            message: statusMessage,
+            okButtonPressed: () {
+              Prefs.erase();
+              Get.offAllNamed(Routes.loginScreen);
+            },
+          );
+        } else {
+          var message = data["message"];
+          var status = data["status"] ?? 0;
+
+          if (status == 401) {
+            logoutFunctionality();
+          } else {
+            apiErrorDialog(
+              message: message ?? AppStrings.strSometingWentWrong,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
         }
 
         break;

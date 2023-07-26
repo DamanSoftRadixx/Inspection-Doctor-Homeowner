@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -17,14 +18,15 @@ import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/provider/login_provider.dart';
 
 class LoginController extends GetxController {
   LoginProvider loginProvider = LoginProvider();
 
   RxBool isHidePassword = true.obs;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
 
   var emailFocusNode = FocusNode().obs;
   var passwordFocusNode = FocusNode().obs;
@@ -52,8 +54,20 @@ class LoginController extends GetxController {
     passwordFocusNode.value.removeListener(() {});
   }
 
+  //Language
+  RxString languageErrorMessage = "".obs;
+  RxBool languageError = false.obs;
+  RxList<DropdownModel> languageList = <DropdownModel>[].obs;
+  var selectedBaseMaterialDropDown = DropdownModel().obs;
+  onSelectBaseMaterialDropdown({required DropdownModel value}) async {
+    selectedBaseMaterialDropDown.value = value;
+    await Prefs.write(
+        Prefs.selectedLangId, selectedBaseMaterialDropDown.value.id);
+  }
+
   @override
   void onInit() {
+    getLanguage();
     addFocusListeners();
     super.onInit();
   }
@@ -77,7 +91,9 @@ class LoginController extends GetxController {
 
   void onPressLoginButton() {
     dismissKeyboard();
-    validate(email: emailController.text, password: passwordController.text);
+    validate(
+        email: emailController.value.text,
+        password: passwordController.value.text);
   }
 
   String? getFirstName(User user) {
@@ -126,8 +142,8 @@ class LoginController extends GetxController {
   }
 
   clearTextField() {
-    emailController.clear();
-    passwordController.clear();
+    emailController.value.clear();
+    passwordController.value.clear();
     emailError.value = false;
     passwordError.value = false;
     isHidePassword.value = false;
@@ -136,7 +152,8 @@ class LoginController extends GetxController {
   void onTapSignupButton() {
     dismissKeyboard();
     clearTextField();
-    Get.toNamed(Routes.signupScreen);
+    Get.toNamed(Routes.signupScreen,
+        arguments: {GetArgumentConstants.languageList: languageList.value});
   }
 
   hitLoginApi() async {
@@ -147,8 +164,8 @@ class LoginController extends GetxController {
     String? deviceId = await DeviceUuid().getUUID();
 
     var body = json.encode({
-      "email": emailController.text.trim(),
-      "password": passwordController.text.trim(),
+      "email": emailController.value.text.trim(),
+      "password": passwordController.value.text.trim(),
       "device_type":
           isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
       "device_token": deviceToken,
@@ -176,17 +193,20 @@ class LoginController extends GetxController {
   }
 
   void onChangedEmailTextField({required String value}) {
-    if (value.isNotEmpty && emailController.text.isEmail) {
+    if (value.isNotEmpty && emailController.value.text.isEmail) {
       emailError.value = false;
     }
+
+    emailController.refresh();
   }
 
   void onChangedPasswordTextField({required String value}) {
     if (value.isNotEmpty) {
-      if (isValidPassword(password: passwordController.text)) {
+      if (isValidPassword(password: passwordController.value.text)) {
         passwordError.value = false;
       }
     }
+    passwordController.refresh();
   }
 
   void onPressPasswordEyeIcon() {
@@ -412,6 +432,38 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       setShowLoader(value: false);
+    }
+  }
+
+  getLanguage() async {
+    isShowLoader.value = true;
+    GetLangaugeResponseModel response =
+        await loginProvider.getLanguages() ?? GetLangaugeResponseModel();
+    languageList.clear();
+    isShowLoader.value = false;
+
+    if (response.success == true && response.data?.languages != []) {
+      response.data?.languages
+          ?.map((e) => languageList.add(DropdownModel(
+                id: e.id ?? "",
+                name: e.name ?? "",
+              )))
+          .toList();
+      String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+      if (selectedLangId != "") {
+        int index =
+            languageList.indexWhere((element) => element.id == selectedLangId);
+        selectedBaseMaterialDropDown.value = languageList[index];
+      }
+    } else {
+      setShowLoader(value: false);
+      apiErrorDialog(
+        message: response.message ?? AppStrings.somethingWentWrong,
+        okButtonPressed: () {
+          Get.back();
+        },
+      );
     }
   }
 }

@@ -6,10 +6,14 @@ import 'package:dio/dio.dart' as dio;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
@@ -21,14 +25,15 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyController extends GetxController {
   AddPropertyProvider addPropertyProvider = AddPropertyProvider();
-  TextEditingController propertyController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController zipCodeController = TextEditingController();
-  TextEditingController permitNumberController = TextEditingController();
-  TextEditingController lotNumberController = TextEditingController();
-  TextEditingController blockNumberController = TextEditingController();
+  Rx<TextEditingController> propertyController = TextEditingController().obs;
+  Rx<TextEditingController> streetController = TextEditingController().obs;
+  Rx<TextEditingController> cityController = TextEditingController().obs;
+  Rx<TextEditingController> stateController = TextEditingController().obs;
+  Rx<TextEditingController> zipCodeController = TextEditingController().obs;
+  Rx<TextEditingController> permitNumberController =
+      TextEditingController().obs;
+  Rx<TextEditingController> lotNumberController = TextEditingController().obs;
+  Rx<TextEditingController> blockNumberController = TextEditingController().obs;
 
   Rx<FocusNode> propertyFocusNode = FocusNode().obs;
   Rx<FocusNode> streetFocusNode = FocusNode().obs;
@@ -73,6 +78,8 @@ class AddPropertyController extends GetxController {
   Rx<PropertyListData> propertyDetail = PropertyListData().obs;
 
   Rx<UploadDocResponseData> uploadData = UploadDocResponseData().obs;
+
+  Rx<FFPlace> place = const FFPlace().obs;
 
   addFocusListeners() {
     propertyFocusNode.value.addListener(() {
@@ -139,14 +146,14 @@ class AddPropertyController extends GetxController {
 
   onPressAddPropertyButton() {
     validate(
-      perpertyName: propertyController.text,
-      street: streetController.text,
-      city: cityController.text,
-      state: stateController.text,
-      zipCode: zipCodeController.text,
-      permitNumber: permitNumberController.text,
-      lotNumber: lotNumberController.text,
-      blockNumber: blockNumberController.text,
+      perpertyName: propertyController.value.text,
+      street: streetController.value.text,
+      city: cityController.value.text,
+      state: stateController.value.text,
+      zipCode: zipCodeController.value.text,
+      permitNumber: permitNumberController.value.text,
+      lotNumber: lotNumberController.value.text,
+      blockNumber: blockNumberController.value.text,
       docment: pdfFile.value.path,
       county: selectedBaseMaterialDropDown.value.id,
     );
@@ -165,15 +172,17 @@ class AddPropertyController extends GetxController {
       propertyDetail.value = args[GetArgumentConstants.propertyDetail];
 
       if (isPropertyDetailEdit.value == true) {
-        propertyController.text = propertyDetail.value.propertyName ?? "";
-        streetController.text = propertyDetail.value.street ?? "";
-        cityController.text = propertyDetail.value.city ?? "";
-        stateController.text = propertyDetail.value.state ?? "";
-        zipCodeController.text = propertyDetail.value.zipCode ?? "";
-        permitNumberController.text = propertyDetail.value.permitNumber ?? "";
-        lotNumberController.text = propertyDetail.value.lotNumber ?? "";
-        blockNumberController.text = propertyDetail.value.blockNumber ?? "";
-        lotNumberController.text = propertyDetail.value.lotNumber ?? "";
+        propertyController.value.text = propertyDetail.value.propertyName ?? "";
+        streetController.value.text = propertyDetail.value.street ?? "";
+        cityController.value.text = propertyDetail.value.city ?? "";
+        stateController.value.text = propertyDetail.value.state ?? "";
+        zipCodeController.value.text = propertyDetail.value.zipCode ?? "";
+        permitNumberController.value.text =
+            propertyDetail.value.permitNumber ?? "";
+        lotNumberController.value.text = propertyDetail.value.lotNumber ?? "";
+        blockNumberController.value.text =
+            propertyDetail.value.blockNumber ?? "";
+        lotNumberController.value.text = propertyDetail.value.lotNumber ?? "";
 
         log("message>>>>> ${propertyDetail.value.architecturelDrawing?.url}");
 
@@ -288,7 +297,7 @@ class AddPropertyController extends GetxController {
 
   void onChangedPropertyNameTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      propertyController.text = propertyController.text.trim();
+      propertyController.value.text = propertyController.value.text.trim();
     }
     if (value.length >= 2) {
       propertyNameError.value = false;
@@ -297,7 +306,7 @@ class AddPropertyController extends GetxController {
 
   void onChangedStreetTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      streetController.text = streetController.text.trim();
+      streetController.value.text = streetController.value.text.trim();
     }
     if (value.length >= 2) {
       streetError.value = false;
@@ -306,7 +315,7 @@ class AddPropertyController extends GetxController {
 
   void onChangedCityTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      cityController.text = cityController.text.trim();
+      cityController.value.text = cityController.value.text.trim();
     }
     if (value.length >= 2) {
       cityError.value = false;
@@ -315,7 +324,7 @@ class AddPropertyController extends GetxController {
 
   void onChangedStateTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      stateController.text = stateController.text.trim();
+      stateController.value.text = stateController.value.text.trim();
     }
     if (value.length >= 2) {
       stateError.value = false;
@@ -531,14 +540,14 @@ class AddPropertyController extends GetxController {
 
     var body = json.encode({
       "assigned_user_id": "",
-      "property_name": propertyController.text,
-      "street": streetController.text,
-      "city": cityController.text,
-      "zip_code": zipCodeController.text,
-      "lot_number": lotNumberController.text,
-      "block_number": blockNumberController.text,
-      "permit_number": permitNumberController.text,
-      "state": stateController.text,
+      "property_name": propertyController.value.text,
+      "street": streetController.value.text,
+      "city": cityController.value.text,
+      "zip_code": zipCodeController.value.text,
+      "lot_number": lotNumberController.value.text,
+      "block_number": blockNumberController.value.text,
+      "permit_number": permitNumberController.value.text,
+      "state": stateController.value.text,
       "county_id": selectedBaseMaterialDropDown.value.id,
       "architecturel_drawing": uploadData.value.id
     });
@@ -571,14 +580,14 @@ class AddPropertyController extends GetxController {
     setShowLoader(value: true);
 
     var body = json.encode({
-      "property_name": propertyController.text,
-      "street": streetController.text,
-      "city": cityController.text,
-      "zip_code": zipCodeController.text,
-      "lot_number": lotNumberController.text,
-      "block_number": blockNumberController.text,
-      "permit_number": permitNumberController.text,
-      "state": stateController.text,
+      "property_name": propertyController.value.text,
+      "street": streetController.value.text,
+      "city": cityController.value.text,
+      "zip_code": zipCodeController.value.text,
+      "lot_number": lotNumberController.value.text,
+      "block_number": blockNumberController.value.text,
+      "permit_number": permitNumberController.value.text,
+      "state": stateController.value.text,
       "county_id": selectedBaseMaterialDropDown.value.id,
       "acrhitecturel_drawing": uploadData.value.id
     });
@@ -614,5 +623,73 @@ class AddPropertyController extends GetxController {
     } catch (e) {
       setShowLoader(value: false);
     }
+  }
+
+  void onTapChooseButton() {
+    Get.toNamed(Routes.chooseMap)?.then((value) async {
+      if (value != null) {
+        PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
+
+        // log("adrAddress ${result.adrAddress}");
+
+        // log("message>>>>>> ${result.formattedAddress}");
+        // log("message>>>>> ${result.addressComponents?.first.longName}");
+        // log("message ${result.placeId}");
+
+        // for (var i in result.addressComponents ?? []) {
+        //   print("Long Name: ${i.longName}   Long Name: ${i.types}");
+        // }
+
+        place.value = FFPlace(
+          latLng: LatLng(
+            result.geometry?.location.lat ?? 0,
+            result.geometry?.location.lng ?? 0,
+          ),
+          name: result.name ?? "",
+          address: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
+                  ?.longName ??
+              "",
+          city: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('locality'))
+                  ?.longName ??
+              result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('sublocality'))
+                  ?.longName ??
+              '',
+          state: result.addressComponents
+                  ?.firstWhereOrNull(
+                      (e) => e.types.contains('administrative_area_level_1'))
+                  ?.longName ??
+              '',
+          country: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('country'))
+                  ?.longName ??
+              '',
+          zipCode: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('postal_code'))
+                  ?.longName ??
+              '',
+        );
+
+        streetController.value.text = place.value.address;
+        cityController.value.text = place.value.city;
+        stateController.value.text = place.value.state;
+        zipCodeController.value.text = place.value.zipCode;
+      }
+    });
+  }
+
+  bool get isAppPropertyButtonEnable {
+    return propertyController.value.text.isNotEmpty &&
+        streetController.value.text.isNotEmpty &&
+        cityController.value.text.isNotEmpty &&
+        stateController.value.text.isNotEmpty &&
+        zipCodeController.value.text.isNotEmpty &&
+        permitNumberController.value.text.isNotEmpty &&
+        lotNumberController.value.text.isNotEmpty &&
+        blockNumberController.value.text.isNotEmpty &&
+        selectedBaseMaterialDropDown.value.id.isNotEmpty &&
+        pdfFile.value.path.isNotEmpty;
   }
 }

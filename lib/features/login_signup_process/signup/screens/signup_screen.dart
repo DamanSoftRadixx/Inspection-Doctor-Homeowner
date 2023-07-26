@@ -81,7 +81,7 @@ class SignupScreen extends GetView<SignupController> {
           controller.onSelectBaseMaterialDropdown(value: value);
           controller.languageError.value = false;
         },
-        list: controller.countiesList,
+        list: controller.languageList,
         isExpanded: true);
   }
 
@@ -161,9 +161,11 @@ class SignupScreen extends GetView<SignupController> {
   CommonButton showSignUpButton() {
     return CommonButton(
         commonButtonBottonText: AppStrings.signup.tr,
-        onPress: () {
-          controller.onTapSignButton();
-        });
+        onPress: controller.isSignUpButtonEnable()
+            ? () {
+                controller.onTapSignButton();
+              }
+            : null);
   }
 
   Column showHeadingText() {
@@ -319,11 +321,16 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetField() {
     return commonTextFieldWidget(
+      readOnly: controller.place.value.address.isNotEmpty,
+      focusNode: controller.place.value.address.isNotEmpty
+          ? FocusNode()
+          : controller.streetFocusNode.value,
+
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       textCapitalization: TextCapitalization.sentences,
-      focusNode: controller.streetFocusNode.value,
+      // focusNode: controller.streetFocusNode.value,
       controller: controller.streetController.value,
       title: AppStrings.street.tr,
       maxLength: 30,
@@ -341,11 +348,15 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      focusNode: controller.place.value.city.isNotEmpty
+          ? FocusNode()
+          : controller.cityFocusNode.value,
+      readOnly: controller.place.value.city.isNotEmpty,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
       ],
       textCapitalization: TextCapitalization.sentences,
-      focusNode: controller.cityFocusNode.value,
+      // focusNode: controller.cityFocusNode.value,
       controller: controller.cityController.value,
       title: AppStrings.city.tr,
       maxLength: 30,
@@ -363,15 +374,20 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateField() {
     return commonTextFieldWidget(
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
-      ],
+      focusNode: controller.place.value.state.isNotEmpty
+          ? FocusNode()
+          : controller.stateFocusNode.value,
+      readOnly: controller.place.value.state.isNotEmpty,
+
       textCapitalization: TextCapitalization.sentences,
-      focusNode: controller.stateFocusNode.value,
+      // focusNode: controller.stateFocusNode.value,
       controller: controller.stateController.value,
       title: AppStrings.state.tr,
       hint: AppStrings.state.tr,
       maxLength: 30,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
@@ -385,8 +401,13 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      focusNode: controller.place.value.zipCode.isNotEmpty
+          ? FocusNode()
+          : controller.zipCodeFocusNode.value,
+      readOnly: controller.place.value.zipCode.isNotEmpty,
+
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      focusNode: controller.zipCodeFocusNode.value,
+      // focusNode: controller.zipCodeFocusNode.value,
       controller: controller.zipCodeController.value,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,

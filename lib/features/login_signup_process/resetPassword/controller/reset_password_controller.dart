@@ -14,8 +14,9 @@ class ResetPasswordController extends GetxController {
 
   Rx<FocusNode> passwordFocusNode = FocusNode().obs;
   Rx<FocusNode> confirmPasswordFocusNode = FocusNode().obs;
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController =
+      TextEditingController().obs;
   RxBool isHidePassword = true.obs;
   RxBool isHideConfirmPassword = true.obs;
 
@@ -89,7 +90,7 @@ class ResetPasswordController extends GetxController {
   resetPasswordApi() async {
     setShowLoader(value: true);
 
-    var body = json.encode({"new_password": passwordController.text});
+    var body = json.encode({"new_password": passwordController.value.text});
 
     try {
       ResetPasswordResponseModel response =
@@ -117,9 +118,11 @@ class ResetPasswordController extends GetxController {
 
   void onChangedConfirmPasswordTextField({required String value}) {
     if (value.isNotEmpty &&
-        (passwordController.text == confirmPasswordController.text)) {
+        (passwordController.value.text ==
+            confirmPasswordController.value.text)) {
       confirmPasswordError.value = false;
     }
+    confirmPasswordController.refresh();
   }
 
   void onPressConfirmPasswordEyeIcon() {
@@ -142,5 +145,6 @@ class ResetPasswordController extends GetxController {
     if (isValidPassword(password: value)) {
       passwordError.value = false;
     }
+    passwordController.refresh();
   }
 }

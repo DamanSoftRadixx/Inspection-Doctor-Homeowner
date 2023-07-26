@@ -20,33 +20,37 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  showHeadingText(),
-                  showPasswordField(),
-                  showConfirmPasswordField(),
-                  showResetButton(),
-                ],
-              ).paddingSymmetric(horizontal: 20.w),
-            ),
-            CommonLoader(isLoading: controller.isShowLoader.value)
-          ],
-        )),
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      showHeadingText(),
+                      showPasswordField(),
+                      showConfirmPasswordField(),
+                      showResetButton(),
+                    ],
+                  ).paddingSymmetric(horizontal: 20.w),
+                ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
+              ],
+            )),
       ),
     );
   }
 
   showResetButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.reset.tr,
-        onPress: () {
-          controller.validate(
-              password: controller.passwordController.text,
-              confirmPassword: controller.confirmPasswordController.text);
-        }).paddingOnly(top: 50.h);
-
+            commonButtonBottonText: AppStrings.reset.tr,
+            onPress: controller.passwordController.value.text.isNotEmpty &&
+                    controller.passwordController.value.text.isNotEmpty
+                ? () {
+                    controller.validate(
+                        password: controller.passwordController.value.text,
+                        confirmPassword:
+                            controller.confirmPasswordController.value.text);
+                  }
+                : null)
+        .paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {
@@ -91,16 +95,16 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       isError: controller.passwordError.value,
       errorMsg: controller.passwordErrorMessage.value,
       focusNode: controller.passwordFocusNode.value,
-      controller: controller.passwordController,
+      controller: controller.passwordController.value,
       title: AppStrings.resetNewPassword.tr,
       hint: AppStrings.resetNewPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        controller.onChangedPasswordTextField(value : value);
+        controller.onChangedPasswordTextField(value: value);
       },
       onPress: () {
-       controller.onPressPasswordEyeIcon();
+        controller.onPressPasswordEyeIcon();
       },
       passwordVisible: controller.isHidePassword.value,
     ).paddingOnly(bottom: 11.h, top: 50.h);
@@ -111,13 +115,13 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
       isError: controller.confirmPasswordError.value,
       errorMsg: controller.confirmPasswordErrorMessage.value,
       focusNode: controller.confirmPasswordFocusNode.value,
-      controller: controller.confirmPasswordController,
+      controller: controller.confirmPasswordController.value,
       title: AppStrings.confirmPassword.tr,
       hint: AppStrings.confirmPassword.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-       controller.onChangedConfirmPasswordTextField(value : value);
+        controller.onChangedConfirmPasswordTextField(value: value);
       },
       onPress: () {
         controller.onPressConfirmPasswordEyeIcon();

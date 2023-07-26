@@ -64,20 +64,24 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AssetWidget(
                 asset: Asset(
                   type: AssetType.svg,
                   path: ImageResource.pinLocation,
                 ),
-              ).paddingOnly(right: 5.w),
-              AppTextWidget(
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey),
-                text: getAddressFormat(controller.propertyDetail.value),
+              ).paddingOnly(top: 3.h),
+              Expanded(
+                child: AppTextWidget(
+                  textAlign: TextAlign.center,
+                  style: CustomTextTheme.normalText(
+                      color: lightColorPalette.primaryGrey),
+                  text: getAddressFormat(controller.propertyDetail.value),
+                ),
               ),
             ],
-          ).paddingOnly(top: 5.h, bottom: 5.h),
+          ).paddingOnly(top: 5.h, bottom: 5.h, left: 20.w, right: 20.w),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

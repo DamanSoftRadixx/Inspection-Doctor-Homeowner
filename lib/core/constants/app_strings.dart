@@ -347,6 +347,7 @@ class GetArgumentConstants {
   static const isPropertyDetailEdit = "isPropertyDetailEdit";
   static const isPropertyAdded = "isPropertyAdded";
   static const googleAddressPlace = "googleAddressPlace";
+  static const isEditProfile = "isEditProfile";
 }
 
 class WeekDays {

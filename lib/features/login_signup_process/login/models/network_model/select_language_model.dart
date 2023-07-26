@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
-
 GetLangaugeResponseModel getLangaugeResponseModelFromJson(String str) =>
     GetLangaugeResponseModel.fromJson(json.decode(str));
 

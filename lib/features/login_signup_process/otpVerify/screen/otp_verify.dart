@@ -71,10 +71,13 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
 
   showVerifyButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.verify.tr,
-        onPress: () {
-          controller.onTapVerifyButton();
-        }).paddingOnly(left: 20.w, right: 20.w, top: 50.h);
+            commonButtonBottonText: AppStrings.verify.tr,
+            onPress: controller.verifyCode.value.length == 4
+                ? () {
+                    controller.onTapVerifyButton();
+                  }
+                : null)
+        .paddingOnly(left: 20.w, right: 20.w, top: 50.h);
   }
 
   showPinView() {

@@ -1,3 +1,5 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class PropertyListResponseModel {
   PropertyListResponseModel({
     this.status,
@@ -9,7 +11,7 @@ class PropertyListResponseModel {
   });
 
   PropertyListResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
@@ -18,8 +20,8 @@ class PropertyListResponseModel {
         data?.add(PropertyListData.fromJson(v));
       });
     }
-    recordsTotal = json['recordsTotal'];
-    recordsFiltered = json['recordsFiltered'];
+    recordsTotal = json['recordsTotal'].toString().toIntConversion();
+    recordsFiltered = json['recordsFiltered'].toString().toIntConversion();
   }
   int? status;
   bool? success;
@@ -48,6 +50,8 @@ class PropertyListData {
     this.assignedUserId,
     this.createdById,
     this.propertyName,
+    this.latitude,
+    this.longitude,
     this.street,
     this.state,
     this.city,
@@ -65,31 +69,36 @@ class PropertyListData {
   });
 
   PropertyListData.fromJson(dynamic json) {
-    id = json['_id'];
-    assignedUserId = json['assigned_user_id'];
-    createdById = json['created_by_id'];
-    propertyName = json['property_name'];
-    street = json['street'];
-    state = json['state'];
-    city = json['city'];
-    zipCode = json['zip_code'];
-    lotNumber = json['lot_number'];
-    blockNumber = json['block_number'];
-    permitNumber = json['permit_number'];
-    countyId = json['county_id'];
+    id = json['_id'].toString().toStringConversion();
+    assignedUserId = json['assigned_user_id'].toString().toStringConversion();
+    createdById = json['created_by_id'].toString().toStringConversion();
+    propertyName = json['property_name'].toString().toStringConversion();
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    street = json['street'].toString().toStringConversion();
+    state = json['state'].toString().toStringConversion();
+    city = json['city'].toString().toStringConversion();
+    zipCode = json['zip_code'].toString().toStringConversion();
+    lotNumber = json['lot_number'].toString().toStringConversion();
+    blockNumber = json['block_number'].toString().toStringConversion();
+    permitNumber = json['permit_number'].toString().toStringConversion();
+    countyId =
+        json['county_id'] != null ? CountyId.fromJson(json['county_id']) : null;
     architecturelDrawing = json['architecturel_drawing'] != null
         ? ArchitecturelDrawing.fromJson(json['architecturel_drawing'])
         : null;
     latestUpdate = json['latest_update'];
     deletedAt = json['deleted_at'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    v = json['__v'];
+    createdAt = json['createdAt'].toString().toStringConversion();
+    updatedAt = json['updatedAt'].toString().toStringConversion();
+    v = json['__v'].toString().toIntConversion();
   }
   String? id;
   String? assignedUserId;
   String? createdById;
   String? propertyName;
+  dynamic latitude;
+  dynamic longitude;
   String? street;
   String? state;
   String? city;
@@ -97,7 +106,7 @@ class PropertyListData {
   String? lotNumber;
   String? blockNumber;
   String? permitNumber;
-  String? countyId;
+  CountyId? countyId;
   ArchitecturelDrawing? architecturelDrawing;
   bool? latestUpdate;
   dynamic deletedAt;
@@ -111,6 +120,8 @@ class PropertyListData {
     map['assigned_user_id'] = assignedUserId;
     map['created_by_id'] = createdById;
     map['property_name'] = propertyName;
+    map['latitude'] = latitude;
+    map['longitude'] = longitude;
     map['street'] = street;
     map['state'] = state;
     map['city'] = city;
@@ -118,7 +129,9 @@ class PropertyListData {
     map['lot_number'] = lotNumber;
     map['block_number'] = blockNumber;
     map['permit_number'] = permitNumber;
-    map['county_id'] = countyId;
+    if (countyId != null) {
+      map['county_id'] = countyId?.toJson();
+    }
     if (architecturelDrawing != null) {
       map['architecturel_drawing'] = architecturelDrawing?.toJson();
     }
@@ -148,6 +161,27 @@ class ArchitecturelDrawing {
     final map = <String, dynamic>{};
     map['_id'] = id;
     map['url'] = url;
+    return map;
+  }
+}
+
+class CountyId {
+  CountyId({
+    this.id,
+    this.name,
+  });
+
+  CountyId.fromJson(dynamic json) {
+    id = json['_id'];
+    name = json['name'];
+  }
+  String? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['name'] = name;
     return map;
   }
 }

@@ -55,6 +55,8 @@ class LoginScreen extends GetView<LoginController> {
                                   //Email
                                   Column(
                                     children: [
+                                      showLanguageSelection()
+                                          .paddingOnly(bottom: 10.h),
                                       showEmailField(),
                                       showPasswordField(),
                                       showForgotPassword()
@@ -205,7 +207,7 @@ class LoginScreen extends GetView<LoginController> {
   Widget showEmailField() {
     return commonTextFieldWidget(
       focusNode: controller.emailFocusNode.value,
-      controller: controller.emailController,
+      controller: controller.emailController.value,
       isError: controller.emailError.value,
       errorMsg: controller.emailErrorMessage.value,
       title: AppStrings.email.tr,
@@ -228,7 +230,7 @@ class LoginScreen extends GetView<LoginController> {
         controller.onChangedPasswordTextField(value: value);
       },
       focusNode: controller.passwordFocusNode.value,
-      controller: controller.passwordController,
+      controller: controller.passwordController.value,
       isError: controller.passwordError.value,
       errorMsg: controller.passwordErrorMessage.value,
       title: AppStrings.loginScreenPassword.tr,
@@ -262,9 +264,12 @@ class LoginScreen extends GetView<LoginController> {
   CommonButton showLoginButton() {
     return CommonButton(
         commonButtonBottonText: AppStrings.login.tr,
-        onPress: () {
-          controller.onPressLoginButton();
-        });
+        onPress: controller.emailController.value.text.isNotEmpty &&
+                controller.passwordController.value.text.isNotEmpty
+            ? () {
+                controller.onPressLoginButton();
+              }
+            : null);
   }
 
   showSignupButton() {
@@ -330,5 +335,20 @@ class LoginScreen extends GetView<LoginController> {
         ),
       ),
     );
+  }
+
+  Widget showLanguageSelection() {
+    return dropdownField(
+        isError: controller.languageError.value,
+        errorMsg: controller.languageErrorMessage.value,
+        hint: AppStrings.selectLanguage.tr,
+        title: AppStrings.selectLanguage.tr,
+        selectedValue: controller.selectedBaseMaterialDropDown.value,
+        onClick: (DropdownModel value) {
+          controller.onSelectBaseMaterialDropdown(value: value);
+          controller.languageError.value = false;
+        },
+        list: controller.languageList,
+        isExpanded: true);
   }
 }

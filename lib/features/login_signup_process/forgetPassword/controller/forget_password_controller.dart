@@ -14,7 +14,7 @@ class ForgetPasswordController extends GetxController {
   ForgotPasswordProvider forgotPasswordProvider = ForgotPasswordProvider();
 
   var emailFocusNode = FocusNode().obs;
-  TextEditingController emailController = TextEditingController();
+  Rx<TextEditingController> emailController = TextEditingController().obs;
 
   RxBool emailError = false.obs;
   RxString emailErrorMessage = "".obs;
@@ -58,13 +58,15 @@ class ForgetPasswordController extends GetxController {
 
   void onTapSendLinkBotton() {
     dismissKeyboard();
-    validate(email: emailController.text);
+    validate(email: emailController.value.text);
   }
 
   void onChangedEmailTextField({required String value}) {
-    if (value.isNotEmpty && emailController.text.isEmail) {
+    if (value.isNotEmpty && emailController.value.text.isEmail) {
       emailError.value = false;
     }
+
+    emailController.refresh();
   }
 
   setShowLoader({required bool value}) {
@@ -75,7 +77,7 @@ class ForgetPasswordController extends GetxController {
   forgotPasswordApi() async {
     setShowLoader(value: true);
 
-    var body = json.encode({"email": emailController.text});
+    var body = json.encode({"email": emailController.value.text});
 
     try {
       ForgotPasswordResponseModel response =
@@ -95,9 +97,8 @@ class ForgetPasswordController extends GetxController {
         Get.toNamed(Routes.otpVerifyScreen, arguments: {
           GetArgumentConstants.from: Routes.forgetScreen,
           GetArgumentConstants.otp: otpString,
-          GetArgumentConstants.email: emailController.text
+          GetArgumentConstants.email: emailController.value.text
         });
-        //  snackbar(response.message ?? "");
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

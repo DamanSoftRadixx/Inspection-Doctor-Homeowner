@@ -19,7 +19,6 @@ import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/provider/signup_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
@@ -73,18 +72,20 @@ class SignupController extends GetxController {
 
   Rx<SignUpResponseData> signUpResponse = SignUpResponseData().obs;
   RxBool isShowLoader = false.obs;
+  RxBool isEditProfile = false.obs;
+
+  Rx<FFPlace> place = const FFPlace().obs;
 
   //Language
   RxString languageErrorMessage = "".obs;
   RxBool languageError = false.obs;
-  RxList<DropdownModel> countiesList = <DropdownModel>[].obs;
+  RxList<DropdownModel> languageList = <DropdownModel>[].obs;
   var selectedBaseMaterialDropDown = DropdownModel().obs;
-  onSelectBaseMaterialDropdown({required DropdownModel value}) {
+  onSelectBaseMaterialDropdown({required DropdownModel value}) async {
     selectedBaseMaterialDropDown.value = value;
+    await Prefs.write(
+        Prefs.selectedLangId, selectedBaseMaterialDropDown.value.id);
   }
-
-  RxList<Language> languageList = <Language>[].obs;
-  Rx<Language> selectedLanguage = Language().obs;
 
   addFocusListeners() {
     firstNameFocusNode.value.addListener(() {
@@ -135,7 +136,6 @@ class SignupController extends GetxController {
 
   @override
   void onInit() {
-    getLanguage();
     addFocusListeners();
     getArguments();
 
@@ -153,9 +153,19 @@ class SignupController extends GetxController {
     isShowLoader.refresh();
   }
 
-  getArguments() {
+  getArguments() async {
     var args = Get.arguments;
-    if (args != null) {}
+    if (args != null) {
+      log("getArguments $args");
+      log("getArguments ${GetArgumentConstants.otpFromForget}");
+
+      List<DropdownModel> languageListTemp =
+          args[GetArgumentConstants.languageList] ?? List<DropdownModel>;
+
+      if (languageListTemp.isNotEmpty) {
+        languageList.value = languageListTemp;
+      }
+    }
   }
 
   void validate(
@@ -291,7 +301,7 @@ class SignupController extends GetxController {
         await Prefs.read(GetArgumentConstants.deviceToken) ?? "";
 
     String inspectorRoleId = await Prefs.read(Prefs.homeownerRollId) ?? "";
-    String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+    // String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
     var body = json.encode({
       "role_id": inspectorRoleId,
       "register_type": RegisterTypeEnum.email.value,
@@ -300,7 +310,7 @@ class SignupController extends GetxController {
       "email": emailController.value.text,
       "phone": phoneNumberController.value.text,
       "password": passwordController.value.text,
-      "language_id": selectedLangId,
+      "language_id": selectedBaseMaterialDropDown.value.id,
       "country_code": int.parse(selectedCountryCode.value),
       "state": stateController.value.text,
       "zip_code": zipCodeController.value.text,
@@ -427,7 +437,7 @@ class SignupController extends GetxController {
         //   print("Long Name: ${i.longName}   Long Name: ${i.types}");
         // }
 
-        FFPlace place = FFPlace(
+        place.value = FFPlace(
           latLng: LatLng(
             result.geometry?.location.lat ?? 0,
             result.geometry?.location.lng ?? 0,
@@ -459,41 +469,21 @@ class SignupController extends GetxController {
               '',
         );
 
-        streetController.value.text = place.address ?? "";
-        cityController.value.text = place.city;
-        stateController.value.text = place.state ?? "";
-        zipCodeController.value.text = place.zipCode ?? "";
+        streetController.value.text = place.value.address;
+        cityController.value.text = place.value.city;
+        stateController.value.text = place.value.state;
+        zipCodeController.value.text = place.value.zipCode;
       }
     });
   }
 
-  getLanguage() async {
-    isShowLoader.value = true;
-    GetLangaugeResponseModel response =
-        await signUpProvider.getLanguages() ?? GetLangaugeResponseModel();
-    languageList.clear();
-    isShowLoader.value = false;
-
-    if (response.success == true && response.data?.languages != []) {
-      languageList.addAll(response.data?.languages ?? []);
-      selectedLanguage.value = languageList.first;
-
-      DropdownModel();
-
-      response.data?.languages
-          ?.map((e) => countiesList.add(DropdownModel(
-                id: e.id ?? "",
-                name: e.name ?? "",
-              )))
-          .toList();
-    } else {
-      setShowLoader(value: false);
-      apiErrorDialog(
-        message: response.message ?? AppStrings.somethingWentWrong,
-        okButtonPressed: () {
-          Get.back();
-        },
-      );
-    }
+  bool isSignUpButtonEnable() {
+    return (firstNameController.value.text.isNotEmpty &&
+        lastNameController.value.text.isNotEmpty &&
+        emailController.value.text.isNotEmpty &&
+        phoneNumberController.value.text.isNotEmpty &&
+        passwordController.value.text.isNotEmpty &&
+        confirmPasswordController.value.text.isNotEmpty &&
+        selectedBaseMaterialDropDown.value.id.isNotEmpty == true);
   }
 }

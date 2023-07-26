@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -150,8 +151,7 @@ class HomeController extends GetxController {
 
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        final int length = response.data?.length ?? 0;
-
+        log("message  a");
         if (isFromRefresh || isFromSearch) {
           propertyList.clear();
         }
@@ -165,6 +165,7 @@ class HomeController extends GetxController {
         refreshController.refreshCompleted();
         refreshController.loadComplete();
       } else {
+        log("message  b");
         loadMore.value = false;
         setShowLoader(value: false);
         loadMore.refresh();

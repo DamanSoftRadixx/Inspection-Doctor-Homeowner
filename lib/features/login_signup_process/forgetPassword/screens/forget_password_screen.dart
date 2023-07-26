@@ -22,21 +22,21 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
-          children: [
-            SingleChildScrollView(
-              physics: RangeMaintainingScrollPhysics(),
-              child: Column(
-                children: [
-                  showHeadingText(),
-                  showEmailField(),
-                  showSendLinkButton(),
-                  // showResendOTP(),
-                ],
-              ).paddingSymmetric(horizontal: 20.w),
-            ),
-            CommonLoader(isLoading: controller.isShowLoader.value)
-          ],
-        )),
+              children: [
+                SingleChildScrollView(
+                  physics: const RangeMaintainingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      showHeadingText(),
+                      showEmailField(),
+                      showSendLinkButton(),
+                      // showResendOTP(),
+                    ],
+                  ).paddingSymmetric(horizontal: 20.w),
+                ),
+                CommonLoader(isLoading: controller.isShowLoader.value)
+              ],
+            )),
       ),
     );
   }
@@ -114,7 +114,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       isError: controller.emailError.value,
       errorMsg: controller.emailErrorMessage.value,
       focusNode: controller.emailFocusNode.value,
-      controller: controller.emailController,
+      controller: controller.emailController.value,
       title: AppStrings.email.tr,
       hint: AppStrings.email.tr,
       maxLength: 50,
@@ -124,7 +124,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-       controller.onChangedEmailTextField(value : value);
+        controller.onChangedEmailTextField(value: value);
       },
     ).paddingOnly(bottom: 11.h, top: 50.h);
   }
