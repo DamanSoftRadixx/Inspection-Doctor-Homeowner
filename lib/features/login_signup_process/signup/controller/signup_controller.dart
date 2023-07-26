@@ -4,9 +4,11 @@ import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:device_uuid/device_uuid.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
@@ -25,17 +27,18 @@ import 'package:keyboard_actions/keyboard_actions.dart';
 class SignupController extends GetxController {
   SignUpProvider signUpProvider = SignUpProvider();
 
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController cityController = TextEditingController();
-  TextEditingController stateController = TextEditingController();
-  TextEditingController zipCodeController = TextEditingController();
+  Rx<TextEditingController> firstNameController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameController = TextEditingController().obs;
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> nameController = TextEditingController().obs;
+  Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
+  Rx<TextEditingController> confirmPasswordController =
+      TextEditingController().obs;
+  Rx<TextEditingController> streetController = TextEditingController().obs;
+  Rx<TextEditingController> cityController = TextEditingController().obs;
+  Rx<TextEditingController> stateController = TextEditingController().obs;
+  Rx<TextEditingController> zipCodeController = TextEditingController().obs;
 
   Rx<FocusNode> firstNameFocusNode = FocusNode().obs;
   Rx<FocusNode> lastNameFocusNode = FocusNode().obs;
@@ -242,12 +245,12 @@ class SignupController extends GetxController {
   void onTapSignButton() {
     dismissKeyboard();
     validate(
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        phone: phoneNumberController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
+        firstName: firstNameController.value.text,
+        lastName: lastNameController.value.text,
+        email: emailController.value.text,
+        phone: phoneNumberController.value.text,
+        password: passwordController.value.text,
+        confirmPassword: confirmPasswordController.value.text,
         isLanguageSelected: selectedBaseMaterialDropDown.value.id.isNotEmpty);
   }
 
@@ -292,17 +295,17 @@ class SignupController extends GetxController {
     var body = json.encode({
       "role_id": inspectorRoleId,
       "register_type": RegisterTypeEnum.email.value,
-      "first_name": firstNameController.text,
-      "last_name": lastNameController.text,
-      "email": emailController.text,
-      "phone": phoneNumberController.text,
-      "password": passwordController.text,
+      "first_name": firstNameController.value.text,
+      "last_name": lastNameController.value.text,
+      "email": emailController.value.text,
+      "phone": phoneNumberController.value.text,
+      "password": passwordController.value.text,
       "language_id": selectedLangId,
       "country_code": int.parse(selectedCountryCode.value),
-      "state": stateController.text,
-      "zip_code": zipCodeController.text,
-      "street": streetController.text,
-      "city": cityController.text,
+      "state": stateController.value.text,
+      "zip_code": zipCodeController.value.text,
+      "street": streetController.value.text,
+      "city": cityController.value.text,
       "image": "",
       "device_type":
           isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
@@ -322,8 +325,8 @@ class SignupController extends GetxController {
         Get.toNamed(Routes.otpVerifyScreen, arguments: {
           GetArgumentConstants.otp: signUpResponse.value.otp,
           GetArgumentConstants.phoneNumber:
-              "+$selectedCountryCode ${phoneNumberController.text}",
-          GetArgumentConstants.email: emailController.text,
+              "+$selectedCountryCode ${phoneNumberController.value.text}",
+          GetArgumentConstants.email: emailController.value.text,
           GetArgumentConstants.from: Routes.signupScreen
         });
         //    //  snackbar(response.message ?? "");
@@ -343,7 +346,7 @@ class SignupController extends GetxController {
 
   void onChangedFirstNameTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      firstNameController.text = firstNameController.text.trim();
+      firstNameController.value.text = firstNameController.value.text.trim();
     }
 
     if (value.length >= 2) {
@@ -353,7 +356,7 @@ class SignupController extends GetxController {
 
   void onChangedLastNameTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      lastNameController.text = lastNameController.text.trim();
+      lastNameController.value.text = lastNameController.value.text.trim();
     }
     if (value.length >= 2) {
       lastNameError.value = false;
@@ -362,15 +365,15 @@ class SignupController extends GetxController {
 
   void onChangedEmailTextField({required String value}) {
     if (value.length == 1 && value.contains(" ")) {
-      firstNameController.text = firstNameController.text.trim();
+      firstNameController.value.text = firstNameController.value.text.trim();
     }
-    if (value.isNotEmpty && emailController.text.isEmail) {
+    if (value.isNotEmpty && emailController.value.text.isEmail) {
       emailError.value = false;
     }
   }
 
   void onChangedPhoneTextField({required String value}) {
-    if (phoneNumberController.text.length > 6) {
+    if (phoneNumberController.value.text.length > 6) {
       phoneError.value = false;
     }
   }
@@ -380,7 +383,7 @@ class SignupController extends GetxController {
   }
 
   void onChangedPasswordTextField({required String value}) {
-    if (isValidPassword(password: passwordController.text)) {
+    if (isValidPassword(password: passwordController.value.text)) {
       passwordError.value = false;
     }
   }
@@ -395,7 +398,8 @@ class SignupController extends GetxController {
 
   void onChangedConfirmPasswordTextField({required String value}) {
     if (value.isNotEmpty &&
-        (passwordController.text == confirmPasswordController.text)) {
+        (passwordController.value.text ==
+            confirmPasswordController.value.text)) {
       confirmPasswordError.value = false;
     }
   }
@@ -409,17 +413,56 @@ class SignupController extends GetxController {
   }
 
   void onTapChooseButton() {
-    Get.toNamed(Routes.chooseMap)?.then((value) {
+    Get.toNamed(Routes.chooseMap)?.then((value) async {
       if (value != null) {
-        Placemark placeData = value[0][GetArgumentConstants.googleAddressPlace];
-        log("getChooseMapButton $placeData");
+        PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
 
-        streetController.text = placeData.street ?? "";
-        cityController.text = placeData.locality == ""
-            ? placeData.subLocality ?? ""
-            : placeData.locality ?? "";
-        stateController.text = placeData.administrativeArea ?? "";
-        zipCodeController.text = placeData.postalCode ?? "";
+        // log("adrAddress ${result.adrAddress}");
+
+        // log("message>>>>>> ${result.formattedAddress}");
+        // log("message>>>>> ${result.addressComponents?.first.longName}");
+        // log("message ${result.placeId}");
+
+        // for (var i in result.addressComponents ?? []) {
+        //   print("Long Name: ${i.longName}   Long Name: ${i.types}");
+        // }
+
+        FFPlace place = FFPlace(
+          latLng: LatLng(
+            result.geometry?.location.lat ?? 0,
+            result.geometry?.location.lng ?? 0,
+          ),
+          name: result.name ?? "",
+          address: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
+                  ?.longName ??
+              "",
+          city: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('locality'))
+                  ?.longName ??
+              result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('sublocality'))
+                  ?.longName ??
+              '',
+          state: result.addressComponents
+                  ?.firstWhereOrNull(
+                      (e) => e.types.contains('administrative_area_level_1'))
+                  ?.longName ??
+              '',
+          country: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('country'))
+                  ?.longName ??
+              '',
+          zipCode: result.addressComponents
+                  ?.firstWhereOrNull((e) => e.types.contains('postal_code'))
+                  ?.longName ??
+              '',
+        );
+
+        streetController.value.text = place.address ?? "";
+        cityController.value.text = place.city;
+        stateController.value.text = place.state ?? "";
+        zipCodeController.value.text = place.zipCode ?? "";
       }
     });
   }

@@ -443,7 +443,7 @@ Widget dropdownField(
           decoration: decoration(isSelected: hasFocus),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<DropdownModel>(
-              isDense: true,
+              // isDense: true,
               /* menuItemStyleData:
                   MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
               dropdownStyleData: DropdownStyleData(
@@ -472,16 +472,19 @@ Widget dropdownField(
                 padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
                 child: Row(
                   children: [
-                    AppTextWidget(
-                      text: selectedValue.name,
-                      style: TextStyle(
-                        fontSize: 14.w,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: CommonStrings.generalSans,
-                        color: lightColorPalette.primaryDarkblue,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    selectedValue.name == ""
+                        ? AppTextWidget(
+                            text: hint ?? "",
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryDarkblue
+                                    .withOpacity(0.5)),
+                          )
+                        : AppTextWidget(
+                            text: selectedValue.name,
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.primaryDarkblue),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                     const Spacer(),
                     Padding(
                       padding: EdgeInsets.only(left: 8.w),

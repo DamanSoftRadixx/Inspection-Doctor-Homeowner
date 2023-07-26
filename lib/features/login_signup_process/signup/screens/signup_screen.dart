@@ -201,7 +201,7 @@ class SignupScreen extends GetView<SignupController> {
       focusNode: controller.firstNameFocusNode.value,
       isError: controller.firstNameError.value,
       errorMsg: controller.firstNameErrorMessage.value,
-      controller: controller.firstNameController,
+      controller: controller.firstNameController.value,
       title: AppStrings.firstName.tr,
       hint: AppStrings.firstName.tr,
       maxLength: 30,
@@ -220,7 +220,7 @@ class SignupScreen extends GetView<SignupController> {
     return commonTextFieldWidget(
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.lastNameFocusNode.value,
-      controller: controller.lastNameController,
+      controller: controller.lastNameController.value,
       isError: controller.lastNameError.value,
       errorMsg: controller.lastNameErrorMessage.value,
       title: AppStrings.lastName.tr,
@@ -240,7 +240,7 @@ class SignupScreen extends GetView<SignupController> {
   Widget showEmailField() {
     return commonTextFieldWidget(
       focusNode: controller.emailFocusNode.value,
-      controller: controller.emailController,
+      controller: controller.emailController.value,
       isError: controller.emailError.value,
       errorMsg: controller.emailErrorMessage.value,
       maxLength: 50,
@@ -260,7 +260,7 @@ class SignupScreen extends GetView<SignupController> {
   Widget showPhoneNumberField() {
     return commonPhoneText(
       focusNode: controller.phoneNumberFocusNode.value,
-      controller: controller.phoneNumberController,
+      controller: controller.phoneNumberController.value,
       title: AppStrings.phoneNumber.tr,
       hint: AppStrings.phoneNumber.tr,
       isError: controller.phoneError.value,
@@ -280,7 +280,7 @@ class SignupScreen extends GetView<SignupController> {
   Widget showPasswordField() {
     return commonPasswordText(
       focusNode: controller.passwordFocusNode.value,
-      controller: controller.passwordController,
+      controller: controller.passwordController.value,
       title: AppStrings.loginScreenPassword.tr,
       hint: AppStrings.loginScreenPassword.tr,
       isError: controller.passwordError.value,
@@ -300,7 +300,7 @@ class SignupScreen extends GetView<SignupController> {
   Widget showConfirmPasswordField() {
     return commonPasswordText(
       focusNode: controller.confirmPasswordFocusNode.value,
-      controller: controller.confirmPasswordController,
+      controller: controller.confirmPasswordController.value,
       title: AppStrings.confirmPassword.tr,
       hint: AppStrings.confirmPassword.tr,
       isError: controller.confirmPasswordError.value,
@@ -324,7 +324,7 @@ class SignupScreen extends GetView<SignupController> {
       ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.streetFocusNode.value,
-      controller: controller.streetController,
+      controller: controller.streetController.value,
       title: AppStrings.street.tr,
       maxLength: 30,
       hint: AppStrings.street.tr,
@@ -332,8 +332,8 @@ class SignupScreen extends GetView<SignupController> {
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         if (value.length == 1 && value.contains(" ")) {
-          controller.streetController.text =
-              controller.streetController.text.trim();
+          controller.streetController.value.text =
+              controller.streetController.value.text.trim();
         }
       },
     );
@@ -346,7 +346,7 @@ class SignupScreen extends GetView<SignupController> {
       ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.cityFocusNode.value,
-      controller: controller.cityController,
+      controller: controller.cityController.value,
       title: AppStrings.city.tr,
       maxLength: 30,
       hint: AppStrings.city.tr,
@@ -354,8 +354,8 @@ class SignupScreen extends GetView<SignupController> {
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         if (value.length == 1 && value.contains(" ")) {
-          controller.cityController.text =
-              controller.cityController.text.trim();
+          controller.cityController.value.text =
+              controller.cityController.value.text.trim();
         }
       },
     );
@@ -368,7 +368,7 @@ class SignupScreen extends GetView<SignupController> {
       ],
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.stateFocusNode.value,
-      controller: controller.stateController,
+      controller: controller.stateController.value,
       title: AppStrings.state.tr,
       hint: AppStrings.state.tr,
       maxLength: 30,
@@ -376,8 +376,8 @@ class SignupScreen extends GetView<SignupController> {
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         if (value.length == 1 && value.contains(" ")) {
-          controller.stateController.text =
-              controller.stateController.text.trim();
+          controller.stateController.value.text =
+              controller.stateController.value.text.trim();
         }
       },
     );
@@ -387,7 +387,7 @@ class SignupScreen extends GetView<SignupController> {
     return commonTextFieldWidget(
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
       focusNode: controller.zipCodeFocusNode.value,
-      controller: controller.zipCodeController,
+      controller: controller.zipCodeController.value,
       title: AppStrings.zipCode.tr,
       hint: AppStrings.zipCode.tr,
       maxLength: 5,
