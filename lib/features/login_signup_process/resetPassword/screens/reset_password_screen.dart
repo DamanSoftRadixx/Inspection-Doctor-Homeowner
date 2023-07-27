@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/controller/reset_password_controller.dart';
 
 class ResetPasswordScreen extends GetView<ResetPasswordController> {
@@ -42,7 +44,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
     return CommonButton(
             commonButtonBottonText: AppStrings.reset.tr,
             onPress: controller.passwordController.value.text.isNotEmpty &&
-                    controller.passwordController.value.text.isNotEmpty
+                    controller.confirmPasswordController.value.text.isNotEmpty
                 ? () {
                     controller.validate(
                         password: controller.passwordController.value.text,
@@ -59,6 +61,10 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
         Get.back();
       },
       title: AppStrings.reset.tr,
+      centerWidget: AssetWidget(
+        asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
+        boxFit: BoxFit.fitWidth,
+      ),
     );
   }
 

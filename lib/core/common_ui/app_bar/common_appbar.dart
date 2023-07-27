@@ -26,7 +26,8 @@ import '../../theme/app_color_palette.dart';
 AppBar commonAppBarWithElevation(
     {required String title,
     bool isShowBackButton = true,
-    Function()? onPressBackButton}) {
+    Function()? onPressBackButton,
+    Widget? centerWidget}) {
   return AppBar(
     leading: isShowBackButton
         ? CustomInkwell(
@@ -56,12 +57,13 @@ AppBar commonAppBarWithElevation(
         ),
       ),
     ),
-    title: AppTextWidget(
-      text: title,
-      style: CustomTextTheme.heading2(
-        color: lightColorPalette.black,
-      ),
-    ),
+    title: centerWidget ??
+        AppTextWidget(
+          text: title,
+          style: CustomTextTheme.heading2(
+            color: lightColorPalette.black,
+          ),
+        ),
   );
 }
 

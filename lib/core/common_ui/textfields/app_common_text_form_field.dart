@@ -171,17 +171,14 @@ Widget commonPasswordText(
                         : () {
                             onPress();
                           },
-                    child: passwordVisible
-                        ? AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.hideEye),
-                          )
-                        : AssetWidget(
-                            asset: Asset(
-                                type: AssetType.svg,
-                                path: ImageResource.openEye),
-                          ),
+                    child: AssetWidget(
+                      color: lightColorPalette.black,
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: passwordVisible
+                              ? ImageResource.hideEye
+                              : ImageResource.openEye),
+                    ),
                   )),
             ],
           ),
@@ -245,8 +242,30 @@ Widget commonPhoneText({
                   context: Get.context!,
                   showPhoneCode: true,
                   onSelect: onSelect,
-                  countryListTheme:
-                      CountryListThemeData(bottomSheetHeight: .80.sh),
+                  countryListTheme: CountryListThemeData(
+                    bottomSheetHeight: .80.sh,
+                    // inputDecoration: InputDecoration(
+                    //   hintText: AppStrings.loginEmail,
+                    //   border: OutlineInputBorder(
+                    //       borderRadius:
+                    //           BorderRadius.all(Radius.circular(12.0.r)),
+                    //       borderSide: BorderSide(
+                    //           color: lightColorPalette
+                    //               .additionalSwatch1.shade800)),
+                    //   focusedBorder: OutlineInputBorder(
+                    //       borderRadius:
+                    //           BorderRadius.all(Radius.circular(12.0.r)),
+                    //       borderSide: BorderSide(
+                    //           color: lightColorPalette
+                    //               .additionalSwatch1.shade800)),
+                    //   enabledBorder: OutlineInputBorder(
+                    //       borderRadius:
+                    //           BorderRadius.all(Radius.circular(12.0.r)),
+                    //       borderSide: BorderSide(
+                    //           color: lightColorPalette
+                    //               .additionalSwatch1.shade800)),
+                    // ),
+                  ),
                 );
               },
               child: Row(
@@ -595,6 +614,7 @@ List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
               const Spacer(),
               selectedValue.id == item.id
                   ? AssetWidget(
+                      color: Colors.green,
                       asset: Asset(
                           type: AssetType.svg, path: ImageResource.checked))
                   : Container(),

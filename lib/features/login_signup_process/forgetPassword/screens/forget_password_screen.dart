@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
@@ -10,6 +11,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/controller/forget_password_controller.dart';
 
 class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
@@ -65,10 +67,13 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
 
   showSendLinkButton() {
     return CommonButton(
-        commonButtonBottonText: AppStrings.sendOTP.tr,
-        onPress: () {
-          controller.onTapSendLinkBotton();
-        }).paddingOnly(top: 50.h);
+            commonButtonBottonText: AppStrings.sendOTP.tr,
+            onPress: controller.emailController.value.text.isNotEmpty
+                ? () {
+                    controller.onTapSendLinkBotton();
+                  }
+                : null)
+        .paddingOnly(top: 50.h);
   }
 
   AppBar showAppBar() {
@@ -77,6 +82,10 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
         Get.back();
       },
       title: AppStrings.forgotpassword.tr,
+      centerWidget: AssetWidget(
+        asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
+        boxFit: BoxFit.fitWidth,
+      ),
     );
   }
 

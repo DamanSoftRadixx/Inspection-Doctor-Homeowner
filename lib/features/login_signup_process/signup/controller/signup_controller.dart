@@ -165,6 +165,14 @@ class SignupController extends GetxController {
       if (languageListTemp.isNotEmpty) {
         languageList.value = languageListTemp;
       }
+
+      String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+      if (selectedLangId != "") {
+        int index =
+            languageList.indexWhere((element) => element.id == selectedLangId);
+        selectedBaseMaterialDropDown.value = languageList[index];
+      }
     }
   }
 

@@ -343,26 +343,46 @@ class LoginScreen extends GetView<LoginController> {
     ).paddingOnly(top: 57.h, bottom: 50.h, left: 50.w, right: 50.w);
   }
 
-  Center getTopLogo() {
-    return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          color: lightColorPalette.whiteColorPrimary.shade900,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 0,
-              spreadRadius: 0,
-              offset: const Offset(0, 1),
+  getTopLogo() {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Center(
+          child: Container(
+            height: 70.h,
+            width: 70.w,
+            decoration: BoxDecoration(
+              color: lightColorPalette.whiteColorPrimary.shade900,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 0,
+                  spreadRadius: 0,
+                  offset: const Offset(0, 1),
+                  color: lightColorPalette.black,
+                )
+              ],
+            ),
+          ),
+        ),
+        Center(
+          child: Container(
+            height: 50.h,
+            width: 50.w,
+            decoration: BoxDecoration(
               color: lightColorPalette.black,
-            )
-          ],
-        ),
-        child: AssetWidget(
-          asset: Asset(type: AssetType.svg, path: ImageResource.loginLogo),
-          boxFit: BoxFit.fitWidth,
-        ),
-      ),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: AssetWidget(
+                color: lightColorPalette.whiteColorPrimary.shade900,
+                asset: Asset(type: AssetType.svg, path: ImageResource.cid),
+                boxFit: BoxFit.fitWidth,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 

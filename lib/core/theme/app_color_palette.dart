@@ -12,7 +12,7 @@ class AppColorPalette {
   final Color redDark;
   final Color primaryBlue;
   // final Color black;
-  final Color stroke;
+  // final Color stroke;
   // final Color primaryGrey;
   final Color redBackground;
   final Color greenDark;
@@ -30,7 +30,7 @@ class AppColorPalette {
     required this.redDark,
     required this.primaryBlue,
     // required this.black,
-    required this.stroke,
+    // required this.stroke,
     // required this.primaryGrey,
     required this.redBackground,
     required this.greenDark,
@@ -54,7 +54,7 @@ AppColorPalette lightColorPalette = AppColorPalette(
   transparentColor: Colors.transparent,
   redDark: const Color(0xFFF51F1F),
   backgroundColor: const Color(0xFFEDF4FF),
-  stroke: const Color(0xFFB3BAC6),
+  // stroke: const Color(0xFFB3BAC6),
   greenBackground: const Color(0xFFE0FFDF),
   greenDark: const Color(0xFF04B201),
   primaryBlue: const Color(0xFF0060F7),

@@ -3,6 +3,7 @@ class ImageResource {
 
   static String splash = "assets/images/svg/splash.svg";
   static String backArrow = "assets/images/svg/backArrow.svg";
+  static String cidFill = "assets/images/svg/cid_fill.svg";
 
   //language
   static String flagUSA = "assets/images/svg/flagUSA.svg";
@@ -13,6 +14,7 @@ class ImageResource {
 
   //Login
   static String loginLogo = "assets/images/svg/loginLogo.svg";
+  static String cid = "assets/images/svg/cid.svg";
   static String loginHandLogo = "assets/images/svg/loginHandLogo.svg";
   static String openEye = "assets/images/svg/openEye.svg";
   static String hideEye = "assets/images/svg/hideEye.svg";

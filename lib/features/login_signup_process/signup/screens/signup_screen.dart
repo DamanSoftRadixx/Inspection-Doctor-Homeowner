@@ -114,6 +114,7 @@ class SignupScreen extends GetView<SignupController> {
         child: Row(
           children: [
             AssetWidget(
+              color: lightColorPalette.black,
               asset: Asset(
                 type: AssetType.svg,
                 path: ImageResource.map,

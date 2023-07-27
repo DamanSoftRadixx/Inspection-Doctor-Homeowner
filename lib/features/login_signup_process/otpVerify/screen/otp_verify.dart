@@ -3,12 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/controller/otp_verify_controller.dart';
 import 'package:pinput/pinput.dart';
 
@@ -122,6 +124,10 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
         Get.back();
       },
       title: AppStrings.otp.tr,
+      centerWidget: AssetWidget(
+        asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
+        boxFit: BoxFit.fitWidth,
+      ),
     );
   }
 
@@ -191,7 +197,7 @@ final defaultPinTheme = PinTheme(
   decoration: BoxDecoration(
     color: lightColorPalette.whiteColorPrimary.shade900,
     border: Border.all(color: lightColorPalette.grey, width: 0.3.w),
-    borderRadius: BorderRadius.circular(4.r),
+    borderRadius: BorderRadius.circular(10.r),
   ),
 );
 
@@ -206,10 +212,11 @@ final focusedPinTheme = defaultPinTheme.copyDecorationWith(
     ),
   ],
   border: Border.all(color: lightColorPalette.black, width: 1.w),
-  borderRadius: BorderRadius.circular(4.r),
+  borderRadius: BorderRadius.circular(10.r),
 );
 
 final submittedPinTheme = defaultPinTheme.copyWith(
-  decoration: defaultPinTheme.decoration
-      ?.copyWith(color: lightColorPalette.backgroundColor),
+  decoration: defaultPinTheme.decoration?.copyWith(
+      color: lightColorPalette.black.withOpacity(0.05),
+      borderRadius: BorderRadius.circular(6.r)),
 );
