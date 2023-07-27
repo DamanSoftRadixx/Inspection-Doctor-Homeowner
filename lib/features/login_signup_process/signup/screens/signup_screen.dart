@@ -23,7 +23,7 @@ class SignupScreen extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: commonAppBarWithElevation(
         title: AppStrings.signup.tr,
         onPressBackButton: () {
@@ -90,8 +90,7 @@ class SignupScreen extends GetView<SignupController> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.mailingAddress.tr,
         ),
 
@@ -111,8 +110,7 @@ class SignupScreen extends GetView<SignupController> {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.r),
-            border:
-                Border.all(color: lightColorPalette.primaryBlue, width: 0.3)),
+            border: Border.all(color: lightColorPalette.black, width: 0.3)),
         child: Row(
           children: [
             AssetWidget(
@@ -123,7 +121,7 @@ class SignupScreen extends GetView<SignupController> {
             ).paddingOnly(right: 4.w),
             AppTextWidget(
               style: CustomTextTheme.bottomTabsithFontWeight600(
-                  color: lightColorPalette.primaryBlue),
+                  color: lightColorPalette.black),
               text: AppStrings.chooseOnMap.tr,
             )
           ],
@@ -138,8 +136,7 @@ class SignupScreen extends GetView<SignupController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.alreadyAccount.tr,
         ),
         CustomInkwell(
@@ -150,7 +147,7 @@ class SignupScreen extends GetView<SignupController> {
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
-                color: lightColorPalette.primaryBlue),
+                color: lightColorPalette.black),
             text: AppStrings.login.tr,
           ),
         ),
@@ -175,7 +172,7 @@ class SignupScreen extends GetView<SignupController> {
           child: AppTextWidget(
             text: AppStrings.registerStarted.tr,
             style: CustomTextTheme.heading1(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.black,
             ),
           ),
         ).paddingOnly(
@@ -189,7 +186,7 @@ class SignupScreen extends GetView<SignupController> {
             textAlign: TextAlign.center,
             text: AppStrings.fillDetail,
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryGrey,
+              color: lightColorPalette.grey,
             ),
           ),
         ).paddingOnly(left: 20.w, right: 20.w, bottom: 0.h),

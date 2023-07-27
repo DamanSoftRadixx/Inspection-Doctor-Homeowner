@@ -35,7 +35,7 @@ Widget commonTextFieldWidget(
       if (title != null && title != "")
         AppTextWidget(
           style: CustomTextTheme.normalText(
-            color: lightColorPalette.primaryDarkblue,
+            color: lightColorPalette.black,
           ),
           text: title ?? "",
           textAlign: TextAlign.center,
@@ -71,10 +71,9 @@ Widget commonTextFieldWidget(
                 border: InputBorder.none,
                 hintText: hint ?? "",
                 hintStyle: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                    color: lightColorPalette.black.withOpacity(0.5)),
               ),
-              style: CustomTextTheme.normalText(
-                  color: lightColorPalette.primaryDarkblue),
+              style: CustomTextTheme.normalText(color: lightColorPalette.black),
             ),
           ),
         ),
@@ -116,7 +115,7 @@ Widget commonPasswordText(
           padding: EdgeInsets.only(bottom: 3.h),
           child: AppTextWidget(
             style: CustomTextTheme.normalText(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.black,
             ),
             text: title ?? "",
             textAlign: TextAlign.center,
@@ -152,8 +151,7 @@ Widget commonPasswordText(
                   ],
                   decoration: InputDecoration(
                     hintStyle: CustomTextTheme.normalText(
-                        color:
-                            lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                        color: lightColorPalette.black.withOpacity(0.5)),
                     border: InputBorder.none,
                     counterText: "",
                     hintText: hint ?? "",
@@ -161,7 +159,7 @@ Widget commonPasswordText(
                     contentPadding: EdgeInsets.symmetric(horizontal: 15.w),
                   ),
                   style: CustomTextTheme.normalText(
-                      color: lightColorPalette.primaryDarkblue),
+                      color: lightColorPalette.black),
                 ),
               ),
               Flexible(
@@ -226,8 +224,7 @@ Widget commonPhoneText({
         Padding(
           padding: EdgeInsets.only(bottom: 3.h),
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryDarkblue),
+            style: CustomTextTheme.normalText(color: lightColorPalette.black),
             text: title,
             textAlign: TextAlign.center,
           ),
@@ -261,7 +258,7 @@ Widget commonPhoneText({
                                 ? countryCode
                                 : "+$countryCode",
                             style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue))
+                                color: lightColorPalette.black))
                         .paddingOnly(left: 15.w, top: 1.h),
                   ),
                 ],
@@ -286,11 +283,10 @@ Widget commonPhoneText({
                   contentPadding:
                       EdgeInsets.only(left: 10.0, right: 10.w, top: 2.h),
                   hintStyle: CustomTextTheme.normalText(
-                      color:
-                          lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                      color: lightColorPalette.black.withOpacity(0.5)),
                 ),
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue),
+                style:
+                    CustomTextTheme.normalText(color: lightColorPalette.black),
               ),
             ),
           ],
@@ -334,7 +330,11 @@ Widget commonSearchFieldWidget({
             width: 12.w,
           ),
           AssetWidget(
-            asset: Asset(type: AssetType.svg, path: ImageResource.searchIcon),
+            color: lightColorPalette.grey,
+            asset: Asset(
+              type: AssetType.svg,
+              path: ImageResource.searchIcon,
+            ),
           ),
           Expanded(
             child: TextFormField(
@@ -350,10 +350,9 @@ Widget commonSearchFieldWidget({
                 border: InputBorder.none,
                 hintText: searchHint,
                 hintStyle: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey),
+                    color: lightColorPalette.black.withOpacity(0.3)),
               ),
-              style: CustomTextTheme.normalText(
-                  color: lightColorPalette.primaryDarkblue),
+              style: CustomTextTheme.normalText(color: lightColorPalette.black),
             ),
           )
         ],
@@ -397,10 +396,10 @@ Widget commonDateFieldWidget({
                 border: InputBorder.none,
                 hintText: "00:00",
                 hintStyle: CustomTextTheme.normalText2(
-                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                    color: lightColorPalette.black.withOpacity(0.5)),
               ),
-              style: CustomTextTheme.normalText2(
-                  color: lightColorPalette.primaryDarkblue),
+              style:
+                  CustomTextTheme.normalText2(color: lightColorPalette.black),
             ),
           )
         ],
@@ -431,8 +430,7 @@ Widget dropdownField(
         Padding(
           padding: EdgeInsets.only(bottom: 3.h),
           child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryDarkblue),
+            style: CustomTextTheme.normalText(color: lightColorPalette.black),
             text: title,
             textAlign: TextAlign.center,
           ),
@@ -453,8 +451,7 @@ Widget dropdownField(
                   color: lightColorPalette.whiteColorPrimary.shade900,
                   boxShadow: [
                     BoxShadow(
-                        color:
-                            lightColorPalette.primaryDarkblue.withOpacity(0.2),
+                        color: lightColorPalette.black.withOpacity(0.2),
                         spreadRadius: 4,
                         blurRadius: 20,
                         offset: const Offset(1, 1))
@@ -462,7 +459,7 @@ Widget dropdownField(
                   borderRadius: BorderRadius.circular(6.r),
                   shape: BoxShape.rectangle,
                   border: Border.all(
-                      color: lightColorPalette.primaryDarkblue.withOpacity(0.3),
+                      color: lightColorPalette.black.withOpacity(0.3),
                       width: 0.3),
                 ),
               ),
@@ -476,13 +473,13 @@ Widget dropdownField(
                         ? AppTextWidget(
                             text: hint ?? "",
                             style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue
-                                    .withOpacity(0.5)),
+                                color:
+                                    lightColorPalette.black.withOpacity(0.5)),
                           )
                         : AppTextWidget(
                             text: selectedValue.name,
                             style: CustomTextTheme.normalText(
-                                color: lightColorPalette.primaryDarkblue),
+                                color: lightColorPalette.black),
                             overflow: TextOverflow.ellipsis,
                           ),
                     const Spacer(),
@@ -501,14 +498,14 @@ Widget dropdownField(
               iconStyleData: IconStyleData(
                 icon: Center(
                   child: Icon(Icons.arrow_drop_down,
-                          color: lightColorPalette.primaryDarkblue, size: 25.h)
+                          color: lightColorPalette.black, size: 25.h)
                       .paddingOnly(right: 4.w),
                 ),
               ),
               hint: AppTextWidget(
                 text: hint ?? "",
                 style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryDarkblue.withOpacity(0.5)),
+                    color: lightColorPalette.black.withOpacity(0.5)),
               ),
               buttonStyleData: ButtonStyleData(
                 padding: EdgeInsets.only(left: 2.w, right: 5.w),
@@ -524,7 +521,7 @@ Widget dropdownField(
                           fontSize: 14.w,
                           fontWeight: FontWeight.w500,
                           fontFamily: CommonStrings.generalSans,
-                          color: lightColorPalette.primaryDarkblue,
+                          color: lightColorPalette.black,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -591,8 +588,8 @@ List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
                 text: item.name.toString(),
                 style: CustomTextTheme.normalTextWithWeight600(
                     color: selectedValue.id == item.id
-                        ? lightColorPalette.primaryBlue
-                        : lightColorPalette.primaryDarkblue),
+                        ? lightColorPalette.black
+                        : lightColorPalette.black),
                 overflow: TextOverflow.ellipsis,
               ),
               const Spacer(),

@@ -18,7 +18,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
@@ -46,8 +46,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: controller.timerCountdown.value > 0
               ? AppStrings.expiresIn.tr
               : AppStrings.dontYouReceivedOTP.tr,
@@ -59,7 +58,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
-                color: lightColorPalette.primaryBlue),
+                color: lightColorPalette.black),
             text: controller.timerCountdown.value > 0
                 ? controller.getTimerLabel()
                 : AppStrings.resendOTP.tr,
@@ -133,7 +132,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
           child: AppTextWidget(
             text: AppStrings.codeVerification.tr,
             style: CustomTextTheme.heading1(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.black,
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
@@ -144,7 +143,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
               textAlign: TextAlign.center,
               text: AppStrings.oTPSent.tr,
               style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryGrey,
+                color: lightColorPalette.grey,
               ),
             ),
             AppTextWidget(
@@ -152,7 +151,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
               text: controller.phoneNumberOrEmail.value,
               style: CustomTextTheme.categoryText(
                 height: 0,
-                color: lightColorPalette.primaryDarkblue,
+                color: lightColorPalette.black,
               ),
             ).paddingOnly(left: 2.w),
             controller.email.value.isNotEmpty
@@ -160,7 +159,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
                     textAlign: TextAlign.center,
                     text: AppStrings.and.tr,
                     style: CustomTextTheme.normalText(
-                      color: lightColorPalette.primaryGrey,
+                      color: lightColorPalette.grey,
                     ),
                   )
                 : const SizedBox(),
@@ -174,7 +173,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
               text: controller.email.value,
               style: CustomTextTheme.categoryText(
                 height: 0,
-                color: lightColorPalette.primaryDarkblue,
+                color: lightColorPalette.black,
               ),
             )
           ],
@@ -188,10 +187,10 @@ final defaultPinTheme = PinTheme(
   width: 44.w,
   height: 44.h,
   margin: EdgeInsets.only(left: 5.w),
-  textStyle: CustomTextTheme.heading2(color: lightColorPalette.primaryDarkblue),
+  textStyle: CustomTextTheme.heading2(color: lightColorPalette.black),
   decoration: BoxDecoration(
     color: lightColorPalette.whiteColorPrimary.shade900,
-    border: Border.all(color: lightColorPalette.stroke, width: 0.3.w),
+    border: Border.all(color: lightColorPalette.grey, width: 0.3.w),
     borderRadius: BorderRadius.circular(4.r),
   ),
 );
@@ -201,12 +200,12 @@ final focusedPinTheme = defaultPinTheme.copyDecorationWith(
   boxShadow: [
     BoxShadow(
       blurRadius: 14,
-      color: lightColorPalette.primaryBlue.withOpacity(0.25),
+      color: lightColorPalette.black.withOpacity(0.25),
       offset: const Offset(0, 6),
       spreadRadius: 0,
     ),
   ],
-  border: Border.all(color: lightColorPalette.primaryBlue, width: 1.w),
+  border: Border.all(color: lightColorPalette.black, width: 1.w),
   borderRadius: BorderRadius.circular(4.r),
 );
 

@@ -28,8 +28,7 @@ extension DashboardScreenExtension on DashBoardScreen {
           decoration: BoxDecoration(
               color: lightColorPalette.whiteColorPrimary.shade900,
               border: Border(
-                  top:
-                      BorderSide(color: lightColorPalette.stroke, width: 0.3))),
+                  top: BorderSide(color: lightColorPalette.grey, width: 0.3))),
           child: Row(
             children: [
               bottomRow(
@@ -82,7 +81,7 @@ extension DashboardScreenExtension on DashBoardScreen {
                   width: 51.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5.r)),
-                    color: lightColorPalette.primaryBlue,
+                    color: lightColorPalette.black,
                   ),
                 ).paddingOnly(bottom: 8.h),
               ),
@@ -90,13 +89,17 @@ extension DashboardScreenExtension on DashBoardScreen {
                     clipBehavior: Clip.none,
                     children: [
                       AssetWidget(
+                        color: check == controller.bottomNavigationEnum.value
+                            ? lightColorPalette.black
+                            : lightColorPalette.grey,
                         asset: Asset(
-                            type: AssetType.svg,
-                            path: check == controller.bottomNavigationEnum.value
-                                ? iconDark
-                                : icon),
-                        width: 20.w,
-                        height: 20.h,
+                          type: AssetType.svg,
+                          path: check == controller.bottomNavigationEnum.value
+                              ? iconDark
+                              : icon,
+                        ),
+                        width: 25.w,
+                        height: 25.h,
                       ).paddingOnly(bottom: 3.53.h),
                     ],
                   )),
@@ -104,8 +107,8 @@ extension DashboardScreenExtension on DashBoardScreen {
                   text: title,
                   style: CustomTextTheme.bottomTabs(
                       color: check == controller.bottomNavigationEnum.value
-                          ? lightColorPalette.primaryBlue
-                          : lightColorPalette.primaryGrey))
+                          ? lightColorPalette.black
+                          : lightColorPalette.grey))
             ],
           ),
         ),

@@ -36,7 +36,7 @@ class PropertyCard extends StatelessWidget {
                 Expanded(
                   child: AppTextWidget(
                     style: CustomTextTheme.heading3(
-                        color: lightColorPalette.primaryDarkblue),
+                        color: lightColorPalette.black),
                     text: property.propertyName ?? "",
                   ),
                 ),
@@ -51,6 +51,7 @@ class PropertyCard extends StatelessWidget {
                           ).paddingOnly(right: 10.w)
                         : const SizedBox(),
                     AssetWidget(
+                      color: lightColorPalette.black,
                       asset: Asset(
                         type: AssetType.svg,
                         path: ImageResource.forwordArrow,
@@ -63,6 +64,7 @@ class PropertyCard extends StatelessWidget {
             Row(
               children: [
                 AssetWidget(
+                  color: lightColorPalette.black,
                   asset: Asset(
                     type: AssetType.svg,
                     path: ImageResource.pinLocation,
@@ -71,14 +73,14 @@ class PropertyCard extends StatelessWidget {
                 Expanded(
                   child: AppTextWidget(
                     style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryGrey),
+                        color: lightColorPalette.grey),
                     text: getAddressFormat(property),
                   ),
                 ),
               ],
             ).paddingOnly(top: 12.h, bottom: 12.h),
             Divider(
-              color: lightColorPalette.stroke,
+              color: lightColorPalette.grey,
               height: 0,
             ),
             Row(
@@ -88,6 +90,7 @@ class PropertyCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AssetWidget(
+                      color: lightColorPalette.black,
                       asset: Asset(
                         type: AssetType.svg,
                         path: ImageResource.hashLogo,
@@ -95,10 +98,11 @@ class PropertyCard extends StatelessWidget {
                     ).paddingOnly(right: 5.w),
                     AppTextWidget(
                       style: CustomTextTheme.normalText(
-                          color: lightColorPalette.primaryGrey),
+                          color: lightColorPalette.grey),
                       text: property.lotNumber ?? "",
                     ),
                     AssetWidget(
+                      color: lightColorPalette.black,
                       asset: Asset(
                         type: AssetType.svg,
                         path: ImageResource.hashLogo,
@@ -106,7 +110,7 @@ class PropertyCard extends StatelessWidget {
                     ).paddingOnly(right: 5.w, left: 20.w),
                     AppTextWidget(
                       style: CustomTextTheme.normalText(
-                          color: lightColorPalette.primaryGrey),
+                          color: lightColorPalette.grey),
                       text: property.blockNumber ?? "",
                     ),
                   ],
@@ -116,12 +120,12 @@ class PropertyCard extends StatelessWidget {
                   children: [
                     // AppTextWidget(
                     //   style: CustomTextTheme.normalText(
-                    //       color: lightColorPalette.primaryDarkblue),
+                    //       color: lightColorPalette.black),
                     //   text: '\u2022 ',
                     // ),
                     // AppTextWidget(
                     //   style: CustomTextTheme.normalText(
-                    //       color: lightColorPalette.primaryDarkblue),
+                    //       color: lightColorPalette.black),
                     //   text: "Scheduled",
                     // ),
                   ],

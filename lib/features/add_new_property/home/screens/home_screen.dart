@@ -22,7 +22,7 @@ class HomeScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          backgroundColor: lightColorPalette.backgroundColor,
+          backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
           floatingActionButton: controller.propertyList.isEmpty
               ? const SizedBox()
               : showFloatingButton(),
@@ -61,7 +61,7 @@ class HomeScreen extends GetView<HomeController> {
           onPressed: () {
             controller.onPressAddPropertyButton();
           },
-          backgroundColor: lightColorPalette.primaryBlue,
+          backgroundColor: lightColorPalette.black,
           child: const Icon(
             Icons.add,
             size: 35,
@@ -133,16 +133,16 @@ class HomeScreen extends GetView<HomeController> {
   Stack showAddProperty() {
     return Stack(
       children: [
-        SizedBox(
-          width: 1.sw,
-          child: AssetWidget(
-            asset: Asset(
-              type: AssetType.svg,
-              path: ImageResource.addPropertyBackgroundImage,
-            ),
-            boxFit: BoxFit.fill,
-          ),
-        ),
+        // SizedBox(
+        //   width: 1.sw,
+        //   child: AssetWidget(
+        //     asset: Asset(
+        //       type: AssetType.svg,
+        //       path: ImageResource.addPropertyBackgroundImage,
+        //     ),
+        //     boxFit: BoxFit.fill,
+        //   ),
+        // ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
@@ -183,7 +183,7 @@ class HomeScreen extends GetView<HomeController> {
             textAlign: TextAlign.center,
             text: AppStrings.addPropertiesForInspection.tr,
             style: CustomTextTheme.heading1WithLetterSpacing(
-                color: lightColorPalette.primaryDarkblue),
+                color: lightColorPalette.black),
           ),
           SizedBox(
             height: 10.h,
@@ -191,8 +191,7 @@ class HomeScreen extends GetView<HomeController> {
           AppTextWidget(
             textAlign: TextAlign.center,
             text: AppStrings.youHaveNotAddedPropertyYet.tr,
-            style: CustomTextTheme.normalText(
-                color: lightColorPalette.primaryGrey),
+            style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           ),
           SizedBox(
             height: 14.h,

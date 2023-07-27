@@ -21,7 +21,7 @@ class CommonLoader extends StatelessWidget {
           width: Get.width,
           child: Center(
             child: LoadingAnimationWidget.staggeredDotsWave(
-              color: lightColorPalette.primaryBlue,
+              color: lightColorPalette.black,
               size: _kSize,
             ),
           ),

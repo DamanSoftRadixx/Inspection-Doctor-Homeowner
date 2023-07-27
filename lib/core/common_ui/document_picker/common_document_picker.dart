@@ -23,7 +23,7 @@ Widget commonDocumentPicker({
         textAlign: TextAlign.start,
         text: title,
         style: CustomTextTheme.normalText(
-          color: lightColorPalette.primaryDarkblue,
+          color: lightColorPalette.black,
         ),
       ),
       SizedBox(
@@ -31,9 +31,9 @@ Widget commonDocumentPicker({
       ),
       DottedBorder(
         borderType: BorderType.RRect,
-        radius: const Radius.circular(4),
+        radius: Radius.circular(10.r),
         padding: const EdgeInsets.all(6),
-        color: lightColorPalette.primaryBlue,
+        color: lightColorPalette.black,
         dashPattern: const [5, 4],
         strokeWidth: 1,
         child: ClipRRect(
@@ -48,6 +48,7 @@ Widget commonDocumentPicker({
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AssetWidget(
+                        color: lightColorPalette.black,
                         asset: Asset(
                             type: AssetType.svg,
                             path: ImageResource.downloadIcon),
@@ -60,7 +61,7 @@ Widget commonDocumentPicker({
                         textAlign: TextAlign.start,
                         text: text ?? AppStrings.uploadDocument.tr,
                         style: CustomTextTheme.normalText(
-                          color: lightColorPalette.primaryBlue,
+                          color: lightColorPalette.black,
                         ),
                       )),
                     ],

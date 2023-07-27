@@ -17,7 +17,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: showAppBar(),
       body: SafeArea(
         child: showMap(),
@@ -73,7 +73,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
       children: [
         Center(
           child: LoadingAnimationWidget.discreteCircle(
-            color: lightColorPalette.primaryBlue,
+            color: lightColorPalette.black,
             size: 48.h,
           ),
         ),

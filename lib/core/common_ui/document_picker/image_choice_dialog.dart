@@ -35,7 +35,7 @@ class ImagePickerUtils {
                 AppTextWidget(
                     text: AppStrings.uploadPhoto,
                     style: CustomTextTheme.heading2(
-                        color: lightColorPalette.primaryDarkblue)),
+                        color: lightColorPalette.black)),
                 CommonButton(
                     commonButtonBottonText: AppStrings.takePhoto.tr,
                     onPress: () async {
@@ -49,10 +49,10 @@ class ImagePickerUtils {
                     }).paddingOnly(bottom: 5.h, top: 22.h),
                 CommonButton(
                     bgColor: lightColorPalette.whiteColorPrimary.shade900,
-                    border: BorderSide(color: lightColorPalette.primaryBlue),
+                    border: BorderSide(color: lightColorPalette.black),
                     commonButtonBottonText: AppStrings.uploadFromDevice.tr,
                     style: CustomTextTheme.buttonText(
-                      color: lightColorPalette.primaryBlue,
+                      color: lightColorPalette.black,
                     ),
                     onPress: () async {
                       if (await checkForPhotosPermissions()) {
@@ -70,7 +70,7 @@ class ImagePickerUtils {
                   },
                   child: AppTextWidget(
                           style: CustomTextTheme.normalTextWithWeight600(
-                              color: lightColorPalette.primaryGrey),
+                              color: lightColorPalette.grey),
                           text: AppStrings.close)
                       .paddingOnly(top: 22.5.h, bottom: 41.5.h),
                 )

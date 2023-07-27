@@ -20,7 +20,7 @@ class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: PreferredSize(
           preferredSize: Size(0, 0.h),
           child: Container(
@@ -86,8 +86,7 @@ class LoginScreen extends GetView<LoginController> {
     return Column(
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.orContinueWith.tr,
         ).paddingOnly(top: 29.h, bottom: 20.h),
         Row(
@@ -104,7 +103,7 @@ class LoginScreen extends GetView<LoginController> {
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 0,
-                        color: lightColorPalette.primaryBlue,
+                        color: lightColorPalette.black,
                         offset: const Offset(0, -1),
                         spreadRadius: 0,
                       ),
@@ -112,7 +111,7 @@ class LoginScreen extends GetView<LoginController> {
                     color: lightColorPalette.whiteColorPrimary.shade900,
                     borderRadius: BorderRadius.circular(6.r),
                     border: Border.all(
-                        width: 0.3.w, color: lightColorPalette.stroke)),
+                        width: 0.3.w, color: lightColorPalette.grey)),
                 child: Center(
                   child: AssetWidget(
                     asset:
@@ -133,7 +132,7 @@ class LoginScreen extends GetView<LoginController> {
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 0,
-                        color: lightColorPalette.primaryBlue,
+                        color: lightColorPalette.black,
                         offset: const Offset(0, -1),
                         spreadRadius: 0,
                       ),
@@ -141,7 +140,7 @@ class LoginScreen extends GetView<LoginController> {
                     color: lightColorPalette.whiteColorPrimary.shade900,
                     borderRadius: BorderRadius.circular(6.r),
                     border: Border.all(
-                        width: 0.3.w, color: lightColorPalette.stroke)),
+                        width: 0.3.w, color: lightColorPalette.grey)),
                 child: Center(
                   child: AssetWidget(
                     asset: Asset(
@@ -163,7 +162,7 @@ class LoginScreen extends GetView<LoginController> {
                           boxShadow: [
                             BoxShadow(
                               blurRadius: 0,
-                              color: lightColorPalette.primaryBlue,
+                              color: lightColorPalette.black,
                               offset: const Offset(0, -1),
                               spreadRadius: 0,
                             ),
@@ -171,7 +170,7 @@ class LoginScreen extends GetView<LoginController> {
                           color: lightColorPalette.whiteColorPrimary.shade900,
                           borderRadius: BorderRadius.circular(6.r),
                           border: Border.all(
-                              width: 0.3.w, color: lightColorPalette.stroke)),
+                              width: 0.3.w, color: lightColorPalette.grey)),
                       child: Center(
                         child: AssetWidget(
                           asset: Asset(
@@ -192,13 +191,13 @@ class LoginScreen extends GetView<LoginController> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Divider(color: lightColorPalette.stroke),
+        Divider(color: lightColorPalette.grey),
         Container(
           height: 2.h,
           width: 70.w,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(2.r),
-              color: lightColorPalette.primaryBlue),
+              color: lightColorPalette.black),
         ),
       ],
     );
@@ -253,8 +252,7 @@ class LoginScreen extends GetView<LoginController> {
           controller.onPressForgotPasswordButton();
         },
         child: AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryBlue),
+          style: CustomTextTheme.normalText(color: lightColorPalette.black),
           text: AppStrings.forgotPassword.tr,
         ),
       ),
@@ -278,8 +276,7 @@ class LoginScreen extends GetView<LoginController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.dontHaveAccount.tr,
         ),
         CustomInkwell(
@@ -289,7 +286,7 @@ class LoginScreen extends GetView<LoginController> {
           },
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
-                color: lightColorPalette.primaryBlue),
+                color: lightColorPalette.black),
             text: AppStrings.signup.tr,
           ),
         )
@@ -302,16 +299,48 @@ class LoginScreen extends GetView<LoginController> {
     );
   }
 
+  // getWelcomeLoginView() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       AssetWidget(
+  //         asset: Asset(type: AssetType.svg, path: ImageResource.welcome),
+  //         boxFit: BoxFit.fitWidth,
+  //       ),
+  //     ],
+  //   ).paddingOnly(top: 57.h, bottom: 50.h);
+  // }
+
   getWelcomeLoginView() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        AssetWidget(
-          asset: Asset(type: AssetType.svg, path: ImageResource.welcome),
-          boxFit: BoxFit.fitWidth,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AssetWidget(
+              asset:
+                  Asset(type: AssetType.svg, path: ImageResource.loginHandLogo),
+              boxFit: BoxFit.fitWidth,
+            ).paddingOnly(right: 10.w),
+            AppTextWidget(
+              text: AppStrings.welcomeToLogin.tr,
+              style: CustomTextTheme.heading1(
+                color: lightColorPalette.black,
+              ),
+            ),
+          ],
+        ).paddingOnly(top: 22.h, bottom: 10.h),
+        Center(
+          child: AppTextWidget(
+            textAlign: TextAlign.center,
+            text: AppStrings.fillLoginDetail,
+            style: CustomTextTheme.normalText(
+              color: lightColorPalette.grey,
+            ),
+          ),
         ),
       ],
-    ).paddingOnly(top: 57.h, bottom: 50.h);
+    ).paddingOnly(top: 57.h, bottom: 50.h, left: 50.w, right: 50.w);
   }
 
   Center getTopLogo() {
@@ -325,7 +354,7 @@ class LoginScreen extends GetView<LoginController> {
               blurRadius: 0,
               spreadRadius: 0,
               offset: const Offset(0, 1),
-              color: lightColorPalette.primaryBlue,
+              color: lightColorPalette.black,
             )
           ],
         ),

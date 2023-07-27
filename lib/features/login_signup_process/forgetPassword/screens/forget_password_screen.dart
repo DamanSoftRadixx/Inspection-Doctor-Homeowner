@@ -18,7 +18,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
@@ -47,8 +47,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.dontYouReceivedLink.tr,
         ),
         CustomInkwell(
@@ -56,7 +55,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           onTap: () {},
           child: AppTextWidget(
             style: CustomTextTheme.normalTextWithWeight600(
-                color: lightColorPalette.primaryBlue),
+                color: lightColorPalette.black),
             text: AppStrings.resendlink.tr,
           ),
         ),
@@ -88,7 +87,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           child: AppTextWidget(
             text: AppStrings.donworryItOccurs.tr,
             style: CustomTextTheme.heading1(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.black,
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
@@ -99,8 +98,8 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
               child: AppTextWidget(
                 textAlign: TextAlign.center,
                 text: AppStrings.forgetPleaseEnterEmail.tr,
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey),
+                style:
+                    CustomTextTheme.normalText(color: lightColorPalette.grey),
               ).paddingSymmetric(horizontal: 30.w),
             ),
           ],

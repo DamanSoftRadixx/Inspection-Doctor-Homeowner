@@ -46,9 +46,9 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     return Container(
       padding: EdgeInsets.only(top: 20.h, bottom: 19.h),
       decoration: BoxDecoration(
-        color: lightColorPalette.backgroundColor,
+        color: lightColorPalette.greyBg,
         border: Border(
-          bottom: BorderSide(width: 1.0, color: lightColorPalette.primaryBlue),
+          bottom: BorderSide(width: 1.0, color: lightColorPalette.black),
         ),
       ),
       child: Column(
@@ -57,8 +57,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
           Align(
             alignment: Alignment.center,
             child: AppTextWidget(
-              style: CustomTextTheme.heading3(
-                  color: lightColorPalette.primaryDarkblue),
+              style: CustomTextTheme.heading3(color: lightColorPalette.black),
               text: controller.propertyDetail.value.propertyName ?? "",
             ),
           ),
@@ -67,16 +66,17 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AssetWidget(
+                color: lightColorPalette.black,
                 asset: Asset(
                   type: AssetType.svg,
                   path: ImageResource.pinLocation,
                 ),
               ).paddingOnly(top: 3.h),
-              Expanded(
+              Flexible(
                 child: AppTextWidget(
                   textAlign: TextAlign.center,
-                  style: CustomTextTheme.normalText(
-                      color: lightColorPalette.primaryGrey),
+                  style:
+                      CustomTextTheme.normalText(color: lightColorPalette.grey),
                   text: getAddressFormat(controller.propertyDetail.value),
                 ),
               ),
@@ -86,14 +86,15 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AssetWidget(
+                color: lightColorPalette.black,
                 asset: Asset(
                   type: AssetType.svg,
                   path: ImageResource.lin,
                 ),
               ).paddingOnly(right: 5.w),
               AppTextWidget(
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey),
+                style:
+                    CustomTextTheme.normalText(color: lightColorPalette.grey),
                 text: controller.propertyDetail.value.permitNumber ?? "",
               ),
             ],
@@ -105,6 +106,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AssetWidget(
+                    color: lightColorPalette.black,
                     asset: Asset(
                       type: AssetType.svg,
                       path: ImageResource.hashLogo,
@@ -112,7 +114,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   ).paddingOnly(right: 5.w),
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryGrey),
+                        color: lightColorPalette.grey),
                     text: controller.propertyDetail.value.lotNumber ?? "",
                   ),
                 ],
@@ -121,6 +123,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AssetWidget(
+                    color: lightColorPalette.black,
                     asset: Asset(
                       type: AssetType.svg,
                       path: ImageResource.hashLogo,
@@ -128,7 +131,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   ).paddingOnly(right: 5.w),
                   AppTextWidget(
                     style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryGrey),
+                        color: lightColorPalette.grey),
                     text: controller.propertyDetail.value.blockNumber ?? "",
                   ),
                 ],
@@ -142,10 +145,10 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               CommonButton(
                   border: BorderSide(
                     width: 0.3,
-                    color: lightColorPalette.stroke,
+                    color: lightColorPalette.grey,
                   ),
                   style: CustomTextTheme.normalTextWithWeight600(
-                      color: lightColorPalette.primaryDarkblue),
+                      color: lightColorPalette.black),
                   bgColor: lightColorPalette.whiteColorPrimary.shade900,
                   icon: AssetWidget(
                     asset: Asset(
@@ -164,7 +167,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               CommonButton(
                   border: BorderSide(
                     width: 0.3,
-                    color: lightColorPalette.stroke,
+                    color: lightColorPalette.grey,
                   ),
                   style: CustomTextTheme.normalTextWithWeight600(
                       color: lightColorPalette.greenDark),
@@ -184,7 +187,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               CommonButton(
                   border: BorderSide(
                     width: 0.3,
-                    color: lightColorPalette.stroke,
+                    color: lightColorPalette.grey,
                   ),
                   style: CustomTextTheme.normalTextWithWeight600(
                       color: lightColorPalette.redDark),

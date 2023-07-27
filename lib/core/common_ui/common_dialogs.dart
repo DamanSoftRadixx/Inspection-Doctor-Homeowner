@@ -39,13 +39,13 @@ Future<void> showCommonAlertSingleButtonDialog(
                             children: [
                               AppTextWidget(
                                 style: CustomTextTheme.heading2(
-                                    color: lightColorPalette.primaryDarkblue),
+                                    color: lightColorPalette.black),
                                 text: title,
                               ).paddingOnly(bottom: 12.h, top: 10.h),
                               AppTextWidget(
                                 textAlign: TextAlign.center,
                                 style: CustomTextTheme.bottomTabs(
-                                    color: lightColorPalette.primaryGrey),
+                                    color: lightColorPalette.grey),
                                 text: subHeader,
                               ).paddingOnly(bottom: 12.h),
                             ],
@@ -54,7 +54,7 @@ Future<void> showCommonAlertSingleButtonDialog(
                         Container(
                           width: 1.sw,
                           height: 0.6.h,
-                          color: lightColorPalette.stroke,
+                          color: lightColorPalette.grey,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ Future<void> showCommonAlertSingleButtonDialog(
                                 child: Center(
                                   child: AppTextWidget(
                                     style: CustomTextTheme.heading2(
-                                        color: lightColorPalette.primaryBlue),
+                                        color: lightColorPalette.black),
                                     text: buttonTitle,
                                   ),
                                 ),
@@ -118,13 +118,13 @@ Future<void> showCommonAlertWithTwoActionsDialog(
                           children: [
                             AppTextWidget(
                               style: CustomTextTheme.heading2(
-                                  color: lightColorPalette.primaryDarkblue),
+                                  color: lightColorPalette.black),
                               text: title,
                             ).paddingOnly(bottom: 12.h, top: 10.h),
                             AppTextWidget(
                               textAlign: TextAlign.center,
                               style: CustomTextTheme.normalText(
-                                  color: lightColorPalette.primaryGrey),
+                                  color: lightColorPalette.grey),
                               text: subHeader,
                             ).paddingOnly(bottom: 12.h),
                           ],
@@ -133,7 +133,7 @@ Future<void> showCommonAlertWithTwoActionsDialog(
                       Container(
                         width: 1.sw,
                         height: 0.6.h,
-                        color: lightColorPalette.stroke,
+                        color: lightColorPalette.grey,
                       ),
                       Row(
                         children: [
@@ -153,7 +153,7 @@ Future<void> showCommonAlertWithTwoActionsDialog(
                           Container(
                             width: 0.6.w,
                             height: 50.h,
-                            color: lightColorPalette.stroke,
+                            color: lightColorPalette.grey,
                           ),
                           Expanded(
                               child: CustomInkwell(
@@ -162,7 +162,7 @@ Future<void> showCommonAlertWithTwoActionsDialog(
                               child: Center(
                                 child: AppTextWidget(
                                   style: CustomTextTheme.heading2(
-                                      color: lightColorPalette.primaryBlue),
+                                      color: lightColorPalette.black),
                                   text: rightButtonTitle ?? "Yes",
                                 ),
                               ),

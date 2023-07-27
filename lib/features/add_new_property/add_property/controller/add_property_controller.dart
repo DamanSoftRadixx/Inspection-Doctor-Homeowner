@@ -374,7 +374,7 @@ class AddPropertyController extends GetxController {
                       textAlign: TextAlign.start,
                       text: AppStrings.next.tr,
                       style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryDarkblue,
+                        color: lightColorPalette.black,
                       ),
                     ),
                   ),
@@ -394,7 +394,7 @@ class AddPropertyController extends GetxController {
                       textAlign: TextAlign.start,
                       text: AppStrings.next.tr,
                       style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryDarkblue,
+                        color: lightColorPalette.black,
                       ),
                     ),
                   ),
@@ -414,7 +414,7 @@ class AddPropertyController extends GetxController {
                       textAlign: TextAlign.start,
                       text: AppStrings.next.tr,
                       style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryDarkblue,
+                        color: lightColorPalette.black,
                       ),
                     ),
                   ),
@@ -434,7 +434,7 @@ class AddPropertyController extends GetxController {
                       textAlign: TextAlign.start,
                       text: AppStrings.next.tr,
                       style: CustomTextTheme.normalText(
-                        color: lightColorPalette.primaryDarkblue,
+                        color: lightColorPalette.black,
                       ),
                     ),
                   ),

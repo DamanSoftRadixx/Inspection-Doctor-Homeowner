@@ -13,6 +13,7 @@ class ImageResource {
 
   //Login
   static String loginLogo = "assets/images/svg/loginLogo.svg";
+  static String loginHandLogo = "assets/images/svg/loginHandLogo.svg";
   static String openEye = "assets/images/svg/openEye.svg";
   static String hideEye = "assets/images/svg/hideEye.svg";
   static String apple = "assets/images/svg/apple.svg";
@@ -63,6 +64,7 @@ class ImageResource {
   static const pinLocation = "assets/images/svg/pinLocation.svg";
   static const hashLogo = "assets/images/svg/hashLogo.svg";
   static const updateIcon = "assets/images/svg/updateIcon.svg";
+  static String cid_new = "assets/images/svg/cid_new.svg";
   //Property Detail
   static const lin = "assets/images/svg/lin.svg";
   static const delete = "assets/images/svg/delete.svg";

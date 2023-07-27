@@ -24,7 +24,6 @@ class PropertyDetailController extends GetxController {
   @override
   void onInit() {
     getArguments();
-    // TODO: implement onInit
     super.onInit();
   }
 

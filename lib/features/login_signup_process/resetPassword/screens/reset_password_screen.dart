@@ -16,7 +16,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightColorPalette.backgroundColor,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: showAppBar(),
       body: SafeArea(
         child: Obx(() => Stack(
@@ -69,7 +69,7 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
           child: AppTextWidget(
             text: AppStrings.resetcreatePassword.tr,
             style: CustomTextTheme.heading1(
-              color: lightColorPalette.primaryDarkblue,
+              color: lightColorPalette.black,
             ),
           ),
         ).paddingOnly(top: 57.h, bottom: 10.h),
@@ -80,8 +80,8 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
               child: AppTextWidget(
                 textAlign: TextAlign.center,
                 text: AppStrings.resetNewPasswordMustUnique.tr,
-                style: CustomTextTheme.normalText(
-                    color: lightColorPalette.primaryGrey),
+                style:
+                    CustomTextTheme.normalText(color: lightColorPalette.grey),
               ).paddingSymmetric(horizontal: 30.w),
             ),
           ],

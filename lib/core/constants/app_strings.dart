@@ -209,6 +209,10 @@ class AppStrings {
   static const continueBtn = "Continue";
 
   //login
+  static const welcomeToLogin = "Welcome to login";
+  static const fillLoginDetail =
+      '''Please fill out the below details to login your account.''';
+
   static const loginScreenPassword = "Password";
   static const email = "Email";
   static const forgotPassword = "Forgot Password?";
@@ -218,7 +222,7 @@ class AppStrings {
 
   //signup
   static const signup = "Sign up";
-  static const registerStarted = "Register to get started!";
+  static const registerStarted = "SignUp to get started!";
   static const fillDetail =
       "Please fill out the below details to create your account.";
   static const firstName = "First name";

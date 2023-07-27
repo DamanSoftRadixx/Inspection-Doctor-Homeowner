@@ -13,7 +13,7 @@ snackbar(String message) {
           color: lightColorPalette.whiteColorPrimary.shade900),
       text: message,
     ),
-    backgroundColor: lightColorPalette.primaryDarkblue,
+    backgroundColor: lightColorPalette.black,
     borderRadius: 10,
     margin: const EdgeInsets.all(10),
     duration: const Duration(seconds: 3),

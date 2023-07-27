@@ -88,7 +88,7 @@
 //                   AppTextWidget(
 //                     text: value.name ?? "",
 //                     style: CustomTextTheme.buttonText(
-//                       color: lightColorPalette.primaryDarkblue,
+//                       color: lightColorPalette.black,
 //                     ),
 //                   ),
 //                 ],

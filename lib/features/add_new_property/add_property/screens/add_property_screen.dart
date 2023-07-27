@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
@@ -90,15 +91,21 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        controller.pdfFile.value = File("");
-                      },
-                      child: AssetWidget(
-                        asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.deleteButton),
-                      ),
-                    ),
+                        onTap: () {
+                          controller.pdfFile.value = File("");
+                        },
+                        child: const Icon(
+                          FontAwesome5.trash_alt,
+                          color: Colors.black,
+                          size: 20,
+                        )
+
+                        //  AssetWidget(
+                        //   asset: Asset(
+                        //       type: AssetType.svg,
+                        //       path: ImageResource.deleteButton),
+                        // ),
+                        ),
                   ),
                 ],
               )),
@@ -114,14 +121,14 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
         decoration: BoxDecoration(
-            color: lightColorPalette.backgroundColor,
+            // color: lightColorPalette.backgroundColor,
             borderRadius: BorderRadius.circular(4.r),
-            border:
-                Border.all(color: lightColorPalette.primaryBlue, width: 0.3)),
+            border: Border.all(color: lightColorPalette.black, width: 0.3)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AssetWidget(
+              color: lightColorPalette.black,
               asset: Asset(
                 type: AssetType.svg,
                 path: ImageResource.map,
@@ -129,7 +136,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
             ).paddingOnly(right: 4.w),
             AppTextWidget(
               style: CustomTextTheme.bottomTabsithFontWeight600(
-                  color: lightColorPalette.primaryBlue),
+                  color: lightColorPalette.black),
               text: AppStrings.chooseOnMap.tr,
             )
           ],
@@ -169,8 +176,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
     return Row(
       children: [
         AppTextWidget(
-          style:
-              CustomTextTheme.normalText(color: lightColorPalette.primaryGrey),
+          style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.mailingAddress.tr,
         ).paddingOnly(top: 30.h, bottom: 15.h),
       ],

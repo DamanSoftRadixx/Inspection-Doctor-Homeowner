@@ -13,14 +13,14 @@ Column showNoDataFound() {
         textAlign: TextAlign.start,
         text: AppStrings.noData.tr,
         style: CustomTextTheme.heading1WithLetterSpacing(
-          color: lightColorPalette.primaryDarkblue,
+          color: lightColorPalette.black,
         ),
       ),
       AppTextWidget(
         textAlign: TextAlign.start,
         text: AppStrings.listEmpty.tr,
         style: CustomTextTheme.normalText(
-          color: lightColorPalette.stroke,
+          color: lightColorPalette.grey,
         ),
       ),
     ],

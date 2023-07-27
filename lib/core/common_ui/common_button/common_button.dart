@@ -65,10 +65,11 @@ class CommonButton extends StatelessWidget {
               onPress!();
             },
       style: ElevatedButton.styleFrom(
+        disabledBackgroundColor: lightColorPalette.black.withOpacity(0.15),
         side: border,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius ?? 4.r)),
-        backgroundColor: bgColor ?? lightColorPalette.primaryBlue,
+            borderRadius: BorderRadius.circular(radius ?? 10.r)),
+        backgroundColor: bgColor ?? lightColorPalette.black,
         // disabledBackgroundColor: lightColorPalette.additionalSwatch1.shade800,
         textStyle: style ??
             CustomTextTheme.buttonText(
@@ -124,7 +125,7 @@ Widget commonRadioButton(
           textAlign: TextAlign.start,
           text: text,
           style: CustomTextTheme.categoryText(
-            color: lightColorPalette.primaryDarkblue,
+            color: lightColorPalette.black,
           ),
         )),
       ],
@@ -167,7 +168,7 @@ Widget commonTermAndConditionsButton(
           textAlign: TextAlign.start,
           text: text,
           style: CustomTextTheme.normalTextWithLineHeight20(
-            color: lightColorPalette.primaryGrey,
+            color: lightColorPalette.grey,
           ),
         )),
       ],

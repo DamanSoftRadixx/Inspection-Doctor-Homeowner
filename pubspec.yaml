@@ -76,6 +76,7 @@ dependencies:
   flutter_google_places_hoc081098: ^1.2.0
   geocoding: ^2.1.0
   google_maps_place_picker_mb: ^3.0.2
+  fluttericon: ^2.0.0
 
   
 
