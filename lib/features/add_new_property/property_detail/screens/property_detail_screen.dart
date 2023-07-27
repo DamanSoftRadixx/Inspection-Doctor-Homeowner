@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/pdf_viewer.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -159,8 +162,17 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   minWidth: 112.w,
                   commonButtonBottonText: AppStrings.drawing.tr,
                   onPress: () {
+                    log("message ${controller.propertyDetail.value.architecturelDrawing?.url}");
                     // launchUrlOnBrowser(
-                    //     url: controller.property.architecturelDrawing.url);
+                    //     url: controller.propertyDetail.value
+                    //             .architecturelDrawing?.url ??
+                    //         "");
+
+                    Get.to(PDFScreen(
+                      path: controller
+                              .propertyDetail.value.architecturelDrawing?.url ??
+                          "",
+                    ));
                   }),
 
               //Edit

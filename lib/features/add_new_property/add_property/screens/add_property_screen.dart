@@ -94,9 +94,9 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                         onTap: () {
                           controller.pdfFile.value = File("");
                         },
-                        child: const Icon(
+                        child: Icon(
                           FontAwesome5.trash_alt,
-                          color: Colors.black,
+                          color: lightColorPalette.black,
                           size: 20,
                         )
 

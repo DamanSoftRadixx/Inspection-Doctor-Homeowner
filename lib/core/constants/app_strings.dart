@@ -222,7 +222,7 @@ class AppStrings {
 
   //signup
   static const signup = "Sign up";
-  static const registerStarted = "SignUp to get started!";
+  static const registerStarted = "Register to get started!";
   static const fillDetail =
       "Please fill out the below details to create your account.";
   static const firstName = "First name";

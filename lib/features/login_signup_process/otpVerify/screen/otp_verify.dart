@@ -211,12 +211,13 @@ final focusedPinTheme = defaultPinTheme.copyDecorationWith(
       spreadRadius: 0,
     ),
   ],
-  border: Border.all(color: lightColorPalette.black, width: 1.w),
+  border: Border.all(
+      color: lightColorPalette.whiteColorPrimary.shade900, width: 1.w),
   borderRadius: BorderRadius.circular(10.r),
 );
 
 final submittedPinTheme = defaultPinTheme.copyWith(
   decoration: defaultPinTheme.decoration?.copyWith(
-      color: lightColorPalette.black.withOpacity(0.05),
+      color: lightColorPalette.textfieldGrey,
       borderRadius: BorderRadius.circular(6.r)),
 );

@@ -456,7 +456,7 @@ Widget dropdownField(
         ),
       Container(
           width: 1.sw,
-          height: 44.h,
+          height: 46.h,
           decoration: decoration(isSelected: hasFocus),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<DropdownModel>(
@@ -464,21 +464,22 @@ Widget dropdownField(
               /* menuItemStyleData:
                   MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
               dropdownStyleData: DropdownStyleData(
+                // elevation: 3,
                 offset: const Offset(0, -5.59),
                 maxHeight: 300.h,
                 decoration: BoxDecoration(
                   color: lightColorPalette.whiteColorPrimary.shade900,
                   boxShadow: [
                     BoxShadow(
-                        color: lightColorPalette.black.withOpacity(0.2),
-                        spreadRadius: 4,
+                        color: lightColorPalette.black.withOpacity(0.10),
+                        spreadRadius: 2,
                         blurRadius: 20,
                         offset: const Offset(1, 1))
                   ],
-                  borderRadius: BorderRadius.circular(6.r),
+                  borderRadius: BorderRadius.circular(10.r),
                   shape: BoxShape.rectangle,
                   border: Border.all(
-                      color: lightColorPalette.black.withOpacity(0.3),
+                      color: lightColorPalette.grey.withOpacity(0.3),
                       width: 0.3),
                 ),
               ),
@@ -605,7 +606,7 @@ List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
             children: [
               AppTextWidget(
                 text: item.name.toString(),
-                style: CustomTextTheme.normalTextWithWeight600(
+                style: CustomTextTheme.normalText(
                     color: selectedValue.id == item.id
                         ? lightColorPalette.black
                         : lightColorPalette.black),

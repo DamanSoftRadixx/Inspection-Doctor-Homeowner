@@ -37,7 +37,7 @@ Widget commonDocumentPicker({
         dashPattern: const [5, 4],
         strokeWidth: 1,
         child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
           child: SizedBox(
             height: 44.h,
             width: 1.sw,

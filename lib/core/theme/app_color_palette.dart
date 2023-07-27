@@ -14,12 +14,14 @@ class AppColorPalette {
   // final Color black;
   // final Color stroke;
   // final Color primaryGrey;
+  final Color errorColor;
   final Color redBackground;
   final Color greenDark;
   final Color greenBackground;
   final Color black;
   final Color grey;
   final Color greyBg;
+  final Color textfieldGrey;
   AppColorPalette({
     required this.primarySwatch,
     required this.secondarySwatch,
@@ -38,6 +40,8 @@ class AppColorPalette {
     required this.black,
     required this.grey,
     required this.greyBg,
+    required this.textfieldGrey,
+    required this.errorColor,
   });
 }
 
@@ -64,6 +68,8 @@ AppColorPalette lightColorPalette = AppColorPalette(
   black: const Color(0xFF0A0A0C),
   grey: const Color(0xFF6C6868),
   greyBg: const Color(0xFFF3F3F3),
+  textfieldGrey: const Color(0xffeeeeee),
+  errorColor: const Color(0xffb85e53),
 );
 
 class CustomTextTheme {
@@ -206,7 +212,7 @@ class CustomTextTheme {
 BoxDecoration decorationSearchTextField({required bool isSelected}) {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,
-      borderRadius: BorderRadius.circular(5.r),
+      borderRadius: BorderRadius.circular(10.r),
       shape: BoxShape.rectangle,
       // boxShadow: isSelected
       //     ? [
@@ -225,21 +231,23 @@ BoxDecoration decorationSearchTextField({required bool isSelected}) {
 
 BoxDecoration decoration({required bool isSelected}) {
   return BoxDecoration(
-      color: lightColorPalette.whiteColorPrimary.shade900,
+      color: lightColorPalette.textfieldGrey,
       borderRadius: BorderRadius.circular(10.r),
       shape: BoxShape.rectangle,
-      boxShadow: isSelected
-          ? [
-              BoxShadow(
-                blurRadius: 14,
-                color: lightColorPalette.black.withOpacity(0.20),
-                offset: const Offset(0, 6),
-                spreadRadius: 0,
-              ),
-            ]
-          : [],
+      // boxShadow: isSelected
+      //     ? [
+      //         BoxShadow(
+      //           blurRadius: 14,
+      //           color: lightColorPalette.black.withOpacity(0.20),
+      //           offset: const Offset(0, 6),
+      //           spreadRadius: 0,
+      //         ),
+      //       ]
+      //     : [],
       border: Border.all(
-          color: isSelected ? lightColorPalette.black : lightColorPalette.grey,
+          color: isSelected
+              ? lightColorPalette.black
+              : lightColorPalette.grey.withOpacity(0.10),
           width: isSelected ? 1 : 0.3));
 }
 
@@ -262,7 +270,7 @@ BoxDecoration decorationWithElevationOnly() {
 BoxDecoration decorationDateTextField({required bool isSelected}) {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,
-      borderRadius: BorderRadius.circular(4.r),
+      borderRadius: BorderRadius.circular(10.r),
       shape: BoxShape.rectangle,
       boxShadow: isSelected
           ? [

@@ -109,7 +109,7 @@ class LoginScreen extends GetView<LoginController> {
                       ),
                     ],
                     color: lightColorPalette.whiteColorPrimary.shade900,
-                    borderRadius: BorderRadius.circular(6.r),
+                    borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
                         width: 0.3.w, color: lightColorPalette.grey)),
                 child: Center(
@@ -252,7 +252,8 @@ class LoginScreen extends GetView<LoginController> {
           controller.onPressForgotPasswordButton();
         },
         child: AppTextWidget(
-          style: CustomTextTheme.normalText(color: lightColorPalette.black),
+          style: CustomTextTheme.normalTextWithWeight600(
+              color: lightColorPalette.black),
           text: AppStrings.forgotPassword.tr,
         ),
       ),

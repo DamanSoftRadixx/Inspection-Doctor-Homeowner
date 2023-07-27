@@ -29,6 +29,10 @@ class SignupScreen extends GetView<SignupController> {
         onPressBackButton: () {
           Get.back();
         },
+        centerWidget: AssetWidget(
+          asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
+          boxFit: BoxFit.fitWidth,
+        ),
       ),
       body: SafeArea(
         child: Obx(() => Stack(
@@ -36,31 +40,39 @@ class SignupScreen extends GetView<SignupController> {
                 KeyboardActions(
                     config: controller.buildConfig(context),
                     child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          showHeadingText(),
-                          Column(
-                            children: [
-                              showLanguageSelection(),
-                              showFirstNameField().paddingOnly(bottom: 11.h),
-                              showLastNameField().paddingOnly(bottom: 11.h),
-                              showEmailField().paddingOnly(bottom: 11.h),
-                              showPhoneNumberField().paddingOnly(bottom: 11.h),
-                              showPasswordField().paddingOnly(bottom: 11.h),
-                              showConfirmPasswordField()
-                                  .paddingOnly(bottom: 11.h),
-                              showMailingAddress(),
-                              showStreetField().paddingOnly(bottom: 11.h),
-                              showCityField().paddingOnly(bottom: 11.h),
-                              showStateField().paddingOnly(bottom: 11.h),
-                              showZipCodeField(),
-                              showSignUpButton().paddingOnly(top: 40.h),
-                              showLoginOption()
-                                  .paddingOnly(top: 30.h, bottom: 40.h),
-                            ],
-                          ).paddingSymmetric(horizontal: 20.w),
-                        ],
+                      child: InkWell(
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            showHeadingText(),
+                            Column(
+                              children: [
+                                showLanguageSelection()
+                                    .paddingOnly(bottom: 11.h),
+                                showFirstNameField().paddingOnly(bottom: 11.h),
+                                showLastNameField().paddingOnly(bottom: 11.h),
+                                showEmailField().paddingOnly(bottom: 11.h),
+                                showPhoneNumberField()
+                                    .paddingOnly(bottom: 11.h),
+                                showPasswordField().paddingOnly(bottom: 11.h),
+                                showConfirmPasswordField()
+                                    .paddingOnly(bottom: 11.h),
+                                showMailingAddress(),
+                                showStreetField().paddingOnly(bottom: 11.h),
+                                showCityField().paddingOnly(bottom: 11.h),
+                                showStateField().paddingOnly(bottom: 11.h),
+                                showZipCodeField(),
+                                showSignUpButton().paddingOnly(top: 40.h),
+                                showLoginOption()
+                                    .paddingOnly(top: 30.h, bottom: 40.h),
+                              ],
+                            ).paddingSymmetric(horizontal: 20.w),
+                          ],
+                        ),
                       ),
                     )),
                 CommonLoader(isLoading: controller.isShowLoader.value)
@@ -109,7 +121,7 @@ class SignupScreen extends GetView<SignupController> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.r),
+            borderRadius: BorderRadius.circular(10.r),
             border: Border.all(color: lightColorPalette.black, width: 0.3)),
         child: Row(
           children: [

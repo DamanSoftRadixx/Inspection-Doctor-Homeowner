@@ -65,7 +65,7 @@ class CommonButton extends StatelessWidget {
               onPress!();
             },
       style: ElevatedButton.styleFrom(
-        disabledBackgroundColor: lightColorPalette.black.withOpacity(0.15),
+        disabledBackgroundColor: lightColorPalette.black.withOpacity(0.50),
         side: border,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius ?? 10.r)),
@@ -112,6 +112,7 @@ Widget commonRadioButton(
       children: [
         isSelected
             ? AssetWidget(
+                color: Colors.green,
                 asset: Asset(type: AssetType.svg, path: ImageResource.checked),
               )
             : AssetWidget(

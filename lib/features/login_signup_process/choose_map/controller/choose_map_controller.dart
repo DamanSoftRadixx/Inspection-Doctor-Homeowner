@@ -12,7 +12,7 @@ class ChooseMapController extends GetxController {
 
   @override
   void onInit() {
-    getUserLocation();
+    // getUserLocation();
     super.onInit();
   }
 
