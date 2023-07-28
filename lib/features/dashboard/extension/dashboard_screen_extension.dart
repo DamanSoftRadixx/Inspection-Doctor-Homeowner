@@ -123,16 +123,19 @@ extension DashboardScreenExtension on DashBoardScreen {
       return const HomeScreen();
     } else if (controller.bottomNavigationEnum.value ==
         BottomNavigationEnum.Inspections) {
+      Get.delete<HomeController>();
       /* Get.put(EstimatesController());
       return EstimatesScreen();*/
       return commonNoDataWidget();
     } else if (controller.bottomNavigationEnum.value ==
         BottomNavigationEnum.Notification) {
+      Get.delete<HomeController>();
       /*Get.put(DealersListController());
       return DealersListScreen();*/
       return commonNoDataWidget();
     } else if (controller.bottomNavigationEnum.value ==
         BottomNavigationEnum.MyProfile) {
+      Get.delete<HomeController>();
       /*Get.put(ProfileScreenController());
       return ProfileScreen();*/
       return WillPopScope(

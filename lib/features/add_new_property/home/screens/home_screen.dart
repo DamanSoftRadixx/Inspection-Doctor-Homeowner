@@ -52,12 +52,7 @@ class HomeScreen extends GetView<HomeController> {
         controller.searchFocusNode.value.hasFocus){
       return showPropertyUi();
     }else if(!(controller.isShowLoader.value || controller.isShowSearchLoader.value)){
-
-
-      Future.delayed(Duration(milliseconds: 200)).then((value) {
-        return showAddProperty();
-
-      });
+      return showAddProperty();
     }
 
   }

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -30,6 +31,7 @@ class HomeController extends GetxController {
   final int pageLength = 10;
 
   onPressAddPropertyButton() {
+    dismissKeyboard();
     Get.toNamed(Routes.addPropertyScreen)?.then((value) {
       //  update  list when added new property or update
       if (value != null) {
@@ -43,6 +45,7 @@ class HomeController extends GetxController {
   }
 
   void onTapOnPropertyCard({required PropertyListData property}) {
+    dismissKeyboard();
     Get.toNamed(Routes.propertyDetailScreen,
         arguments: {GetArgumentConstants.propertyCard: property})
         ?.then((value) {
@@ -185,12 +188,12 @@ class HomeController extends GetxController {
         );
       }
     } catch (e) {
-      setShowLoader(value: false);
-      loadMore.value = false;
+      // setShowLoader(value: false);
+     /* loadMore.value = false;
       loadMore.refresh();
       setShowSearchLoader(value: false);
 
-      refreshController.refreshCompleted();
+      refreshController.refreshCompleted();*/
     }
   }
 }
