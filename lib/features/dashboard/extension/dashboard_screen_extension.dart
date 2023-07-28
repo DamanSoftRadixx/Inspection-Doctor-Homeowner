@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/logout/logout_functionality.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_no_data_found/common_no_data_found.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -142,7 +143,18 @@ extension DashboardScreenExtension on DashBoardScreen {
             CommonButton(
                 commonButtonBottonText: AppStrings.logout,
                 onPress: () {
-                  logoutFunctionality();
+                  showCommonAlertWithTwoActionsDialog(
+                      title: AppStrings.alert,
+                      leftButtonTitle: AppStrings.no,
+                      rightButtonTitle: AppStrings.yes,
+                      subHeader: AppStrings.areYouWantLogout,
+                      noPressed: () {
+                        Get.back();
+                      },
+                      yesPressed: () async {
+                        Get.back();
+                        await logoutFunctionality();
+                      });
                 }).paddingOnly(bottom: 50.h, left: 20.w, right: 20.w),
           ],
         ),

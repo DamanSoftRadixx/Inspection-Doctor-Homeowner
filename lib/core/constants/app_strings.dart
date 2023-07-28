@@ -210,6 +210,8 @@ class AppStrings {
 
   //login
   static const welcomeToLogin = "Welcome to login";
+  static const cONSTRUCTION = "CONSTRUCTION";
+  static const inspectionsDoctor = "Inspections Doctor";
 
   static const fillLoginDetail =
       '''Please fill out the below details to login your account.''';
@@ -294,7 +296,7 @@ class AppStrings {
   static const no = "No";
 
   static const noData = "No Data Found";
-  static const listEmpty = "List is empty ";
+  static const listEmpty = "No property found ";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
@@ -326,6 +328,7 @@ class AppStrings {
   static const openSettings = "Open Settings ";
   static const accessWasPreviouslyDenied = "Access Was Previously Denied";
   static const areYouWantDelete = "Are you sure you want delete this property?";
+  static const areYouWantLogout = "Are you sure you want to logout?";
 }
 
 class GetArgumentConstants {
@@ -392,7 +395,7 @@ class ErrorMessages {
       "Password and confirm password does not match.";
   static const restPasswordMatches =
       "New password and confirm password does not match.";
-  static const noDataFound = "No data found";
+  // static const noDataFound = "No data found";
   static const otpIsEmpty = "Please enter your otp.";
   static const pleaseSelectAppLanguage = "Please select app language.";
   static const pleaseEnter4DigitOtp = "Please enter your OTP.";

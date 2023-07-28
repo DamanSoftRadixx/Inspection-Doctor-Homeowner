@@ -9,13 +9,13 @@ Column showNoDataFound() {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      AppTextWidget(
-        textAlign: TextAlign.start,
-        text: AppStrings.noData.tr,
-        style: CustomTextTheme.heading1WithLetterSpacing(
-          color: lightColorPalette.black,
-        ),
-      ),
+      // AppTextWidget(
+      //   textAlign: TextAlign.start,
+      //   text: AppStrings.noData.tr,
+      //   style: CustomTextTheme.heading1WithLetterSpacing(
+      //     color: lightColorPalette.black,
+      //   ),
+      // ),
       AppTextWidget(
         textAlign: TextAlign.start,
         text: AppStrings.listEmpty.tr,

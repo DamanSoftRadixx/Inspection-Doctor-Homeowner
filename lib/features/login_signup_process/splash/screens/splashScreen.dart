@@ -5,7 +5,6 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/controller/splash_controller.dart';
 
-
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({super.key});
 

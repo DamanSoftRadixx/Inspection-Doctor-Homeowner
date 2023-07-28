@@ -341,61 +341,79 @@ class LoginScreen extends GetView<LoginController> {
           ),
         ),
       ],
-    ).paddingOnly(top: 57.h, bottom: 50.h, left: 50.w, right: 50.w);
+    ).paddingOnly(top: 80.h, bottom: 50.h, left: 50.w, right: 50.w);
   }
 
   getTopLogo() {
     return Column(
       children: [
-        // Stack(
-        //   alignment: Alignment.center,
-        //   children: [
-        //     Center(
-        //       child: Container(
-        //         height: 70.h,
-        //         width: 70.w,
-        //         decoration: BoxDecoration(
-        //           color: lightColorPalette.whiteColorPrimary.shade900,
-        //           shape: BoxShape.circle,
-        //           boxShadow: [
-        //             BoxShadow(
-        //               blurRadius: 0,
-        //               spreadRadius: 0,
-        //               offset: const Offset(0, 1),
-        //               color: lightColorPalette.black,
-        //             )
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     Center(
-        //       child: Container(
-        //         height: 50.h,
-        //         width: 50.w,
-        //         decoration: BoxDecoration(
-        //           color: lightColorPalette.black,
-        //           shape: BoxShape.circle,
-        //         ),
-        //         child: Center(
-        //           child: AssetWidget(
-        //             color: lightColorPalette.whiteColorPrimary.shade900,
-        //             asset: Asset(type: AssetType.svg, path: ImageResource.cid),
-        //             boxFit: BoxFit.fitWidth,
-        //           ),
-        //         ),
-        //       ),
-        //     )
-        //   ],
-        // ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Center(
+              child: Container(
+                height: 70.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                  color: lightColorPalette.whiteColorPrimary.shade900,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 0,
+                      spreadRadius: 0,
+                      offset: const Offset(0, 1),
+                      color: lightColorPalette.black,
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Center(
+              child: Container(
+                height: 50.h,
+                width: 50.w,
+                decoration: BoxDecoration(
+                  color: lightColorPalette.black,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: AssetWidget(
+                    color: lightColorPalette.whiteColorPrimary.shade900,
+                    asset: Asset(type: AssetType.svg, path: ImageResource.cid),
+                    boxFit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
 
         Center(
-          child: AssetWidget(
-            color: lightColorPalette.whiteColorPrimary.shade900,
-            asset: Asset(
-                type: AssetType.svg, path: ImageResource.inspectionsDoctor),
-            boxFit: BoxFit.fitWidth,
+          child: AppTextWidget(
+            textAlign: TextAlign.center,
+            text: AppStrings.cONSTRUCTION.tr,
+            style: CustomTextTheme.heading3(
+              color: lightColorPalette.black,
+            ),
           ),
         ),
+        Center(
+          child: AppTextWidget(
+            textAlign: TextAlign.center,
+            text: AppStrings.inspectionsDoctor.tr,
+            style: CustomTextTheme.normalText(
+              color: lightColorPalette.black,
+            ),
+          ),
+        )
+
+        // Center(
+        //   child: AssetWidget(
+        //     color: lightColorPalette.whiteColorPrimary.shade900,
+        //     asset: Asset(type: AssetType.svg, path: ImageResource.inspectionsDoctor),
+        //     boxFit: BoxFit.fitWidth,
+        //   ),
+        // ),
       ],
     );
   }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -100,9 +101,9 @@ class ResetPasswordController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
+        snackbar(response.message ?? "");
         Get.until((route) =>
             route.settings.name == Routes.loginScreen ? true : false);
-        //  snackbar(response.message ?? "");
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
