@@ -49,10 +49,15 @@ class HomeScreen extends GetView<HomeController> {
 
   getPropertyCenterWidget(){
     if(controller.propertyList.isNotEmpty ||
-        controller.searchController.text.isNotEmpty){
+        controller.searchFocusNode.value.hasFocus){
       return showPropertyUi();
     }else if(!(controller.isShowLoader.value || controller.isShowSearchLoader.value)){
-      return showAddProperty();
+
+
+      Future.delayed(Duration(milliseconds: 200)).then((value) {
+        return showAddProperty();
+
+      });
     }
 
   }

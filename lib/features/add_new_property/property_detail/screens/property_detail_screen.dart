@@ -21,7 +21,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     return Scaffold(
       backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: commonAppBarWithElevation(
-          title: AppStrings.detail.tr,
+          title: AppStrings.propertyDetail.tr,
           onPressBackButton: () {
             Get.back();
           }),

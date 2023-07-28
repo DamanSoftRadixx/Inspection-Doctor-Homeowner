@@ -9,10 +9,10 @@ class HomeProvider {
   ApiHitter apiHitter = ApiHitter();
 
   Future<PropertyListResponseModel?> propertyList(
-      {required Object body}) async {
+      {required Object body,bool isCancelToken = false}) async {
     try {
       Response response =
-          await apiHitter.postApi(endPoint: EndPoints.propertyList, body: body);
+          await apiHitter.postApi(endPoint: EndPoints.propertyList, body: body,isCancelToken: isCancelToken);
 
       PropertyListResponseModel data =
           PropertyListResponseModel.fromJson(response.data);
