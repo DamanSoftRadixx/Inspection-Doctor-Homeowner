@@ -89,8 +89,11 @@ class HomeController extends GetxController {
   }
 
   void pagination() {
-    if ((listController.position.pixels ==
+
+    log("listController.position.maxScrollExtent : ${listController.position.maxScrollExtent}");
+    if ((listController.position.maxScrollExtent != 0.0 && listController.position.pixels ==
         listController.position.maxScrollExtent)) {
+
       if (start.value < totalRecords && loadMore.value == false) {
         loadMore.value = true;
         start.value += pageLength;
@@ -114,14 +117,15 @@ class HomeController extends GetxController {
     isShowSearchLoader.refresh();
   }
 
-  onSearch() {
-    getAddProperty(isFromSearch: searchController.text.isEmpty ? false : true);
+  onChangedSearch() {
+    getAddProperty(isFromSearch: true);
   }
 
   getAddProperty(
       {bool isFromRefresh = false, bool isFromSearch = false}) async {
     if (isFromRefresh || isFromSearch) {
       start.value = 0;
+      loadMore.value == false;
       start.refresh();
     }
 

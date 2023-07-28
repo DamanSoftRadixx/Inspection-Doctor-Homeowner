@@ -19,7 +19,7 @@ class ApiHitter {
       Object? body,
       void Function(int, int)? onSendProgress,
       void Function(int, int)? onReceiveProgress,
-      CancelToken? cancelToken,
+        bool isCancelToken = false,
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headersParm}) async {
     try {
@@ -29,6 +29,17 @@ class ApiHitter {
       print("POST $endPoint >> $queryParameters");
 
       if (await networkCheck.hasNetwork()) {
+
+
+        if(isCancelToken){
+          cancelToken.cancel();
+
+          if (cancelToken.isCancelled) {
+            cancelToken = new CancelToken();
+          }
+
+        }
+
         String token = await Prefs.read(Prefs.token) ?? "";
         String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 

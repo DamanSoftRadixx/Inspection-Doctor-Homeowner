@@ -35,12 +35,7 @@ class HomeScreen extends GetView<HomeController> {
                     onTap: () {
                       dismissKeyboard();
                     },
-                    child: controller.propertyList.isNotEmpty ||
-                            controller.searchController.text.isNotEmpty
-                        ? showPropertyUi()
-                        : (controller.isShowLoader.value
-                            ? const SizedBox()
-                            : showAddProperty()),
+                    child: getPropertyCenterWidget(),
                   ),
                   CommonLoader(
                       isLoading: controller.isShowLoader.value ||
@@ -51,6 +46,18 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ));
   }
+
+  getPropertyCenterWidget(){
+    if(controller.propertyList.isNotEmpty ||
+        controller.searchController.text.isNotEmpty){
+      return showPropertyUi();
+    }else if(!(controller.isShowLoader.value || controller.isShowSearchLoader.value)){
+      return showAddProperty();
+    }
+
+  }
+
+
 
   SizedBox showFloatingButton() {
     return SizedBox(
@@ -85,7 +92,7 @@ class HomeScreen extends GetView<HomeController> {
     return commonSearchFieldWidget(
         controller: controller.searchController,
         onChanged: (value) {
-          controller.onSearch();
+          controller.onChangedSearch();
         },
         focusNode: controller.searchFocusNode.value,
         searchHint: AppStrings.searchNameAddress);
