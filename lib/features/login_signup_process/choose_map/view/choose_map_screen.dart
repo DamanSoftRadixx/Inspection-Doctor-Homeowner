@@ -49,9 +49,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
           automaticallyImplyAppBarLeading: false,
           autocompleteLanguage: "en",
           region: 'us',
-
           hintText: AppStrings.searchAddress,
-
           apiKey: EndPoints.mapKey,
           initialPosition: controller.initialLocation.value,
           hidePlaceDetailsWhenDraggingPin: false,

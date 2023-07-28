@@ -1,109 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/location/google_map.dart';
+import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:internet_file/internet_file.dart';
+import 'package:pdfx/pdfx.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
-class PDFScreen extends StatefulWidget {
-  final String path;
-  const PDFScreen({
+class FlutterFlowPdfViewer extends StatefulWidget {
+  const FlutterFlowPdfViewer({
     Key? key,
-    required this.path,
-  }) : super(key: key);
+    this.networkPath,
+    this.assetPath,
+    this.width,
+    this.height,
+    this.horizontalScroll = false,
+  })  : assert((networkPath != null) ^ (assetPath != null)),
+        super(key: key);
+
+  final String? networkPath;
+  final String? assetPath;
+  final double? width;
+  final double? height;
+  final bool horizontalScroll;
 
   @override
-  _PDFScreenState createState() => _PDFScreenState();
+  _FlutterFlowPdfViewerState createState() => _FlutterFlowPdfViewerState();
 }
 
-class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
-  final Completer<PDFViewController> _controller =
-      Completer<PDFViewController>();
-  int? pages = 0;
-  int? currentPage = 0;
-  bool isReady = false;
-  String errorMessage = '';
+class _FlutterFlowPdfViewerState extends State<FlutterFlowPdfViewer> {
+  PdfController? controller;
+  String get networkPath => widget.networkPath ?? '';
+  String get assetPath => widget.assetPath ?? '';
+
+  void initializeController() =>
+      controller = networkPath.isNotEmpty || assetPath.isNotEmpty
+          ? PdfController(
+              document: assetPath.isNotEmpty
+                  ? PdfDocument.openAsset(assetPath)
+                  : PdfDocument.openData(InternetFile.get(networkPath)),
+            )
+          : null;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Document"),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      backgroundColor: Colors.red,
-      body: Stack(
-        children: <Widget>[
-          PDFView(
-            filePath: widget.path,
-            enableSwipe: false,
-            swipeHorizontal: true,
-            autoSpacing: false,
-            pageFling: true,
-            pageSnap: true,
-            defaultPage: currentPage!,
-            fitPolicy: FitPolicy.BOTH,
-            preventLinkNavigation:
-                false, // if set to true the link is handled in flutter
-            onRender: (pages) {
-              setState(() {
-                pages = pages;
-                isReady = true;
-              });
-            },
-            onError: (error) {
-              setState(() {
-                errorMessage = error.toString();
-              });
-              print(error.toString());
-            },
-            onPageError: (page, error) {
-              setState(() {
-                errorMessage = '$page: ${error.toString()}';
-              });
-              print('$page: ${error.toString()}');
-            },
-            onViewCreated: (PDFViewController pdfViewController) {
-              _controller.complete(pdfViewController);
-            },
-            onLinkHandler: (String? uri) {
-              print('goto uri: $uri');
-            },
-            onPageChanged: (int? page, int? total) {
-              print('page change: $page/$total');
-              setState(() {
-                currentPage = page;
-              });
-            },
-          ),
-          errorMessage.isEmpty
-              ? !isReady
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : Container()
-              : Center(
-                  child: Text(errorMessage),
-                )
-        ],
-      ),
-      floatingActionButton: FutureBuilder<PDFViewController>(
-        future: _controller.future,
-        builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
-          if (snapshot.hasData) {
-            return FloatingActionButton.extended(
-              label: Text("Go to ${pages! ~/ 2}"),
-              onPressed: () async {
-                await snapshot.data!.setPage(pages! ~/ 2);
-              },
-            );
-          }
-
-          return Container();
-        },
-      ),
-    );
+  void initState() {
+    super.initState();
+    initializeController();
   }
+
+  @override
+  void didUpdateWidget(FlutterFlowPdfViewer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.networkPath != widget.networkPath) {
+      initializeController();
+    }
+  }
+
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+        appBar: commonAppBarWithElevation(
+            title: "",
+            onPressBackButton: () {
+              Get.back();
+            }),
+        body: controller != null
+            ? PdfView(
+                controller: controller!,
+                scrollDirection:
+                    widget.horizontalScroll ? Axis.horizontal : Axis.vertical,
+                builders: PdfViewBuilders<DefaultBuilderOptions>(
+                  options: const DefaultBuilderOptions(),
+                  documentLoaderBuilder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                  pageLoaderBuilder: (_) =>
+                      const Center(child: CircularProgressIndicator()),
+                  errorBuilder: (_, __) => Container(),
+                ),
+              )
+            : Container(),
+      );
 }

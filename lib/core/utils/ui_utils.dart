@@ -220,6 +220,43 @@ Future<bool> checkForPhotosPermissions() async {
   return false;
 }
 
+Future<bool> checkForLocationPermissions() async {
+  PermissionStatus permissionGranted = await Permission.location.status;
+  print("_permissionGranted : $permissionGranted ");
+
+  if (permissionGranted == PermissionStatus.permanentlyDenied) {
+    await goToSettingDialog();
+
+    permissionGranted = await Permission.location.status;
+    print("After dialog _permissionGranted : $permissionGranted ");
+
+    if (permissionGranted == PermissionStatus.granted) {
+      return true;
+    }
+
+    return false;
+  } else if (permissionGranted == PermissionStatus.granted) {
+    return true;
+  } else if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await Permission.location.request();
+    if (permissionGranted == PermissionStatus.granted) {
+      return true;
+    } else if (permissionGranted == PermissionStatus.permanentlyDenied) {
+      await goToSettingDialog();
+      permissionGranted = await Permission.location.status;
+      print("After dialog _permissionGranted : $permissionGranted ");
+
+      if (permissionGranted == PermissionStatus.granted) {
+        return true;
+      }
+
+      return false;
+    }
+  }
+
+  return false;
+}
+
 goToSettingDialog() async {
   return await showCommonAlertWithTwoActionsDialog(
       title: AppStrings.permissionDenied,

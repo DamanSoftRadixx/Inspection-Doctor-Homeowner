@@ -182,9 +182,13 @@ class AddPropertyController extends GetxController {
         lotNumberController.value.text = propertyDetail.value.lotNumber ?? "";
         blockNumberController.value.text =
             propertyDetail.value.blockNumber ?? "";
-        lotNumberController.value.text = propertyDetail.value.lotNumber ?? "";
+        lotNumberController.value.text = propertyDetail.value.blockNumber ?? "";
 
-        log("message>>>>> ${propertyDetail.value.architecturelDrawing?.url}");
+        // String? id = propertyDetail.value.architecturelDrawing?.id;
+
+        log("message>>>>> ${propertyDetail.value.countyId?.name}");
+
+        log("message>>>>> ${propertyDetail.value.architecturelDrawing?.id}");
 
         if (propertyDetail.value.architecturelDrawing?.id != "" &&
             propertyDetail.value.architecturelDrawing?.id != null) {
@@ -451,6 +455,8 @@ class AddPropertyController extends GetxController {
 
     if (result != null) {
       pdfFile.value = File(result.files.single.path ?? "");
+
+      log("onTapUploadPDF ${pdfFile.value.path}");
       documentError.value = false;
     } else {
       // User canceled the picker
@@ -476,10 +482,10 @@ class AddPropertyController extends GetxController {
                   )))
               .toList();
         }
-        if (propertyDetail.value.countyId != "") {
+        if (propertyDetail.value.countyId?.name != "") {
           countiesList.map(
             (element) {
-              if (element.id == propertyDetail.value.countyId) {
+              if (element.name == propertyDetail.value.countyId?.name) {
                 onSelectBaseMaterialDropdown(value: element);
               }
             },
@@ -519,6 +525,8 @@ class AddPropertyController extends GetxController {
           (response.status == 201 || response.status == 200)) {
         uploadData.value = response.data?.first ?? UploadDocResponseData();
         //  snackbar(response.message ?? "");
+
+        log("uploadDocuments ${uploadData.value.id}");
 
         isPropertyDetailEdit.value ? updateAddProperty() : getAddProperty();
       } else {
@@ -589,10 +597,10 @@ class AddPropertyController extends GetxController {
       "permit_number": permitNumberController.value.text,
       "state": stateController.value.text,
       "county_id": selectedBaseMaterialDropDown.value.id,
-      "acrhitecturel_drawing": uploadData.value.id
+      "architecturel_drawing": uploadData.value.id
     });
 
-    log("body $body");
+    log("uploadDocuments>>>> $body");
 
     try {
       PropertyUpdateResponseModel response =

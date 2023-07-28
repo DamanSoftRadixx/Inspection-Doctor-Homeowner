@@ -14,6 +14,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
+import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
@@ -115,8 +116,10 @@ class SignupScreen extends GetView<SignupController> {
   getChooseMapButton() {
     return CustomInkwell(
       padding: EdgeInsets.zero,
-      onTap: () {
-        controller.onTapChooseButton();
+      onTap: () async {
+        if (await checkForLocationPermissions()) {
+          controller.onTapChooseButton();
+        }
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),

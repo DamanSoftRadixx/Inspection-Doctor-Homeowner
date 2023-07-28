@@ -32,11 +32,14 @@ class ApiHitter {
         String token = await Prefs.read(Prefs.token) ?? "";
         String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
+        log("token>>>>>>> $token");
+
         Map<String, String> headers = {
           'Content-Type': 'application/json',
           'language_id': selectedLangId,
           'authorization': "Bearer $token",
         };
+        log("headers>> $headers");
 
         headers.addAll(headersParm ?? {});
 
@@ -51,6 +54,8 @@ class ApiHitter {
           cancelToken: cancelToken,
           queryParameters: queryParameters,
         );
+
+        log("response>>>>>> $response");
         return response;
       } else {
         log("no internet issue");

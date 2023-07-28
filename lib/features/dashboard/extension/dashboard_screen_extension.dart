@@ -89,9 +89,9 @@ extension DashboardScreenExtension on DashBoardScreen {
                     clipBehavior: Clip.none,
                     children: [
                       AssetWidget(
-                        color: check == controller.bottomNavigationEnum.value
-                            ? lightColorPalette.black
-                            : lightColorPalette.grey,
+                        // color: check == controller.bottomNavigationEnum.value
+                        //     ? lightColorPalette.black
+                        //     : lightColorPalette.grey,
                         asset: Asset(
                           type: AssetType.svg,
                           path: check == controller.bottomNavigationEnum.value

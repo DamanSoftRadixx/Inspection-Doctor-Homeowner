@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -162,17 +160,27 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   minWidth: 112.w,
                   commonButtonBottonText: AppStrings.drawing.tr,
                   onPress: () {
-                    log("message ${controller.propertyDetail.value.architecturelDrawing?.url}");
                     // launchUrlOnBrowser(
                     //     url: controller.propertyDetail.value
                     //             .architecturelDrawing?.url ??
                     //         "");
 
-                    Get.to(PDFScreen(
-                      path: controller
-                              .propertyDetail.value.architecturelDrawing?.url ??
-                          "",
-                    ));
+                    // Get.to(PDFScreen(
+                    //   path:
+                    // controller
+                    //           .propertyDetail.value.architecturelDrawing?.url ??
+                    //       "",
+                    // ));
+
+                    Navigator.push(
+                        Get.context!,
+                        MaterialPageRoute(
+                          builder: (context) => FlutterFlowPdfViewer(
+                            networkPath: controller.propertyDetail.value
+                                    .architecturelDrawing?.url ??
+                                "",
+                          ),
+                        ));
                   }),
 
               //Edit

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
@@ -15,8 +13,6 @@ class HomeProvider {
     try {
       Response response =
           await apiHitter.postApi(endPoint: EndPoints.propertyList, body: body);
-
-      log("propertyList>>>  $response");
 
       PropertyListResponseModel data =
           PropertyListResponseModel.fromJson(response.data);
