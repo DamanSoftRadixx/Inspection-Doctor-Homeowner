@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
@@ -17,14 +19,14 @@ class SplashController extends GetxController {
   }
 
   Future navigateToNext() async {
-    var token = Prefs.read(Prefs.token);
     Future.delayed(const Duration(seconds: 3), () {
       var token = Prefs.read(Prefs.token);
-      var selectedLangId = Prefs.read(Prefs.selectedLangId);
 
       if (token != null && token != "") {
         LoginTokenModel loginTokenModel = getJsonFromJWTToken(token: token);
         var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
+
+        log("token>>>> $isOtpVerified");
 
         if (isOtpVerified == 0) {
           // if (selectedLangId != null) {

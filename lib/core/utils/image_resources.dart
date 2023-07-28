@@ -15,6 +15,7 @@ class ImageResource {
   //Login
   static String loginLogo = "assets/images/svg/loginLogo.svg";
   static String cid = "assets/images/svg/cid.svg";
+  static String inspectionsDoctor = "assets/images/svg/inspectionsDoctor.svg";
   static String loginHandLogo = "assets/images/svg/loginHandLogo.svg";
   static String openEye = "assets/images/svg/openEye.svg";
   static String hideEye = "assets/images/svg/hideEye.svg";

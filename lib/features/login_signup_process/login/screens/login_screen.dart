@@ -345,44 +345,57 @@ class LoginScreen extends GetView<LoginController> {
   }
 
   getTopLogo() {
-    return Stack(
-      alignment: Alignment.center,
+    return Column(
       children: [
+        // Stack(
+        //   alignment: Alignment.center,
+        //   children: [
+        //     Center(
+        //       child: Container(
+        //         height: 70.h,
+        //         width: 70.w,
+        //         decoration: BoxDecoration(
+        //           color: lightColorPalette.whiteColorPrimary.shade900,
+        //           shape: BoxShape.circle,
+        //           boxShadow: [
+        //             BoxShadow(
+        //               blurRadius: 0,
+        //               spreadRadius: 0,
+        //               offset: const Offset(0, 1),
+        //               color: lightColorPalette.black,
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //     Center(
+        //       child: Container(
+        //         height: 50.h,
+        //         width: 50.w,
+        //         decoration: BoxDecoration(
+        //           color: lightColorPalette.black,
+        //           shape: BoxShape.circle,
+        //         ),
+        //         child: Center(
+        //           child: AssetWidget(
+        //             color: lightColorPalette.whiteColorPrimary.shade900,
+        //             asset: Asset(type: AssetType.svg, path: ImageResource.cid),
+        //             boxFit: BoxFit.fitWidth,
+        //           ),
+        //         ),
+        //       ),
+        //     )
+        //   ],
+        // ),
+
         Center(
-          child: Container(
-            height: 70.h,
-            width: 70.w,
-            decoration: BoxDecoration(
-              color: lightColorPalette.whiteColorPrimary.shade900,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 0,
-                  spreadRadius: 0,
-                  offset: const Offset(0, 1),
-                  color: lightColorPalette.black,
-                )
-              ],
-            ),
+          child: AssetWidget(
+            color: lightColorPalette.whiteColorPrimary.shade900,
+            asset: Asset(
+                type: AssetType.svg, path: ImageResource.inspectionsDoctor),
+            boxFit: BoxFit.fitWidth,
           ),
         ),
-        Center(
-          child: Container(
-            height: 50.h,
-            width: 50.w,
-            decoration: BoxDecoration(
-              color: lightColorPalette.black,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: AssetWidget(
-                color: lightColorPalette.whiteColorPrimary.shade900,
-                asset: Asset(type: AssetType.svg, path: ImageResource.cid),
-                boxFit: BoxFit.fitWidth,
-              ),
-            ),
-          ),
-        )
       ],
     );
   }

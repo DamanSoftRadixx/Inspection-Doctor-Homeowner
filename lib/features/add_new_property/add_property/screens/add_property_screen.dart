@@ -202,7 +202,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         controller.onChangedPropertyNameTextField(value: value);
       },
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9 " "]"), allow: true),
       ],
     );
   }
