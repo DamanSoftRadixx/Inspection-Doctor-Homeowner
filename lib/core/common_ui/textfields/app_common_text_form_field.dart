@@ -647,3 +647,94 @@ List<double> getCustomItemsHeights({required List<DropdownModel> items}) {
   }
   return itemsHeights;
 }
+
+Widget commonDatePicker(
+    {required final String title,
+    FocusNode? focusNode,
+    String? errorMsg,
+    bool? isError,
+    String? hint,
+    required dynamic Function(DateTime) onPicked,
+    required String selectedDate}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (title != "")
+        Padding(
+          padding: EdgeInsets.only(bottom: 3.h),
+          child: AppTextWidget(
+            style: CustomTextTheme.normalText(color: lightColorPalette.black),
+            text: title,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      Container(
+        width: 1.sw,
+        height: 44.h,
+        decoration: decoration(isSelected: focusNode?.hasFocus ?? false),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 12.w,
+            ),
+            CustomInkwell(
+              padding: EdgeInsets.zero,
+              onTap: () => showDatePickerDialog(
+                onPicked: onPicked,
+              ),
+              child: AssetWidget(
+                color: lightColorPalette.grey,
+                asset: Asset(
+                  type: AssetType.svg,
+                  path: ImageResource.calendar,
+                ),
+              ),
+            ),
+            AppTextWidget(
+              style: CustomTextTheme.normalText(color: lightColorPalette.black),
+              text: selectedDate,
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+      ),
+      Visibility(
+        visible: isError ?? false,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: AppTextWidget(
+            text: errorMsg ?? "",
+            style: CustomTextTheme.bottomTabs(
+              color: lightColorPalette.redDark,
+            ),
+          ).paddingOnly(top: 5.h),
+        ),
+      ), /*paddingOnly(left: 20.w, right: 20.w, top: 4.h),*/
+    ],
+  );
+}
+
+void showDatePickerDialog({required Function(DateTime date) onPicked}) {
+  var currentDate = DateTime.now();
+  var firstDate = DateTime(currentDate.year - 100);
+  var lastDate = currentDate;
+
+  showDatePicker(
+          context: Get.context!,
+          initialDate:
+              currentDate, //which date will display when user open the picker
+          firstDate:
+              firstDate, //what will be the previous supported year in picker
+          lastDate: lastDate) //what will be the up to supported date in picker
+      .then((pickedDate) {
+    //then usually do the future job
+    if (pickedDate == null) {
+      //if user tap cancel then this function will stop
+      return;
+    }
+    onPicked(pickedDate);
+  });
+}

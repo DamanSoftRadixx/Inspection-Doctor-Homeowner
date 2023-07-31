@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/InspectionsList/binding/inspections_list_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/InspectionsList/screen/inspections_list_screen.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/screens/add_property_screen.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/binding/categories_form_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/screen/categories_form_screen.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/binding/select_categories_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/screen/select_categories_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/binding/choose_map_binding.dart';
@@ -43,6 +49,10 @@ class Routes {
   //Add Property
   static const String addPropertyScreen = "/addPropertyScreen";
   static const String propertyDetailScreen = "/propertyDetailScreen";
+  static const String selectCategoriesScreen = "/selectCategoriesScreen";
+  static const String inspectionsListScreen = "/inspectionsListScreen";
+
+  static const String categoryFormScreen = "/categoryFormScreen";
 }
 
 List<GetPage> appPages() => [
@@ -140,6 +150,33 @@ List<GetPage> appPages() => [
         name: Routes.chooseMap,
         page: () => const ChooseMapScreen(),
         binding: ChooseMapBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.selectCategoriesScreen,
+        page: () => const SelectCategoriesScreen(),
+        binding: SelectCategoriesBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.inspectionsListScreen,
+        page: () => const InspectionsListScreen(),
+        binding: InspectionsListBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.categoryFormScreen,
+        page: () => const CategoryFormScreen(),
+        binding: CategoryFormBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

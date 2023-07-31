@@ -302,3 +302,23 @@ BoxDecoration decorationHome() {
       ],
       border: Border.all(color: lightColorPalette.grey, width: 0.3));
 }
+
+BoxDecoration categioryDecoration({required bool isSelected}) {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(10.r),
+      shape: BoxShape.rectangle,
+      // boxShadow: isSelected
+      //     ? [
+      //         BoxShadow(
+      //           blurRadius: 14,
+      //           color: lightColorPalette.black.withOpacity(0.20),
+      //           offset: const Offset(0, 6),
+      //           spreadRadius: 0,
+      //         ),
+      //       ]
+      //     : [],
+      border: Border.all(
+          color: isSelected ? lightColorPalette.black : lightColorPalette.grey,
+          width: isSelected ? 1 : 0.3));
+}

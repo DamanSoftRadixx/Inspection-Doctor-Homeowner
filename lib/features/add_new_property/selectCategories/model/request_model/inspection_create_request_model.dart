@@ -1,36 +1,43 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class InspectionCreateRequestModel {
-  InspectionCreateRequestModel({
-      this.propertyId, 
-      this.categoryId, 
-      this.subcategoryId, 
-      this.date, 
-      this.time, 
-      this.description, 
-      this.firstName, 
-      this.lastName, 
-      this.email, 
-      this.phone, 
-      this.countryCode, 
-      this.homeownerId,});
+  InspectionCreateRequestModel(
+      {this.propertyId,
+      this.categoryId,
+      this.subcategoryId,
+      this.date,
+      this.time,
+      this.description,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.phone,
+      this.countryCode,
+      this.homeownerId,
+      this.categoriesName,
+      this.subCategoriesName});
 
   InspectionCreateRequestModel.fromJson(dynamic json) {
-    propertyId = json['property_id'];
-    categoryId = json['category_id'];
-    subcategoryId = json['subcategory_id'] != null ? json['subcategory_id'].cast<String>() : [];
-    date = json['date'];
+    propertyId = json['property_id'].toString().toStringConversion();
+    categoryId = json['category_id'].toString().toStringConversion();
+    subcategoryId = json['subcategory_id'] != null
+        ? json['subcategory_id'].cast<String>()
+        : [];
+    date = json['date'].toString().toStringConversion();
+
     if (json['time'] != null) {
       time = [];
       json['time'].forEach((v) {
         time?.add(Time.fromJson(v));
       });
     }
-    description = json['description'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    phone = json['phone'];
-    countryCode = json['country_code'];
-    homeownerId = json['homeowner_id'];
+    description = json['description'].toString().toStringConversion();
+    firstName = json['first_name'].toString().toStringConversion();
+    lastName = json['last_name'].toString().toStringConversion();
+    email = json['email'].toString().toStringConversion();
+    phone = json['phone'].toString().toStringConversion();
+    countryCode = json['country_code'].toString().toStringConversion();
+    homeownerId = json['homeowner_id'].toString().toStringConversion();
   }
   String? propertyId;
   String? categoryId;
@@ -44,6 +51,9 @@ class InspectionCreateRequestModel {
   String? phone;
   String? countryCode;
   String? homeownerId;
+  // local use
+  String? categoriesName;
+  String? subCategoriesName;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -63,17 +73,17 @@ class InspectionCreateRequestModel {
     map['homeowner_id'] = homeownerId;
     return map;
   }
-
 }
 
 class Time {
   Time({
-      this.starttime, 
-      this.endtime,});
+    this.starttime,
+    this.endtime,
+  });
 
   Time.fromJson(dynamic json) {
-    starttime = json['starttime'];
-    endtime = json['endtime'];
+    starttime = json['starttime'].toString().toStringConversion();
+    endtime = json['endtime'].toString().toStringConversion();
   }
   String? starttime;
   String? endtime;
@@ -84,5 +94,4 @@ class Time {
     map['endtime'] = endtime;
     return map;
   }
-
 }

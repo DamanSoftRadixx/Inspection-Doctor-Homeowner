@@ -19,6 +19,7 @@ class EndPoints {
   static const String updateProperty = "property/update-property";
   static const String deleteProperty = "property/delete-property";
   static const String logOut = "auth/logout";
+  static const String categorySubcategory = "categorySubcategory/all";
 
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";
   // connectTimeout

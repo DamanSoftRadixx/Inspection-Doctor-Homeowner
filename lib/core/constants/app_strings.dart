@@ -323,6 +323,21 @@ class AppStrings {
   static const scheduleInspection = "Schedule inspection";
   static const updateProperty = "Update Property";
 
+  //Select Cateories
+  static const categories = "Categories";
+  static const pleaseSelectCategory =
+      "Please select below category you wish to.";
+
+  //Inspection List
+
+  static const pleaseSelectInspections =
+      "Please select below inspections you wish to.";
+  static const schedule = "Schedule";
+  static const fillCategoryForm =
+      "Please fill out below form for inspection. You can select multiple time slots.";
+  static const contactPersonInformation = "Contact Person Information";
+  static const time = "Time";
+
   //Permissions
   static const permissionDenied = "Permission Denied";
   static const openSettings = "Open Settings ";
@@ -356,6 +371,8 @@ class GetArgumentConstants {
   static const isPropertyAdded = "isPropertyAdded";
   static const googleAddressPlace = "googleAddressPlace";
   static const isEditProfile = "isEditProfile";
+  static const inspectionCreateRequestArg = "inspectionCreateRequestModel";
+  static const categoriesName = "categoriesName";
 }
 
 class WeekDays {

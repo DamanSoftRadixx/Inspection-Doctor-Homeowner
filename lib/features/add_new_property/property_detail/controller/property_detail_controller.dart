@@ -11,7 +11,7 @@ class PropertyDetailController extends GetxController {
   PropertyDetailProvider propertyDetailProvider = PropertyDetailProvider();
   Rx<PropertyListData> propertyDetail = PropertyListData().obs;
   onPressAddPropertyButton() {
-    Get.back();
+    Get.toNamed(Routes.selectCategoriesScreen);
   }
 
   getArguments() {

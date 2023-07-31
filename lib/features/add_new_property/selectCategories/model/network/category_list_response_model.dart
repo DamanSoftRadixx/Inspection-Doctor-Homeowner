@@ -1,29 +1,32 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class CategoryListResponseModel {
   CategoryListResponseModel({
-      this.status, 
-      this.success, 
-      this.message, 
-      this.data, 
-      this.recordsTotal, 
-      this.recordsFiltered,});
+    this.status,
+    this.success,
+    this.message,
+    this.data,
+    this.recordsTotal,
+    this.recordsFiltered,
+  });
 
   CategoryListResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(CategoryListResponseDataModel.fromJson(v));
       });
     }
-    recordsTotal = json['recordsTotal'];
-    recordsFiltered = json['recordsFiltered'];
+    recordsTotal = json['recordsTotal'].toString().toIntConversion();
+    recordsFiltered = json['recordsFiltered'].toString().toIntConversion();
   }
   int? status;
   bool? success;
   String? message;
-  List<Data>? data;
+  List<CategoryListResponseDataModel>? data;
   int? recordsTotal;
   int? recordsFiltered;
 
@@ -39,35 +42,35 @@ class CategoryListResponseModel {
     map['recordsFiltered'] = recordsFiltered;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.id, 
-      this.parentId, 
-      this.inspectorCategoryId, 
-      this.name, 
-      this.image, 
-      this.isActive, 
-      this.deletedAt, 
-      this.v, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.totalSubCategory,});
+class CategoryListResponseDataModel {
+  CategoryListResponseDataModel({
+    this.id,
+    this.parentId,
+    this.inspectorCategoryId,
+    this.name,
+    this.image,
+    this.isActive,
+    this.deletedAt,
+    this.v,
+    this.createdAt,
+    this.updatedAt,
+    this.totalSubCategory,
+  });
 
-  Data.fromJson(dynamic json) {
-    id = json['_id'];
+  CategoryListResponseDataModel.fromJson(dynamic json) {
+    id = json['_id'].toString().toStringConversion();
     parentId = json['parent_id'];
     inspectorCategoryId = json['inspector_category_id'];
-    name = json['name'];
+    name = json['name'].toString().toStringConversion();
     image = json['image'];
     isActive = json['is_active'];
     deletedAt = json['deleted_at'];
-    v = json['__v'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    totalSubCategory = json['totalSubCategory'];
+    v = json['__v'].toString().toIntConversion();
+    createdAt = json['createdAt'].toString().toStringConversion();
+    updatedAt = json['updatedAt'].toString().toStringConversion();
+    totalSubCategory = json['totalSubCategory'].toString().toIntConversion();
   }
   String? id;
   dynamic parentId;
@@ -96,5 +99,4 @@ class Data {
     map['totalSubCategory'] = totalSubCategory;
     return map;
   }
-
 }
