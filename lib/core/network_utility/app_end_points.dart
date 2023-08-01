@@ -20,6 +20,9 @@ class EndPoints {
   static const String deleteProperty = "property/delete-property";
   static const String logOut = "auth/logout";
   static const String categorySubcategory = "categorySubcategory/all";
+  static const String inspectionCreate = "homeowner/inspection-create";
+  static const String scheduleInspectionList =
+      "homeowner/schedule-inspection-list";
 
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";
   // connectTimeout

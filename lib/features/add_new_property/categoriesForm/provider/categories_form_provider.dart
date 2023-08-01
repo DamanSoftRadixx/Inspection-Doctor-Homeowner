@@ -8,17 +8,17 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/selectCate
 class CategoryFormProvider {
   ApiHitter apiHitter = ApiHitter();
 
-  Future<CategoryListResponseModel?> categoryList(
-      {required Object body, bool isCancelToken = false}) async {
+  Future<CategoryListResponseModel?> createInspection(
+      {required Object body}) async {
     try {
       Response response = await apiHitter.postApi(
-          endPoint: EndPoints.categorySubcategory,
-          body: body,
-          isCancelToken: isCancelToken);
+        endPoint: EndPoints.inspectionCreate,
+        body: body,
+      );
 
       CategoryListResponseModel data =
           CategoryListResponseModel.fromJson(response.data);
-      showResponseData(data, type: 'categoryList');
+      showResponseData(data, type: 'createInspection');
 
       return data;
     } catch (e) {

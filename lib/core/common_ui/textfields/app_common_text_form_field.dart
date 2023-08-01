@@ -27,7 +27,9 @@ Widget commonTextFieldWidget(
     TextInputAction? textInputAction,
     int? maxLength,
     TextCapitalization? textCapitalization,
-    List<TextInputFormatter>? inputFormatters}) {
+    List<TextInputFormatter>? inputFormatters,
+    double? height,
+    int? maxLines}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +48,9 @@ Widget commonTextFieldWidget(
         },
         child: Container(
           width: 1.sw,
-          height: 44.h,
+          // height: height ?? 44.h,
+          constraints:
+              BoxConstraints(minHeight: 44.h, maxHeight: height ?? 44.h),
           padding: EdgeInsets.only(top: 0.h),
           decoration: decoration(isSelected: focusNode.hasFocus),
           child: Center(
@@ -56,7 +60,7 @@ Widget commonTextFieldWidget(
               keyboardType: keyboardType,
               textInputAction: textInputAction,
               controller: controller,
-              maxLines: 1,
+              maxLines: maxLines ?? 1,
               minLines: 1,
               maxLength: maxLength ?? 300,
               onChanged: onChanged,
@@ -576,8 +580,215 @@ Widget dropdownField(
   );
 }
 
+Widget multiDropdownField({
+  String? hint,
+  required DropdownModel selectedValue,
+  required Function(DropdownModel value) onClick,
+  EdgeInsetsGeometry? padding,
+  required List<DropdownModel> list,
+  bool? isExpanded,
+  bool isMandatory = false,
+  bool isShowRightButton = false,
+  String? title,
+  Widget? rightButtonDesign,
+  bool isError = false,
+  Function()? onTap,
+  String? errorMsg,
+  bool hasFocus = false,
+  required List<DropdownModel> selectedItems,
+}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      if (title != null && title != "")
+        Padding(
+          padding: EdgeInsets.only(bottom: 3.h),
+          child: AppTextWidget(
+            style: CustomTextTheme.normalText(color: lightColorPalette.black),
+            text: title,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      Container(
+          width: 1.sw,
+          height: 46.h,
+          decoration: decoration(isSelected: hasFocus),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton2<DropdownModel>(
+              // isDense: true,
+              /* menuItemStyleData:
+                  MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
+              dropdownStyleData: DropdownStyleData(
+                // elevation: 3,
+                offset: const Offset(0, -5.59),
+                maxHeight: 300.h,
+                decoration: BoxDecoration(
+                  color: lightColorPalette.whiteColorPrimary.shade900,
+                  boxShadow: [
+                    BoxShadow(
+                        color: lightColorPalette.black.withOpacity(0.10),
+                        spreadRadius: 2,
+                        blurRadius: 20,
+                        offset: const Offset(1, 1))
+                  ],
+                  borderRadius: BorderRadius.circular(10.r),
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                      color: lightColorPalette.grey.withOpacity(0.3),
+                      width: 0.3),
+                ),
+              ),
+              isExpanded: isExpanded ?? false,
+              underline: const SizedBox(),
+              customButton: Padding(
+                padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
+                child: Row(
+                  children: [
+                    selectedValue.name == ""
+                        ? AppTextWidget(
+                            text: hint ?? "",
+                            style: CustomTextTheme.normalText(
+                                color:
+                                    lightColorPalette.black.withOpacity(0.5)),
+                          )
+                        : AppTextWidget(
+                            text: selectedValue.name,
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.black),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    const Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.w),
+                      child: Center(
+                        child: AssetWidget(
+                            asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.downArrow)),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              iconStyleData: IconStyleData(
+                icon: Center(
+                  child: Icon(Icons.arrow_drop_down,
+                          color: lightColorPalette.black, size: 25.h)
+                      .paddingOnly(right: 4.w),
+                ),
+              ),
+              hint: AppTextWidget(
+                text: hint ?? "",
+                style: CustomTextTheme.normalText(
+                    color: lightColorPalette.black.withOpacity(0.5)),
+              ),
+              buttonStyleData: ButtonStyleData(
+                padding: EdgeInsets.only(left: 2.w, right: 5.w),
+              ),
+              value: selectedValue.name == "" ? null : selectedValue,
+              selectedItemBuilder: (_) {
+                return list.map<Widget>((item) {
+                  return Row(
+                    children: [
+                      AppTextWidget(
+                        text: item.name.toString(),
+                        style: TextStyle(
+                          fontSize: 14.w,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: CommonStrings.generalSans,
+                          color: lightColorPalette.black,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  );
+                }).toList();
+              },
+              // menuItemStyleData: MenuItemStyleData(
+              //   padding: const EdgeInsets.symmetric(horizontal: 0.0),
+              //   customHeights: getCustomItemsHeights(items: list),
+              // ),
+              items: list.map((item) {
+                return DropdownMenuItem(
+                  value: item,
+                  //disable default onTap to avoid closing menu when selecting an item
+                  enabled: false,
+                  child: StatefulBuilder(
+                    builder: (context, menuSetState) {
+                      final isSelected = selectedItems.contains(item);
+                      return InkWell(
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {
+                          isSelected
+                              ? selectedItems.remove(item)
+                              : selectedItems.add(item);
+                          //This rebuilds the StatefulWidget to update the button's text
+
+                          //This rebuilds the dropdownMenu Widget to update the check mark
+                          menuSetState(() {});
+                        },
+                        child: Row(
+                          children: [
+                            AppTextWidget(
+                              text: item.name.toString(),
+                              style: CustomTextTheme.normalText(
+                                  color: selectedValue.id == item.id
+                                      ? lightColorPalette.black
+                                      : lightColorPalette.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const Spacer(),
+                            isSelected
+                                ? AssetWidget(
+                                    color: Colors.green,
+                                    asset: Asset(
+                                        type: AssetType.svg,
+                                        path: ImageResource.selectedCheckbox),
+                                  )
+                                : AssetWidget(
+                                    asset: Asset(
+                                        type: AssetType.svg,
+                                        path: ImageResource.unSelectedCheckbox),
+                                  )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }).toList(),
+
+              //  multiSelection(
+              //     items: list,
+              //     selectedValue: selectedValue,
+              //     selectedItems: selectedItems),
+              onChanged: (DropdownModel? value) {
+                // log("message");
+                // onClick(value!);
+              },
+            ),
+          )),
+      Visibility(
+        visible: isError ?? false,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: AppTextWidget(
+            text: errorMsg ?? "",
+            style: CustomTextTheme.bottomTabs(
+              color: lightColorPalette.redDark,
+            ),
+          ).paddingOnly(top: 5.h),
+        ),
+      ),
+    ],
+  );
+}
+
 class DropdownModel extends Equatable {
-  String id, name, status, type, stateId;
+  String id, name, status, type, stateId, startTime, endTime;
   bool isActive;
   DropdownModel(
       {this.id = "",
@@ -585,6 +796,8 @@ class DropdownModel extends Equatable {
       this.status = "",
       this.type = "",
       this.stateId = "",
+      this.startTime = "",
+      this.endTime = "",
       this.isActive = true});
   @override
   String toString() => name;
@@ -617,8 +830,12 @@ List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
                   ? AssetWidget(
                       color: Colors.green,
                       asset: Asset(
-                          type: AssetType.svg, path: ImageResource.checked))
-                  : Container(),
+                          type: AssetType.svg, path: ImageResource.checked),
+                    )
+                  : AssetWidget(
+                      asset: Asset(
+                          type: AssetType.svg, path: ImageResource.unCheck),
+                    ),
             ],
           ).paddingSymmetric(horizontal: 15.w),
         ),
@@ -655,7 +872,7 @@ Widget commonDatePicker(
     bool? isError,
     String? hint,
     required dynamic Function(DateTime) onPicked,
-    required String selectedDate}) {
+    String? selectedDate}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -674,11 +891,23 @@ Widget commonDatePicker(
         height: 44.h,
         decoration: decoration(isSelected: focusNode?.hasFocus ?? false),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 12.w,
+            Expanded(
+              child: selectedDate != ""
+                  ? AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.black),
+                      text: selectedDate ?? "",
+                      textAlign: TextAlign.start,
+                    ).paddingOnly(left: 15.w)
+                  : AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.black.withOpacity(0.5)),
+                      text: title,
+                      textAlign: TextAlign.start,
+                    ).paddingOnly(left: 15.w),
             ),
             CustomInkwell(
               padding: EdgeInsets.zero,
@@ -692,12 +921,7 @@ Widget commonDatePicker(
                   path: ImageResource.calendar,
                 ),
               ),
-            ),
-            AppTextWidget(
-              style: CustomTextTheme.normalText(color: lightColorPalette.black),
-              text: selectedDate,
-              textAlign: TextAlign.center,
-            )
+            ).paddingOnly(right: 10.w),
           ],
         ),
       ),
@@ -720,7 +944,7 @@ Widget commonDatePicker(
 void showDatePickerDialog({required Function(DateTime date) onPicked}) {
   var currentDate = DateTime.now();
   var firstDate = DateTime(currentDate.year - 100);
-  var lastDate = currentDate;
+  var lastDate = DateTime(currentDate.year + 100);
 
   showDatePicker(
           context: Get.context!,
@@ -737,4 +961,69 @@ void showDatePickerDialog({required Function(DateTime date) onPicked}) {
     }
     onPicked(pickedDate);
   });
+}
+
+List<DropdownMenuItem<DropdownModel>> multiSelection(
+    {required List<DropdownModel> items,
+    required DropdownModel selectedValue,
+    required List<DropdownModel> selectedItems}) {
+  List<DropdownMenuItem<DropdownModel>>? menuItems = [];
+
+  for (final DropdownModel item in items) {
+    final isSelected = selectedItems.contains(item);
+    menuItems.addAll(
+      [
+        DropdownMenuItem<DropdownModel>(
+          value: item,
+          child: StatefulBuilder(builder: (context, menuSetState) {
+            return InkWell(
+              onTap: () {
+                isSelected
+                    ? selectedItems.remove(item)
+                    : selectedItems.add(item);
+
+                menuSetState(() {});
+
+                //This rebuilds the StatefulWidget to update the button's text
+
+                //This rebuilds the dropdownMenu Widget to update the check mark
+              },
+              child: Row(
+                children: [
+                  AppTextWidget(
+                    text: item.name.toString(),
+                    style: CustomTextTheme.normalText(
+                        color: selectedValue.id == item.id
+                            ? lightColorPalette.black
+                            : lightColorPalette.black),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const Spacer(),
+                  isSelected
+                      ? AssetWidget(
+                          color: Colors.green,
+                          asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.selectedCheckbox),
+                        )
+                      : AssetWidget(
+                          asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.unSelectedCheckbox),
+                        )
+                ],
+              ).paddingSymmetric(horizontal: 15.w),
+            );
+          }),
+        ),
+        //If it's last item, we will not add Divider after it.
+        if (item != items.last)
+          const DropdownMenuItem<DropdownModel>(
+            enabled: false,
+            child: Divider(),
+          ),
+      ],
+    );
+  }
+  return menuItems;
 }

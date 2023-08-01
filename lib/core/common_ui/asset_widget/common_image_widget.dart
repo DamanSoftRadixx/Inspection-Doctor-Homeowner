@@ -67,8 +67,10 @@ class AssetWidget extends StatelessWidget {
       case AssetType.network:
         try {
           var widget = InkWell(
-            highlightColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             /* onTap: () {
               */ /*print("asset.path> ${asset.path}");
               if(asset.path!=null&&asset.path!=""&&asset.path!='null') {

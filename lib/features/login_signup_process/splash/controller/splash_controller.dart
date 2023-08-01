@@ -23,7 +23,7 @@ class SplashController extends GetxController {
       var token = Prefs.read(Prefs.token);
 
       if (token != null && token != "") {
-        LoginTokenModel loginTokenModel = getJsonFromJWTToken(token: token);
+        TokenResponseModel loginTokenModel = getJsonFromJWTToken(token: token);
         var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
 
         log("token>>>> $isOtpVerified");

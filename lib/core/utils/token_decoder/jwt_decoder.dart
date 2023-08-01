@@ -8,7 +8,7 @@ getJsonFromJWTToken({required String token}) {
   final jwt = JWT.decode(token);
   log("getJsonFromJWTToken>>> ${jsonEncode(jwt.payload)}");
 
-  LoginTokenModel tokenData = LoginTokenModel.fromJson(jwt.payload);
+  TokenResponseModel tokenData = TokenResponseModel.fromJson(jwt.payload);
 
   return tokenData;
 }

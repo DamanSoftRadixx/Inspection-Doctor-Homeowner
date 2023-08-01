@@ -18,11 +18,21 @@ class SelectedCategoriesController extends GetxController {
       CategoryListResponseDataModel().obs;
 
   var isShowLoader = false.obs;
+  Rx<InspectionCreateRequestModel> argData = InspectionCreateRequestModel().obs;
 
   @override
   void onInit() {
+    getArguments();
     getCategoryList();
     super.onInit();
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      argData.value = args[GetArgumentConstants.inspectionCreateRequestArg] ??
+          InspectionCreateRequestModel();
+    }
   }
 
   onPressCategoryItem({required int index}) {
@@ -36,15 +46,11 @@ class SelectedCategoriesController extends GetxController {
   }
 
   void onPressContinueButton() {
-    InspectionCreateRequestModel inspectionCreateRequestModel =
-        InspectionCreateRequestModel(
-      categoryId: selectedCategory.value.id,
-      categoriesName: selectedCategory.value.name,
-    );
+    argData.value.categoryId = selectedCategory.value.id;
+    argData.value.categoriesName = selectedCategory.value.name;
 
     Get.toNamed(Routes.inspectionsListScreen, arguments: {
-      GetArgumentConstants.inspectionCreateRequestArg:
-          inspectionCreateRequestModel,
+      GetArgumentConstants.inspectionCreateRequestArg: argData.value,
     });
   }
 

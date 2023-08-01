@@ -1,11 +1,11 @@
-class LoginTokenModel {
-  LoginTokenModel({
+class TokenResponseModel {
+  TokenResponseModel({
     this.data,
     this.iat,
     this.exp,
   });
 
-  LoginTokenModel.fromJson(dynamic json) {
+  TokenResponseModel.fromJson(dynamic json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     iat = json['iat'];
     exp = json['exp'];

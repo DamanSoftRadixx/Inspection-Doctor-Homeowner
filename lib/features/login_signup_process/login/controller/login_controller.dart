@@ -288,7 +288,7 @@ class LoginController extends GetxController {
     var token = (response.data?.token ?? "").replaceFirst("Bearer ", "");
     if (token != "") {
       Prefs.write(Prefs.token, token);
-      LoginTokenModel loginTokenModel = getJsonFromJWTToken(token: token);
+      TokenResponseModel loginTokenModel = getJsonFromJWTToken(token: token);
       var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
       if (isOtpVerified == 1) {
         Get.toNamed(Routes.dashboard);

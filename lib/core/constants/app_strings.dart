@@ -311,6 +311,7 @@ class AppStrings {
   static const county = "County";
   static const uploadArchitecturalDrawing = "Upload architectural drawing";
   static const uploadAPdf = "Upload a pdf";
+  static const time = "Time";
 
   //Home List
   static const searchNameAddress = "Search by name and address";
@@ -336,7 +337,7 @@ class AppStrings {
   static const fillCategoryForm =
       "Please fill out below form for inspection. You can select multiple time slots.";
   static const contactPersonInformation = "Contact Person Information";
-  static const time = "Time";
+  static const description = "Description";
 
   //Permissions
   static const permissionDenied = "Permission Denied";
@@ -432,4 +433,6 @@ class ErrorMessages {
   static const blockEmty = "Please enter block number.";
   static const countyEmty = "Please select county.";
   static const docEmty = "Please upload architectural drawing.";
+  static const dateEmty = "Please select date.";
+  static const timeEmty = "Please select time.";
 }

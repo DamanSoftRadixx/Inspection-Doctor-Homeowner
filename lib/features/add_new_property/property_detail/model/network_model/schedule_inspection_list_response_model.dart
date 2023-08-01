@@ -1,29 +1,32 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class ScheduleInspectionListResponseModel {
   ScheduleInspectionListResponseModel({
-      this.status, 
-      this.success, 
-      this.message, 
-      this.data, 
-      this.recordsTotal, 
-      this.recordsFiltered,});
+    this.status,
+    this.success,
+    this.message,
+    this.data,
+    this.recordsTotal,
+    this.recordsFiltered,
+  });
 
   ScheduleInspectionListResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(ScheduleInspectionListResponseDataModel.fromJson(v));
       });
     }
-    recordsTotal = json['recordsTotal'];
-    recordsFiltered = json['recordsFiltered'];
+    recordsTotal = json['recordsTotal'].toString().toIntConversion();
+    recordsFiltered = json['recordsFiltered'].toString().toIntConversion();
   }
   int? status;
   bool? success;
   String? message;
-  List<Data>? data;
+  List<ScheduleInspectionListResponseDataModel>? data;
   int? recordsTotal;
   int? recordsFiltered;
 
@@ -39,71 +42,80 @@ class ScheduleInspectionListResponseModel {
     map['recordsFiltered'] = recordsFiltered;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.id, 
-      this.date, 
-      this.time, 
-      this.description, 
-      this.firstName, 
-      this.lastName, 
-      this.email, 
-      this.phone, 
-      this.countryCode, 
-      this.inspectionStatusId, 
-      this.acceptedInspectionDate, 
-      this.acceptedInspectionTime, 
-      this.report, 
-      this.reportDescription, 
-      this.reportEmail, 
-      this.islatest, 
-      this.propertyInspectionParentId, 
-      this.latestUpdate, 
-      this.properties, 
-      this.architecturelDrawingUrl, 
-      this.category, 
-      this.subcategory,});
+class ScheduleInspectionListResponseDataModel {
+  ScheduleInspectionListResponseDataModel({
+    this.id,
+    this.date,
+    this.time,
+    this.description,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.countryCode,
+    this.inspectionStatusId,
+    this.acceptedInspectionDate,
+    this.acceptedInspectionTime,
+    this.report,
+    this.reportDescription,
+    this.reportEmail,
+    this.islatest,
+    this.propertyInspectionParentId,
+    this.latestUpdate,
+    this.properties,
+    this.architecturelDrawingUrl,
+    this.category,
+    this.subcategory,
+  });
 
-  Data.fromJson(dynamic json) {
-    id = json['_id'];
-    date = json['date'];
+  ScheduleInspectionListResponseDataModel.fromJson(dynamic json) {
+    id = json['_id'].toString().toStringConversion();
+    date = json['date'].toString().toStringConversion();
     if (json['time'] != null) {
       time = [];
       json['time'].forEach((v) {
         time?.add(Time.fromJson(v));
       });
     }
-    description = json['description'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    phone = json['phone'];
-    countryCode = json['country_code'];
-    inspectionStatusId = json['inspection_status_id'];
-    acceptedInspectionDate = json['accepted_inspection_date'];
-    if (json['accepted_inspection_time'] != null) {
-      acceptedInspectionTime = [];
-      json['accepted_inspection_time'].forEach((v) {
-        acceptedInspectionTime?.add(Dynamic.fromJson(v));
-      });
-    }
-    report = json['report'];
-    reportDescription = json['report_description'];
-    if (json['report_email'] != null) {
-      reportEmail = [];
-      json['report_email'].forEach((v) {
-        reportEmail?.add(Dynamic.fromJson(v));
-      });
-    }
+    description = json['description'].toString().toStringConversion();
+    firstName = json['first_name'].toString().toStringConversion();
+    lastName = json['last_name'].toString().toStringConversion();
+    email = json['email'].toString().toStringConversion();
+    phone = json['phone'].toString().toStringConversion();
+    countryCode = json['country_code'].toString().toStringConversion();
+    inspectionStatusId =
+        json['inspection_status_id'].toString().toStringConversion();
+    acceptedInspectionDate =
+        json['accepted_inspection_date'].toString().toStringConversion();
+    // if (json['accepted_inspection_time'] != null) {
+    //   acceptedInspectionTime = [];
+    //   json['accepted_inspection_time'].forEach((v) {
+    //     acceptedInspectionTime?.add(Dynamic.fromJson(v));
+    //   });
+    // }
+    report = json['report'].toString().toStringConversion();
+    reportDescription =
+        json['report_description'].toString().toStringConversion();
+    // if (json['report_email'] != null) {
+    //   reportEmail = [];
+    //   json['report_email'].forEach((v) {
+    //     reportEmail?.add(Dynamic.fromJson(v));
+    //   });
+    // }
     islatest = json['islatest'];
-    propertyInspectionParentId = json['property_inspection_parent_id'];
+    propertyInspectionParentId =
+        json['property_inspection_parent_id'].toString().toStringConversion();
     latestUpdate = json['latest_update'];
-    properties = json['properties'] != null ? Properties.fromJson(json['properties']) : null;
-    architecturelDrawingUrl = json['architecturel_drawing_url'] != null ? ArchitecturelDrawingUrl.fromJson(json['architecturel_drawing_url']) : null;
-    category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    properties = json['properties'] != null
+        ? Properties.fromJson(json['properties'])
+        : null;
+    architecturelDrawingUrl = json['architecturel_drawing_url'] != null
+        ? ArchitecturelDrawingUrl.fromJson(json['architecturel_drawing_url'])
+        : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
@@ -150,7 +162,8 @@ class Data {
     map['inspection_status_id'] = inspectionStatusId;
     map['accepted_inspection_date'] = acceptedInspectionDate;
     if (acceptedInspectionTime != null) {
-      map['accepted_inspection_time'] = acceptedInspectionTime?.map((v) => v.toJson()).toList();
+      map['accepted_inspection_time'] =
+          acceptedInspectionTime?.map((v) => v.toJson()).toList();
     }
     map['report'] = report;
     map['report_description'] = reportDescription;
@@ -174,13 +187,13 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Subcategory {
   Subcategory({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Subcategory.fromJson(dynamic json) {
     id = json['_id'];
@@ -195,13 +208,13 @@ class Subcategory {
     map['name'] = name;
     return map;
   }
-
 }
 
 class Category {
   Category({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Category.fromJson(dynamic json) {
     id = json['_id'];
@@ -216,12 +229,12 @@ class Category {
     map['name'] = name;
     return map;
   }
-
 }
 
 class ArchitecturelDrawingUrl {
   ArchitecturelDrawingUrl({
-      this.url,});
+    this.url,
+  });
 
   ArchitecturelDrawingUrl.fromJson(dynamic json) {
     url = json['url'];
@@ -233,23 +246,23 @@ class ArchitecturelDrawingUrl {
     map['url'] = url;
     return map;
   }
-
 }
 
 class Properties {
   Properties({
-      this.assignedUserId, 
-      this.createdById, 
-      this.propertyName, 
-      this.street, 
-      this.state, 
-      this.city, 
-      this.zipCode, 
-      this.lotNumber, 
-      this.blockNumber, 
-      this.permitNumber, 
-      this.countyId, 
-      this.latestUpdate,});
+    this.assignedUserId,
+    this.createdById,
+    this.propertyName,
+    this.street,
+    this.state,
+    this.city,
+    this.zipCode,
+    this.lotNumber,
+    this.blockNumber,
+    this.permitNumber,
+    this.countyId,
+    this.latestUpdate,
+  });
 
   Properties.fromJson(dynamic json) {
     assignedUserId = json['assigned_user_id'];
@@ -280,27 +293,27 @@ class Properties {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['assigned_user_id'] = assignedUserId;
-    map['created_by_id'] = createdById;
-    map['property_name'] = propertyName;
-    map['street'] = street;
-    map['state'] = state;
-    map['city'] = city;
-    map['zip_code'] = zipCode;
-    map['lot_number'] = lotNumber;
-    map['block_number'] = blockNumber;
-    map['permit_number'] = permitNumber;
-    map['county_id'] = countyId;
-    map['latest_update'] = latestUpdate;
+    map['assigned_user_id'] = assignedUserId.toString().toStringConversion();
+    map['created_by_id'] = createdById.toString().toStringConversion();
+    map['property_name'] = propertyName.toString().toStringConversion();
+    map['street'] = street.toString().toStringConversion();
+    map['state'] = state.toString().toStringConversion();
+    map['city'] = city.toString().toStringConversion();
+    map['zip_code'] = zipCode.toString().toStringConversion();
+    map['lot_number'] = lotNumber.toString().toStringConversion();
+    map['block_number'] = blockNumber.toString().toStringConversion();
+    map['permit_number'] = permitNumber.toString().toStringConversion();
+    map['county_id'] = countyId.toString().toStringConversion();
+    map['latest_update'] = latestUpdate.toString().toStringConversion();
     return map;
   }
-
 }
 
 class Time {
   Time({
-      this.starttime, 
-      this.endtime,});
+    this.starttime,
+    this.endtime,
+  });
 
   Time.fromJson(dynamic json) {
     starttime = json['starttime'];
@@ -311,9 +324,8 @@ class Time {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['starttime'] = starttime;
-    map['endtime'] = endtime;
+    map['starttime'] = starttime.toString().toStringConversion();
+    map['endtime'] = endtime.toString().toStringConversion();
     return map;
   }
-
 }

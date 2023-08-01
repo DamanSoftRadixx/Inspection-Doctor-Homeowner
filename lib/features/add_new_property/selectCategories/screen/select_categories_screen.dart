@@ -82,9 +82,10 @@ class SelectCategoriesScreen extends GetView<SelectedCategoriesController> {
     var listData = controller.categoriesList[index];
 
     return InkWell(
-      focusColor: lightColorPalette.transparentColor,
-      splashColor: lightColorPalette.transparentColor,
-      hoverColor: lightColorPalette.transparentColor,
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
       onTap: () {
         controller.onPressCategoryItem(index: index);
       },

@@ -55,35 +55,46 @@ class InspectionsListScreen extends GetView<InspectionsListController> {
     );
   }
 
-  Container listRowView(CategoryListResponseDataModel listData) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      height: 57.h,
-      width: 1.sw,
-      decoration: BoxDecoration(
-        border: Border(
-            bottom: BorderSide(
-          color: lightColorPalette.grey,
-          width: 0.3.w,
-        )),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AppTextWidget(
-            textAlign: TextAlign.start,
-            text: listData.name ?? "",
-            style: CustomTextTheme.categoryText(
-              color: lightColorPalette.black,
+  listRowView(CategoryListResponseDataModel listData) {
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        controller.selectedCategory.value = listData;
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        height: 57.h,
+        width: 1.sw,
+        decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+            color: lightColorPalette.grey,
+            width: 0.3.w,
+          )),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: AppTextWidget(
+                textAlign: TextAlign.start,
+                text: listData.name ?? "",
+                style: CustomTextTheme.categoryText(
+                  color: lightColorPalette.black,
+                ),
+              ),
             ),
-          ),
-          commonRadioButton(
-              text: "",
-              isSelected: listData.id == controller.selectedCategory.value.id,
-              onTap: () {
-                controller.selectedCategory.value = listData;
-              })
-        ],
+            commonRadioButton(
+                text: "",
+                isSelected: listData.id == controller.selectedCategory.value.id,
+                onTap: () {
+                  controller.selectedCategory.value = listData;
+                })
+          ],
+        ),
       ),
     );
   }

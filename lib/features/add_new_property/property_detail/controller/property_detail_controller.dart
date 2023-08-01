@@ -1,17 +1,32 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/delete_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/delete_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/provider/property_detail_provider.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/request_model/inspection_create_request_model.dart';
 
 class PropertyDetailController extends GetxController {
   PropertyDetailProvider propertyDetailProvider = PropertyDetailProvider();
   Rx<PropertyListData> propertyDetail = PropertyListData().obs;
+
+  RxList<ScheduleInspectionListResponseDataModel> scheduleInspectionList =
+     <ScheduleInspectionListResponseDataModel>[].obs;
   onPressAddPropertyButton() {
-    Get.toNamed(Routes.selectCategoriesScreen);
+    InspectionCreateRequestModel inspectionCreateRequestModel =
+        InspectionCreateRequestModel(
+      propertyId: propertyDetail.value.id,
+    );
+
+    Get.toNamed(Routes.selectCategoriesScreen, arguments: {
+      GetArgumentConstants.inspectionCreateRequestArg:
+          inspectionCreateRequestModel,
+    });
   }
 
   getArguments() {
@@ -87,6 +102,41 @@ class PropertyDetailController extends GetxController {
               ]);
             },
             buttonTitle: AppStrings.ok);
+      } else {
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
+  }
+
+  Future<void> getScheduleInspectionList() async {
+    setShowLoader(value: true);
+
+    var body = json.encode({
+      "property_id": "64c74829aa5a15e3162fb2d9",
+      "user_id": "64c21cd6785e72f5e0b0e423",
+      "search": "",
+      "start": 0,
+      "length": 10
+    });
+
+    try {
+      ScheduleInspectionListResponseModel response =
+          await propertyDetailProvider.getScheduleInspectionList(
+                  id: propertyDetail.value.id ?? "", body: body) ??
+              ScheduleInspectionListResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        //   //  snackbar(response.message ?? "");
+
+     scheduleInspectionList
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

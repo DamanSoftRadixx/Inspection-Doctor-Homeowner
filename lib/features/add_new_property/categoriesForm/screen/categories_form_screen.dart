@@ -9,6 +9,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/controller/categories_form_controller.dart';
 
@@ -41,6 +42,8 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                                 color: lightColorPalette.greyBg),
                             getFormFillDetail().paddingAll(20.r),
                             getDateTimeView(),
+                            getDescriptionView(),
+                            getContactInformation(),
                           ],
                         ),
                       ),
@@ -55,26 +58,56 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         ));
   }
 
+  Widget getDescriptionView() {
+    return commonTextFieldWidget(
+      height: 88.h,
+      maxLines: 5,
+      textCapitalization: TextCapitalization.sentences,
+      focusNode: controller.descriptionFocusNode.value,
+      controller: controller.descriptionController.value,
+      title: AppStrings.description.tr,
+      hint: AppStrings.description.tr,
+      maxLength: 300,
+      keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
+      onChanged: (value) {
+        controller.onChangedDescriptionField(value: value);
+      },
+    ).paddingSymmetric(horizontal: 20.w);
+  }
+
   getDateTimeView() {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-                child: commonDatePicker(
-                        title: AppStrings.date,
-                        onPicked: (DateTime value) {
-                          controller.selectedDate.value = value;
-                        },
-                        selectedDate: controller.selectedDate.value.toString())
-                    .paddingOnly(right: 21.w)),
-            Expanded(
-                child: commonDatePicker(
-                    title: AppStrings.time,
-                    onPicked: (DateTime) {},
-                    selectedDate: ''))
-          ],
-        ).paddingOnly(bottom: 12.h),
+        commonDatePicker(
+                title: AppStrings.date,
+                onPicked: (DateTime value) {
+                  controller.selectedDate.value = getDateFormated(date: value);
+                },
+                selectedDate: controller.selectedDate.value.toString())
+            .paddingOnly(bottom: 11.h),
+        multiDropdownField(
+                hint: AppStrings.time.tr,
+                title: AppStrings.time.tr,
+                selectedValue: controller.selectTime.value,
+                onClick: (DropdownModel value) {
+                  controller.onSelectTimeDropdown(value: value);
+                },
+                list: controller.timeList,
+                isExpanded: true,
+                selectedItems: controller.selectedTime)
+            .paddingOnly(bottom: 5.h),
+        showSelectedTime(),
+      ],
+    ).paddingSymmetric(horizontal: 20.w);
+  }
+
+  getContactInformation() {
+    return Column(
+      children: [
         Align(
           alignment: Alignment.centerLeft,
           child: AppTextWidget(
@@ -88,7 +121,30 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         showEmailField().paddingOnly(bottom: 11.h),
         showPhoneNumberField().paddingOnly(bottom: 11.h),
       ],
-    ).paddingSymmetric(horizontal: 20.w);
+    ).paddingSymmetric(horizontal: 20.w, vertical: 20.h);
+  }
+
+  Align showSelectedTime() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Wrap(
+        spacing: 5.w,
+        children: List.generate(
+            controller.selectedTime.length,
+            (index) => Chip(
+                  deleteIconColor: Colors.green,
+                  onDeleted: () {
+                    controller.selectedTime.removeAt(index);
+                  },
+                  label: AppTextWidget(
+                    textAlign: TextAlign.start,
+                    text: controller.selectedTime[index].name,
+                    style: CustomTextTheme.bottomTabsithFontWeight600(
+                        color: lightColorPalette.grey),
+                  ),
+                )),
+      ),
+    );
   }
 
   AppTextWidget getFormFillDetail() {
@@ -121,7 +177,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
             padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 19.w),
             child: AppTextWidget(
               textAlign: TextAlign.start,
-              text: controller.argData.value.categoriesName ?? "",
+              text: controller.argData.value.subCategoriesName ?? "",
               style: CustomTextTheme.categoryText(
                 color: lightColorPalette.black,
               ),
@@ -135,8 +191,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
   Widget showContinueButton() {
     return CommonButton(
             commonButtonBottonText: AppStrings.schedule.tr,
-            onPress: controller.selectedCategory.value.id != "" &&
-                    controller.selectedCategory.value.id != null
+            onPress: controller.isEnable
                 ? () {
                     controller.onPressContinueButton();
                   }
