@@ -6,8 +6,12 @@ import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_i
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/pdf_viewer.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/no_data/no_data_found.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/refresh_indicator/common_refresh_indicator.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -38,7 +42,9 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                         .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
                   ],
                 ),
-                CommonLoader(isLoading: controller.isShowLoader.value)
+                CommonLoader(
+                    isLoading: controller.isShowLoader.value ||
+                        controller.isShowSearchLoader.value)
               ],
             ),
           )),
@@ -235,24 +241,49 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: controller.scheduleInspectionList.length,
-              itemBuilder: (BuildContext context, int index) {
-                ScheduleInspectionListResponseDataModel listData =
-                    controller.scheduleInspectionList[index];
-                return getPropertyDetailCard(listData: listData);
-              },
-            ),
-          ),
+          getInspectionList(),
         ],
       ),
     );
   }
 
-  getPropertyDetailCard(
-      {required ScheduleInspectionListResponseDataModel listData}) {
+  getInspectionList() {
+    return Obx(() => Expanded(
+          child: Column(
+            children: [
+              showSearchBar().paddingOnly(
+                  top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
+              Expanded(
+                child: CommonRefreshIndicator(
+                  onRefresh: () => Future.sync(() {
+                    controller.onRefresh();
+                  }),
+                  controller: controller.refreshController,
+                  child: controller.scheduleInspectionList.isNotEmpty
+                      ? ListView.builder(
+                          padding: EdgeInsets.only(bottom: 20.h),
+                          shrinkWrap: true,
+                          itemCount: controller.scheduleInspectionList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            ScheduleInspectionResponseData listData =
+                                controller.scheduleInspectionList[index];
+                            return getPropertyDetailCard(listData: listData);
+                          },
+                        )
+                      : (controller.isShowSearchLoader.value
+                          ? const SizedBox()
+                          : showNoDataFound()),
+                ),
+              ),
+              Visibility(
+                  visible: controller.loadMore.value == true,
+                  child: const CircularProgressIndicator())
+            ],
+          ),
+        ));
+  }
+
+  getPropertyDetailCard({required ScheduleInspectionResponseData listData}) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(Routes.inspectionDetailScreen,
@@ -296,13 +327,11 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                             color: lightColorPalette.grey, width: 0.3)),
                     padding:
                         EdgeInsets.symmetric(vertical: 19.h, horizontal: 19.w),
-                    child: Expanded(
-                      child: AppTextWidget(
-                        textAlign: TextAlign.start,
-                        text: listData.subcategory?.first.name ?? "",
-                        style: CustomTextTheme.categoryText(
-                          color: lightColorPalette.black,
-                        ),
+                    child: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: listData.subcategory?.first.name ?? "",
+                      style: CustomTextTheme.categoryText(
+                        color: lightColorPalette.black,
                       ),
                     ),
                   ),
@@ -310,7 +339,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               ],
             ).paddingOnly(left: 18.w, right: 18.w, top: 13.h),
             const Divider(),
-
+//Date
             Row(
               children: [
                 AssetWidget(
@@ -325,39 +354,84 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 AppTextWidget(
                   style:
                       CustomTextTheme.normalText(color: lightColorPalette.grey),
-                  text: listData.date ?? "",
+                  text: getDateFormatedFromString(date: listData.date ?? ""),
                 ),
               ],
             ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
-            Row(
-              children: [
-                AssetWidget(
-                  color: lightColorPalette.black,
-                  asset: Asset(
-                    type: AssetType.svg,
-                    path: ImageResource.clock,
-                  ),
-                ).paddingOnly(right: 5.w),
-                AppTextWidget(
-                  style:
-                      CustomTextTheme.normalText(color: lightColorPalette.grey),
-                  text: listData.time?.first.starttime ?? "",
-                ),
-              ],
-            ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
+            getInspectionTimeList(listData),
             const Divider(),
-
             Align(
               alignment: Alignment.centerLeft,
               child: AppTextWidget(
                 style:
                     CustomTextTheme.normalText(color: lightColorPalette.grey),
                 text: listData.category?.name ?? "",
-              ),
+              ).paddingOnly(left: 18.w),
             )
           ],
         ),
       ),
+    );
+  }
+
+  ListView getInspectionTimeList(ScheduleInspectionResponseData listData) {
+    return ListView.builder(
+      padding: EdgeInsets.only(left: 18.w, right: 18.w),
+      shrinkWrap: true,
+      itemCount: listData.time?.length,
+      itemBuilder: (BuildContext context, int index) {
+        Time timeData = listData.time![index];
+        return Row(
+          children: [
+            SizedBox(
+              width: 90.w,
+              child: Row(
+                children: [
+                  AssetWidget(
+                    height: 14.h,
+                    width: 14.w,
+                    color: lightColorPalette.black,
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.clock,
+                    ),
+                  ).paddingOnly(right: 5.w),
+                  AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: getLocalTimeFromUtc(
+                          dateTimeString: timeData.starttime ?? "")),
+                ],
+              ),
+            ),
+            AppTextWidget(
+                style:
+                    CustomTextTheme.normalText(color: lightColorPalette.grey),
+                text: " -  "),
+            SizedBox(
+              width: 90.w,
+              child: Row(
+                children: [
+                  AssetWidget(
+                    height: 14.h,
+                    width: 14.w,
+                    color: lightColorPalette.black,
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.clock,
+                    ),
+                  ).paddingOnly(right: 5.w),
+                  AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: getLocalTimeFromUtc(
+                          dateTimeString: timeData.endtime ?? "")),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -367,5 +441,15 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
         onPress: () {
           controller.onPressAddPropertyButton();
         });
+  }
+
+  Widget showSearchBar() {
+    return commonSearchFieldWidget(
+        controller: controller.searchController,
+        onChanged: (value) {
+          controller.onChangedSearch();
+        },
+        focusNode: controller.searchFocusNode.value,
+        searchHint: AppStrings.searchCategoryAndInspection);
   }
 }

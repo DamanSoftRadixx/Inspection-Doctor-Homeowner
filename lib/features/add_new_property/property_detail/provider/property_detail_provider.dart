@@ -36,10 +36,14 @@ class PropertyDetailProvider {
   }
 
   Future<ScheduleInspectionListResponseModel?> getScheduleInspectionList(
-      {required String id, required Object body}) async {
+      {required String id,
+      required Object body,
+      bool isCancelToken = false}) async {
     try {
       Response response = await apiHitter.postApi(
-          endPoint: EndPoints.scheduleInspectionList, body: body);
+          endPoint: EndPoints.scheduleInspectionList,
+          body: body,
+          isCancelToken: isCancelToken);
 
       ScheduleInspectionListResponseModel data =
           ScheduleInspectionListResponseModel.fromJson(response.data);

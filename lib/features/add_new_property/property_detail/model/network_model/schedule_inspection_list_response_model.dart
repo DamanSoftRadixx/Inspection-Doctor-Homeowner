@@ -17,7 +17,7 @@ class ScheduleInspectionListResponseModel {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(ScheduleInspectionListResponseDataModel.fromJson(v));
+        data?.add(ScheduleInspectionResponseData.fromJson(v));
       });
     }
     recordsTotal = json['recordsTotal'].toString().toIntConversion();
@@ -26,7 +26,7 @@ class ScheduleInspectionListResponseModel {
   int? status;
   bool? success;
   String? message;
-  List<ScheduleInspectionListResponseDataModel>? data;
+  List<ScheduleInspectionResponseData>? data;
   int? recordsTotal;
   int? recordsFiltered;
 
@@ -44,8 +44,8 @@ class ScheduleInspectionListResponseModel {
   }
 }
 
-class ScheduleInspectionListResponseDataModel {
-  ScheduleInspectionListResponseDataModel({
+class ScheduleInspectionResponseData {
+  ScheduleInspectionResponseData({
     this.id,
     this.date,
     this.time,
@@ -70,7 +70,7 @@ class ScheduleInspectionListResponseDataModel {
     this.subcategory,
   });
 
-  ScheduleInspectionListResponseDataModel.fromJson(dynamic json) {
+  ScheduleInspectionResponseData.fromJson(dynamic json) {
     id = json['_id'].toString().toStringConversion();
     date = json['date'].toString().toStringConversion();
     if (json['time'] != null) {

@@ -1,4 +1,5 @@
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 getLocalDateFromUtc({required String dateTimeString}) {
@@ -7,6 +8,17 @@ getLocalDateFromUtc({required String dateTimeString}) {
     var localDateTime = giveDateTime.toLocal();
     var localDate = DateFormat("dd MMM At hh:mm a").format(localDateTime);
     localDate = localDate.replaceAll("At", "at");
+    return localDate;
+  }
+  return "";
+}
+
+getLocalTimeFromUtc({required String dateTimeString}) {
+  if (dateTimeString != "" && dateTimeString != "null") {
+    var giveDateTime = DateTime.parse(dateTimeString);
+    var localDateTime = giveDateTime.toLocal();
+    var localDate = DateFormat("hh:mm aaa").format(localDateTime);
+    // localDate = localDate.replaceAll("At", "at");
     return localDate;
   }
   return "";
@@ -38,7 +50,26 @@ String getUtcDateString(
   return "";
 }
 
-String getDateFormated({required DateTime date}) {
-  String formattedDate = DateFormat('dd/MM/yyyy').format(date);
+String getDateFormatedFromDateTime({
+  required DateTime date,
+  String? newPattern,
+}) {
+  String formattedDate = DateFormat(newPattern ?? 'dd/MM/yyyy').format(date);
   return formattedDate;
+}
+
+String getDateFormatedFromString({
+  required String date,
+  String? newPattern,
+}) {
+  DateTime result = parseDated(text: date) ?? DateTime.now();
+  String formattedDate =
+      DateFormat(newPattern ?? 'dd MMMM yyyy').format(result);
+  return formattedDate;
+}
+
+DateTime? parseDated({required String text}) {
+  final MaterialLocalizations localizations =
+      MaterialLocalizations.of(Get.context!);
+  return localizations.parseCompactDate(text);
 }

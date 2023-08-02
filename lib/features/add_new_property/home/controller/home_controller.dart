@@ -10,7 +10,6 @@ import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/provider/home_provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:dio/dio.dart' as dio;
 
 class HomeController extends GetxController {
   HomeProvider homeProvider = HomeProvider();
@@ -47,7 +46,7 @@ class HomeController extends GetxController {
   void onTapOnPropertyCard({required PropertyListData property}) {
     dismissKeyboard();
     Get.toNamed(Routes.propertyDetailScreen,
-        arguments: {GetArgumentConstants.propertyCard: property})
+            arguments: {GetArgumentConstants.propertyCard: property})
         ?.then((value) {
       if (value != null) {
         propertyList.clear();
@@ -93,8 +92,7 @@ class HomeController extends GetxController {
   }
 
   void pagination() {
-    log("listController.position.maxScrollExtent : ${listController.position
-        .maxScrollExtent}");
+    log("listController.position.maxScrollExtent : ${listController.position.maxScrollExtent}");
     if ((listController.position.maxScrollExtent != 0.0 &&
         listController.position.pixels ==
             listController.position.maxScrollExtent)) {
@@ -189,7 +187,7 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // setShowLoader(value: false);
-     /* loadMore.value = false;
+      /* loadMore.value = false;
       loadMore.refresh();
       setShowSearchLoader(value: false);
 
@@ -197,4 +195,3 @@ class HomeController extends GetxController {
     }
   }
 }
-

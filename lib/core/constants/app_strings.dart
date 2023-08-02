@@ -323,6 +323,9 @@ class AppStrings {
   static const delete = "Delete";
   static const scheduleInspection = "Schedule inspection";
   static const updateProperty = "Update Property";
+  static const contactPerson = "Contact person";
+  static const trackYourInspection = "Track your inspection";
+  static const reschedule = "Reschedule";
 
   //Select Cateories
   static const categories = "Categories";
@@ -338,6 +341,9 @@ class AppStrings {
       "Please fill out below form for inspection. You can select multiple time slots.";
   static const contactPersonInformation = "Contact Person Information";
   static const description = "Description";
+  static const searchCategoryAndInspection =
+      "Search by category and inspection name";
+  static const inspectionDetail = "Inspection detail";
 
   //Permissions
   static const permissionDenied = "Permission Denied";

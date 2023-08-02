@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -11,13 +12,46 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/property_d
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/provider/property_detail_provider.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/request_model/inspection_create_request_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PropertyDetailController extends GetxController {
   PropertyDetailProvider propertyDetailProvider = PropertyDetailProvider();
   Rx<PropertyListData> propertyDetail = PropertyListData().obs;
 
-  RxList<ScheduleInspectionListResponseDataModel> scheduleInspectionList =
-      <ScheduleInspectionListResponseDataModel>[].obs;
+  RxList<ScheduleInspectionResponseData> scheduleInspectionList =
+      <ScheduleInspectionResponseData>[].obs;
+
+  //search
+  TextEditingController searchController = TextEditingController();
+  onChangedSearch() {
+    getScheduleInspectionList(isFromSearch: true);
+  }
+
+  var searchFocusNode = FocusNode().obs;
+  RxBool isShowSearchLoader = false.obs;
+
+  RxInt start = 0.obs;
+  RxBool loadMore = false.obs;
+  var totalRecords = 0;
+  final int pageLength = 10;
+  RefreshController refreshController = RefreshController();
+
+  void pagination() {
+    log("listController.position.maxScrollExtent : ${listController.position.maxScrollExtent}");
+    if ((listController.position.maxScrollExtent != 0.0 &&
+        listController.position.pixels ==
+            listController.position.maxScrollExtent)) {
+      if (start.value < totalRecords && loadMore.value == false) {
+        loadMore.value = true;
+        start.value += pageLength;
+
+        getScheduleInspectionList();
+      }
+    }
+  }
+
+  ScrollController listController = ScrollController();
+
   onPressAddPropertyButton() {
     InspectionCreateRequestModel inspectionCreateRequestModel =
         InspectionCreateRequestModel(
@@ -41,7 +75,25 @@ class PropertyDetailController extends GetxController {
   void onInit() {
     getArguments();
     getScheduleInspectionList();
+    listController.addListener(pagination);
     super.onInit();
+  }
+
+  @override
+  void dispose() {
+    refreshController.dispose();
+    listController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onClose() {
+    disposeFocusListeners();
+    super.onClose();
+  }
+
+  disposeFocusListeners() {
+    searchFocusNode.value.removeListener(() {});
   }
 
   RxBool isShowLoader = false.obs;
@@ -117,29 +169,70 @@ class PropertyDetailController extends GetxController {
     }
   }
 
-  Future<void> getScheduleInspectionList() async {
-    setShowLoader(value: true);
+  setShowSearchLoader({required bool value}) {
+    isShowSearchLoader.value = value;
+    isShowSearchLoader.refresh();
+  }
+
+  Future<void> getScheduleInspectionList(
+      {bool isFromRefresh = false, bool isFromSearch = false}) async {
+    if (isFromRefresh || isFromSearch) {
+      start.value = 0;
+      loadMore.value == false;
+      start.refresh();
+    }
+
+    if (!isFromRefresh) {
+      if (loadMore.value == false) {
+        if (isFromSearch) {
+          scheduleInspectionList.clear();
+          setShowSearchLoader(value: true);
+        } else {
+          setShowLoader(value: true);
+        }
+      }
+    }
 
     var body = json.encode({
-      "property_id": "64c74829aa5a15e3162fb2d9",
-      "user_id": "64c21cd6785e72f5e0b0e423",
-      "search": "",
-      "start": 0,
-      "length": 10
+      "property_id": propertyDetail.value.id,
+      "user_id": propertyDetail.value.assignedUserId,
+      "search": searchController.text,
+      "start": start.value,
+      "length": pageLength,
     });
 
     try {
       ScheduleInspectionListResponseModel response =
           await propertyDetailProvider.getScheduleInspectionList(
-                  id: propertyDetail.value.id ?? "", body: body) ??
+                  id: propertyDetail.value.id ?? "",
+                  body: body,
+                  isCancelToken: true) ??
               ScheduleInspectionListResponseModel();
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        //   //  sresponsenackbar(response.message ?? "");
+        if (isFromRefresh || isFromSearch) {
+          scheduleInspectionList.clear();
+        }
+
         scheduleInspectionList.value = response.data ?? [];
-        log("message>>>> ${scheduleInspectionList.value.length}");
+
+        scheduleInspectionList
+            .addAll(response.data ?? <ScheduleInspectionResponseData>[]);
+        totalRecords = response.recordsTotal ?? 0;
+        loadMore.value = false;
+        scheduleInspectionList.refresh();
+        loadMore.refresh();
+
+        refreshController.refreshCompleted();
+        refreshController.loadComplete();
       } else {
+        loadMore.value = false;
+        setShowLoader(value: false);
+        loadMore.refresh();
+        refreshController.refreshCompleted();
+
+        setShowSearchLoader(value: false);
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
           okButtonPressed: () {
@@ -150,5 +243,9 @@ class PropertyDetailController extends GetxController {
     } catch (e) {
       setShowLoader(value: false);
     }
+  }
+
+  void onRefresh() async {
+    getScheduleInspectionList(isFromRefresh: true);
   }
 }

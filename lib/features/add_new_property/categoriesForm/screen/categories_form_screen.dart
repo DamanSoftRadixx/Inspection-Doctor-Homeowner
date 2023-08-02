@@ -85,7 +85,8 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         commonDatePicker(
                 title: AppStrings.date,
                 onPicked: (DateTime value) {
-                  controller.selectedDate.value = getDateFormated(date: value);
+                  controller.selectedDate.value =
+                      getDateFormatedFromDateTime(date: value);
                 },
                 selectedDate: controller.selectedDate.value.toString())
             .paddingOnly(bottom: 11.h),

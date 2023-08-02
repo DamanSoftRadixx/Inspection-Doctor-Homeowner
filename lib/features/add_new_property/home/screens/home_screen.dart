@@ -47,17 +47,15 @@ class HomeScreen extends GetView<HomeController> {
         ));
   }
 
-  getPropertyCenterWidget(){
-    if(controller.propertyList.isNotEmpty ||
-        controller.searchFocusNode.value.hasFocus){
+  getPropertyCenterWidget() {
+    if (controller.propertyList.isNotEmpty ||
+        controller.searchFocusNode.value.hasFocus) {
       return showPropertyUi();
-    }else if(!(controller.isShowLoader.value || controller.isShowSearchLoader.value)){
+    } else if (!(controller.isShowLoader.value ||
+        controller.isShowSearchLoader.value)) {
       return showAddProperty();
     }
-
   }
-
-
 
   SizedBox showFloatingButton() {
     return SizedBox(
@@ -90,12 +88,13 @@ class HomeScreen extends GetView<HomeController> {
 
   Widget showSearchBar() {
     return commonSearchFieldWidget(
-        controller: controller.searchController,
-        onChanged: (value) {
-          controller.onChangedSearch();
-        },
-        focusNode: controller.searchFocusNode.value,
-        searchHint: AppStrings.searchNameAddress);
+      controller: controller.searchController,
+      onChanged: (value) {
+        controller.onChangedSearch();
+      },
+      focusNode: controller.searchFocusNode.value,
+      searchHint: AppStrings.searchNameAddress,
+    );
   }
 
   Expanded showPropertyList() {

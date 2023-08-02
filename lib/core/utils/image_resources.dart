@@ -63,6 +63,9 @@ class ImageResource {
   static const deleteButton = "assets/images/svg/deleteButton.svg";
   static const pdf = "assets/images/svg/pdf.svg";
   static const clock = "assets/images/svg/clock.svg";
+  static const user = "assets/images/svg/user.svg";
+  static const email = "assets/images/svg/email.svg";
+  static const call = "assets/images/svg/call.svg";
 
   //HomeList
   static const forwordArrow = "assets/images/svg/forwordArrow.svg";
