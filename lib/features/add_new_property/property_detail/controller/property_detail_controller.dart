@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
@@ -16,7 +17,7 @@ class PropertyDetailController extends GetxController {
   Rx<PropertyListData> propertyDetail = PropertyListData().obs;
 
   RxList<ScheduleInspectionListResponseDataModel> scheduleInspectionList =
-     <ScheduleInspectionListResponseDataModel>[].obs;
+      <ScheduleInspectionListResponseDataModel>[].obs;
   onPressAddPropertyButton() {
     InspectionCreateRequestModel inspectionCreateRequestModel =
         InspectionCreateRequestModel(
@@ -39,6 +40,7 @@ class PropertyDetailController extends GetxController {
   @override
   void onInit() {
     getArguments();
+    getScheduleInspectionList();
     super.onInit();
   }
 
@@ -134,9 +136,9 @@ class PropertyDetailController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        //   //  snackbar(response.message ?? "");
-
-     scheduleInspectionList
+        //   //  sresponsenackbar(response.message ?? "");
+        scheduleInspectionList.value = response.data ?? [];
+        log("message>>>> ${scheduleInspectionList.value.length}");
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

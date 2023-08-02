@@ -374,6 +374,7 @@ class GetArgumentConstants {
   static const isEditProfile = "isEditProfile";
   static const inspectionCreateRequestArg = "inspectionCreateRequestModel";
   static const categoriesName = "categoriesName";
+  static const inspectionDetail = "inspectionDetail";
 }
 
 class WeekDays {
