@@ -35,6 +35,7 @@ AppBar commonAppBarWithElevation(
               if (onPressBackButton != null) onPressBackButton();
             },
             child: AssetWidget(
+              color: lightColorPalette.black,
               asset: Asset(type: AssetType.svg, path: ImageResource.backArrow),
               boxFit: BoxFit.fitWidth,
             ))
@@ -78,6 +79,7 @@ AppBar commonAppBarWithOutElevation(
               if (onPressBackButton != null) onPressBackButton();
             },
             child: AssetWidget(
+              color: lightColorPalette.black,
               asset: Asset(type: AssetType.svg, path: ImageResource.backArrow),
               boxFit: BoxFit.fitWidth,
             ))

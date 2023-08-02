@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -10,6 +11,7 @@ import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.d
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/reschedule.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 
 class InspectionDetailScreen extends GetView<InspectionDetailController> {
@@ -86,21 +88,41 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
             children: [
               AppTextWidget(
                 style:
-                    CustomTextTheme.buttonText(color: lightColorPalette.grey),
-                text: "28 June 2023  8:53 am",
+                    CustomTextTheme.buttonText(color: lightColorPalette.black),
+                text: "Inspection Requested",
               ),
               AppTextWidget(
-                style:
-                    CustomTextTheme.buttonText(color: lightColorPalette.grey),
+                style: CustomTextTheme.smallText(color: lightColorPalette.grey),
                 text: "28 June 2023  8:53 am",
               ),
             ],
           ).paddingOnly(bottom: 7.5.h, top: 23.5.h),
           AppTextWidget(
-            style: CustomTextTheme.buttonText(color: lightColorPalette.grey),
+            style: CustomTextTheme.buttonText(color: lightColorPalette.black),
             text:
                 "You have requested Category 2 - Kitchen inspection, Bedroom inspection(s) by 30 June 2023  10:20 am.",
-          ),
+          ).paddingOnly(bottom: 10.h),
+          Row(
+            children: [
+              Expanded(
+                child: CommonButton(
+                    style: CustomTextTheme.buttonText(
+                      color: lightColorPalette.redDark,
+                    ),
+                    bgColor: lightColorPalette.redBackground,
+                    commonButtonBottonText: AppStrings.cancel.tr,
+                    onPress: () {}),
+              ),
+              SizedBox(width: 10.w),
+              Expanded(
+                child: CommonButton(
+                    commonButtonBottonText: AppStrings.reschedule.tr,
+                    onPress: () {
+                      showRescheduleForm(controller: controller);
+                    }),
+              )
+            ],
+          )
         ],
       ),
     );
@@ -171,7 +193,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                       color: lightColorPalette.black,
                       asset: Asset(
                         type: AssetType.svg,
-                        path: ImageResource.email,
+                        path: ImageResource.call,
                       ),
                     ).paddingOnly(right: 6.w),
                     AppTextWidget(
@@ -188,7 +210,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                       color: lightColorPalette.black,
                       asset: Asset(
                         type: AssetType.svg,
-                        path: ImageResource.call,
+                        path: ImageResource.email,
                       ),
                     ).paddingOnly(right: 6.w),
                     AppTextWidget(
