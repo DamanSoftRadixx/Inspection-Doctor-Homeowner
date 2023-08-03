@@ -12,7 +12,6 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/reschedule.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 
 class InspectionDetailScreen extends GetView<InspectionDetailController> {
   const InspectionDetailScreen({Key? key}) : super(key: key);
@@ -43,8 +42,8 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
 //Date
                             showDate().paddingOnly(
                                 bottom: 5.h, left: 20.w, right: 20.w),
-                            getInspectionTimeList(
-                                controller.inspectionDetail.value),
+                            // getInspectionTimeList(
+                            //     controller.inspectionDetail.value),
 
                             Divider(color: lightColorPalette.grey)
                                 .paddingSymmetric(horizontal: 20.w),
@@ -281,64 +280,64 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
     );
   }
 
-  ListView getInspectionTimeList(ScheduleInspectionResponseData listData) {
-    return ListView.builder(
-      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-      shrinkWrap: true,
-      itemCount: listData.time?.length,
-      itemBuilder: (BuildContext context, int index) {
-        Time timeData = listData.time![index];
-        return Row(
-          children: [
-            SizedBox(
-              width: 90.w,
-              child: Row(
-                children: [
-                  AssetWidget(
-                    height: 14.h,
-                    width: 14.w,
-                    color: lightColorPalette.black,
-                    asset: Asset(
-                      type: AssetType.svg,
-                      path: ImageResource.clock,
-                    ),
-                  ).paddingOnly(right: 5.w),
-                  AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: getLocalTimeFromUtc(
-                          dateTimeString: timeData.starttime ?? "")),
-                ],
-              ),
-            ),
-            AppTextWidget(
-                style:
-                    CustomTextTheme.normalText(color: lightColorPalette.grey),
-                text: " -  "),
-            SizedBox(
-              width: 90.w,
-              child: Row(
-                children: [
-                  AssetWidget(
-                    height: 14.h,
-                    width: 14.w,
-                    color: lightColorPalette.black,
-                    asset: Asset(
-                      type: AssetType.svg,
-                      path: ImageResource.clock,
-                    ),
-                  ).paddingOnly(right: 5.w),
-                  AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: getLocalTimeFromUtc(
-                          dateTimeString: timeData.endtime ?? "")),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // ListView getInspectionTimeList(ScheduleInspectionResponseData listData) {
+  //   return ListView.builder(
+  //     padding: EdgeInsets.only(left: 20.w, right: 20.w),
+  //     shrinkWrap: true,
+  //     itemCount: listData.time?.length,
+  //     itemBuilder: (BuildContext context, int index) {
+  //       Time timeData = listData.time![index];
+  //       return Row(
+  //         children: [
+  //           SizedBox(
+  //             width: 90.w,
+  //             child: Row(
+  //               children: [
+  //                 AssetWidget(
+  //                   height: 14.h,
+  //                   width: 14.w,
+  //                   color: lightColorPalette.black,
+  //                   asset: Asset(
+  //                     type: AssetType.svg,
+  //                     path: ImageResource.clock,
+  //                   ),
+  //                 ).paddingOnly(right: 5.w),
+  //                 AppTextWidget(
+  //                     style: CustomTextTheme.normalText(
+  //                         color: lightColorPalette.grey),
+  //                     text: getLocalTimeFromUtc(
+  //                         dateTimeString: timeData.starttime ?? "")),
+  //               ],
+  //             ),
+  //           ),
+  //           AppTextWidget(
+  //               style:
+  //                   CustomTextTheme.normalText(color: lightColorPalette.grey),
+  //               text: " -  "),
+  //           SizedBox(
+  //             width: 90.w,
+  //             child: Row(
+  //               children: [
+  //                 AssetWidget(
+  //                   height: 14.h,
+  //                   width: 14.w,
+  //                   color: lightColorPalette.black,
+  //                   asset: Asset(
+  //                     type: AssetType.svg,
+  //                     path: ImageResource.clock,
+  //                   ),
+  //                 ).paddingOnly(right: 5.w),
+  //                 AppTextWidget(
+  //                     style: CustomTextTheme.normalText(
+  //                         color: lightColorPalette.grey),
+  //                     text: getLocalTimeFromUtc(
+  //                         dateTimeString: timeData.endtime ?? "")),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }

@@ -1,9 +1,10 @@
 class ScheduleInspectionDetailsResponseModel {
   ScheduleInspectionDetailsResponseModel({
-      this.status, 
-      this.success, 
-      this.data, 
-      this.message,});
+    this.status,
+    this.success,
+    this.data,
+    this.message,
+  });
 
   ScheduleInspectionDetailsResponseModel.fromJson(dynamic json) {
     status = json['status'];
@@ -11,14 +12,14 @@ class ScheduleInspectionDetailsResponseModel {
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(inspectionDetailData.fromJson(v));
       });
     }
     message = json['message'];
   }
   int? status;
   bool? success;
-  List<Data>? data;
+  List<inspectionDetailData>? data;
   String? message;
 
   Map<String, dynamic> toJson() {
@@ -31,36 +32,36 @@ class ScheduleInspectionDetailsResponseModel {
     map['message'] = message;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.id, 
-      this.date, 
-      this.time, 
-      this.description, 
-      this.firstName, 
-      this.lastName, 
-      this.email, 
-      this.phone, 
-      this.countryCode, 
-      this.inspectionStatusId, 
-      this.inspectorId, 
-      this.acceptedInspectionDate, 
-      this.report, 
-      this.reportDescription, 
-      this.reportEmail, 
-      this.islatest, 
-      this.propertyInspectionParentId, 
-      this.latestUpdate, 
-      this.properties, 
-      this.homeowner, 
-      this.inspector, 
-      this.category, 
-      this.subcategory,});
+class inspectionDetailData {
+  inspectionDetailData({
+    this.id,
+    this.date,
+    this.time,
+    this.description,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.countryCode,
+    this.inspectionStatusId,
+    this.inspectorId,
+    this.acceptedInspectionDate,
+    this.report,
+    this.reportDescription,
+    this.reportEmail,
+    this.islatest,
+    this.propertyInspectionParentId,
+    this.latestUpdate,
+    this.properties,
+    this.homeowner,
+    this.inspector,
+    this.category,
+    this.subcategory,
+  });
 
-  Data.fromJson(dynamic json) {
+  inspectionDetailData.fromJson(dynamic json) {
     id = json['_id'];
     date = json['date'];
     if (json['time'] != null) {
@@ -81,23 +82,28 @@ class Data {
     report = json['report'];
     reportDescription = json['report_description'];
     if (json['report_email'] != null) {
-      reportEmail = [];
-      json['report_email'].forEach((v) {
-        reportEmail?.add(Dynamic.fromJson(v));
-      });
+      // reportEmail = [];
+      // json['report_email'].forEach((v) {
+      //   reportEmail?.add(Dynamic.fromJson(v));
+      // });
     }
     islatest = json['islatest'];
     propertyInspectionParentId = json['property_inspection_parent_id'];
     latestUpdate = json['latest_update'];
-    properties = json['properties'] != null ? Properties.fromJson(json['properties']) : null;
-    homeowner = json['homeowner'] != null ? Homeowner.fromJson(json['homeowner']) : null;
+    properties = json['properties'] != null
+        ? Properties.fromJson(json['properties'])
+        : null;
+    homeowner = json['homeowner'] != null
+        ? Homeowner.fromJson(json['homeowner'])
+        : null;
     if (json['inspector'] != null) {
-      inspector = [];
-      json['inspector'].forEach((v) {
-        inspector?.add(Dynamic.fromJson(v));
-      });
+      // inspector = [];
+      // json['inspector'].forEach((v) {
+      //   inspector?.add(Dynamic.fromJson(v));
+      // });
     }
-    category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
@@ -170,13 +176,13 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Subcategory {
   Subcategory({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Subcategory.fromJson(dynamic json) {
     id = json['_id'];
@@ -191,13 +197,13 @@ class Subcategory {
     map['name'] = name;
     return map;
   }
-
 }
 
 class Category {
   Category({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Category.fromJson(dynamic json) {
     id = json['_id'];
@@ -212,14 +218,14 @@ class Category {
     map['name'] = name;
     return map;
   }
-
 }
 
 class Homeowner {
   Homeowner({
-      this.firstName, 
-      this.lastName, 
-      this.email,});
+    this.firstName,
+    this.lastName,
+    this.email,
+  });
 
   Homeowner.fromJson(dynamic json) {
     firstName = json['first_name'];
@@ -237,23 +243,23 @@ class Homeowner {
     map['email'] = email;
     return map;
   }
-
 }
 
 class Properties {
   Properties({
-      this.assignedUserId, 
-      this.createdById, 
-      this.propertyName, 
-      this.street, 
-      this.state, 
-      this.city, 
-      this.zipCode, 
-      this.lotNumber, 
-      this.blockNumber, 
-      this.permitNumber, 
-      this.countyId, 
-      this.latestUpdate,});
+    this.assignedUserId,
+    this.createdById,
+    this.propertyName,
+    this.street,
+    this.state,
+    this.city,
+    this.zipCode,
+    this.lotNumber,
+    this.blockNumber,
+    this.permitNumber,
+    this.countyId,
+    this.latestUpdate,
+  });
 
   Properties.fromJson(dynamic json) {
     assignedUserId = json['assigned_user_id'];
@@ -298,13 +304,13 @@ class Properties {
     map['latest_update'] = latestUpdate;
     return map;
   }
-
 }
 
 class Time {
   Time({
-      this.starttime, 
-      this.endtime,});
+    this.starttime,
+    this.endtime,
+  });
 
   Time.fromJson(dynamic json) {
     starttime = json['starttime'];
@@ -319,5 +325,4 @@ class Time {
     map['endtime'] = endtime;
     return map;
   }
-
 }

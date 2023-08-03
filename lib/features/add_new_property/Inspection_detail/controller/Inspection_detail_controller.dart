@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/provider/categories_form_provider.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/schedule_inspection_details_response_Model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/provider/Inspection_detail_provider.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/network/category_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/request_model/inspection_create_request_model.dart';
 
 class InspectionDetailController extends GetxController {
-  CategoryFormProvider categoryFormProvider = CategoryFormProvider();
+  InspectionDetailProvider inspectionDetailProvider =
+      InspectionDetailProvider();
   @override
   void onInit() {
     getContactDetails();
@@ -68,7 +70,7 @@ class InspectionDetailController extends GetxController {
   }
 
   getContactDetails() {
-    firstNameController.value.text = inspectionDetail.value.firstName ?? "";
+    firstNameController.value.text = inspectionDetail.value.data. ?? "";
     lastNameController.value.text = inspectionDetail.value.lastName ?? "";
     emailController.value.text = inspectionDetail.value.email ?? "";
     phoneNumberController.value.text = inspectionDetail.value.phone ?? "";
@@ -76,13 +78,15 @@ class InspectionDetailController extends GetxController {
   }
 
   RxBool isShowLoader = false.obs;
-  Rx<ScheduleInspectionResponseData> inspectionDetail =
-      ScheduleInspectionResponseData().obs;
+  Rx<ScheduleInspectionDetailsResponseModel> inspectionDetail =
+      ScheduleInspectionDetailsResponseModel().obs;
+  Rx<String> inspectionId = "".obs;
   getArguments() {
     var args = Get.arguments;
     if (args != null) {
-      inspectionDetail.value = args[GetArgumentConstants.inspectionDetail] ??
-          InspectionCreateRequestModel();
+      inspectionId.value = args[GetArgumentConstants.inspectionId] ?? "";
+
+      getScheduleInspectionDetailsList();
     }
   }
 
@@ -95,7 +99,7 @@ class InspectionDetailController extends GetxController {
     selectTime.value = value;
   }
 
-  var categoriesList = <CategoryListResponseDataModel>[].obs;
+  var categoriesList = <inspectionDetailData>[].obs;
 
   void onSelectCountryCode({required Country country}) {
     selectedCountryCode.value = country.phoneCode;
@@ -167,6 +171,35 @@ class InspectionDetailController extends GetxController {
   void onChangedPhoneTextField({required String value}) {
     if (phoneNumberController.value.text.length > 6) {
       phoneError.value = false;
+    }
+  }
+
+  setShowLoader({required bool value}) {
+    isShowLoader.value = value;
+    isShowLoader.refresh();
+  }
+
+  Future<void> getScheduleInspectionDetailsList() async {
+    setShowLoader(value: true);
+
+    try {
+      ScheduleInspectionDetailsResponseModel response =
+          await inspectionDetailProvider.scheduleInspectionDetails(
+                  id: inspectionId.value) ??
+              ScheduleInspectionDetailsResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true && (response.status == 200)) {
+        categoriesList.value = response.data ?? [];
+      } else {
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
     }
   }
 }

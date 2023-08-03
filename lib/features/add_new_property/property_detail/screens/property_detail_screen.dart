@@ -287,7 +287,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     return GestureDetector(
       onTap: () {
         Get.toNamed(Routes.inspectionDetailScreen,
-            arguments: {GetArgumentConstants.inspectionDetail: listData});
+            arguments: {GetArgumentConstants.inspectionId: listData.id});
       },
       child: Container(
         margin: EdgeInsets.only(top: 15.h, right: 21.w, left: 20.w),

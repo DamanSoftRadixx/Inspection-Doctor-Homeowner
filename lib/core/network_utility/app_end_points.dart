@@ -23,6 +23,8 @@ class EndPoints {
   static const String inspectionCreate = "homeowner/inspection-create";
   static const String scheduleInspectionList =
       "homeowner/schedule-inspection-list";
+  static const String scheduleInspectionDetail =
+      "homeowner/schedule-inspection-details";
 
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";
   // connectTimeout
