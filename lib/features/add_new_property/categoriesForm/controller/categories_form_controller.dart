@@ -226,7 +226,7 @@ class CategoryFormController extends GetxController {
     argData.value.phone = phoneNumberController.value.text;
     argData.value.email = emailController.value.text;
     argData.value.phone = phoneNumberController.value.text;
-    argData.value.date = selectedDate.value;
+    argData.value.date = getDateFormattedFromString(date: selectedDate.value,newPattern: "yyyy-MM-dd");
     argData.value.countryCode = selectedCountryCode.value;
     argData.value.time = utcDateTimeList;
     argData.value.description = descriptionController.value.text;

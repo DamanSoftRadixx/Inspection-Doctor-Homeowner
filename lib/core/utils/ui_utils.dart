@@ -55,10 +55,14 @@ class NoLeadingSpaceFormatter extends TextInputFormatter {
 }
 
 void showResponseData(var data, {required String type}) {
-  String json = jsonEncode(data);
-  log("********************** $type response start **********************");
-  log("$type $json");
-  log("********************** $type  response end **********************");
+  try{
+    String json = jsonEncode(data);
+    log("********************** $type response start **********************");
+    log("$type $json");
+    log("********************** $type  response end **********************");
+  }catch(e){
+
+  }
 }
 
 Widget disableScreen({required bool isDisable}) {

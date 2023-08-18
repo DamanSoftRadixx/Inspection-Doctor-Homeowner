@@ -24,6 +24,18 @@ getLocalTimeFromUtc({required String dateTimeString}) {
   return "";
 }
 
+get24HoursLocalTimeFromUtc({required String dateTimeString}) {
+  if (dateTimeString != "" && dateTimeString != "null") {
+    var giveDateTime = DateTime.parse(dateTimeString);
+    var localDateTime = giveDateTime.toLocal();
+    var localDate = DateFormat("HH:mm").format(localDateTime);
+    // localDate = localDate.replaceAll("At", "at");
+    return localDate;
+  }
+  return "";
+}
+
+
 String getUtcDateString(
     {String givenFormat = "dd/MM/yyyy",
     required String date,
@@ -50,6 +62,8 @@ String getUtcDateString(
   return "";
 }
 
+
+
 String getDateFormatedFromDateTime({
   required DateTime date,
   String? newPattern,
@@ -58,7 +72,7 @@ String getDateFormatedFromDateTime({
   return formattedDate;
 }
 
-String getDateFormatedFromString({
+String getDateFormattedFromString({
   required String date,
   String? newPattern,
 }) {

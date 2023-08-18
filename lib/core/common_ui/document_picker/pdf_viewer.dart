@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:internet_file/internet_file.dart';
 import 'package:pdfx/pdfx.dart';
@@ -14,11 +16,13 @@ class FlutterFlowPdfViewer extends StatefulWidget {
     this.width,
     this.height,
     this.horizontalScroll = false,
+    this.title
   })  : assert((networkPath != null) ^ (assetPath != null)),
         super(key: key);
 
   final String? networkPath;
   final String? assetPath;
+  final String? title;
   final double? width;
   final double? height;
   final bool horizontalScroll;
@@ -61,7 +65,7 @@ class _FlutterFlowPdfViewerState extends State<FlutterFlowPdfViewer> {
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
         appBar: commonAppBarWithElevation(
-            title: "",
+            title: widget.title ?? AppStrings.document.tr,
             onPressBackButton: () {
               Get.back();
             }),
@@ -73,9 +77,9 @@ class _FlutterFlowPdfViewerState extends State<FlutterFlowPdfViewer> {
                 builders: PdfViewBuilders<DefaultBuilderOptions>(
                   options: const DefaultBuilderOptions(),
                   documentLoaderBuilder: (_) =>
-                      const Center(child: CircularProgressIndicator()),
+                      const Center(child: CommonLoader(isLoading: true)),
                   pageLoaderBuilder: (_) =>
-                      const Center(child: CircularProgressIndicator()),
+                      const Center(child: CommonLoader(isLoading: true)),
                   errorBuilder: (_, __) => Container(),
                 ),
               )

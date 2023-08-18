@@ -12,6 +12,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -37,7 +38,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    showPropertyDetail(),
+                    Expanded(child: showPropertyDetail()),
                     showScheduleInspection()
                         .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
                   ],
@@ -52,242 +53,239 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   }
 
   showPropertyDetail() {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 20.h, bottom: 19.h),
-            decoration: BoxDecoration(
-              color: lightColorPalette.greyBg,
-              border: Border(
-                bottom: BorderSide(width: 1.0, color: lightColorPalette.black),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: AppTextWidget(
-                    style: CustomTextTheme.heading3(
-                        color: lightColorPalette.black),
-                    text: controller.propertyDetail.value.propertyName ?? "",
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AssetWidget(
-                      color: lightColorPalette.black,
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.pinLocation,
-                      ),
-                    ).paddingOnly(top: 3.h),
-                    Flexible(
-                      child: AppTextWidget(
-                        textAlign: TextAlign.center,
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text: getAddressFormat(controller.propertyDetail.value),
-                      ),
-                    ),
-                  ],
-                ).paddingOnly(top: 5.h, bottom: 5.h, left: 20.w, right: 20.w),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AssetWidget(
-                      color: lightColorPalette.black,
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.lin,
-                      ),
-                    ).paddingOnly(right: 5.w),
-                    AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: controller.propertyDetail.value.permitNumber ?? "",
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AssetWidget(
-                          color: lightColorPalette.black,
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.hashLogo,
-                          ),
-                        ).paddingOnly(right: 5.w),
-                        AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.grey),
-                          text: controller.propertyDetail.value.lotNumber ?? "",
-                        ),
-                      ],
-                    ).paddingOnly(right: 20.w),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AssetWidget(
-                          color: lightColorPalette.black,
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.hashLogo,
-                          ),
-                        ).paddingOnly(right: 5.w),
-                        AppTextWidget(
-                          style: CustomTextTheme.normalText(
-                              color: lightColorPalette.grey),
-                          text:
-                              controller.propertyDetail.value.blockNumber ?? "",
-                        ),
-                      ],
-                    ),
-                  ],
-                ).paddingOnly(top: 5.h, bottom: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //
-                    CommonButton(
-                        border: BorderSide(
-                          width: 0.3,
-                          color: lightColorPalette.grey,
-                        ),
-                        style: CustomTextTheme.normalTextWithWeight600(
-                            color: lightColorPalette.black),
-                        bgColor: lightColorPalette.whiteColorPrimary.shade900,
-                        icon: AssetWidget(
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.drawing,
-                          ),
-                        ),
-                        minWidth: 112.w,
-                        commonButtonBottonText: AppStrings.drawing.tr,
-                        onPress: () {
-                          // launchUrlOnBrowser(
-                          //     url: controller.propertyDetail.value
-                          //             .architecturelDrawing?.url ??
-                          //         "");
-
-                          // Get.to(PDFScreen(
-                          //   path:
-                          // controller
-                          //           .propertyDetail.value.architecturelDrawing?.url ??
-                          //       "",
-                          // ));
-
-                          Navigator.push(
-                              Get.context!,
-                              MaterialPageRoute(
-                                builder: (context) => FlutterFlowPdfViewer(
-                                  networkPath: controller.propertyDetail.value
-                                          .architecturelDrawing?.url ??
-                                      "",
-                                ),
-                              ));
-                        }),
-
-                    //Edit
-                    CommonButton(
-                        border: BorderSide(
-                          width: 0.3,
-                          color: lightColorPalette.grey,
-                        ),
-                        style: CustomTextTheme.normalTextWithWeight600(
-                            color: lightColorPalette.greenDark),
-                        bgColor: lightColorPalette.greenBackground,
-                        icon: AssetWidget(
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.edit,
-                          ),
-                        ),
-                        minWidth: 99.5.w,
-                        commonButtonBottonText: AppStrings.edit.tr,
-                        onPress: () {
-                          controller.onTapEditButton();
-                        }).paddingSymmetric(horizontal: 10.w),
-                    //Delete
-                    CommonButton(
-                        border: BorderSide(
-                          width: 0.3,
-                          color: lightColorPalette.grey,
-                        ),
-                        style: CustomTextTheme.normalTextWithWeight600(
-                            color: lightColorPalette.redDark),
-                        bgColor: lightColorPalette.redBackground,
-                        icon: AssetWidget(
-                          asset: Asset(
-                            type: AssetType.svg,
-                            path: ImageResource.delete,
-                          ),
-                        ),
-                        minWidth: 100.w,
-                        commonButtonBottonText: AppStrings.delete.tr,
-                        onPress: () {
-                          controller.onTapDeleteButton();
-                        })
-                  ],
-                ),
-              ],
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 20.h, bottom: 19.h),
+          decoration: BoxDecoration(
+            color: lightColorPalette.greyBg,
+            border: Border(
+              bottom: BorderSide(width: 1.0, color: lightColorPalette.black),
             ),
           ),
-          getInspectionList(),
-        ],
-      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: AppTextWidget(
+                  style:
+                      CustomTextTheme.heading3(color: lightColorPalette.black),
+                  text: controller.propertyDetail.value.propertyName ?? "",
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AssetWidget(
+                    color: lightColorPalette.black,
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.pinLocation,
+                    ),
+                  ).paddingOnly(top: 3.h),
+                  Flexible(
+                    child: AppTextWidget(
+                      textAlign: TextAlign.center,
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: getAddressFormat(controller.propertyDetail.value),
+                    ),
+                  ),
+                ],
+              ).paddingOnly(top: 5.h, bottom: 5.h, left: 20.w, right: 20.w),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AssetWidget(
+                    color: lightColorPalette.black,
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.lin,
+                    ),
+                  ).paddingOnly(right: 5.w),
+                  AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                        color: lightColorPalette.grey),
+                    text: controller.propertyDetail.value.permitNumber ?? "",
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AssetWidget(
+                        color: lightColorPalette.black,
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.hashLogo,
+                        ),
+                      ).paddingOnly(right: 5.w),
+                      AppTextWidget(
+                        style: CustomTextTheme.normalText(
+                            color: lightColorPalette.grey),
+                        text: controller.propertyDetail.value.lotNumber ?? "",
+                      ),
+                    ],
+                  ).paddingOnly(right: 20.w),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AssetWidget(
+                        color: lightColorPalette.black,
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.hashLogo,
+                        ),
+                      ).paddingOnly(right: 5.w),
+                      AppTextWidget(
+                        style: CustomTextTheme.normalText(
+                            color: lightColorPalette.grey),
+                        text: controller.propertyDetail.value.blockNumber ?? "",
+                      ),
+                    ],
+                  ),
+                ],
+              ).paddingOnly(top: 5.h, bottom: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //
+                  CommonButton(
+                      border: BorderSide(
+                        width: 0.3,
+                        color: lightColorPalette.grey,
+                      ),
+                      style: CustomTextTheme.normalTextWithWeight600(
+                          color: lightColorPalette.black),
+                      bgColor: lightColorPalette.whiteColorPrimary.shade900,
+                      icon: AssetWidget(
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.drawing,
+                        ),
+                      ),
+                      minWidth: 112.w,
+                      commonButtonBottonText: AppStrings.drawing.tr,
+                      onPress: () {
+                        // launchUrlOnBrowser(
+                        //     url: controller.propertyDetail.value
+                        //             .architecturelDrawing?.url ??
+                        //         "");
+
+                        // Get.to(PDFScreen(
+                        //   path:
+                        // controller
+                        //           .propertyDetail.value.architecturelDrawing?.url ??
+                        //       "",
+                        // ));
+
+                        Navigator.push(
+                            Get.context!,
+                            MaterialPageRoute(
+                              builder: (context) => FlutterFlowPdfViewer(
+                                networkPath: controller.propertyDetail.value
+                                        .architecturelDrawing?.url ??
+                                    "",
+                              ),
+                            ));
+                      }),
+
+                  //Edit
+                  CommonButton(
+                      border: BorderSide(
+                        width: 0.3,
+                        color: lightColorPalette.grey,
+                      ),
+                      style: CustomTextTheme.normalTextWithWeight600(
+                          color: lightColorPalette.greenDark),
+                      bgColor: lightColorPalette.greenBackground,
+                      icon: AssetWidget(
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.edit,
+                        ),
+                      ),
+                      minWidth: 99.5.w,
+                      commonButtonBottonText: AppStrings.edit.tr,
+                      onPress: () {
+                        controller.onTapEditButton();
+                      }).paddingSymmetric(horizontal: 10.w),
+                  //Delete
+                  CommonButton(
+                      border: BorderSide(
+                        width: 0.3,
+                        color: lightColorPalette.grey,
+                      ),
+                      style: CustomTextTheme.normalTextWithWeight600(
+                          color: lightColorPalette.redDark),
+                      bgColor: lightColorPalette.redBackground,
+                      icon: AssetWidget(
+                        asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.delete,
+                        ),
+                      ),
+                      minWidth: 100.w,
+                      commonButtonBottonText: AppStrings.delete.tr,
+                      onPress: () {
+                        controller.onTapDeleteButton();
+                      })
+                ],
+              ),
+            ],
+          ),
+        ),
+        Expanded(child: getInspectionList())
+      ],
     );
   }
 
   getInspectionList() {
-    return Obx(() => Expanded(
-          child: Column(
-            children: [
-              showSearchBar().paddingOnly(
-                  top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
-              Expanded(
-                child: CommonRefreshIndicator(
-                  onRefresh: () => Future.sync(() {
-                    controller.onRefresh();
-                  }),
-                  controller: controller.refreshController,
-                  child: controller.scheduleInspectionList.isNotEmpty
-                      ? ListView.builder(
-                          padding: EdgeInsets.only(bottom: 20.h),
-                          shrinkWrap: true,
-                          itemCount: controller.scheduleInspectionList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            ScheduleInspectionResponseData listData =
-                                controller.scheduleInspectionList[index];
-                            return getPropertyDetailCard(listData: listData);
-                          },
-                        )
-                      : (controller.isShowSearchLoader.value
-                          ? const SizedBox()
-                          : showNoDataFound()),
-                ),
+    return Obx(() => Column(
+          children: [
+            showSearchBar()
+                .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
+            Expanded(
+              child: CommonRefreshIndicator(
+                onRefresh: () => Future.sync(() {
+                  controller.onRefresh();
+                }),
+                controller: controller.refreshController,
+                child: controller.scheduleInspectionList.isNotEmpty
+                    ? ListView.builder(
+                        padding: EdgeInsets.only(bottom: 20.h),
+                        shrinkWrap: true,
+                        itemCount: controller.scheduleInspectionList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return getPropertyDetailCard(index: index);
+                        },
+                      )
+                    : (controller.isShowSearchLoader.value
+                        ? const SizedBox()
+                        : showNoDataFound()),
               ),
-              Visibility(
-                  visible: controller.loadMore.value == true,
-                  child: const CircularProgressIndicator())
-            ],
-          ),
+            ),
+            Visibility(
+                visible: controller.loadMore.value == true,
+                child: const CircularProgressIndicator())
+          ],
         ));
   }
 
-  getPropertyDetailCard({required ScheduleInspectionResponseData listData}) {
+  getPropertyDetailCard({required int index}) {
+    ScheduleInspectionResponseData listData =
+        controller.scheduleInspectionList[index];
+
+    var inspectionStatusModel = controller.getInspectionStatus(inspectionId: listData.inspectionStatusId ?? "");
+
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.inspectionDetailScreen,
-            arguments: {GetArgumentConstants.inspectionId: listData.id});
+        controller.onInspectionListItem(index: index);
       },
       child: Container(
         margin: EdgeInsets.only(top: 15.h, right: 21.w, left: 20.w),
@@ -354,7 +352,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 AppTextWidget(
                   style:
                       CustomTextTheme.normalText(color: lightColorPalette.grey),
-                  text: getDateFormatedFromString(date: listData.date ?? ""),
+                  text: getDateFormattedFromString(date: listData.date ?? ""),
                 ),
               ],
             ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
@@ -364,8 +362,8 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               alignment: Alignment.centerLeft,
               child: AppTextWidget(
                 style:
-                    CustomTextTheme.normalText(color: lightColorPalette.grey),
-                text: listData.category?.name ?? "",
+                    CustomTextTheme.normalText(color: inspectionStatusModel.color),
+                text: inspectionStatusModel.message,
               ).paddingOnly(left: 18.w),
             )
           ],
@@ -375,12 +373,14 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   }
 
   ListView getInspectionTimeList(ScheduleInspectionResponseData listData) {
+    var timeList = listData.time ?? [];
+
     return ListView.builder(
       padding: EdgeInsets.only(left: 18.w, right: 18.w),
       shrinkWrap: true,
-      itemCount: listData.time?.length,
+      itemCount: timeList.length,
       itemBuilder: (BuildContext context, int index) {
-        Time timeData = listData.time![index];
+        TimeModel timeData = timeList[index];
         return Row(
           children: [
             SizedBox(
@@ -439,7 +439,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     return CommonButton(
         commonButtonBottonText: AppStrings.scheduleInspection.tr,
         onPress: () {
-          controller.onPressAddPropertyButton();
+          controller.onPressScheduleInspectionButton();
         });
   }
 

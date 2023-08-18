@@ -78,4 +78,9 @@ class ImageResource {
   static const delete = "assets/images/svg/delete.svg";
   static const drawing = "assets/images/svg/drawing.svg";
   static const edit = "assets/images/svg/edit.svg";
+
+  static const blackCircle = "assets/images/svg/blackCircle.svg";
+  static const cancel = "assets/images/svg/cancel.svg";
+  static const done = "assets/images/svg/done.svg";
+  static const greyCircle = "assets/images/svg/greyCircle.svg";
 }

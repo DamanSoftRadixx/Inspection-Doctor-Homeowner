@@ -351,6 +351,30 @@ class AppStrings {
   static const accessWasPreviouslyDenied = "Access Was Previously Denied";
   static const areYouWantDelete = "Are you sure you want delete this property?";
   static const areYouWantLogout = "Are you sure you want to logout?";
+
+
+
+  static const inspectionRequested = "Inspection Requested";
+  static const inspectorAssigned = "Inspector Assigned";
+  static const inspectionRescheduled = "Inspection Rescheduled";
+  static const inspectionCanceled = "Inspection Canceled";
+  static const inspectorIsOnTheWay = "Inspector is on the way";
+  static const inspectionStarted = "Inspection Started";
+  static const inspectionDone = "Inspection Done";
+  static const correctionRequired = "Correction Required";
+  static const inspectionComplete = "Inspection Complete";
+  static const viewReport = "View report";
+  static const giveFeedback = "Give feedback";
+
+  static const submitAndNotify = "Submit and Notify";
+  static const cancelInspection = "Cancel Inspection";
+  static const areYouSureYouWantToCanelThisInspection = "Are you sure you want to cancel this inspection? Please tap on YES button to cancel.";
+
+  static const inspectionReport = "Inspection Report";
+  static const document = "Document";
+  static const inspector = "Inspector";
+
+
 }
 
 class GetArgumentConstants {
@@ -381,6 +405,7 @@ class GetArgumentConstants {
   static const inspectionCreateRequestArg = "inspectionCreateRequestModel";
   static const categoriesName = "categoriesName";
   static const inspectionId = "inspectionDetail";
+
 }
 
 class WeekDays {
@@ -442,4 +467,16 @@ class ErrorMessages {
   static const docEmty = "Please upload architectural drawing.";
   static const dateEmty = "Please select date.";
   static const timeEmty = "Please select time.";
+}
+
+
+class InspectionListStatus{
+  static const inspectorIsNotAssignedYet = "Inspector is not assigned yet.";
+  static const scheduled = "Scheduled";
+  static const rescheduled = "Rescheduled";
+  static const canceled = "Canceled";
+  static const inProgress = "In Progress";
+  static const done = "Done";
+  static const correctionRequired = "Correction Required";
+  static const inspectionComplete = "Inspection Complete";
 }

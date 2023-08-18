@@ -41,3 +41,22 @@ enum RoleTypeEnum {
   final String value;
   const RoleTypeEnum(this.value);
 }
+
+ enum InspectionHistoryStatusEnum {
+  newInspection("64bfb0701323eb714ed0b1f1"),
+  inspectionAcccepted("64bfb0701323eb714ed0b1f2"),
+  homeownerInspectionRescheduled("64bfb0701323eb714ed0b1f3"),
+  homeownerInspectionCanceled("64bfb0701323eb714ed0b1f4"),
+  inspectorInspectionCanceled("64bfb0701323eb714ed0b1f5"),
+  inspectorInspectionRescheduled("64bfb0701323eb714ed0b1f6"),
+  inspectorOnTheWay("64bfb0701323eb714ed0b1f7"),
+  inspectionStart("64bfb0701323eb714ed0b1f8"),
+  inspectionDone("64bfb0701323eb714ed0b1f9"),
+  inspectionReportCompleted("64bfb0701323eb714ed0b1d9"),
+  inspectionReportCorrections("64bfb0701323eb714ed0b2d6");
+
+  final String value;
+  const InspectionHistoryStatusEnum(this.value);
+}
+
+

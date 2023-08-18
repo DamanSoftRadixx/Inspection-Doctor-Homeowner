@@ -1,4 +1,5 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
 
 class ScheduleInspectionListResponseModel {
   ScheduleInspectionListResponseModel({
@@ -14,7 +15,7 @@ class ScheduleInspectionListResponseModel {
     status = json['status'].toString().toIntConversion();
     success = json['success'];
     message = json['message'].toString().toStringConversion();
-    if (json['data'] != null) {
+    if (json['data'] != null && json['data'] is List ) {
       data = [];
       json['data'].forEach((v) {
         data?.add(ScheduleInspectionResponseData.fromJson(v));
@@ -73,10 +74,10 @@ class ScheduleInspectionResponseData {
   ScheduleInspectionResponseData.fromJson(dynamic json) {
     id = json['_id'].toString().toStringConversion();
     date = json['date'].toString().toStringConversion();
-    if (json['time'] != null) {
+    if (json['time'] != null && json['time'] is List) {
       time = [];
       json['time'].forEach((v) {
-        time?.add(Time.fromJson(v));
+        time?.add(TimeModel.fromJson(v));
       });
     }
     description = json['description'].toString().toStringConversion();
@@ -116,7 +117,7 @@ class ScheduleInspectionResponseData {
         : null;
     category =
         json['category'] != null ? Category.fromJson(json['category']) : null;
-    if (json['subcategory'] != null) {
+    if (json['subcategory'] != null && json['subcategory'] is List) {
       subcategory = [];
       json['subcategory'].forEach((v) {
         subcategory?.add(Subcategory.fromJson(v));
@@ -125,7 +126,7 @@ class ScheduleInspectionResponseData {
   }
   String? id;
   String? date;
-  List<Time>? time;
+  List<TimeModel>? time;
   String? description;
   String? firstName;
   String? lastName;
@@ -305,27 +306,6 @@ class Properties {
     map['permit_number'] = permitNumber.toString().toStringConversion();
     map['county_id'] = countyId.toString().toStringConversion();
     map['latest_update'] = latestUpdate.toString().toStringConversion();
-    return map;
-  }
-}
-
-class Time {
-  Time({
-    this.starttime,
-    this.endtime,
-  });
-
-  Time.fromJson(dynamic json) {
-    starttime = json['starttime'];
-    endtime = json['endtime'];
-  }
-  String? starttime;
-  String? endtime;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['starttime'] = starttime.toString().toStringConversion();
-    map['endtime'] = endtime.toString().toStringConversion();
     return map;
   }
 }

@@ -42,8 +42,10 @@
 	<string>0f619b7eba934adaea24bb32196f95a2</string>
 	<key>FacebookDisplayName</key>
 	<string>Construction Inspection Doctor</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>This app needs access to location when in the background.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location when open.</string>
+    <string>Homeowner needs access to location when open.</string>
     <key>NSLocationAlwaysUsageDescription</key>
     <string>This app needs access to location when in the background.</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

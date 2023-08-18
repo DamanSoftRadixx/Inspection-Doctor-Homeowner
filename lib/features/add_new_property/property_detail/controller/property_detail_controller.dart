@@ -7,7 +7,10 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/local/inspection_status_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/delete_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/provider/property_detail_provider.dart';
@@ -52,16 +55,19 @@ class PropertyDetailController extends GetxController {
 
   ScrollController listController = ScrollController();
 
-  onPressAddPropertyButton() {
+  onPressScheduleInspectionButton() async{
     InspectionCreateRequestModel inspectionCreateRequestModel =
         InspectionCreateRequestModel(
       propertyId: propertyDetail.value.id,
     );
 
-    Get.toNamed(Routes.selectCategoriesScreen, arguments: {
+    await Get.toNamed(Routes.selectCategoriesScreen, arguments: {
       GetArgumentConstants.inspectionCreateRequestArg:
           inspectionCreateRequestModel,
     });
+
+    getScheduleInspectionList();
+
   }
 
   getArguments() {
@@ -224,8 +230,7 @@ class PropertyDetailController extends GetxController {
         scheduleInspectionList.refresh();
         loadMore.refresh();
 
-        refreshController.refreshCompleted();
-        refreshController.loadComplete();
+        stopRefreshController();
       } else {
         loadMore.value = false;
         setShowLoader(value: false);
@@ -241,11 +246,84 @@ class PropertyDetailController extends GetxController {
         );
       }
     } catch (e) {
+      loadMore.value = false;
       setShowLoader(value: false);
-    }
+      loadMore.refresh();
+      refreshController.refreshCompleted();
+
+      setShowSearchLoader(value: false);    }
   }
+
+  stopRefreshController() {
+    refreshController.refreshCompleted();
+    refreshController.loadComplete();
+  }
+
+
+
 
   void onRefresh() async {
     getScheduleInspectionList(isFromRefresh: true);
   }
+
+  Future<void> onInspectionListItem({required int index}) async {
+    var listData = scheduleInspectionList[index];
+    await Get.toNamed(Routes.inspectionDetailScreen,
+        arguments: {GetArgumentConstants.inspectionId: listData.id});
+    getScheduleInspectionList();
+
+  }
+
+  InspectionStatusModel getInspectionStatus({required String inspectionId}){
+    var inspectionStatusModel = InspectionStatusModel(message: "", color: lightColorPalette.primaryBlue);
+
+
+    if(inspectionId == InspectionHistoryStatusEnum.newInspection.value){
+      inspectionStatusModel.message = InspectionListStatus.inspectorIsNotAssignedYet.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectionAcccepted.value){
+      inspectionStatusModel.message = InspectionListStatus.scheduled.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value){
+      inspectionStatusModel.message = InspectionListStatus.rescheduled.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.homeownerInspectionCanceled.value){
+      inspectionStatusModel.message = InspectionListStatus.canceled.tr;
+      inspectionStatusModel.color = lightColorPalette.redDark;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectorInspectionCanceled.value){
+      inspectionStatusModel.message = InspectionListStatus.canceled.tr;
+      inspectionStatusModel.color = lightColorPalette.redDark;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value){
+      inspectionStatusModel.message = InspectionListStatus.rescheduled.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectorOnTheWay.value){
+      inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectionStart.value){
+      inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectionDone.value){
+      inspectionStatusModel.message = InspectionListStatus.done.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectionReportCompleted.value){
+      inspectionStatusModel.message = InspectionListStatus.inspectionComplete.tr;
+      inspectionStatusModel.color = lightColorPalette.greenDark;
+    }
+    else if(inspectionId == InspectionHistoryStatusEnum.inspectionReportCorrections.value){
+      inspectionStatusModel.message = InspectionListStatus.correctionRequired.tr;
+      inspectionStatusModel.color = lightColorPalette.primaryBlue;
+    }
+    return inspectionStatusModel;
+
+  }
+
 }
