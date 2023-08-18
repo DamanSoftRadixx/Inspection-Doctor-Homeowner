@@ -5,7 +5,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/inspection_detail_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 
 class InspectionDetailProvider {
   ApiHitter apiHitter = ApiHitter();

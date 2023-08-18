@@ -8,6 +8,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
@@ -209,11 +210,11 @@ class CategoryFormController extends GetxController {
   Future<void> createInspection() async {
     setShowLoader(value: true);
 
-    List<Time> utcDateTimeList = [];
+    List<TimeModel> utcDateTimeList = [];
 
     if (selectedTime.isNotEmpty) {
       selectedTime.map((e) {
-        utcDateTimeList.add(Time(
+        utcDateTimeList.add(TimeModel(
             starttime:
                 getUtcDateString(date: selectedDate.value, time: e.startTime),
             endtime:
@@ -226,7 +227,8 @@ class CategoryFormController extends GetxController {
     argData.value.phone = phoneNumberController.value.text;
     argData.value.email = emailController.value.text;
     argData.value.phone = phoneNumberController.value.text;
-    argData.value.date = getDateFormattedFromString(date: selectedDate.value,newPattern: "yyyy-MM-dd");
+    argData.value.date = getDateFormattedFromString(
+        date: selectedDate.value, newPattern: "yyyy-MM-dd");
     argData.value.countryCode = selectedCountryCode.value;
     argData.value.time = utcDateTimeList;
     argData.value.description = descriptionController.value.text;

@@ -1,4 +1,5 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 
 class InspectionCreateRequestModel {
   InspectionCreateRequestModel(
@@ -28,7 +29,7 @@ class InspectionCreateRequestModel {
     if (json['time'] != null) {
       time = [];
       json['time'].forEach((v) {
-        time?.add(Time.fromJson(v));
+        time?.add(TimeModel.fromJson(v));
       });
     }
     description = json['description'].toString().toStringConversion();
@@ -43,7 +44,7 @@ class InspectionCreateRequestModel {
   String? categoryId;
   List<String>? subcategoryId;
   String? date;
-  List<Time>? time;
+  List<TimeModel>? time;
   String? description;
   String? firstName;
   String? lastName;
@@ -71,27 +72,6 @@ class InspectionCreateRequestModel {
     map['phone'] = phone;
     map['country_code'] = countryCode;
     map['homeowner_id'] = homeownerId;
-    return map;
-  }
-}
-
-class Time {
-  Time({
-    this.starttime,
-    this.endtime,
-  });
-
-  Time.fromJson(dynamic json) {
-    starttime = json['starttime'].toString().toStringConversion();
-    endtime = json['endtime'].toString().toStringConversion();
-  }
-  String? starttime;
-  String? endtime;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['starttime'] = starttime;
-    map['endtime'] = endtime;
     return map;
   }
 }

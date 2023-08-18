@@ -1,24 +1,28 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
+
 class InspectionDetailResponseModel {
   InspectionDetailResponseModel({
-      this.status, 
-      this.success, 
-      this.data, 
-      this.message,});
+    this.status,
+    this.success,
+    this.data,
+    this.message,
+  });
 
   InspectionDetailResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
-    if (json['data'] != null) {
+    if (json['data'] != null && json['data'] is List) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(InspectionDetailData.fromJson(v));
       });
     }
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
-  List<Data>? data;
+  List<InspectionDetailData>? data;
   String? message;
 
   Map<String, dynamic> toJson() {
@@ -31,51 +35,59 @@ class InspectionDetailResponseModel {
     map['message'] = message;
     return map;
   }
-
 }
 
-class Data {
-  Data({
-      this.id, 
-      this.homeownerId, 
-      this.report, 
-      this.reportDescription, 
-      this.reportEmail, 
-      this.latestUpdate, 
-      this.propertyInspectionSchedulesHistory, 
-      this.properties, 
-      this.inspectorDetails, 
-      this.inspectorImage, 
-      this.category, 
-      this.subcategory,});
+class InspectionDetailData {
+  InspectionDetailData({
+    this.id,
+    this.homeownerId,
+    this.report,
+    this.reportDescription,
+    this.reportEmail,
+    this.latestUpdate,
+    this.propertyInspectionSchedulesHistory,
+    this.properties,
+    this.inspectorDetails,
+    this.inspectorImage,
+    this.category,
+    this.subcategory,
+  });
 
-  Data.fromJson(dynamic json) {
-    id = json['_id'];
-    homeownerId = json['homeowner_id'];
-    report = json['report'];
-    reportDescription = json['report_description'];
-    reportEmail = json['report_email'] != null ? json['report_email'].cast<String>() : [];
+  InspectionDetailData.fromJson(dynamic json) {
+    id = json['_id'].toString().toStringConversion();
+    homeownerId = json['homeowner_id'].toString().toStringConversion();
+    report = json['report'].toString().toStringConversion();
+    reportDescription =
+        json['report_description'].toString().toStringConversion();
+    reportEmail =
+        json['report_email'] != null ? json['report_email'].cast<String>() : [];
     latestUpdate = json['latest_update'];
-    if (json['property_inspection_schedules_history'] != null) {
+    if (json['property_inspection_schedules_history'] != null &&
+        json['property_inspection_schedules_history'] is List) {
       propertyInspectionSchedulesHistory = [];
       json['property_inspection_schedules_history'].forEach((v) {
-        propertyInspectionSchedulesHistory?.add(PropertyInspectionSchedulesHistory.fromJson(v));
+        propertyInspectionSchedulesHistory
+            ?.add(PropertyInspectionSchedulesHistory.fromJson(v));
       });
     }
-    properties = json['properties'] != null ? Properties.fromJson(json['properties']) : null;
-    if (json['inspector_details'] != null) {
+    properties = json['properties'] != null
+        ? Properties.fromJson(json['properties'])
+        : null;
+    if (json['inspector_details'] != null &&
+        json['inspector_details'] is List) {
       inspectorDetails = [];
       json['inspector_details'].forEach((v) {
         inspectorDetails?.add(InspectorDetails.fromJson(v));
       });
     }
-    if (json['inspector_image'] != null) {
+    if (json['inspector_image'] != null && json['inspector_image'] is List) {
       inspectorImage = [];
       json['inspector_image'].forEach((v) {
         inspectorImage?.add(InspectorImage.fromJson(v));
       });
     }
-    category = json['category'] != null ? Category.fromJson(json['category']) : null;
+    category =
+        json['category'] != null ? Category.fromJson(json['category']) : null;
     if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
@@ -105,13 +117,15 @@ class Data {
     map['report_email'] = reportEmail;
     map['latest_update'] = latestUpdate;
     if (propertyInspectionSchedulesHistory != null) {
-      map['property_inspection_schedules_history'] = propertyInspectionSchedulesHistory?.map((v) => v.toJson()).toList();
+      map['property_inspection_schedules_history'] =
+          propertyInspectionSchedulesHistory?.map((v) => v.toJson()).toList();
     }
     if (properties != null) {
       map['properties'] = properties?.toJson();
     }
     if (inspectorDetails != null) {
-      map['inspector_details'] = inspectorDetails?.map((v) => v.toJson()).toList();
+      map['inspector_details'] =
+          inspectorDetails?.map((v) => v.toJson()).toList();
     }
     if (inspectorImage != null) {
       map['inspector_image'] = inspectorImage?.map((v) => v.toJson()).toList();
@@ -124,13 +138,13 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Subcategory {
   Subcategory({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Subcategory.fromJson(dynamic json) {
     id = json['_id'];
@@ -145,17 +159,17 @@ class Subcategory {
     map['name'] = name;
     return map;
   }
-
 }
 
 class Category {
   Category({
-      this.id, 
-      this.name,});
+    this.id,
+    this.name,
+  });
 
   Category.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
+    id = json['_id'].toString().toStringConversion();
+    name = json['name'].toString().toStringConversion();
   }
   String? id;
   String? name;
@@ -166,12 +180,12 @@ class Category {
     map['name'] = name;
     return map;
   }
-
 }
 
 class InspectorImage {
   InspectorImage({
-      this.url,});
+    this.url,
+  });
 
   InspectorImage.fromJson(dynamic json) {
     url = json['url'];
@@ -183,19 +197,19 @@ class InspectorImage {
     map['url'] = url;
     return map;
   }
-
 }
 
 class InspectorDetails {
   InspectorDetails({
-      this.firstName, 
-      this.lastName, 
-      this.email,});
+    this.firstName,
+    this.lastName,
+    this.email,
+  });
 
   InspectorDetails.fromJson(dynamic json) {
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
+    firstName = json['first_name'].toString().toStringConversion();
+    lastName = json['last_name'].toString().toStringConversion();
+    email = json['email'].toString().toStringConversion();
   }
   String? firstName;
   String? lastName;
@@ -208,36 +222,36 @@ class InspectorDetails {
     map['email'] = email;
     return map;
   }
-
 }
 
 class Properties {
   Properties({
-      this.propertyName, 
-      this.latitude, 
-      this.longitude, 
-      this.street, 
-      this.state, 
-      this.city, 
-      this.zipCode, 
-      this.lotNumber, 
-      this.blockNumber, 
-      this.permitNumber, 
-      this.countyId, 
-      this.latestUpdate,});
+    this.propertyName,
+    this.latitude,
+    this.longitude,
+    this.street,
+    this.state,
+    this.city,
+    this.zipCode,
+    this.lotNumber,
+    this.blockNumber,
+    this.permitNumber,
+    this.countyId,
+    this.latestUpdate,
+  });
 
   Properties.fromJson(dynamic json) {
-    propertyName = json['property_name'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    street = json['street'];
-    state = json['state'];
-    city = json['city'];
-    zipCode = json['zip_code'];
-    lotNumber = json['lot_number'];
-    blockNumber = json['block_number'];
-    permitNumber = json['permit_number'];
-    countyId = json['county_id'];
+    propertyName = json['property_name'].toString().toStringConversion();
+    latitude = json['latitude'].toString().toStringConversion();
+    longitude = json['longitude'].toString().toStringConversion();
+    street = json['street'].toString().toStringConversion();
+    state = json['state'].toString().toStringConversion();
+    city = json['city'].toString().toStringConversion();
+    zipCode = json['zip_code'].toString().toStringConversion();
+    lotNumber = json['lot_number'].toString().toStringConversion();
+    blockNumber = json['block_number'].toString().toStringConversion();
+    permitNumber = json['permit_number'].toString().toStringConversion();
+    countyId = json['county_id'].toString().toStringConversion();
     latestUpdate = json['latest_update'];
   }
   String? propertyName;
@@ -269,47 +283,49 @@ class Properties {
     map['latest_update'] = latestUpdate;
     return map;
   }
-
 }
 
 class PropertyInspectionSchedulesHistory {
   PropertyInspectionSchedulesHistory({
-      this.id, 
-      this.date, 
-      this.time, 
-      this.description, 
-      this.firstName, 
-      this.lastName, 
-      this.email, 
-      this.phone, 
-      this.countryCode, 
-      this.inspectionStatusId, 
-      this.acceptedInspectionDate, 
-      this.acceptedInspectionTime, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.date,
+    this.time,
+    this.description,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.countryCode,
+    this.inspectionStatusId,
+    this.acceptedInspectionDate,
+    this.acceptedInspectionTime,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   PropertyInspectionSchedulesHistory.fromJson(dynamic json) {
-    id = json['_id'];
-    date = json['date'];
+    id = json['_id'].toString().toStringConversion();
+    date = json['date'].toString().toStringConversion();
     if (json['time'] != null) {
       time = [];
       json['time'].forEach((v) {
-        time?.add(Time.fromJson(v));
+        time?.add(TimeModel.fromJson(v));
       });
     }
-    description = json['description'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    email = json['email'];
-    phone = json['phone'];
-    countryCode = json['country_code'];
-    inspectionStatusId = json['inspection_status_id'];
-    acceptedInspectionDate = json['accepted_inspection_date'];
+    description = json['description'].toString().toStringConversion();
+    firstName = json['first_name'].toString().toStringConversion();
+    lastName = json['last_name'].toString().toStringConversion();
+    email = json['email'].toString().toStringConversion();
+    phone = json['phone'].toString().toStringConversion();
+    countryCode = json['country_code'].toString().toStringConversion();
+    inspectionStatusId =
+        json['inspection_status_id'].toString().toStringConversion();
+    acceptedInspectionDate =
+        json['accepted_inspection_date'].toString().toStringConversion();
     if (json['accepted_inspection_time'] != null) {
       acceptedInspectionTime = [];
       json['accepted_inspection_time'].forEach((v) {
-        acceptedInspectionTime?.add(AcceptedInspectionTime.fromJson(v));
+        acceptedInspectionTime?.add(TimeModel.fromJson(v));
       });
     }
     createdAt = json['createdAt'];
@@ -317,7 +333,7 @@ class PropertyInspectionSchedulesHistory {
   }
   String? id;
   String? date;
-  List<Time>? time;
+  List<TimeModel>? time;
   String? description;
   String? firstName;
   String? lastName;
@@ -326,7 +342,7 @@ class PropertyInspectionSchedulesHistory {
   String? countryCode;
   String? inspectionStatusId;
   String? acceptedInspectionDate;
-  List<AcceptedInspectionTime>? acceptedInspectionTime;
+  List<TimeModel>? acceptedInspectionTime;
   String? createdAt;
   String? updatedAt;
 
@@ -346,53 +362,11 @@ class PropertyInspectionSchedulesHistory {
     map['inspection_status_id'] = inspectionStatusId;
     map['accepted_inspection_date'] = acceptedInspectionDate;
     if (acceptedInspectionTime != null) {
-      map['accepted_inspection_time'] = acceptedInspectionTime?.map((v) => v.toJson()).toList();
+      map['accepted_inspection_time'] =
+          acceptedInspectionTime?.map((v) => v.toJson()).toList();
     }
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     return map;
   }
-
-}
-
-class AcceptedInspectionTime {
-  AcceptedInspectionTime({
-      this.starttime, 
-      this.endtime,});
-
-  AcceptedInspectionTime.fromJson(dynamic json) {
-    starttime = json['starttime'];
-    endtime = json['endtime'];
-  }
-  String? starttime;
-  String? endtime;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['starttime'] = starttime;
-    map['endtime'] = endtime;
-    return map;
-  }
-
-}
-
-class Time {
-  Time({
-      this.starttime, 
-      this.endtime,});
-
-  Time.fromJson(dynamic json) {
-    starttime = json['starttime'];
-    endtime = json['endtime'];
-  }
-  String? starttime;
-  String? endtime;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['starttime'] = starttime;
-    map['endtime'] = endtime;
-    return map;
-  }
-
 }

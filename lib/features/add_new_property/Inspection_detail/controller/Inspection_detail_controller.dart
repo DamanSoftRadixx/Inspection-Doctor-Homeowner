@@ -13,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/model/time_mode
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/inspection_history_local_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_reschedule_request_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/provider/Inspection_detail_provider.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/network/category_list_response_model.dart';
@@ -240,7 +241,7 @@ class InspectionDetailController extends GetxController {
       if (lastName.isNotEmpty) {
         inspectorName = "$firstName $lastName";
       } else {
-        inspectorName = "$firstName";
+        inspectorName = firstName;
       }
     }
 
@@ -418,9 +419,9 @@ class InspectionDetailController extends GetxController {
   }
 
   onOpenReScheduledBottomSheet() {
-    InspectionSchedulesHistoryModel firstHistoryItemDetail =
+    PropertyInspectionSchedulesHistory firstHistoryItemDetail =
         inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
-            InspectionSchedulesHistoryModel();
+            PropertyInspectionSchedulesHistory();
 
     firstNameController.value.text = firstHistoryItemDetail.firstName ?? "";
     lastNameController.value.text = firstHistoryItemDetail.lastName ?? "";

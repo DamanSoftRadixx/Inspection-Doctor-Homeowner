@@ -13,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/widget_size.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/reschedule.dart';
 import 'package:measure_size/measure_size.dart';
 
@@ -228,9 +229,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   getDescription() {
-    InspectionSchedulesHistoryModel firstHistoryItemDetail = controller
+    PropertyInspectionSchedulesHistory firstHistoryItemDetail = controller
             .inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
-        InspectionSchedulesHistoryModel();
+        PropertyInspectionSchedulesHistory();
 
     return firstHistoryItemDetail.description != null &&
             firstHistoryItemDetail.description != ""
@@ -257,9 +258,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   getContactPersonDetail() {
-    InspectionSchedulesHistoryModel firstHistoryItemDetail = controller
+    PropertyInspectionSchedulesHistory firstHistoryItemDetail = controller
             .inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
-        InspectionSchedulesHistoryModel();
+        PropertyInspectionSchedulesHistory();
 
     return Column(
       children: [
@@ -433,9 +434,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   Row showDate() {
-    InspectionSchedulesHistoryModel firstHistoryItemDetail = controller
+    PropertyInspectionSchedulesHistory firstHistoryItemDetail = controller
             .inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
-        InspectionSchedulesHistoryModel();
+        PropertyInspectionSchedulesHistory();
 
     return Row(
       children: [
