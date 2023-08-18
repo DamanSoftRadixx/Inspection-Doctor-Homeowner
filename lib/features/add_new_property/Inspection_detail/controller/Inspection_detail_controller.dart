@@ -9,12 +9,10 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/inspection_history_local_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/widget_size.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_reschedule_request_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/provider/Inspection_detail_provider.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/network/category_list_response_model.dart';
@@ -61,7 +59,6 @@ class InspectionDetailController extends GetxController {
 
   var inspectionHistoryList = <InspectionHistoryLocalModel>[].obs;
   // RxList<WidgetSize> widgetSizeList = <WidgetSize>[].obs;
-
 
   @override
   void onInit() {
@@ -122,7 +119,6 @@ class InspectionDetailController extends GetxController {
     });
   }
 
-
   disposeFocusListeners() {
     firstNameFocusNode.value.removeListener(() {});
     lastNameFocusNode.value.removeListener(() {});
@@ -130,8 +126,6 @@ class InspectionDetailController extends GetxController {
     phoneNumberFocusNode.value.removeListener(() {});
     descriptionFocusNode.value.removeListener(() {});
   }
-
-
 
   onSelectTimeDropdown({required DropdownModel value}) async {
     selectTime.value = value;
@@ -217,7 +211,6 @@ class InspectionDetailController extends GetxController {
           (response.status == 200 || response.status == 201)) {
         inspectionDetail.value = response.data?[0] ?? InspectionDetailData();
         createInspectionHistoryListFromResponse();
-
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,
@@ -232,222 +225,199 @@ class InspectionDetailController extends GetxController {
     }
   }
 
-
-  createInspectionHistoryListFromResponse(){
-    var historyList = inspectionDetail.value.propertyInspectionSchedulesHistory ?? [];
+  createInspectionHistoryListFromResponse() {
+    var historyList =
+        inspectionDetail.value.propertyInspectionSchedulesHistory ?? [];
     var categoryName = inspectionDetail.value.category?.name ?? "";
     var inspectorList = inspectionDetail.value.inspectorDetails ?? [];
 
     var inspectorName = "";
 
-    if(inspectorList.isNotEmpty){
+    if (inspectorList.isNotEmpty) {
       var firstName = inspectorList[0].firstName ?? "";
       var lastName = inspectorList[0].lastName ?? "";
 
-      if(lastName.isNotEmpty){
+      if (lastName.isNotEmpty) {
         inspectorName = "$firstName $lastName";
-      }else{
+      } else {
         inspectorName = "$firstName";
       }
     }
 
     inspectionHistoryList.clear();
 
-    for(int i = 0; i < historyList.length; i++){
+    for (int i = 0; i < historyList.length; i++) {
       var historyStatusId = historyList[i].inspectionStatusId ?? "";
       var historyData = historyList[i];
 
-      if(historyStatusId == InspectionHistoryStatusEnum.newInspection.value){
-        var inspectionDate = getDateFormattedFromString(date: historyData.date ?? "");
+      if (historyStatusId == InspectionHistoryStatusEnum.newInspection.value) {
+        var inspectionDate =
+            getDateFormattedFromString(date: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
 
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "You have requested $categoryName inspection by $inspectionDate $timeSlotString.",
-                title: AppStrings.inspectionRequested,
-              iconPath: ImageResource.blackCircle,
-              isShowLine: i == historyList.length - 1 ? false : true,
-              historyResponse: historyData,
-              isShowCancelButton: true,
-              isShowRescheduleButton: true
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectionAcccepted.value){
-        var inspectionDate = getDateFormattedFromString(date: historyData.date ?? "");
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message:
+                "You have requested $categoryName inspection by $inspectionDate $timeSlotString.",
+            title: AppStrings.inspectionRequested,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData,
+            isShowCancelButton: true,
+            isShowRescheduleButton: true));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectionAcccepted.value) {
+        var inspectionDate =
+            getDateFormattedFromString(date: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
 
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName is assigned and inspection is scheduled at $inspectionDate $timeSlotString.",
-                title: AppStrings.inspectorAssigned,
-                iconPath: ImageResource.blackCircle,
-              isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-              isShowCancelButton: true
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value){
-        var inspectionDate = getDateFormattedFromString(date: historyData.date ?? "");
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message:
+                "Inspector $inspectorName is assigned and inspection is scheduled at $inspectionDate $timeSlotString.",
+            title: AppStrings.inspectorAssigned,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData,
+            isShowCancelButton: true));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value) {
+        var inspectionDate =
+            getDateFormattedFromString(date: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
 
-
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "You have rescheduled the inspection at $inspectionDate  $timeSlotString.",
-                title: AppStrings.inspectionRescheduled,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-              isShowCancelButton: true,
-              isShowRescheduleButton: true
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.homeownerInspectionCanceled.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "You have canceled the inspection.",
-                title: AppStrings.inspectionCanceled,
-                iconPath: ImageResource.cancel ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectorInspectionCanceled.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName Canceled the inspection.",
-                title: AppStrings.inspectionCanceled,
-                iconPath: ImageResource.cancel ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value){
-        var inspectionDate = getDateFormattedFromString(date: historyData.date ?? "");
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message:
+                "You have rescheduled the inspection at $inspectionDate  $timeSlotString.",
+            title: AppStrings.inspectionRescheduled,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData,
+            isShowCancelButton: true,
+            isShowRescheduleButton: true));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message: "You have canceled the inspection.",
+            title: AppStrings.inspectionCanceled,
+            iconPath: ImageResource.cancel,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectorInspectionCanceled.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message: "Inspector $inspectorName Canceled the inspection.",
+            title: AppStrings.inspectionCanceled,
+            iconPath: ImageResource.cancel,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value) {
+        var inspectionDate =
+            getDateFormattedFromString(date: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
 
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName rescheduled the inspection at $inspectionDate  $timeSlotString.",
-                title: AppStrings.inspectionRescheduled,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-                isShowCancelButton: true,
-            )
-        );
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+          id: historyData.id ?? "",
+          message:
+              "Inspector $inspectorName rescheduled the inspection at $inspectionDate  $timeSlotString.",
+          title: AppStrings.inspectionRescheduled,
+          iconPath: ImageResource.blackCircle,
+          isShowLine: i == historyList.length - 1 ? false : true,
+          historyResponse: historyData,
+          isShowCancelButton: true,
+        ));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectorOnTheWay.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message: "Inspector $inspectorName is on the way for inspection.",
+            title: AppStrings.inspectorIsOnTheWay,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectionStart.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message: "Inspector $inspectorName has started the inspection.",
+            title: AppStrings.inspectionStarted,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectionDone.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+          id: historyData.id ?? "",
+          message:
+              "Inspector $inspectorName has completed the inspection and now wait for the report.",
+          title: AppStrings.inspectionDone,
+          iconPath: ImageResource.blackCircle,
+          isShowLine: i == historyList.length - 1 ? false : true,
+          historyResponse: historyData,
+        ));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectionReportCompleted.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message:
+                "Inspector $inspectorName has submitted the report. Correction is required, please view the report from here.",
+            title: AppStrings.inspectionComplete,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData,
+            isShowGiveFeedBackButton: true,
+            isShowViewReportButton: true));
+      } else if (historyStatusId ==
+          InspectionHistoryStatusEnum.inspectionReportCorrections.value) {
+        inspectionHistoryList.add(InspectionHistoryLocalModel(
+            id: historyData.id ?? "",
+            message:
+                "Inspector $inspectorName has submitted the report. Your inspection is approved. Please view the report from here.",
+            title: AppStrings.correctionRequired,
+            iconPath: ImageResource.blackCircle,
+            isShowLine: i == historyList.length - 1 ? false : true,
+            historyResponse: historyData,
+            isShowGiveFeedBackButton: true,
+            isShowViewReportButton: true));
       }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectorOnTheWay.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName is on the way for inspection.",
-                title: AppStrings.inspectorIsOnTheWay,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectionStart.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName has started the inspection.",
-                title: AppStrings.inspectionStarted,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectionDone.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName has completed the inspection and now wait for the report.",
-                title: AppStrings.inspectionDone,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectionReportCompleted.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName has submitted the report. Correction is required, please view the report from here.",
-                title: AppStrings.inspectionComplete,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-                isShowGiveFeedBackButton: true,
-                isShowViewReportButton: true
-            )
-        );
-      }
-      else if(historyStatusId == InspectionHistoryStatusEnum.inspectionReportCorrections.value){
-        inspectionHistoryList.add(
-            InspectionHistoryLocalModel(
-                id: historyData.id ?? "",
-                message: "Inspector $inspectorName has submitted the report. Your inspection is approved. Please view the report from here.",
-                title: AppStrings.correctionRequired,
-                iconPath: ImageResource.blackCircle ,
-                isShowLine: i == historyList.length - 1 ? false : true,
-                historyResponse: historyData,
-                isShowGiveFeedBackButton: true,
-                isShowViewReportButton: true
-            )
-        );
-      }
-
     }
-
 
     print("historydata : ${inspectionHistoryList.length}");
     inspectionHistoryList.refresh();
-
   }
 
-  String getTimeString({required List<TimeModel> timeList}){
+  String getTimeString({required List<TimeModel> timeList}) {
     var timeSlotString = "";
 
-    for(var time in timeList){
-      var startTimeString = getLocalTimeFromUtc(dateTimeString: time.starttime ?? "");
-      var endTimeString = getLocalTimeFromUtc(dateTimeString: time.endtime ?? "");
+    for (var time in timeList) {
+      var startTimeString =
+          getLocalTimeFromUtc(dateTimeString: time.starttime ?? "");
+      var endTimeString =
+          getLocalTimeFromUtc(dateTimeString: time.endtime ?? "");
 
-      if(timeSlotString.isEmpty){
-        timeSlotString = "${startTimeString} - ${endTimeString}";
-      }else{
-        timeSlotString += ", ${startTimeString} - ${endTimeString}";
+      if (timeSlotString.isEmpty) {
+        timeSlotString = "$startTimeString - $endTimeString";
+      } else {
+        timeSlotString += ", $startTimeString - $endTimeString";
       }
     }
 
     return timeSlotString;
   }
 
-  onOpenReScheduledBottomSheet(){
-
+  onOpenReScheduledBottomSheet() {
     InspectionSchedulesHistoryModel firstHistoryItemDetail =
         inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
             InspectionSchedulesHistoryModel();
@@ -458,18 +428,22 @@ class InspectionDetailController extends GetxController {
     phoneNumberController.value.text = firstHistoryItemDetail.phone ?? "";
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
-    selectedDate.value = getDateFormattedFromString(date: firstHistoryItemDetail.date ?? "",newPattern: "dd/MM/yyyy");
+    selectedDate.value = getDateFormattedFromString(
+        date: firstHistoryItemDetail.date ?? "", newPattern: "dd/MM/yyyy");
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];
     selectedTime.clear();
-    for(var object in timeRespList){
-      var startTime = get24HoursLocalTimeFromUtc(dateTimeString: object.starttime ?? "");
-      var endTime = get24HoursLocalTimeFromUtc(dateTimeString: object.endtime ?? "");
+    for (var object in timeRespList) {
+      var startTime =
+          get24HoursLocalTimeFromUtc(dateTimeString: object.starttime ?? "");
+      var endTime =
+          get24HoursLocalTimeFromUtc(dateTimeString: object.endtime ?? "");
 
-      DropdownModel? selectedItem = timeList.value.firstWhereOrNull((element) => element.startTime == startTime && element.endTime == endTime);
+      DropdownModel? selectedItem = timeList.value.firstWhereOrNull((element) =>
+          element.startTime == startTime && element.endTime == endTime);
 
-      if(selectedItem != null){
+      if (selectedItem != null) {
         selectedTime.add(selectedItem);
       }
     }
@@ -480,7 +454,7 @@ class InspectionDetailController extends GetxController {
     Get.back();
     try {
       InspectionDetailResponseModel response = await inspectionDetailProvider
-          .inspectionRescheduling(id: inspectionId.value,body: body) ??
+              .inspectionRescheduling(id: inspectionId.value, body: body) ??
           InspectionDetailResponseModel();
       setShowLoader(value: false);
       if (response.success == true &&
@@ -502,42 +476,42 @@ class InspectionDetailController extends GetxController {
   }
 
   void onPressRescheduleSubmitButton() {
+    if (isValidRescheduleForm()) {
+      var inspectionRescheduleRequestModel = InspectionRescheduleRequestModel();
+      inspectionRescheduleRequestModel.type = "rescheduled";
+      List<TimeModel> utcDateTimeList = [];
 
-   if(isValidRescheduleForm()){
-     var inspectionRescheduleRequestModel = InspectionRescheduleRequestModel();
-     inspectionRescheduleRequestModel.type = "rescheduled";
-     List<TimeModel> utcDateTimeList = [];
+      if (selectedTime.isNotEmpty) {
+        selectedTime.map((e) {
+          utcDateTimeList.add(TimeModel(
+              starttime:
+                  getUtcDateString(date: selectedDate.value, time: e.startTime),
+              endtime:
+                  getUtcDateString(date: selectedDate.value, time: e.endTime)));
+        }).toList();
+      }
 
-     if (selectedTime.isNotEmpty) {
-       selectedTime.map((e) {
-         utcDateTimeList.add(TimeModel(
-             starttime:
-             getUtcDateString(date: selectedDate.value, time: e.startTime),
-             endtime:
-             getUtcDateString(date: selectedDate.value, time: e.endTime)));
-       }).toList();
-     }
+      inspectionRescheduleRequestModel.firstName =
+          firstNameController.value.text;
+      inspectionRescheduleRequestModel.lastName = lastNameController.value.text;
+      inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
+      inspectionRescheduleRequestModel.email = emailController.value.text;
+      inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
+      inspectionRescheduleRequestModel.description =
+          descriptionController.value.text;
+      inspectionRescheduleRequestModel.date = getDateFormattedFromString(
+          date: selectedDate.value, newPattern: "yyyy-MM-dd");
+      inspectionRescheduleRequestModel.countryCode = selectedCountryCode.value;
 
-     inspectionRescheduleRequestModel.firstName = firstNameController.value.text;
-     inspectionRescheduleRequestModel.lastName = lastNameController.value.text;
-     inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
-     inspectionRescheduleRequestModel.email = emailController.value.text;
-     inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
-     inspectionRescheduleRequestModel.description = descriptionController.value.text;
-     inspectionRescheduleRequestModel.date = getDateFormattedFromString(date: selectedDate.value,newPattern: "yyyy-MM-dd");
-     inspectionRescheduleRequestModel.countryCode = selectedCountryCode.value;
+      inspectionRescheduleRequestModel.time = utcDateTimeList;
 
-     inspectionRescheduleRequestModel.time = utcDateTimeList;
+      var body = json.encode(inspectionRescheduleRequestModel);
 
-
-     var body = json.encode(inspectionRescheduleRequestModel);
-
-     inspectionRescheduleApi(body: body);
-   }
+      inspectionRescheduleApi(body: body);
+    }
   }
 
   void onPressCancelInspectionButton() {
-
     var inspectionRescheduleRequestModel = InspectionRescheduleRequestModel();
     inspectionRescheduleRequestModel.type = "cancelled";
 
@@ -546,20 +520,17 @@ class InspectionDetailController extends GetxController {
     var currentDateTime = DateFormat("dd/MM/yyyy").format(currentDate);
     var selectedDate = DateFormat("yyyy-MM-dd").format(currentDate);
 
-        utcDateTimeList.add(TimeModel(
-            starttime:
-            getUtcDateString(date: currentDateTime),
-            endtime:
-            getUtcDateString(date: currentDateTime)));
+    utcDateTimeList.add(TimeModel(
+        starttime: getUtcDateString(date: currentDateTime),
+        endtime: getUtcDateString(date: currentDateTime)));
     inspectionRescheduleRequestModel.date = selectedDate;
     inspectionRescheduleRequestModel.time = utcDateTimeList;
-
 
     var body = json.encode(inspectionRescheduleRequestModel);
     inspectionRescheduleApi(body: body);
   }
 
-  bool isValidRescheduleForm(){
+  bool isValidRescheduleForm() {
     var isValid = true;
     if (firstNameController.value.text.isEmpty &&
         lastNameController.value.text.isEmpty &&
@@ -632,12 +603,11 @@ class InspectionDetailController extends GetxController {
   }
 
   void onPressViewReportButton() {
-
     var reportPath = inspectionDetail.value.report ?? "";
     var list = reportPath.split(".");
     var fileName = AppStrings.inspectionReport.tr;
 
-    if(list.isNotEmpty && list.length >= 2){
+    if (list.isNotEmpty && list.length >= 2) {
       fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
     }
 
@@ -650,8 +620,4 @@ class InspectionDetailController extends GetxController {
           ),
         ));
   }
-
 }
-
-
-

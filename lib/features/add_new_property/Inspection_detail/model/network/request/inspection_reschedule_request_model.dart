@@ -1,17 +1,18 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 
 class InspectionRescheduleRequestModel {
   InspectionRescheduleRequestModel({
-      this.type, 
-      this.date, 
-      this.time, 
-      this.description, 
-      this.firstName, 
-      this.lastName, 
-      this.email, 
-      this.phone, 
-      this.countryCode,});
+    this.type,
+    this.date,
+    this.time,
+    this.description,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.countryCode,
+  });
 
   InspectionRescheduleRequestModel.fromJson(dynamic json) {
     type = json['type'].toString().toStringConversion();
@@ -54,6 +55,4 @@ class InspectionRescheduleRequestModel {
     map['country_code'] = countryCode;
     return map;
   }
-
 }
-

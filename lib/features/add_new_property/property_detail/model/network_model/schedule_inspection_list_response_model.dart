@@ -1,5 +1,5 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 
 class ScheduleInspectionListResponseModel {
   ScheduleInspectionListResponseModel({
@@ -15,7 +15,7 @@ class ScheduleInspectionListResponseModel {
     status = json['status'].toString().toIntConversion();
     success = json['success'];
     message = json['message'].toString().toStringConversion();
-    if (json['data'] != null && json['data'] is List ) {
+    if (json['data'] != null && json['data'] is List) {
       data = [];
       json['data'].forEach((v) {
         data?.add(ScheduleInspectionResponseData.fromJson(v));

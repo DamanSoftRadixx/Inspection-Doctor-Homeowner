@@ -18,7 +18,8 @@ class InspectionDetailProvider {
       );
       log("response $response");
 
-      InspectionDetailResponseModel data = InspectionDetailResponseModel.fromJson(response.data);
+      InspectionDetailResponseModel data =
+          InspectionDetailResponseModel.fromJson(response.data);
       showResponseData(data, type: 'scheduleInspectionDetails');
 
       return data;
@@ -32,16 +33,17 @@ class InspectionDetailProvider {
     }
   }
 
-  Future<InspectionDetailResponseModel?> inspectionRescheduling(
-      {required String id, required Object body,}) async {
+  Future<InspectionDetailResponseModel?> inspectionRescheduling({
+    required String id,
+    required Object body,
+  }) async {
     try {
       Response response = await apiHitter.postApi(
-        endPoint: "${EndPoints.inspectionReschedule}/$id",
-        body: body
-      );
+          endPoint: "${EndPoints.inspectionReschedule}/$id", body: body);
       log("response $response");
 
-      InspectionDetailResponseModel data = InspectionDetailResponseModel.fromJson(response.data);
+      InspectionDetailResponseModel data =
+          InspectionDetailResponseModel.fromJson(response.data);
       showResponseData(data, type: 'inspectionRescheduling');
 
       return data;

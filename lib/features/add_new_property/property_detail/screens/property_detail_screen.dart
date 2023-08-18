@@ -12,8 +12,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/models/time_model.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
@@ -281,7 +280,8 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     ScheduleInspectionResponseData listData =
         controller.scheduleInspectionList[index];
 
-    var inspectionStatusModel = controller.getInspectionStatus(inspectionId: listData.inspectionStatusId ?? "");
+    var inspectionStatusModel = controller.getInspectionStatus(
+        inspectionId: listData.inspectionStatusId ?? "");
 
     return GestureDetector(
       onTap: () {
@@ -361,8 +361,8 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             Align(
               alignment: Alignment.centerLeft,
               child: AppTextWidget(
-                style:
-                    CustomTextTheme.normalText(color: inspectionStatusModel.color),
+                style: CustomTextTheme.normalText(
+                    color: inspectionStatusModel.color),
                 text: inspectionStatusModel.message,
               ).paddingOnly(left: 18.w),
             )

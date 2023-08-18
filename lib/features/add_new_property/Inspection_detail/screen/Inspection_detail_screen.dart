@@ -13,7 +13,6 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/widget_size.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/reschedule.dart';
 import 'package:measure_size/measure_size.dart';
 
@@ -33,34 +32,32 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
             child: Stack(
               children: [
                 controller.isShowInitialLoader.value
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  getCategoryView(),
-                                  Divider(color: lightColorPalette.grey)
-                                      .paddingSymmetric(horizontal: 20.w),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    getCategoryView(),
+                                    Divider(color: lightColorPalette.grey)
+                                        .paddingSymmetric(horizontal: 20.w),
 //Date
-                                  showDate().paddingOnly(
-                                      bottom: 5.h, left: 20.w, right: 20.w),
-                                  // getInspectionTimeList(
-                                  //     controller.inspectionDetail.value),
+                                    showDate().paddingOnly(
+                                        bottom: 5.h, left: 20.w, right: 20.w),
+                                    // getInspectionTimeList(
+                                    //     controller.inspectionDetail.value),
 
-                                  Divider(color: lightColorPalette.grey)
-                                      .paddingSymmetric(horizontal: 20.w),
-                                  getContactPersonDetail(),
+                                    Divider(color: lightColorPalette.grey)
+                                        .paddingSymmetric(horizontal: 20.w),
+                                    getContactPersonDetail(),
 
-                                  getDescription(),
-                                  getInspectorDetailPersonDetail(),
-                                showInspectionStatusHistoryList()
-        ]
-
-    ),
+                                    getDescription(),
+                                    getInspectorDetailPersonDetail(),
+                                    showInspectionStatusHistoryList()
+                                  ]),
                             ),
                           ),
                         ],
@@ -92,24 +89,24 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
           ).paddingOnly(bottom: 20.h),
           controller.inspectionHistoryList.value.isNotEmpty == true
               ? ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.only(bottom: 10.h),
-            shrinkWrap: true,
-            itemCount: controller.inspectionHistoryList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 2.w),
-                  showProgressBar(index: index),
-                  Expanded(
-                      child: showStatusDetail(
-                        index: index,
-                      )),
-                ],
-              );
-            },
-          )
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(bottom: 10.h),
+                  shrinkWrap: true,
+                  itemCount: controller.inspectionHistoryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 2.w),
+                        showProgressBar(index: index),
+                        Expanded(
+                            child: showStatusDetail(
+                          index: index,
+                        )),
+                      ],
+                    );
+                  },
+                )
               : const SizedBox()
         ],
       ),
@@ -130,23 +127,22 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         //vertical pipe line
 
         Visibility(
-                visible: history.isShowLine,
-                child: Row(
-                  children: [
-                    Container(
-                      height: history.widgetSize?.height,
-                      width: 0.5.w,
-                      color: lightColorPalette.grey,
-                    ).paddingOnly(right: 4.w),
-                    Container(
-                      height:history.widgetSize?.height,
-                      width: 0.5.w,
-                      color: lightColorPalette.grey,
-                    ),
-                  ],
-                ),
-              )
-
+          visible: history.isShowLine,
+          child: Row(
+            children: [
+              Container(
+                height: history.widgetSize?.height,
+                width: 0.5.w,
+                color: lightColorPalette.grey,
+              ).paddingOnly(right: 4.w),
+              Container(
+                height: history.widgetSize?.height,
+                width: 0.5.w,
+                color: lightColorPalette.grey,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -156,8 +152,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
 
     return MeasureSize(
       onChange: (Size size) {
-       controller.inspectionHistoryList[index].widgetSize = WidgetSize(height: size.height);
-       controller.inspectionHistoryList.refresh();
+        controller.inspectionHistoryList[index].widgetSize =
+            WidgetSize(height: size.height);
+        controller.inspectionHistoryList.refresh();
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,42 +166,62 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               AppTextWidget(
                 textAlign: TextAlign.left,
                 style: CustomTextTheme.normalTextWithWeight600(
-                        color: lightColorPalette.black),
+                    color: lightColorPalette.black),
                 text: history.title,
               ),
             ],
           ),
-          SizedBox(height: 5.h,),
+          SizedBox(
+            height: 5.h,
+          ),
           RichText(
               text: TextSpan(
                   style: CustomTextTheme.normalText(
                       color: lightColorPalette.black),
                   text: history.message,
-                  children: [])),
-
-          if(index == 0) Padding(
-            padding: history.isShowCancelButton || history.isShowRescheduleButton ? EdgeInsets.only(top:10.h,bottom: 0.h) : EdgeInsets.zero,
-            child: Row(
-              children: [
-                if(history.isShowCancelButton) Expanded(child: cancelButtonWidget()),
-                if(history.isShowRescheduleButton) SizedBox(width: 10.w,),
-                if(history.isShowRescheduleButton) Expanded(child: rescheduleInspectionButtonWidget()),
-              ],
+                  children: const [])),
+          if (index == 0)
+            Padding(
+              padding:
+                  history.isShowCancelButton || history.isShowRescheduleButton
+                      ? EdgeInsets.only(top: 10.h, bottom: 0.h)
+                      : EdgeInsets.zero,
+              child: Row(
+                children: [
+                  if (history.isShowCancelButton)
+                    Expanded(child: cancelButtonWidget()),
+                  if (history.isShowRescheduleButton)
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                  if (history.isShowRescheduleButton)
+                    Expanded(child: rescheduleInspectionButtonWidget()),
+                ],
+              ),
             ),
-          ),
-
-          if(index == 0) Padding(
-            padding: history.isShowGiveFeedBackButton || history.isShowViewReportButton ? EdgeInsets.only(top:10.h,bottom: 0.h) : EdgeInsets.zero,
-            child: Row(
-              children: [
-                if(history.isShowGiveFeedBackButton) Expanded(child: giveFeedbackButtonWidget()),
-                if(history.isShowViewReportButton) SizedBox(width: 10.w,),
-                if(history.isShowViewReportButton) Expanded(child: viewReportButtonWidget()),
-              ],
+          if (index == 0)
+            Padding(
+              padding: history.isShowGiveFeedBackButton ||
+                      history.isShowViewReportButton
+                  ? EdgeInsets.only(top: 10.h, bottom: 0.h)
+                  : EdgeInsets.zero,
+              child: Row(
+                children: [
+                  if (history.isShowGiveFeedBackButton)
+                    Expanded(child: giveFeedbackButtonWidget()),
+                  if (history.isShowViewReportButton)
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                  if (history.isShowViewReportButton)
+                    Expanded(child: viewReportButtonWidget()),
+                ],
+              ),
             ),
-          ),
-
-          if(index != 0) SizedBox(height: 0.h,)
+          if (index != 0)
+            SizedBox(
+              height: 0.h,
+            )
         ],
       ).paddingOnly(left: 12.w),
     );
@@ -215,22 +232,28 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
             .inspectionDetail.value.propertyInspectionSchedulesHistory?[0] ??
         InspectionSchedulesHistoryModel();
 
-    return firstHistoryItemDetail.description != null && firstHistoryItemDetail.description != "" ? Align(
-      alignment: Alignment.centerLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppTextWidget(
-            style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-            text: AppStrings.description,
-          ).paddingOnly(bottom: 5.h),
-          AppTextWidget(
-            style: CustomTextTheme.subtext(color: lightColorPalette.black),
-            text: firstHistoryItemDetail.description ?? "",
-          ),
-        ],
-      ).paddingOnly(left: 20.w, right: 20.w, top: 12.5),
-    ) : SizedBox(height: 15.h,);
+    return firstHistoryItemDetail.description != null &&
+            firstHistoryItemDetail.description != ""
+        ? Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppTextWidget(
+                  style: CustomTextTheme.subtext(color: lightColorPalette.grey),
+                  text: AppStrings.description,
+                ).paddingOnly(bottom: 5.h),
+                AppTextWidget(
+                  style:
+                      CustomTextTheme.subtext(color: lightColorPalette.black),
+                  text: firstHistoryItemDetail.description ?? "",
+                ),
+              ],
+            ).paddingOnly(left: 20.w, right: 20.w, top: 12.5),
+          )
+        : SizedBox(
+            height: 15.h,
+          );
   }
 
   getContactPersonDetail() {
@@ -319,83 +342,94 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   getInspectorDetailPersonDetail() {
-    List<InspectorDetails> inspectorDetailsList = controller
-        .inspectionDetail.value.inspectorDetails ?? [];
+    List<InspectorDetails> inspectorDetailsList =
+        controller.inspectionDetail.value.inspectorDetails ?? [];
 
-    var inspectorDetails = inspectorDetailsList.isNotEmpty ? inspectorDetailsList[0] : null;
+    var inspectorDetails =
+        inspectorDetailsList.isNotEmpty ? inspectorDetailsList[0] : null;
 
-    List<InspectorImage> inspectorProfileImageList = controller
-        .inspectionDetail.value.inspectorImage ?? [];
+    List<InspectorImage> inspectorProfileImageList =
+        controller.inspectionDetail.value.inspectorImage ?? [];
 
+    String? inspectorProfileImage = inspectorProfileImageList.isNotEmpty
+        ? inspectorProfileImageList[0].url
+        : null;
 
-    String? inspectorProfileImage = inspectorProfileImageList.isNotEmpty ?  inspectorProfileImageList[0].url : null;
-
-    return inspectorDetails == null ? SizedBox(height: 15.h,) : Column(
-      children: [
-        SizedBox(height: 15.h,),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(color: lightColorPalette.grey),
-            text: AppStrings.inspector,
-          ),
-        ).paddingOnly(bottom: 10.h),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 36.h,
-              width: 36.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.r),
-                  border:
-                  Border.all(color: lightColorPalette.grey, width: 0.3)),
-              child: Center(
-                child: AssetWidget(
-                  color: lightColorPalette.black,
-
-                  asset: inspectorProfileImage != null && inspectorProfileImage != "" ? Asset(
-                    type: AssetType.network,
-                    path: inspectorProfileImage ?? "",
-                  ) : Asset(
-                    type: AssetType.svg,
-                    path: ImageResource.user,
-                  ),
-                ),
+    return inspectorDetails == null
+        ? SizedBox(
+            height: 15.h,
+          )
+        : Column(
+            children: [
+              SizedBox(
+                height: 15.h,
               ),
-            ),
-            SizedBox(width: 10.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppTextWidget(
-                  style: CustomTextTheme.bottomTabs(
-                      color: lightColorPalette.black),
-                  text:
-                  "${inspectorDetails.firstName ?? ""} ${inspectorDetails.lastName ?? ""}",
+              Align(
+                alignment: Alignment.centerLeft,
+                child: AppTextWidget(
+                  style:
+                      CustomTextTheme.normalText(color: lightColorPalette.grey),
+                  text: AppStrings.inspector,
                 ),
-                Row(
-                  children: [
-                    AssetWidget(
-                      color: lightColorPalette.black,
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.email,
+              ).paddingOnly(bottom: 10.h),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 36.h,
+                    width: 36.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        border: Border.all(
+                            color: lightColorPalette.grey, width: 0.3)),
+                    child: Center(
+                      child: AssetWidget(
+                        color: lightColorPalette.black,
+                        asset: inspectorProfileImage != null &&
+                                inspectorProfileImage != ""
+                            ? Asset(
+                                type: AssetType.network,
+                                path: inspectorProfileImage ?? "",
+                              )
+                            : Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.user,
+                              ),
                       ),
-                    ).paddingOnly(right: 6.w),
-                    AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: inspectorDetails.email ?? "",
                     ),
-                  ],
-                ),
-              ],
-            )
-          ],
-        )
-      ],
-    ).paddingOnly(left: 20.w, right: 20.w,bottom: 15.h);
+                  ),
+                  SizedBox(width: 10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextWidget(
+                        style: CustomTextTheme.bottomTabs(
+                            color: lightColorPalette.black),
+                        text:
+                            "${inspectorDetails.firstName ?? ""} ${inspectorDetails.lastName ?? ""}",
+                      ),
+                      Row(
+                        children: [
+                          AssetWidget(
+                            color: lightColorPalette.black,
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.email,
+                            ),
+                          ).paddingOnly(right: 6.w),
+                          AppTextWidget(
+                            style: CustomTextTheme.normalText(
+                                color: lightColorPalette.grey),
+                            text: inspectorDetails.email ?? "",
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ).paddingOnly(left: 20.w, right: 20.w, bottom: 15.h);
   }
 
   Row showDate() {
@@ -464,14 +498,13 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         border: BorderSide(color: lightColorPalette.redDark.withOpacity(0.4)),
         commonButtonBottonText: AppStrings.cancel.tr,
         onPress: () {
-
           showCommonAlertWithTwoActionsDialog(
               title: AppStrings.cancelInspection.tr,
               subHeader: AppStrings.areYouSureYouWantToCanelThisInspection.tr,
-              noPressed: (){
+              noPressed: () {
                 Get.back();
               },
-              yesPressed: (){
+              yesPressed: () {
                 controller.onPressCancelInspectionButton();
               });
         });
@@ -510,7 +543,6 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         bgColor: Colors.transparent,
         border: BorderSide(color: lightColorPalette.black),
         commonButtonBottonText: AppStrings.giveFeedback.tr,
-        onPress: () {
-        });
+        onPress: () {});
   }
 }
