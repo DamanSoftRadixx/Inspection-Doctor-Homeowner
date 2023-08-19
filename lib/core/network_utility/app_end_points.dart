@@ -1,5 +1,7 @@
 class EndPoints {
-  static const String baseUrl = "http://api.cidusa.net/";
+  // static const String baseUrl = "http://api.cidusa.net/";
+  // static const String baseUrl = "https://api-stage.cidusa.net/";
+  static const String baseUrl = "https://api-dev.cidusa.net/";
 
   static const String register = "auth/signup";
   static const String login = "auth/login";
@@ -23,7 +25,8 @@ class EndPoints {
   static const String inspectionCreate = "homeowner/inspection-create";
   static const String scheduleInspectionList =
       "homeowner/schedule-inspection-list";
-  static const String scheduleInspectionDetail = "homeowner/schedule-inspection-details";
+  static const String scheduleInspectionDetail =
+      "homeowner/schedule-inspection-details";
   static const String inspectionReschedule = "homeowner/inspection-reschedule";
 
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";

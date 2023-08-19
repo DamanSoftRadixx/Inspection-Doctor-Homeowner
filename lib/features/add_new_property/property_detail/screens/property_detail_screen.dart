@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -317,7 +319,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             //subcategory
             Row(
               children: [
-                Expanded(
+                Flexible(
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
@@ -336,7 +338,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 ),
               ],
             ).paddingOnly(left: 18.w, right: 18.w, top: 13.h),
-            const Divider(),
+            getDivider().paddingSymmetric(vertical: 15.h, horizontal: 18.w),
 //Date
             Row(
               children: [
@@ -357,7 +359,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
               ],
             ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
             getInspectionTimeList(listData),
-            const Divider(),
+            getDivider().paddingSymmetric(vertical: 15.h),
             Align(
               alignment: Alignment.centerLeft,
               child: AppTextWidget(
@@ -375,6 +377,8 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   ListView getInspectionTimeList(ScheduleInspectionResponseData listData) {
     var timeList = listData.time ?? [];
 
+    log("message ${timeList.length}");
+
     return ListView.builder(
       padding: EdgeInsets.only(left: 18.w, right: 18.w),
       shrinkWrap: true,
@@ -383,51 +387,36 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
         TimeModel timeData = timeList[index];
         return Row(
           children: [
-            SizedBox(
-              width: 90.w,
-              child: Row(
-                children: [
-                  AssetWidget(
-                    height: 14.h,
-                    width: 14.w,
-                    color: lightColorPalette.black,
-                    asset: Asset(
-                      type: AssetType.svg,
-                      path: ImageResource.clock,
-                    ),
-                  ).paddingOnly(right: 5.w),
-                  AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: getLocalTimeFromUtc(
-                          dateTimeString: timeData.starttime ?? "")),
-                ],
-              ),
+            Row(
+              children: [
+                AssetWidget(
+                  height: 14.h,
+                  width: 14.w,
+                  color: lightColorPalette.black,
+                  asset: Asset(
+                    type: AssetType.svg,
+                    path: ImageResource.clock,
+                  ),
+                ).paddingOnly(right: 5.w),
+                AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                        color: lightColorPalette.grey),
+                    text: getLocalTimeFromUtc(
+                        dateTimeString: timeData.starttime ?? "")),
+              ],
             ),
             AppTextWidget(
                 style:
                     CustomTextTheme.normalText(color: lightColorPalette.grey),
                 text: " -  "),
-            SizedBox(
-              width: 90.w,
-              child: Row(
-                children: [
-                  AssetWidget(
-                    height: 14.h,
-                    width: 14.w,
-                    color: lightColorPalette.black,
-                    asset: Asset(
-                      type: AssetType.svg,
-                      path: ImageResource.clock,
-                    ),
-                  ).paddingOnly(right: 5.w),
-                  AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: getLocalTimeFromUtc(
-                          dateTimeString: timeData.endtime ?? "")),
-                ],
-              ),
+            Row(
+              children: [
+                AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                        color: lightColorPalette.grey),
+                    text: getLocalTimeFromUtc(
+                        dateTimeString: timeData.endtime ?? "")),
+              ],
             ),
           ],
         );
@@ -451,5 +440,15 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
         },
         focusNode: controller.searchFocusNode.value,
         searchHint: AppStrings.searchCategoryAndInspection);
+  }
+
+  Divider getDivider() {
+    return Divider(
+      height: 0,
+      color: lightColorPalette.black,
+      thickness: 0.3,
+      indent: 0,
+      endIndent: 0,
+    );
   }
 }

@@ -49,6 +49,7 @@ class AddPropertyController extends GetxController {
   RxBool isShowLoader = false.obs;
 
   Rx<File> pdfFile = File("").obs;
+  Rx<PickResult> result = PickResult().obs;
 
   RxBool propertyNameError = false.obs;
   RxBool streetError = false.obs;
@@ -549,7 +550,8 @@ class AddPropertyController extends GetxController {
     var body = json.encode({
       "assigned_user_id": "",
       "property_name": propertyController.value.text,
-      "street": streetController.value.text,
+      "address_line_1": streetController.value.text,
+      "address_line_2": "",
       "city": cityController.value.text,
       "zip_code": zipCodeController.value.text,
       "lot_number": lotNumberController.value.text,
@@ -557,7 +559,9 @@ class AddPropertyController extends GetxController {
       "permit_number": permitNumberController.value.text,
       "state": stateController.value.text,
       "county_id": selectedBaseMaterialDropDown.value.id,
-      "architecturel_drawing": uploadData.value.id
+      "architecturel_drawing": uploadData.value.id,
+      "latitude": result.value.geometry?.location.lat ?? 0,
+      "longitude": result.value.geometry?.location.lng ?? 0,
     });
 
     try {
@@ -636,7 +640,7 @@ class AddPropertyController extends GetxController {
   void onTapChooseButton() {
     Get.toNamed(Routes.chooseMap)?.then((value) async {
       if (value != null) {
-        PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
+        result.value = value[0][GetArgumentConstants.googleAddressPlace];
 
         // log("adrAddress ${result.adrAddress}");
 
@@ -650,31 +654,31 @@ class AddPropertyController extends GetxController {
 
         place.value = FFPlace(
           latLng: LatLng(
-            result.geometry?.location.lat ?? 0,
-            result.geometry?.location.lng ?? 0,
+            result.value.geometry?.location.lat ?? 0,
+            result.value.geometry?.location.lng ?? 0,
           ),
-          name: result.name ?? "",
-          address: result.addressComponents
+          name: result.value.name ?? "",
+          address: result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
                   ?.longName ??
               "",
-          city: result.addressComponents
+          city: result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('locality'))
                   ?.longName ??
-              result.addressComponents
+              result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('sublocality'))
                   ?.longName ??
               '',
-          state: result.addressComponents
+          state: result.value.addressComponents
                   ?.firstWhereOrNull(
                       (e) => e.types.contains('administrative_area_level_1'))
                   ?.longName ??
               '',
-          country: result.addressComponents
+          country: result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('country'))
                   ?.longName ??
               '',
-          zipCode: result.addressComponents
+          zipCode: result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('postal_code'))
                   ?.longName ??
               '',

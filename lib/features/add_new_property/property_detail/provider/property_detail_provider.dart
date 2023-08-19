@@ -47,6 +47,8 @@ class PropertyDetailProvider {
 
       ScheduleInspectionListResponseModel data =
           ScheduleInspectionListResponseModel.fromJson(response.data);
+
+      log("getScheduleInspectionListgdgfdg ${response.data}");
       showResponseData(data, type: 'getScheduleInspectionList');
 
       return data;

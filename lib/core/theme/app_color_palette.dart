@@ -11,9 +11,7 @@ class AppColorPalette {
   final Color backgroundColor;
   final Color redDark;
   final Color primaryBlue;
-  // final Color black;
-  // final Color stroke;
-  // final Color primaryGrey;
+
   final Color errorColor;
   final Color redBackground;
   final Color greenDark;
@@ -31,9 +29,6 @@ class AppColorPalette {
     required this.backgroundColor,
     required this.redDark,
     required this.primaryBlue,
-    // required this.black,
-    // required this.stroke,
-    // required this.primaryGrey,
     required this.redBackground,
     required this.greenDark,
     required this.greenBackground,

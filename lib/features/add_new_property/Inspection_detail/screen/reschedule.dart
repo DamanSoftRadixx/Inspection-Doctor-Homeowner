@@ -12,7 +12,6 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/Inspection_detail_screen.dart';
 
 extension RescheduleFormExtension on InspectionDetailScreen {
@@ -63,12 +62,13 @@ extension RescheduleFormExtension on InspectionDetailScreen {
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(children: [
-
                         getDateTimeView(),
                         getDescriptionView(),
                         getContactInformation(),
                         submitRescheduleInspectionButtonWidget(),
-                        SizedBox(height: 50.h,)
+                        SizedBox(
+                          height: 50.h,
+                        )
                       ]).paddingSymmetric(horizontal: 0.w),
                     ),
                   ),
@@ -170,8 +170,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
             style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           ),
         ),
-        showFirstNameField()
-            .paddingOnly(top: 15.h, bottom: 11.h),
+        showFirstNameField().paddingOnly(top: 15.h, bottom: 11.h),
         showLastNameField().paddingOnly(bottom: 11.h),
         showEmailField().paddingOnly(bottom: 11.h),
         showPhoneNumberField().paddingOnly(bottom: 11.h),
@@ -232,36 +231,37 @@ extension RescheduleFormExtension on InspectionDetailScreen {
     return Align(
       alignment: Alignment.topLeft,
       child: Obx(() => Wrap(
-        spacing: 5.w,
-        children: List.generate(
-            controller.selectedTime.length,
+            spacing: 5.w,
+            children: List.generate(
+                controller.selectedTime.length,
                 (index) => Chip(
-              deleteIconColor: Colors.green,
-              onDeleted: () {
-                controller.selectedTime.removeAt(index);
-              },
-              label: AppTextWidget(
-                textAlign: TextAlign.start,
-                text: controller.selectedTime[index].name,
-                style: CustomTextTheme.bottomTabsithFontWeight600(
-                    color: lightColorPalette.grey),
-              ),
-            )),
-      )),
+                      deleteIconColor: Colors.green,
+                      onDeleted: () {
+                        controller.selectedTime.removeAt(index);
+                      },
+                      label: AppTextWidget(
+                        textAlign: TextAlign.start,
+                        text: controller.selectedTime[index].name,
+                        style: CustomTextTheme.bottomTabsithFontWeight600(
+                            color: lightColorPalette.grey),
+                      ),
+                    )),
+          )),
     );
   }
 
   Widget submitRescheduleInspectionButtonWidget() {
     return CommonButton(
-        style: CustomTextTheme.buttonText(
-          color: lightColorPalette.whiteColorPrimary.shade900,
-        ),
-        bgColor: lightColorPalette.black,
-        commonButtonBottonText: AppStrings.submitAndNotify.tr,
-        onPress: controller.isEnable
-            ? () {
-          controller.onPressRescheduleSubmitButton();
-        }
-            : null).paddingSymmetric(horizontal: 20.w);
+            style: CustomTextTheme.buttonText(
+              color: lightColorPalette.whiteColorPrimary.shade900,
+            ),
+            bgColor: lightColorPalette.black,
+            commonButtonBottonText: AppStrings.submitAndNotify.tr,
+            onPress: controller.isEnable
+                ? () {
+                    controller.onPressRescheduleSubmitButton();
+                  }
+                : null)
+        .paddingSymmetric(horizontal: 20.w);
   }
 }
