@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
@@ -9,11 +11,14 @@ class HomeProvider {
   ApiHitter apiHitter = ApiHitter();
 
   Future<PropertyListResponseModel?> propertyList(
-      {required Object body,bool isCancelToken = false}) async {
+      {required Object body, bool isCancelToken = false}) async {
     try {
-      Response response =
-          await apiHitter.postApi(endPoint: EndPoints.propertyList, body: body,isCancelToken: isCancelToken);
+      Response response = await apiHitter.postApi(
+          endPoint: EndPoints.propertyList,
+          body: body,
+          isCancelToken: isCancelToken);
 
+      log("gfdfdgdgdfg $response");
       PropertyListResponseModel data =
           PropertyListResponseModel.fromJson(response.data);
       showResponseData(data, type: 'propertyList');

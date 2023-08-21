@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:device_uuid/device_uuid.dart';
@@ -14,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
@@ -34,9 +34,13 @@ class SignupController extends GetxController {
   Rx<TextEditingController> passwordController = TextEditingController().obs;
   Rx<TextEditingController> confirmPasswordController =
       TextEditingController().obs;
-  Rx<TextEditingController> streetController = TextEditingController().obs;
+  Rx<TextEditingController> streetAddress1Controller =
+      TextEditingController().obs;
+  Rx<TextEditingController> streetAddress2Controller =
+      TextEditingController().obs;
+
   Rx<TextEditingController> cityController = TextEditingController().obs;
-  Rx<TextEditingController> stateController = TextEditingController().obs;
+  // Rx<TextEditingController> stateController = TextEditingController().obs;
   Rx<TextEditingController> zipCodeController = TextEditingController().obs;
 
   Rx<FocusNode> firstNameFocusNode = FocusNode().obs;
@@ -136,6 +140,7 @@ class SignupController extends GetxController {
 
   @override
   void onInit() {
+    getStateListApi();
     addFocusListeners();
     getArguments();
 
@@ -156,9 +161,6 @@ class SignupController extends GetxController {
   getArguments() async {
     var args = Get.arguments;
     if (args != null) {
-      log("getArguments $args");
-      log("getArguments ${GetArgumentConstants.otpFromForget}");
-
       List<DropdownModel> languageListTemp =
           args[GetArgumentConstants.languageList] ?? List<DropdownModel>;
 
@@ -176,15 +178,20 @@ class SignupController extends GetxController {
     }
   }
 
-  void validate(
-      {required String firstName,
-      required String lastName,
-      required String email,
-      required String phone,
-      required String password,
-      required String confirmPassword,
-      required bool isLanguageSelected}) async {
-    log("testtt ${phone.length < 7}");
+  void validate({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String password,
+    required String confirmPassword,
+    required bool isLanguageSelected,
+    required String address1,
+    required String address2,
+    required String city,
+    required String state,
+    required String zipCode,
+  }) async {
     if (firstName.isEmpty &&
         lastName.isEmpty &&
         email.isEmpty &&
@@ -269,7 +276,12 @@ class SignupController extends GetxController {
         phone: phoneNumberController.value.text,
         password: passwordController.value.text,
         confirmPassword: confirmPasswordController.value.text,
-        isLanguageSelected: selectedBaseMaterialDropDown.value.id.isNotEmpty);
+        isLanguageSelected: selectedBaseMaterialDropDown.value.id.isNotEmpty,
+        address1: streetAddress1Controller.value.text,
+        address2: streetAddress2Controller.value.text,
+        city: cityController.value.text,
+        state: selectedStateDropDown.value.id,
+        zipCode: zipCodeController.value.text);
   }
 
   KeyboardActionsConfig buildConfig(BuildContext context) {
@@ -320,10 +332,10 @@ class SignupController extends GetxController {
       "password": passwordController.value.text,
       "language_id": selectedBaseMaterialDropDown.value.id,
       "country_code": int.parse(selectedCountryCode.value),
-      "address_line_1": streetController.value.text,
-      "address_line_2": "",
+      "address_line_1": streetAddress1Controller.value.text,
+      "address_line_2": streetAddress2Controller.value.text,
       "zip_code": zipCodeController.value.text,
-      "street": streetController.value.text,
+      "state": selectedStateDropDown.value.id,
       "city": cityController.value.text,
       "image": "",
       "device_type":
@@ -436,26 +448,17 @@ class SignupController extends GetxController {
       if (value != null) {
         PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
 
-        // log("adrAddress ${result.adrAddress}");
-
-        // log("message>>>>>> ${result.formattedAddress}");
-        // log("message>>>>> ${result.addressComponents?.first.longName}");
-        // log("message ${result.placeId}");
-
-        // for (var i in result.addressComponents ?? []) {
-        //   print("Long Name: ${i.longName}   Long Name: ${i.types}");
-        // }
-
         place.value = FFPlace(
           latLng: LatLng(
             result.geometry?.location.lat ?? 0,
             result.geometry?.location.lng ?? 0,
           ),
-          name: result.name ?? "",
           address: result.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
                   ?.longName ??
               "",
+          name:
+              "${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_1'))?.longName ?? ""} ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_2'))?.longName ?? ""} ",
           city: result.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('locality'))
                   ?.longName ??
@@ -478,9 +481,10 @@ class SignupController extends GetxController {
               '',
         );
 
-        streetController.value.text = place.value.address;
+        streetAddress2Controller.value.text = place.value.name;
+        streetAddress1Controller.value.text = place.value.address;
         cityController.value.text = place.value.city;
-        stateController.value.text = place.value.state;
+        // stateController.value.text = place.value.state;
         zipCodeController.value.text = place.value.zipCode;
       }
     });
@@ -494,5 +498,46 @@ class SignupController extends GetxController {
         passwordController.value.text.isNotEmpty &&
         confirmPasswordController.value.text.isNotEmpty &&
         selectedBaseMaterialDropDown.value.id.isNotEmpty == true);
+  }
+
+  //State
+
+  var selectedStateDropDown = DropdownModel().obs;
+  onSelectStateDropdown({required DropdownModel value}) {
+    selectedStateDropDown.value = value;
+  }
+
+  RxList<DropdownModel> stateList = <DropdownModel>[].obs;
+
+  getStateListApi() async {
+    setShowLoader(value: true);
+    try {
+      StateResponseModel response =
+          await signUpProvider.getState() ?? StateResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        response.data
+            ?.map((e) => stateList.add(DropdownModel(
+                  id: e.id ?? "",
+                  name: e.name ?? "",
+                  isActive: e.isActive ?? false,
+                )))
+            .toList();
+
+        int index = stateList.indexWhere((element) => element.isActive == true);
+        onSelectStateDropdown(value: stateList[index]);
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
   }
 }

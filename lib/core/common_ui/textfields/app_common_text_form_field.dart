@@ -431,6 +431,156 @@ Widget commonDateFieldWidget({
   );
 }
 
+// Widget dropdownField(
+//     {String? hint,
+//     required DropdownModel selectedValue,
+//     required Function(DropdownModel value) onClick,
+//     EdgeInsetsGeometry? padding,
+//     required List<DropdownModel> list,
+//     bool? isExpanded,
+//     bool isMandatory = false,
+//     bool isShowRightButton = false,
+//     String? title,
+//     Widget? rightButtonDesign,
+//     bool isError = false,
+//     Function()? onTap,
+//     String? errorMsg,
+//     bool? isDisable,
+//     bool hasFocus = false}) {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.start,
+//     children: [
+//       if (title != null && title != "")
+//         Padding(
+//           padding: EdgeInsets.only(bottom: 3.h),
+//           child: AppTextWidget(
+//             style: CustomTextTheme.normalText(color: lightColorPalette.black),
+//             text: title,
+//             textAlign: TextAlign.center,
+//           ),
+//         ),
+//       Container(
+//           width: 1.sw,
+//           height: 46.h,
+//           decoration: decoration(isSelected: hasFocus),
+//           child: DropdownButtonHideUnderline(
+//             child: DropdownButton2<DropdownModel>(
+//               // isDense: true,
+//               /* menuItemStyleData:
+//                   MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
+//               dropdownStyleData: DropdownStyleData(
+//                 // elevation: 3,
+//                 offset: const Offset(0, -5.59),
+//                 maxHeight: 300.h,
+//                 decoration: BoxDecoration(
+//                   color: lightColorPalette.whiteColorPrimary.shade900,
+//                   boxShadow: [
+//                     BoxShadow(
+//                         color: lightColorPalette.black.withOpacity(0.10),
+//                         spreadRadius: 2,
+//                         blurRadius: 20,
+//                         offset: const Offset(1, 1))
+//                   ],
+//                   borderRadius: BorderRadius.circular(10.r),
+//                   shape: BoxShape.rectangle,
+//                   border: Border.all(
+//                       color: lightColorPalette.grey.withOpacity(0.3),
+//                       width: 0.3),
+//                 ),
+//               ),
+//               isExpanded: isExpanded ?? false,
+//               underline: const SizedBox(),
+//               customButton: Padding(
+//                 padding: EdgeInsets.only(right: 16.0.w, left: 16.0.w),
+//                 child: Row(
+//                   children: [
+//                     selectedValue.name == ""
+//                         ? AppTextWidget(
+//                             text: hint ?? "",
+//                             style: CustomTextTheme.normalText(
+//                                 color:
+//                                     lightColorPalette.black.withOpacity(0.5)),
+//                           )
+//                         : AppTextWidget(
+//                             text: selectedValue.name,
+//                             style: CustomTextTheme.normalText(
+//                                 color: lightColorPalette.black),
+//                             overflow: TextOverflow.ellipsis,
+//                           ),
+//                     const Spacer(),
+//                     Padding(
+//                       padding: EdgeInsets.only(left: 8.w),
+//                       child: Center(
+//                         child: AssetWidget(
+//                             asset: Asset(
+//                                 type: AssetType.svg,
+//                                 path: ImageResource.downArrow)),
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//               iconStyleData: IconStyleData(
+//                 icon: Center(
+//                   child: Icon(Icons.arrow_drop_down,
+//                           color: lightColorPalette.black, size: 25.h)
+//                       .paddingOnly(right: 4.w),
+//                 ),
+//               ),
+//               hint: AppTextWidget(
+//                 text: hint ?? "",
+//                 style: CustomTextTheme.normalText(
+//                     color: lightColorPalette.black.withOpacity(0.5)),
+//               ),
+//               buttonStyleData: ButtonStyleData(
+//                 padding: EdgeInsets.only(left: 2.w, right: 5.w),
+//               ),
+//               value: selectedValue.name == "" ? null : selectedValue,
+//               selectedItemBuilder: (_) {
+//                 return list.map<Widget>((item) {
+//                   return Row(
+//                     children: [
+//                       AppTextWidget(
+//                         text: item.name.toString(),
+//                         style: TextStyle(
+//                           fontSize: 14.w,
+//                           fontWeight: FontWeight.w500,
+//                           fontFamily: CommonStrings.generalSans,
+//                           color: lightColorPalette.black,
+//                         ),
+//                         overflow: TextOverflow.ellipsis,
+//                       ),
+//                     ],
+//                   );
+//                 }).toList();
+//               },
+//               menuItemStyleData: MenuItemStyleData(
+//                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
+//                 customHeights: getCustomItemsHeights(items: list),
+//               ),
+//               items: addDividersAfterItems(
+//                   items: list, selectedValue: selectedValue),
+//               onChanged: (DropdownModel? value) {
+//                 onClick(value!);
+//               },
+//             ),
+//           )),
+//       Visibility(
+//         visible: isError ?? false,
+//         child: Align(
+//           alignment: Alignment.topLeft,
+//           child: AppTextWidget(
+//             text: errorMsg ?? "",
+//             style: CustomTextTheme.bottomTabs(
+//               color: lightColorPalette.redDark,
+//             ),
+//           ).paddingOnly(top: 5.h),
+//         ),
+//       ),
+//     ],
+//   );
+// }
+
 Widget dropdownField(
     {String? hint,
     required DropdownModel selectedValue,
@@ -445,6 +595,7 @@ Widget dropdownField(
     bool isError = false,
     Function()? onTap,
     String? errorMsg,
+    bool? isDisable,
     bool hasFocus = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -460,7 +611,7 @@ Widget dropdownField(
         ),
       Container(
           width: 1.sw,
-          height: 46.h,
+          height: 44.h,
           decoration: decoration(isSelected: hasFocus),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<DropdownModel>(
@@ -558,7 +709,9 @@ Widget dropdownField(
                 customHeights: getCustomItemsHeights(items: list),
               ),
               items: addDividersAfterItems(
-                  items: list, selectedValue: selectedValue),
+                  items: list,
+                  selectedValue: selectedValue,
+                  isDisable: isDisable),
               onChanged: (DropdownModel? value) {
                 onClick(value!);
               },
@@ -806,50 +959,50 @@ class DropdownModel extends Equatable {
   List<Object?> get props => [id, name, status, type];
 }
 
-List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
-    {required List<DropdownModel> items,
-    required DropdownModel selectedValue}) {
-  List<DropdownMenuItem<DropdownModel>>? menuItems = [];
-  for (final DropdownModel item in items) {
-    menuItems.addAll(
-      [
-        DropdownMenuItem<DropdownModel>(
-          value: item,
-          child: Row(
-            children: [
-              AppTextWidget(
-                text: item.name.toString(),
-                style: CustomTextTheme.normalText(
-                    color: selectedValue.id == item.id
-                        ? lightColorPalette.black
-                        : lightColorPalette.black),
-                overflow: TextOverflow.ellipsis,
-              ),
-              const Spacer(),
-              selectedValue.id == item.id
-                  ? AssetWidget(
-                      color: Colors.green,
-                      asset: Asset(
-                          type: AssetType.svg, path: ImageResource.checked),
-                    )
-                  : AssetWidget(
-                      asset: Asset(
-                          type: AssetType.svg, path: ImageResource.unCheck),
-                    ),
-            ],
-          ).paddingSymmetric(horizontal: 15.w),
-        ),
-        //If it's last item, we will not add Divider after it.
-        if (item != items.last)
-          const DropdownMenuItem<DropdownModel>(
-            enabled: false,
-            child: Divider(),
-          ),
-      ],
-    );
-  }
-  return menuItems;
-}
+// List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
+//     {required List<DropdownModel> items,
+//     required DropdownModel selectedValue}) {
+//   List<DropdownMenuItem<DropdownModel>>? menuItems = [];
+//   for (final DropdownModel item in items) {
+//     menuItems.addAll(
+//       [
+//         DropdownMenuItem<DropdownModel>(
+//           value: item,
+//           child: Row(
+//             children: [
+//               AppTextWidget(
+//                 text: item.name.toString(),
+//                 style: CustomTextTheme.normalText(
+//                     color: selectedValue.id == item.id
+//                         ? lightColorPalette.black
+//                         : lightColorPalette.black),
+//                 overflow: TextOverflow.ellipsis,
+//               ),
+//               const Spacer(),
+//               selectedValue.id == item.id
+//                   ? AssetWidget(
+//                       color: Colors.green,
+//                       asset: Asset(
+//                           type: AssetType.svg, path: ImageResource.checked),
+//                     )
+//                   : AssetWidget(
+//                       asset: Asset(
+//                           type: AssetType.svg, path: ImageResource.unCheck),
+//                     ),
+//             ],
+//           ).paddingSymmetric(horizontal: 15.w),
+//         ),
+//         //If it's last item, we will not add Divider after it.
+//         if (item != items.last)
+//           const DropdownMenuItem<DropdownModel>(
+//             enabled: false,
+//             child: Divider(),
+//           ),
+//       ],
+//     );
+//   }
+//   return menuItems;
+// }
 
 List<double> getCustomItemsHeights({required List<DropdownModel> items}) {
   final List<double> itemsHeights = [];
@@ -1015,6 +1168,50 @@ List<DropdownMenuItem<DropdownModel>> multiSelection(
               ).paddingSymmetric(horizontal: 15.w),
             );
           }),
+        ),
+        //If it's last item, we will not add Divider after it.
+        if (item != items.last)
+          const DropdownMenuItem<DropdownModel>(
+            enabled: false,
+            child: Divider(),
+          ),
+      ],
+    );
+  }
+  return menuItems;
+}
+
+List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
+    {required List<DropdownModel> items,
+    required DropdownModel selectedValue,
+    bool? isDisable}) {
+  List<DropdownMenuItem<DropdownModel>>? menuItems = [];
+  for (final DropdownModel item in items) {
+    menuItems.addAll(
+      [
+        DropdownMenuItem<DropdownModel>(
+          value: item,
+          child: Row(
+            children: [
+              AppTextWidget(
+                text: item.name.toString(),
+                style: CustomTextTheme.normalText(
+                    color: selectedValue.id == item.id
+                        ? lightColorPalette.black
+                        : isDisable == true
+                            ? lightColorPalette.grey
+                            : lightColorPalette.black),
+                overflow: TextOverflow.ellipsis,
+              ),
+              const Spacer(),
+              selectedValue.id == item.id
+                  ? AssetWidget(
+                      color: Colors.green,
+                      asset: Asset(
+                          type: AssetType.svg, path: ImageResource.checked))
+                  : Container(),
+            ],
+          ).paddingSymmetric(horizontal: 15.w),
         ),
         //If it's last item, we will not add Divider after it.
         if (item != items.last)

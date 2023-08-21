@@ -1,4 +1,5 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/property_model.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 
 class InspectionDetailResponseModel {
@@ -224,66 +225,66 @@ class InspectorDetails {
   }
 }
 
-class Properties {
-  Properties({
-    this.propertyName,
-    this.latitude,
-    this.longitude,
-    this.street,
-    this.state,
-    this.city,
-    this.zipCode,
-    this.lotNumber,
-    this.blockNumber,
-    this.permitNumber,
-    this.countyId,
-    this.latestUpdate,
-  });
+// class Properties {
+//   Properties({
+//     this.propertyName,
+//     this.latitude,
+//     this.longitude,
+//     this.street,
+//     this.state,
+//     this.city,
+//     this.zipCode,
+//     this.lotNumber,
+//     this.blockNumber,
+//     this.permitNumber,
+//     this.countyId,
+//     this.latestUpdate,
+//   });
 
-  Properties.fromJson(dynamic json) {
-    propertyName = json['property_name'].toString().toStringConversion();
-    latitude = json['latitude'].toString().toStringConversion();
-    longitude = json['longitude'].toString().toStringConversion();
-    street = json['street'].toString().toStringConversion();
-    state = json['state'].toString().toStringConversion();
-    city = json['city'].toString().toStringConversion();
-    zipCode = json['zip_code'].toString().toStringConversion();
-    lotNumber = json['lot_number'].toString().toStringConversion();
-    blockNumber = json['block_number'].toString().toStringConversion();
-    permitNumber = json['permit_number'].toString().toStringConversion();
-    countyId = json['county_id'].toString().toStringConversion();
-    latestUpdate = json['latest_update'];
-  }
-  String? propertyName;
-  dynamic latitude;
-  dynamic longitude;
-  String? street;
-  String? state;
-  String? city;
-  String? zipCode;
-  String? lotNumber;
-  String? blockNumber;
-  String? permitNumber;
-  String? countyId;
-  bool? latestUpdate;
+//   Properties.fromJson(dynamic json) {
+//     propertyName = json['property_name'].toString().toStringConversion();
+//     latitude = json['latitude'].toString().toStringConversion();
+//     longitude = json['longitude'].toString().toStringConversion();
+//     street = json['street'].toString().toStringConversion();
+//     state = json['state'].toString().toStringConversion();
+//     city = json['city'].toString().toStringConversion();
+//     zipCode = json['zip_code'].toString().toStringConversion();
+//     lotNumber = json['lot_number'].toString().toStringConversion();
+//     blockNumber = json['block_number'].toString().toStringConversion();
+//     permitNumber = json['permit_number'].toString().toStringConversion();
+//     countyId = json['county_id'].toString().toStringConversion();
+//     latestUpdate = json['latest_update'];
+//   }
+//   String? propertyName;
+//   dynamic latitude;
+//   dynamic longitude;
+//   String? street;
+//   String? state;
+//   String? city;
+//   String? zipCode;
+//   String? lotNumber;
+//   String? blockNumber;
+//   String? permitNumber;
+//   String? countyId;
+//   bool? latestUpdate;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['property_name'] = propertyName;
-    map['latitude'] = latitude;
-    map['longitude'] = longitude;
-    map['street'] = street;
-    map['state'] = state;
-    map['city'] = city;
-    map['zip_code'] = zipCode;
-    map['lot_number'] = lotNumber;
-    map['block_number'] = blockNumber;
-    map['permit_number'] = permitNumber;
-    map['county_id'] = countyId;
-    map['latest_update'] = latestUpdate;
-    return map;
-  }
-}
+//   Map<String, dynamic> toJson() {
+//     final map = <String, dynamic>{};
+//     map['property_name'] = propertyName;
+//     map['latitude'] = latitude;
+//     map['longitude'] = longitude;
+//     map['street'] = street;
+//     map['state'] = state;
+//     map['city'] = city;
+//     map['zip_code'] = zipCode;
+//     map['lot_number'] = lotNumber;
+//     map['block_number'] = blockNumber;
+//     map['permit_number'] = permitNumber;
+//     map['county_id'] = countyId;
+//     map['latest_update'] = latestUpdate;
+//     return map;
+//   }
+// }
 
 class PropertyInspectionSchedulesHistory {
   PropertyInspectionSchedulesHistory({

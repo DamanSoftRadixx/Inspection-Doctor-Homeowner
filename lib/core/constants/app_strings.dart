@@ -234,11 +234,13 @@ class AppStrings {
   static const password = "Password";
   static const confirmPassword = "Confirm password";
   static const street = "Street";
+  static const address_line_1 = "Address line 1";
+  static const address_line_2 = "Address line 2";
   static const city = "City";
   static const state = "State";
   static const zipCode = "Zip code";
   static const alreadyAccount = "Already have an account! ";
-  static const mailingAddress = "Mailing Address (Optional)";
+  static const mailingAddress = "Mailing Address";
   static const login = "Log in";
   static const uploadPhoto = "Upload photo";
   static const removePhoto = "Remove photo";
@@ -345,14 +347,14 @@ class AppStrings {
       "Search by category and inspection name";
   static const inspectionDetail = "Inspection detail";
 
+  static const selectState = "Select State";
+
   //Permissions
   static const permissionDenied = "Permission Denied";
   static const openSettings = "Open Settings ";
   static const accessWasPreviouslyDenied = "Access Was Previously Denied";
   static const areYouWantDelete = "Are you sure you want delete this property?";
   static const areYouWantLogout = "Are you sure you want to logout?";
-
-
 
   static const inspectionRequested = "Inspection Requested";
   static const inspectorAssigned = "Inspector Assigned";
@@ -368,13 +370,12 @@ class AppStrings {
 
   static const submitAndNotify = "Submit and Notify";
   static const cancelInspection = "Cancel Inspection";
-  static const areYouSureYouWantToCanelThisInspection = "Are you sure you want to cancel this inspection? Please tap on YES button to cancel.";
+  static const areYouSureYouWantToCanelThisInspection =
+      "Are you sure you want to cancel this inspection? Please tap on YES button to cancel.";
 
   static const inspectionReport = "Inspection Report";
   static const document = "Document";
   static const inspector = "Inspector";
-
-
 }
 
 class GetArgumentConstants {
@@ -405,7 +406,6 @@ class GetArgumentConstants {
   static const inspectionCreateRequestArg = "inspectionCreateRequestModel";
   static const categoriesName = "categoriesName";
   static const inspectionId = "inspectionDetail";
-
 }
 
 class WeekDays {
@@ -469,8 +469,7 @@ class ErrorMessages {
   static const timeEmty = "Please select time.";
 }
 
-
-class InspectionListStatus{
+class InspectionListStatus {
   static const inspectorIsNotAssignedYet = "Inspector is not assigned yet.";
   static const scheduled = "Scheduled";
   static const rescheduled = "Rescheduled";

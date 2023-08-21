@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +39,6 @@ class PropertyDetailController extends GetxController {
   RefreshController refreshController = RefreshController();
 
   void pagination() {
-    log("listController.position.maxScrollExtent : ${listController.position.maxScrollExtent}");
     if ((listController.position.maxScrollExtent != 0.0 &&
         listController.position.pixels ==
             listController.position.maxScrollExtent)) {
@@ -55,7 +53,7 @@ class PropertyDetailController extends GetxController {
 
   ScrollController listController = ScrollController();
 
-  onPressScheduleInspectionButton() async{
+  onPressScheduleInspectionButton() async {
     InspectionCreateRequestModel inspectionCreateRequestModel =
         InspectionCreateRequestModel(
       propertyId: propertyDetail.value.id,
@@ -67,7 +65,6 @@ class PropertyDetailController extends GetxController {
     });
 
     getScheduleInspectionList();
-
   }
 
   getArguments() {
@@ -251,16 +248,14 @@ class PropertyDetailController extends GetxController {
       loadMore.refresh();
       refreshController.refreshCompleted();
 
-      setShowSearchLoader(value: false);    }
+      setShowSearchLoader(value: false);
+    }
   }
 
   stopRefreshController() {
     refreshController.refreshCompleted();
     refreshController.loadComplete();
   }
-
-
-
 
   void onRefresh() async {
     getScheduleInspectionList(isFromRefresh: true);
@@ -271,59 +266,59 @@ class PropertyDetailController extends GetxController {
     await Get.toNamed(Routes.inspectionDetailScreen,
         arguments: {GetArgumentConstants.inspectionId: listData.id});
     getScheduleInspectionList();
-
   }
 
-  InspectionStatusModel getInspectionStatus({required String inspectionId}){
-    var inspectionStatusModel = InspectionStatusModel(message: "", color: lightColorPalette.primaryBlue);
+  InspectionStatusModel getInspectionStatus({required String inspectionId}) {
+    var inspectionStatusModel = InspectionStatusModel(
+        message: "", color: lightColorPalette.primaryBlue);
 
-
-    if(inspectionId == InspectionHistoryStatusEnum.newInspection.value){
-      inspectionStatusModel.message = InspectionListStatus.inspectorIsNotAssignedYet.tr;
+    if (inspectionId == InspectionHistoryStatusEnum.newInspection.value) {
+      inspectionStatusModel.message =
+          InspectionListStatus.inspectorIsNotAssignedYet.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectionAcccepted.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectionAcccepted.value) {
       inspectionStatusModel.message = InspectionListStatus.scheduled.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value) {
       inspectionStatusModel.message = InspectionListStatus.rescheduled.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.homeownerInspectionCanceled.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
       inspectionStatusModel.message = InspectionListStatus.canceled.tr;
       inspectionStatusModel.color = lightColorPalette.redDark;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectorInspectionCanceled.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectorInspectionCanceled.value) {
       inspectionStatusModel.message = InspectionListStatus.canceled.tr;
       inspectionStatusModel.color = lightColorPalette.redDark;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value) {
       inspectionStatusModel.message = InspectionListStatus.rescheduled.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectorOnTheWay.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectorOnTheWay.value) {
       inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectionStart.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectionStart.value) {
       inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectionDone.value){
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectionDone.value) {
       inspectionStatusModel.message = InspectionListStatus.done.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectionReportCompleted.value){
-      inspectionStatusModel.message = InspectionListStatus.inspectionComplete.tr;
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectionReportCompleted.value) {
+      inspectionStatusModel.message =
+          InspectionListStatus.inspectionComplete.tr;
       inspectionStatusModel.color = lightColorPalette.greenDark;
-    }
-    else if(inspectionId == InspectionHistoryStatusEnum.inspectionReportCorrections.value){
-      inspectionStatusModel.message = InspectionListStatus.correctionRequired.tr;
+    } else if (inspectionId ==
+        InspectionHistoryStatusEnum.inspectionReportCorrections.value) {
+      inspectionStatusModel.message =
+          InspectionListStatus.correctionRequired.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
     }
     return inspectionStatusModel;
-
   }
-
 }

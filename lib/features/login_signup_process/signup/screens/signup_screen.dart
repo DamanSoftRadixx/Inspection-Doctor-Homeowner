@@ -63,9 +63,12 @@ class SignupScreen extends GetView<SignupController> {
                                 showConfirmPasswordField()
                                     .paddingOnly(bottom: 11.h),
                                 showMailingAddress(),
-                                showStreetField().paddingOnly(bottom: 11.h),
+                                showStreetAddress1Field()
+                                    .paddingOnly(bottom: 11.h),
+                                showStreetAddress2Field()
+                                    .paddingOnly(bottom: 11.h),
                                 showCityField().paddingOnly(bottom: 11.h),
-                                showStateField().paddingOnly(bottom: 11.h),
+                                showStateSelection().paddingOnly(bottom: 11.h),
                                 showZipCodeField(),
                                 showSignUpButton().paddingOnly(top: 40.h),
                                 showLoginOption()
@@ -332,7 +335,7 @@ class SignupScreen extends GetView<SignupController> {
     );
   }
 
-  Widget showStreetField() {
+  Widget showStreetAddress1Field() {
     return commonTextFieldWidget(
       readOnly: controller.place.value.address.isNotEmpty,
       focusNode: controller.place.value.address.isNotEmpty
@@ -344,16 +347,43 @@ class SignupScreen extends GetView<SignupController> {
       ],
       textCapitalization: TextCapitalization.sentences,
       // focusNode: controller.streetFocusNode.value,
-      controller: controller.streetController.value,
-      title: AppStrings.street.tr,
+      controller: controller.streetAddress1Controller.value,
+      title: AppStrings.address_line_1.tr,
       maxLength: 30,
-      hint: AppStrings.street.tr,
+      hint: AppStrings.address_line_1.tr,
       keyboardType: TextInputType.streetAddress,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         if (value.length == 1 && value.contains(" ")) {
-          controller.streetController.value.text =
-              controller.streetController.value.text.trim();
+          controller.streetAddress1Controller.value.text =
+              controller.streetAddress1Controller.value.text.trim();
+        }
+      },
+    );
+  }
+
+  Widget showStreetAddress2Field() {
+    return commonTextFieldWidget(
+      readOnly: controller.place.value.address.isNotEmpty,
+      focusNode: controller.place.value.address.isNotEmpty
+          ? FocusNode()
+          : controller.streetFocusNode.value,
+
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
+      textCapitalization: TextCapitalization.sentences,
+      // focusNode: controller.streetFocusNode.value,
+      controller: controller.streetAddress2Controller.value,
+      title: AppStrings.address_line_2.tr,
+      maxLength: 30,
+      hint: AppStrings.address_line_2.tr,
+      keyboardType: TextInputType.streetAddress,
+      textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.length == 1 && value.contains(" ")) {
+          controller.streetAddress2Controller.value.text =
+              controller.streetAddress2Controller.value.text.trim();
         }
       },
     );
@@ -385,32 +415,32 @@ class SignupScreen extends GetView<SignupController> {
     );
   }
 
-  Widget showStateField() {
-    return commonTextFieldWidget(
-      focusNode: controller.place.value.state.isNotEmpty
-          ? FocusNode()
-          : controller.stateFocusNode.value,
-      readOnly: controller.place.value.state.isNotEmpty,
+  // Widget showStateField() {
+  //   return commonTextFieldWidget(
+  //     focusNode: controller.place.value.state.isNotEmpty
+  //         ? FocusNode()
+  //         : controller.stateFocusNode.value,
+  //     readOnly: controller.place.value.state.isNotEmpty,
 
-      textCapitalization: TextCapitalization.sentences,
-      // focusNode: controller.stateFocusNode.value,
-      controller: controller.stateController.value,
-      title: AppStrings.state.tr,
-      hint: AppStrings.state.tr,
-      maxLength: 30,
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
-      ],
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      onChanged: (value) {
-        if (value.length == 1 && value.contains(" ")) {
-          controller.stateController.value.text =
-              controller.stateController.value.text.trim();
-        }
-      },
-    );
-  }
+  //     textCapitalization: TextCapitalization.sentences,
+  //     // focusNode: controller.stateFocusNode.value,
+  //     controller: controller.stateController.value,
+  //     title: AppStrings.state.tr,
+  //     hint: AppStrings.state.tr,
+  //     maxLength: 30,
+  //     inputFormatters: <TextInputFormatter>[
+  //       FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+  //     ],
+  //     keyboardType: TextInputType.text,
+  //     textInputAction: TextInputAction.next,
+  //     onChanged: (value) {
+  //       if (value.length == 1 && value.contains(" ")) {
+  //         controller.stateController.value.text =
+  //             controller.stateController.value.text.trim();
+  //       }
+  //     },
+  //   );
+  // }
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
@@ -429,5 +459,21 @@ class SignupScreen extends GetView<SignupController> {
       textInputAction: TextInputAction.next,
       onChanged: (value) {},
     );
+  }
+
+  Widget showStateSelection() {
+    return dropdownField(
+        isDisable: true,
+        // isError: controller.languageError.value,
+        // errorMsg: controller.languageErrorMessage.value,
+        hint: AppStrings.selectState.tr,
+        title: AppStrings.selectState.tr,
+        selectedValue: controller.selectedStateDropDown.value,
+        onClick: (DropdownModel value) {
+          // controller.onSelectBaseMaterialDropdown(value: value);
+          // controller.languageError.value = false;
+        },
+        list: controller.stateList,
+        isExpanded: true);
   }
 }

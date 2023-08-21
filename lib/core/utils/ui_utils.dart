@@ -55,14 +55,12 @@ class NoLeadingSpaceFormatter extends TextInputFormatter {
 }
 
 void showResponseData(var data, {required String type}) {
-  try{
+  try {
     String json = jsonEncode(data);
     log("********************** $type response start **********************");
     log("$type $json");
     log("********************** $type  response end **********************");
-  }catch(e){
-
-  }
+  } catch (e) {}
 }
 
 Widget disableScreen({required bool isDisable}) {
@@ -72,7 +70,7 @@ Widget disableScreen({required bool isDisable}) {
 }
 
 String getAddressFormat(PropertyListData property) {
-  return "${property.street}, ${property.city}, ${property.state}, ${property.zipCode}";
+  return "${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state}, ${property.zipCode}";
 }
 
 Future<bool> checkForCameraPermissions() async {

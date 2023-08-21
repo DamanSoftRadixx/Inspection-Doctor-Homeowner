@@ -18,7 +18,7 @@ class PropertyDetailProvider {
         endPoint: "${EndPoints.deleteProperty}/$id",
       );
 
-      log("response>>>>  $response");
+      log("getScheduleInspectionListgdgfdg ${response.data}");
 
       DeletePropertyResponseModel data =
           DeletePropertyResponseModel.fromJson(response.data);
@@ -48,7 +48,6 @@ class PropertyDetailProvider {
       ScheduleInspectionListResponseModel data =
           ScheduleInspectionListResponseModel.fromJson(response.data);
 
-      log("getScheduleInspectionListgdgfdg ${response.data}");
       showResponseData(data, type: 'getScheduleInspectionList');
 
       return data;

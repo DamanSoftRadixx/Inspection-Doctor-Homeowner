@@ -31,6 +31,7 @@ class Data {
     this.roleId,
     this.registerType,
     this.socialKey,
+    this.companyName,
     this.firstName,
     this.lastName,
     this.image,
@@ -39,8 +40,13 @@ class Data {
     this.countryCode,
     this.otp,
     this.isOtpVerified,
-    this.stateId,
+    this.createdByUserId,
+    this.state,
     this.city,
+    this.drivingLicenceNumber,
+    this.drivingLicenceIssuedState,
+    this.availabilities,
+    this.rejectedReason,
     this.languageId,
     this.countyId,
     this.categoryId,
@@ -53,6 +59,8 @@ class Data {
     this.status,
     this.isapproved,
     this.zipCode,
+    this.addressLine1,
+    this.addressLine2,
     this.deletedAt,
     this.createdAt,
     this.updatedAt,
@@ -64,26 +72,50 @@ class Data {
     roleId = json['role_id'] != null ? RoleId.fromJson(json['role_id']) : null;
     registerType = json['register_type'];
     socialKey = json['social_key'];
+    companyName = json['company_name'];
     firstName = json['first_name'];
     lastName = json['last_name'];
-    image = json['image'];
+    image = json['image'] != null ? Image.fromJson(json['image']) : null;
     email = json['email'];
     phone = json['phone'];
     countryCode = json['country_code'];
     otp = json['otp'];
     isOtpVerified = json['is_otp_verified'];
-    stateId = json['state_id'];
+    createdByUserId = json['created_by_user_id'];
+    state = json['state'] != null ? State.fromJson(json['state']) : null;
     city = json['city'];
+    drivingLicenceNumber = json['driving_licence_number'];
+    drivingLicenceIssuedState = json['driving_licence_issued_state'] != null
+        ? DrivingLicenceIssuedState.fromJson(
+            json['driving_licence_issued_state'])
+        : null;
+    availabilities = json['availabilities'];
+    rejectedReason = json['rejected_reason'];
     languageId = json['language_id'];
-    countyId =
-        json['county_id'] != null ? json['county_id'].cast<String>() : [];
-    categoryId =
-        json['category_id'] != null ? json['category_id'].cast<String>() : [];
-    documents =
-        json['documents'] != null ? json['documents'].cast<String>() : [];
-    documentUploaded = json['documentUploaded'] != null
-        ? json['documentUploaded'].cast<String>()
-        : [];
+    if (json['county_id'] != null) {
+      countyId = [];
+      json['county_id'].forEach((v) {
+        // countyId?.add(CountyId.fromJson(v));
+      });
+    }
+    if (json['category_id'] != null) {
+      categoryId = [];
+      json['category_id'].forEach((v) {
+        // categoryId?.add(Dynamic.fromJson(v));
+      });
+    }
+    if (json['documents'] != null) {
+      documents = [];
+      json['documents'].forEach((v) {
+        // documents?.add(Dynamic.fromJson(v));
+      });
+    }
+    if (json['documentUploaded'] != null) {
+      documentUploaded = [];
+      json['documentUploaded'].forEach((v) {
+        // documentUploaded?.add(Dynamic.fromJson(v));
+      });
+    }
     deviceId = json['device_id'];
     deviceType = json['device_type'];
     deviceToken = json['device_token'];
@@ -91,6 +123,8 @@ class Data {
     status = json['status'];
     isapproved = json['isapproved'];
     zipCode = json['zip_code'];
+    addressLine1 = json['address_line_1'];
+    addressLine2 = json['address_line_2'];
     deletedAt = json['deleted_at'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -99,22 +133,28 @@ class Data {
   String? id;
   RoleId? roleId;
   String? registerType;
-  String? socialKey;
+  dynamic socialKey;
+  dynamic companyName;
   String? firstName;
   String? lastName;
-  String? image;
+  Image? image;
   String? email;
   String? phone;
   String? countryCode;
   String? otp;
   int? isOtpVerified;
-  String? stateId;
+  String? createdByUserId;
+  State? state;
   String? city;
-  String? languageId;
-  List<String>? countyId;
-  List<String>? categoryId;
-  List<String>? documents;
-  List<String>? documentUploaded;
+  dynamic drivingLicenceNumber;
+  DrivingLicenceIssuedState? drivingLicenceIssuedState;
+  bool? availabilities;
+  dynamic rejectedReason;
+  dynamic languageId;
+  List<dynamic>? countyId;
+  List<dynamic>? categoryId;
+  List<dynamic>? documents;
+  List<dynamic>? documentUploaded;
   String? deviceId;
   String? deviceType;
   String? deviceToken;
@@ -122,10 +162,12 @@ class Data {
   String? status;
   String? isapproved;
   String? zipCode;
-  String? deletedAt;
+  String? addressLine1;
+  String? addressLine2;
+  dynamic deletedAt;
   String? createdAt;
   String? updatedAt;
-  String? v;
+  dynamic v;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -135,21 +177,42 @@ class Data {
     }
     map['register_type'] = registerType;
     map['social_key'] = socialKey;
+    map['company_name'] = companyName;
     map['first_name'] = firstName;
     map['last_name'] = lastName;
-    map['image'] = image;
+    if (image != null) {
+      map['image'] = image?.toJson();
+    }
     map['email'] = email;
     map['phone'] = phone;
     map['country_code'] = countryCode;
     map['otp'] = otp;
     map['is_otp_verified'] = isOtpVerified;
-    map['state_id'] = stateId;
+    map['created_by_user_id'] = createdByUserId;
+    if (state != null) {
+      map['state'] = state?.toJson();
+    }
     map['city'] = city;
+    map['driving_licence_number'] = drivingLicenceNumber;
+    if (drivingLicenceIssuedState != null) {
+      map['driving_licence_issued_state'] = drivingLicenceIssuedState?.toJson();
+    }
+    map['availabilities'] = availabilities;
+    map['rejected_reason'] = rejectedReason;
     map['language_id'] = languageId;
-    map['county_id'] = countyId;
-    map['category_id'] = categoryId;
-    map['documents'] = documents;
-    map['documentUploaded'] = documentUploaded;
+    if (countyId != null) {
+      map['county_id'] = countyId?.map((v) => v.toJson()).toList();
+    }
+    if (categoryId != null) {
+      map['category_id'] = categoryId?.map((v) => v.toJson()).toList();
+    }
+    if (documents != null) {
+      map['documents'] = documents?.map((v) => v.toJson()).toList();
+    }
+    if (documentUploaded != null) {
+      map['documentUploaded'] =
+          documentUploaded?.map((v) => v.toJson()).toList();
+    }
     map['device_id'] = deviceId;
     map['device_type'] = deviceType;
     map['device_token'] = deviceToken;
@@ -157,10 +220,75 @@ class Data {
     map['status'] = status;
     map['isapproved'] = isapproved;
     map['zip_code'] = zipCode;
+    map['address_line_1'] = addressLine1;
+    map['address_line_2'] = addressLine2;
     map['deleted_at'] = deletedAt;
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
+    return map;
+  }
+}
+
+class DrivingLicenceIssuedState {
+  DrivingLicenceIssuedState({
+    this.id,
+    this.name,
+  });
+
+  DrivingLicenceIssuedState.fromJson(dynamic json) {
+    id = json['_id'];
+    name = json['name'];
+  }
+  String? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['name'] = name;
+    return map;
+  }
+}
+
+class State {
+  State({
+    this.id,
+    this.name,
+  });
+
+  State.fromJson(dynamic json) {
+    id = json['_id'];
+    name = json['name'];
+  }
+  String? id;
+  String? name;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['name'] = name;
+    return map;
+  }
+}
+
+class Image {
+  Image({
+    this.id,
+    this.url,
+  });
+
+  Image.fromJson(dynamic json) {
+    id = json['_id'];
+    url = json['url'];
+  }
+  String? id;
+  String? url;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['url'] = url;
     return map;
   }
 }

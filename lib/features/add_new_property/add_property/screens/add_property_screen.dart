@@ -47,8 +47,9 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                         showPropertyNameField()
                             .paddingOnly(bottom: 11.h, top: 20.h),
                         showStreetNameField().paddingOnly(bottom: 11.h),
+                        showStreetAddress2Field().paddingOnly(bottom: 11.h),
                         showCityField().paddingOnly(bottom: 11.h),
-                        showStateField().paddingOnly(bottom: 11.h),
+                        showStateSelection().paddingOnly(bottom: 11.h),
                         showZipCodeField().paddingOnly(bottom: 11.h),
                         showPermitNumberield().paddingOnly(bottom: 11.h),
                         showLotNumberField().paddingOnly(bottom: 11.h),
@@ -65,6 +66,33 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
           ],
         ),
       )),
+    );
+  }
+
+  Widget showStreetAddress2Field() {
+    return commonTextFieldWidget(
+      readOnly: controller.place.value.address.isNotEmpty,
+      focusNode: controller.place.value.address.isNotEmpty
+          ? FocusNode()
+          : controller.street2FocusNode.value,
+
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+      ],
+      textCapitalization: TextCapitalization.sentences,
+      // focusNode: controller.streetFocusNode.value,
+      controller: controller.streetAddress2Controller.value,
+      title: AppStrings.address_line_2.tr,
+      maxLength: 30,
+      hint: AppStrings.address_line_2.tr,
+      keyboardType: TextInputType.streetAddress,
+      textInputAction: TextInputAction.next,
+      onChanged: (value) {
+        if (value.length == 1 && value.contains(" ")) {
+          controller.streetAddress2Controller.value.text =
+              controller.streetAddress2Controller.value.text.trim();
+        }
+      },
     );
   }
 
@@ -217,13 +245,13 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       focusNode: controller.place.value.address.isNotEmpty
           ? FocusNode()
           : controller.streetFocusNode.value,
-      controller: controller.streetController.value,
-      title: AppStrings.street.tr,
-      hint: AppStrings.street.tr,
+      controller: controller.streetAddress1Controller.value,
+      title: AppStrings.address_line_1.tr,
+      hint: AppStrings.address_line_1.tr,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       onChanged: (value) {
-        controller.onChangedStreetTextField(value: value);
+        controller.onChangedAddress1TextField(value: value);
       },
     );
   }
@@ -357,5 +385,21 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         FilteringTextInputFormatter.digitsOnly,
       ],
     );
+  }
+
+  Widget showStateSelection() {
+    return dropdownField(
+        isDisable: true,
+        // isError: controller.languageError.value,
+        // errorMsg: controller.languageErrorMessage.value,
+        hint: AppStrings.selectState.tr,
+        title: AppStrings.selectState.tr,
+        selectedValue: controller.selectedStateDropDown.value,
+        onClick: (DropdownModel value) {
+          // controller.onSelectBaseMaterialDropdown(value: value);
+          // controller.languageError.value = false;
+        },
+        list: controller.stateList,
+        isExpanded: true);
   }
 }
