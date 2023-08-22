@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 import '../../theme/app_color_palette.dart';
@@ -95,5 +96,79 @@ AppBar commonAppBarWithOutElevation(
         color: lightColorPalette.black,
       ),
     ),
+  );
+}
+
+getTopLogo() {
+  return Column(
+    children: [
+      Stack(
+        alignment: Alignment.center,
+        children: [
+          Center(
+            child: Container(
+              height: 70.h,
+              width: 70.w,
+              decoration: BoxDecoration(
+                color: lightColorPalette.whiteColorPrimary.shade900,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 0,
+                    spreadRadius: 0,
+                    offset: const Offset(0, 1),
+                    color: lightColorPalette.black,
+                  )
+                ],
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              height: 50.h,
+              width: 50.w,
+              decoration: BoxDecoration(
+                color: lightColorPalette.black,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: AssetWidget(
+                  color: lightColorPalette.whiteColorPrimary.shade900,
+                  asset: Asset(type: AssetType.svg, path: ImageResource.cid),
+                  boxFit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+
+      Center(
+        child: AppTextWidget(
+          textAlign: TextAlign.center,
+          text: AppStrings.cONSTRUCTION.tr,
+          style: CustomTextTheme.heading3(
+            color: lightColorPalette.black,
+          ),
+        ),
+      ),
+      Center(
+        child: AppTextWidget(
+          textAlign: TextAlign.center,
+          text: AppStrings.inspectionsDoctor.tr,
+          style: CustomTextTheme.normalText(
+            color: lightColorPalette.black,
+          ),
+        ),
+      )
+
+      // Center(
+      //   child: AssetWidget(
+      //     color: lightColorPalette.whiteColorPrimary.shade900,
+      //     asset: Asset(type: AssetType.svg, path: ImageResource.inspectionsDoctor),
+      //     boxFit: BoxFit.fitWidth,
+      //   ),
+      // ),
+    ],
   );
 }

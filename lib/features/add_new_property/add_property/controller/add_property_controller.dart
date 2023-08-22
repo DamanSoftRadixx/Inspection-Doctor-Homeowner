@@ -670,9 +670,9 @@ class AddPropertyController extends GetxController {
             result.value.geometry?.location.lat ?? 0,
             result.value.geometry?.location.lng ?? 0,
           ),
-          name:
+          address1:
               "${result.value.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_1'))?.longName ?? ""} ${result.value.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_2'))?.longName ?? ""} ",
-          address: result.value.addressComponents
+          address2: result.value.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
                   ?.longName ??
               "",
@@ -698,8 +698,8 @@ class AddPropertyController extends GetxController {
               '',
         );
 
-        streetAddress1Controller.value.text = place.value.address;
-        streetAddress2Controller.value.text = place.value.name;
+        streetAddress1Controller.value.text = place.value.address2;
+        streetAddress2Controller.value.text = place.value.address1;
 
         cityController.value.text = place.value.city;
         stateController.value.text = place.value.state;

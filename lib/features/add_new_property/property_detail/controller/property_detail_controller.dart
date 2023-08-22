@@ -145,20 +145,18 @@ class PropertyDetailController extends GetxController {
           DeletePropertyResponseModel();
       setShowLoader(value: false);
       if (response.success == true && (response.status == 204)) {
-        //   //  snackbar(response.message ?? "");
-
-        showCommonAlertSingleButtonDialog(
-            title: AppStrings.alert,
-            subHeader: response.message ?? "",
-            okPressed: () {
-              Get.back(closeOverlays: true, result: [
-                {GetArgumentConstants.isPropertyAdded: true}
-              ]);
-              Get.back(closeOverlays: true, result: [
-                {GetArgumentConstants.isPropertyAdded: true}
-              ]);
-            },
-            buttonTitle: AppStrings.ok);
+        Get.back(closeOverlays: true, result: [
+          {GetArgumentConstants.isPropertyAdded: true}
+        ]);
+        Future.delayed(const Duration(milliseconds: 200), () {
+          showCommonAlertSingleButtonDialog(
+              title: AppStrings.alert,
+              subHeader: response.message ?? "",
+              okPressed: () {
+                Get.back();
+              },
+              buttonTitle: AppStrings.ok);
+        });
       } else {
         apiErrorDialog(
           message: response.message ?? AppStrings.somethingWentWrong,

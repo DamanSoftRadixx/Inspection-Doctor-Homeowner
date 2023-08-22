@@ -38,8 +38,8 @@ class PlaceData {
 class FFPlace {
   const FFPlace({
     this.latLng = const LatLng(0.0, 0.0),
-    this.name = '',
-    this.address = '',
+    this.address1 = '',
+    this.address2 = '',
     this.city = '',
     this.state = '',
     this.country = '',
@@ -47,8 +47,8 @@ class FFPlace {
   });
 
   final LatLng latLng;
-  final String name;
-  final String address;
+  final String address1;
+  final String address2;
   final String city;
   final String state;
   final String country;
@@ -57,8 +57,8 @@ class FFPlace {
   @override
   String toString() => '''FFPlace(
         latLng: $latLng,
-        name: $name,
-        address: $address,
+        name: $address1,
+        address: $address2,
         city: $city,
         state: $state,
         country: $country,
@@ -72,8 +72,8 @@ class FFPlace {
   bool operator ==(other) =>
       other is FFPlace &&
       latLng == other.latLng &&
-      name == other.name &&
-      address == other.address &&
+      address1 == other.address1 &&
+      address2 == other.address2 &&
       city == other.city &&
       state == other.state &&
       country == other.country &&

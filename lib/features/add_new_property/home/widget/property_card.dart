@@ -62,6 +62,8 @@ class PropertyCard extends StatelessWidget {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AssetWidget(
                   color: lightColorPalette.black,
@@ -69,7 +71,7 @@ class PropertyCard extends StatelessWidget {
                     type: AssetType.svg,
                     path: ImageResource.pinLocation,
                   ),
-                ).paddingOnly(right: 5.w),
+                ).paddingOnly(right: 5.w, top: 3.h),
                 Expanded(
                   child: AppTextWidget(
                     style: CustomTextTheme.normalText(
@@ -84,7 +86,8 @@ class PropertyCard extends StatelessWidget {
               height: 0,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +102,7 @@ class PropertyCard extends StatelessWidget {
                     AppTextWidget(
                       style: CustomTextTheme.normalText(
                           color: lightColorPalette.grey),
-                      text: property.lotNumber ?? "",
+                      text: "Lot#${property.lotNumber ?? ""}",
                     ),
                     AssetWidget(
                       color: lightColorPalette.black,

@@ -70,7 +70,7 @@ Widget disableScreen({required bool isDisable}) {
 }
 
 String getAddressFormat(PropertyListData property) {
-  return "${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state}, ${property.zipCode}";
+  return "${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state?.name}, ${property.zipCode}";
 }
 
 Future<bool> checkForCameraPermissions() async {

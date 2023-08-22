@@ -30,10 +30,7 @@ class SignupScreen extends GetView<SignupController> {
         onPressBackButton: () {
           Get.back();
         },
-        centerWidget: AssetWidget(
-          asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
-          boxFit: BoxFit.fitWidth,
-        ),
+        centerWidget: const SizedBox(),
       ),
       body: SafeArea(
         child: Obx(() => Stack(
@@ -49,6 +46,7 @@ class SignupScreen extends GetView<SignupController> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            getTopLogo(),
                             showHeadingText(),
                             Column(
                               children: [
@@ -88,6 +86,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showLanguageSelection() {
     return dropdownField(
+        isShowStar: true,
         isError: controller.languageError.value,
         errorMsg: controller.languageErrorMessage.value,
         hint: AppStrings.selectLanguage.tr,
@@ -215,6 +214,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showFirstNameField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.firstNameFocusNode.value,
       isError: controller.firstNameError.value,
@@ -236,6 +236,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showLastNameField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.lastNameFocusNode.value,
       controller: controller.lastNameController.value,
@@ -257,6 +258,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showEmailField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController.value,
       isError: controller.emailError.value,
@@ -277,6 +279,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPhoneNumberField() {
     return commonPhoneText(
+      isShowStar: true,
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController.value,
       title: AppStrings.phoneNumber.tr,
@@ -297,6 +300,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPasswordField() {
     return commonPasswordText(
+      isShowStar: true,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController.value,
       title: AppStrings.loginScreenPassword.tr,
@@ -317,6 +321,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
+      isShowStar: true,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController.value,
       title: AppStrings.confirmPassword.tr,
@@ -337,10 +342,11 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetAddress1Field() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.address.isNotEmpty,
-      focusNode: controller.place.value.address.isNotEmpty
+      isShowStar: true,
+      readOnly: controller.place.value.address1.isNotEmpty,
+      focusNode: controller.place.value.address1.isNotEmpty
           ? FocusNode()
-          : controller.streetFocusNode.value,
+          : controller.address1FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
@@ -364,10 +370,10 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetAddress2Field() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.address.isNotEmpty,
-      focusNode: controller.place.value.address.isNotEmpty
+      readOnly: controller.place.value.address2.isNotEmpty,
+      focusNode: controller.place.value.address2.isNotEmpty
           ? FocusNode()
-          : controller.streetFocusNode.value,
+          : controller.address2FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
@@ -391,6 +397,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       focusNode: controller.place.value.city.isNotEmpty
           ? FocusNode()
           : controller.cityFocusNode.value,
@@ -444,6 +451,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       focusNode: controller.place.value.zipCode.isNotEmpty
           ? FocusNode()
           : controller.zipCodeFocusNode.value,
@@ -463,6 +471,7 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateSelection() {
     return dropdownField(
+        isShowStar: true,
         isDisable: true,
         // isError: controller.languageError.value,
         // errorMsg: controller.languageErrorMessage.value,

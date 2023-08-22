@@ -46,8 +46,8 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                         getChooseMapButton().paddingOnly(top: 20.h),
                         showPropertyNameField()
                             .paddingOnly(bottom: 11.h, top: 20.h),
-                        showStreetNameField().paddingOnly(bottom: 11.h),
-                        showStreetAddress2Field().paddingOnly(bottom: 11.h),
+                        showAddress1Field().paddingOnly(bottom: 11.h),
+                        showAddress2Field().paddingOnly(bottom: 11.h),
                         showCityField().paddingOnly(bottom: 11.h),
                         showStateSelection().paddingOnly(bottom: 11.h),
                         showZipCodeField().paddingOnly(bottom: 11.h),
@@ -69,10 +69,10 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
     );
   }
 
-  Widget showStreetAddress2Field() {
+  Widget showAddress2Field() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.address.isNotEmpty,
-      focusNode: controller.place.value.address.isNotEmpty
+      readOnly: controller.streetAddress2Controller.value.text.isNotEmpty,
+      focusNode: controller.streetAddress2Controller.value.text.isNotEmpty
           ? FocusNode()
           : controller.street2FocusNode.value,
 
@@ -235,14 +235,14 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
     );
   }
 
-  Widget showStreetNameField() {
+  Widget showAddress1Field() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.address.isNotEmpty,
+      readOnly: controller.streetAddress1Controller.value.text.isNotEmpty,
       textCapitalization: TextCapitalization.sentences,
       maxLength: 30,
       isError: controller.streetError.value,
       errorMsg: controller.streetErrorMessage.value,
-      focusNode: controller.place.value.address.isNotEmpty
+      focusNode: controller.streetAddress1Controller.value.text.isNotEmpty
           ? FocusNode()
           : controller.streetFocusNode.value,
       controller: controller.streetAddress1Controller.value,
@@ -258,12 +258,12 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.city.isNotEmpty,
+      readOnly: controller.cityController.value.text.isNotEmpty,
       maxLength: 20,
       textCapitalization: TextCapitalization.sentences,
       isError: controller.cityError.value,
       errorMsg: controller.cityErrorMessage.value,
-      focusNode: controller.place.value.city.isNotEmpty
+      focusNode: controller.cityController.value.text.isNotEmpty
           ? FocusNode()
           : controller.cityFocusNode.value,
       controller: controller.cityController.value,
@@ -306,10 +306,10 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
-      focusNode: controller.place.value.zipCode.isNotEmpty
+      focusNode: controller.zipCodeController.value.text.isNotEmpty
           ? FocusNode()
           : controller.zipCodeFocusNode.value,
-      readOnly: controller.place.value.zipCode.isNotEmpty,
+      readOnly: controller.zipCodeController.value.text.isNotEmpty,
       maxLength: 5,
       isError: controller.zipCodeError.value,
       errorMsg: controller.zipCodeErrorMessage.value,

@@ -29,18 +29,32 @@ Widget commonTextFieldWidget(
     TextCapitalization? textCapitalization,
     List<TextInputFormatter>? inputFormatters,
     double? height,
-    int? maxLines}) {
+    int? maxLines,
+    bool? isShowStar = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       if (title != null && title != "")
-        AppTextWidget(
-          style: CustomTextTheme.normalText(
-            color: lightColorPalette.black,
-          ),
-          text: title ?? "",
-          textAlign: TextAlign.center,
+        Row(
+          children: [
+            AppTextWidget(
+              style: CustomTextTheme.normalText(
+                color: lightColorPalette.black,
+              ),
+              text: title ?? "",
+              textAlign: TextAlign.center,
+            ),
+            isShowStar == true
+                ? AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                      color: lightColorPalette.redDark,
+                    ),
+                    text: "*",
+                    textAlign: TextAlign.center,
+                  )
+                : const SizedBox()
+          ],
         ).paddingOnly(bottom: 3.0.h),
       GestureDetector(
         onTap: () {
@@ -109,23 +123,33 @@ Widget commonPasswordText(
     String? hint,
     Function(String value)? onChanged,
     TextInputType? keyboardType,
-    TextInputAction? textInputAction}) {
+    TextInputAction? textInputAction,
+    bool? isShowStar = false}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       if (title != "")
-        Padding(
-          padding: EdgeInsets.only(bottom: 3.h),
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(
-              color: lightColorPalette.black,
+        Row(
+          children: [
+            AppTextWidget(
+              style: CustomTextTheme.normalText(
+                color: lightColorPalette.black,
+              ),
+              text: title ?? "",
+              textAlign: TextAlign.center,
             ),
-            text: title ?? "",
-            textAlign: TextAlign.center,
-            // TextStyle(fontSize: 16.sp),
-          ),
-        ),
+            isShowStar == true
+                ? AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                      color: lightColorPalette.redDark,
+                    ),
+                    text: "*",
+                    textAlign: TextAlign.center,
+                  )
+                : const SizedBox()
+          ],
+        ).paddingOnly(bottom: 3.0.h),
       GestureDetector(
         onTap: () {
           focusNode.requestFocus();
@@ -204,32 +228,44 @@ Widget commonPasswordText(
   );
 }
 
-Widget commonPhoneText({
-  required final TextEditingController controller,
-  required final String title,
-  required String countryCode,
-  FocusNode? focusNode,
-  required void Function(Country) onSelect,
-  String? errorMsg,
-  bool? isError,
-  Function(String value)? onChanged,
-  TextInputType? keyboardType,
-  TextInputAction? textInputAction,
-  String? hint,
-}) {
+Widget commonPhoneText(
+    {required final TextEditingController controller,
+    required final String title,
+    required String countryCode,
+    FocusNode? focusNode,
+    required void Function(Country) onSelect,
+    String? errorMsg,
+    bool? isError,
+    Function(String value)? onChanged,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+    String? hint,
+    bool? isShowStar = false}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       if (title != "")
-        Padding(
-          padding: EdgeInsets.only(bottom: 3.h),
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(color: lightColorPalette.black),
-            text: title,
-            textAlign: TextAlign.center,
-          ),
-        ),
+        Row(
+          children: [
+            AppTextWidget(
+              style: CustomTextTheme.normalText(
+                color: lightColorPalette.black,
+              ),
+              text: title ?? "",
+              textAlign: TextAlign.center,
+            ),
+            isShowStar == true
+                ? AppTextWidget(
+                    style: CustomTextTheme.normalText(
+                      color: lightColorPalette.redDark,
+                    ),
+                    text: "*",
+                    textAlign: TextAlign.center,
+                  )
+                : const SizedBox()
+          ],
+        ).paddingOnly(bottom: 3.0.h),
       Container(
         width: 1.sw,
         height: 44.h,
@@ -596,7 +632,8 @@ Widget dropdownField(
     Function()? onTap,
     String? errorMsg,
     bool? isDisable,
-    bool hasFocus = false}) {
+    bool hasFocus = false,
+    bool? isShowStar = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -651,11 +688,22 @@ Widget dropdownField(
                                 color:
                                     lightColorPalette.black.withOpacity(0.5)),
                           )
-                        : AppTextWidget(
-                            text: selectedValue.name,
-                            style: CustomTextTheme.normalText(
-                                color: lightColorPalette.black),
-                            overflow: TextOverflow.ellipsis,
+                        : Row(
+                            children: [
+                              selectedValue.icon != ""
+                                  ? AssetWidget(
+                                          asset: Asset(
+                                              type: AssetType.svg,
+                                              path: selectedValue.icon))
+                                      .paddingOnly(right: 5.w)
+                                  : const SizedBox(),
+                              AppTextWidget(
+                                text: selectedValue.name,
+                                style: CustomTextTheme.normalText(
+                                    color: lightColorPalette.black),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                     const Spacer(),
                     Padding(
@@ -733,23 +781,23 @@ Widget dropdownField(
   );
 }
 
-Widget multiDropdownField({
-  String? hint,
-  required DropdownModel selectedValue,
-  required Function(DropdownModel value) onClick,
-  EdgeInsetsGeometry? padding,
-  required List<DropdownModel> list,
-  bool? isExpanded,
-  bool isMandatory = false,
-  bool isShowRightButton = false,
-  String? title,
-  Widget? rightButtonDesign,
-  bool isError = false,
-  Function()? onTap,
-  String? errorMsg,
-  bool hasFocus = false,
-  required List<DropdownModel> selectedItems,
-}) {
+Widget multiDropdownField(
+    {String? hint,
+    required DropdownModel selectedValue,
+    required Function(DropdownModel value) onClick,
+    EdgeInsetsGeometry? padding,
+    required List<DropdownModel> list,
+    bool? isExpanded,
+    bool isMandatory = false,
+    bool isShowRightButton = false,
+    String? title,
+    Widget? rightButtonDesign,
+    bool isError = false,
+    Function()? onTap,
+    String? errorMsg,
+    bool hasFocus = false,
+    required List<DropdownModel> selectedItems,
+    bool? isShowStar = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -941,7 +989,7 @@ Widget multiDropdownField({
 }
 
 class DropdownModel extends Equatable {
-  String id, name, status, type, stateId, startTime, endTime;
+  String id, name, status, type, stateId, startTime, endTime, icon;
   bool isActive;
   DropdownModel(
       {this.id = "",
@@ -951,7 +999,8 @@ class DropdownModel extends Equatable {
       this.stateId = "",
       this.startTime = "",
       this.endTime = "",
-      this.isActive = true});
+      this.isActive = true,
+      this.icon = ""});
   @override
   String toString() => name;
   @override
@@ -1193,6 +1242,11 @@ List<DropdownMenuItem<DropdownModel>> addDividersAfterItems(
           value: item,
           child: Row(
             children: [
+              item.icon != ""
+                  ? AssetWidget(
+                          asset: Asset(type: AssetType.svg, path: item.icon))
+                      .paddingOnly(right: 5.w)
+                  : const SizedBox(),
               AppTextWidget(
                 text: item.name.toString(),
                 style: CustomTextTheme.normalText(

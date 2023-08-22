@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:device_uuid/device_uuid.dart';
@@ -50,7 +51,8 @@ class SignupController extends GetxController {
   Rx<FocusNode> phoneNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> passwordFocusNode = FocusNode().obs;
   Rx<FocusNode> confirmPasswordFocusNode = FocusNode().obs;
-  Rx<FocusNode> streetFocusNode = FocusNode().obs;
+  Rx<FocusNode> address1FocusNode = FocusNode().obs;
+  Rx<FocusNode> address2FocusNode = FocusNode().obs;
   Rx<FocusNode> cityFocusNode = FocusNode().obs;
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
@@ -66,6 +68,9 @@ class SignupController extends GetxController {
   RxBool phoneError = false.obs;
   RxBool passwordError = false.obs;
   RxBool confirmPasswordError = false.obs;
+  RxBool address1Error = false.obs;
+  RxBool cityError = false.obs;
+  RxBool zipCodeError = false.obs;
 
   RxString firstNameErrorMessage = "".obs;
   RxString lastNameErrorMessage = "".obs;
@@ -73,6 +78,9 @@ class SignupController extends GetxController {
   RxString emailErrorMessage = "".obs;
   RxString passwordErrorMessage = "".obs;
   RxString confirmPasswordErrorMessage = "".obs;
+  RxString address1ErrorMessage = "".obs;
+  RxString cityErrorMessage = "".obs;
+  RxString zipCodeErrorMessage = "".obs;
 
   Rx<SignUpResponseData> signUpResponse = SignUpResponseData().obs;
   RxBool isShowLoader = false.obs;
@@ -116,8 +124,11 @@ class SignupController extends GetxController {
     cityFocusNode.value.addListener(() {
       cityFocusNode.refresh();
     });
-    streetFocusNode.value.addListener(() {
-      streetFocusNode.refresh();
+    address1FocusNode.value.addListener(() {
+      address1FocusNode.refresh();
+    });
+    address2FocusNode.value.addListener(() {
+      address2FocusNode.refresh();
     });
     zipCodeFocusNode.value.addListener(() {
       zipCodeFocusNode.refresh();
@@ -132,7 +143,8 @@ class SignupController extends GetxController {
     phoneNumberFocusNode.value.removeListener(() {});
     passwordFocusNode.value.removeListener(() {});
     confirmPasswordFocusNode.value.removeListener(() {});
-    streetFocusNode.value.removeListener(() {});
+    address1FocusNode.value.removeListener(() {});
+    address2FocusNode.value.removeListener(() {});
     cityFocusNode.value.removeListener(() {});
     stateFocusNode.value.removeListener(() {});
     lastNameFocusNode.value.removeListener(() {});
@@ -187,9 +199,7 @@ class SignupController extends GetxController {
     required String confirmPassword,
     required bool isLanguageSelected,
     required String address1,
-    required String address2,
     required String city,
-    required String state,
     required String zipCode,
   }) async {
     if (firstName.isEmpty &&
@@ -198,7 +208,10 @@ class SignupController extends GetxController {
         phone.isEmpty &&
         password.isEmpty &&
         confirmPassword.isEmpty &&
-        isLanguageSelected == false) {
+        isLanguageSelected == false &&
+        address1.isEmpty &&
+        city.isEmpty &&
+        zipCode.isEmpty) {
       firstNameError.value = true;
       lastNameError.value = true;
       emailError.value = true;
@@ -206,8 +219,12 @@ class SignupController extends GetxController {
       passwordError.value = true;
       confirmPasswordError.value = true;
       lastNameError.value = true;
-
       languageError.value = true;
+
+      address1Error.value = true;
+      cityError.value = true;
+      zipCodeError.value = true;
+
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
       lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
       emailErrorMessage.value = ErrorMessages.emailIsEmpty;
@@ -215,6 +232,9 @@ class SignupController extends GetxController {
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
       confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
       languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
+      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode;
+      cityErrorMessage.value = ErrorMessages.pleaseEnterCity;
+      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress;
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
       firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
@@ -254,6 +274,15 @@ class SignupController extends GetxController {
     } else if (isLanguageSelected == false) {
       languageError.value = true;
       languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
+    } else if (address1.isEmpty) {
+      address1Error.value = true;
+      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress;
+    } else if (city.isEmpty) {
+      cityError.value = true;
+      cityErrorMessage.value = ErrorMessages.pleaseEnterCity;
+    } else if (zipCode.isEmpty) {
+      zipCodeError.value = true;
+      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode;
     } else {
       firstNameError.value = false;
       lastNameError.value = false;
@@ -262,6 +291,9 @@ class SignupController extends GetxController {
       passwordError.value = false;
       confirmPasswordError.value = false;
       languageError.value = false;
+      address1Error.value = false;
+      cityError.value = false;
+      zipCodeError.value = false;
 
       getSignUp();
     }
@@ -278,9 +310,7 @@ class SignupController extends GetxController {
         confirmPassword: confirmPasswordController.value.text,
         isLanguageSelected: selectedBaseMaterialDropDown.value.id.isNotEmpty,
         address1: streetAddress1Controller.value.text,
-        address2: streetAddress2Controller.value.text,
         city: cityController.value.text,
-        state: selectedStateDropDown.value.id,
         zipCode: zipCodeController.value.text);
   }
 
@@ -448,17 +478,24 @@ class SignupController extends GetxController {
       if (value != null) {
         PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
 
+        // String temp = result.adrAddress
+        //         ?.replaceAll("<span class=", "")
+        //         .replaceAll("</span>", "")
+        //         .toString() ??
+        //     "";
+        // log("dgsdfgsfgsg $temp");
+        // String data = "the quick brown fox jumps over the lazy dog";
+        // getAddressSplit(data: data, end: 'jumps', start: 'quick');
+
         place.value = FFPlace(
           latLng: LatLng(
             result.geometry?.location.lat ?? 0,
             result.geometry?.location.lng ?? 0,
           ),
-          address: result.addressComponents
-                  ?.firstWhereOrNull((e) => e.types.contains('subpremise'))
-                  ?.longName ??
-              "",
-          name:
-              "${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_1'))?.longName ?? ""} ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_2'))?.longName ?? ""} ",
+          address1:
+              "${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_2'))?.longName ?? ""} ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_3'))?.longName ?? ""} ",
+          address2:
+              " ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_1'))?.longName ?? ""} ",
           city: result.addressComponents
                   ?.firstWhereOrNull((e) => e.types.contains('locality'))
                   ?.longName ??
@@ -480,14 +517,25 @@ class SignupController extends GetxController {
                   ?.longName ??
               '',
         );
-
-        streetAddress2Controller.value.text = place.value.name;
-        streetAddress1Controller.value.text = place.value.address;
+        streetAddress1Controller.value.text = place.value.address1;
+        streetAddress2Controller.value.text = place.value.address2;
         cityController.value.text = place.value.city;
-        // stateController.value.text = place.value.state;
         zipCodeController.value.text = place.value.zipCode;
       }
     });
+  }
+
+  void getAddressSplit(
+      {required String start, required String end, required String data}) {
+    log("test");
+
+    var re = RegExp(r'(?<="' '$start' '")(.*)(?="' '$end"' ')');
+    log("$re");
+
+    var match = re.firstMatch(data);
+    if (match != null) {
+      log("dgsdfgsfgsg ${match.group(0)}");
+    }
   }
 
   bool isSignUpButtonEnable() {
@@ -497,7 +545,11 @@ class SignupController extends GetxController {
         phoneNumberController.value.text.isNotEmpty &&
         passwordController.value.text.isNotEmpty &&
         confirmPasswordController.value.text.isNotEmpty &&
-        selectedBaseMaterialDropDown.value.id.isNotEmpty == true);
+        selectedBaseMaterialDropDown.value.id.isNotEmpty == true &&
+        streetAddress1Controller.value.text.isNotEmpty &&
+        cityController.value.text.isNotEmpty &&
+        zipCodeController.value.text.isNotEmpty &&
+        selectedStateDropDown.value.id.isNotEmpty);
   }
 
   //State

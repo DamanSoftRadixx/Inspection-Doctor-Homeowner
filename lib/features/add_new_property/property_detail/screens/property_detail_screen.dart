@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
@@ -34,20 +35,25 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
             Get.back();
           }),
       body: Obx(() => SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: showPropertyDetail()),
-                    showScheduleInspection()
-                        .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
-                  ],
-                ),
-                CommonLoader(
-                    isLoading: controller.isShowLoader.value ||
-                        controller.isShowSearchLoader.value)
-              ],
+            child: GestureDetector(
+              onTap: () {
+                dismissKeyboard();
+              },
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: showPropertyDetail()),
+                      showScheduleInspection()
+                          .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
+                    ],
+                  ),
+                  CommonLoader(
+                      isLoading: controller.isShowLoader.value ||
+                          controller.isShowSearchLoader.value)
+                ],
+              ),
             ),
           )),
     );
@@ -129,7 +135,9 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                       AppTextWidget(
                         style: CustomTextTheme.normalText(
                             color: lightColorPalette.grey),
-                        text: controller.propertyDetail.value.lotNumber ?? "",
+                        text:
+                            "Lot#${controller.propertyDetail.value.lotNumber ?? ""}" ??
+                                "",
                       ),
                     ],
                   ).paddingOnly(right: 20.w),

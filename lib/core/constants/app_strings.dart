@@ -298,7 +298,7 @@ class AppStrings {
   static const no = "No";
 
   static const noData = "No Data Found";
-  static const listEmpty = "No property found ";
+  static const listEmpty = "No inspections yet!";
 
   //Add Property
   static const addPropertiesForInspection = "Add properties for inspection";
@@ -452,6 +452,9 @@ class ErrorMessages {
   static const otpIsIncorrect = "Otp is incorrect.";
   static const pleaseEnterCompleteOTP = "Please enter valid OTP.";
   static const pleasSelectLanguage = "Please select language.";
+  static const pleasEnterAddress = "Please enter address.";
+  static const pleaseEnterCity = "Please enter city.";
+  static const pleaseEnterZipCode = "Please enter zip code.";
 
 //add property
 

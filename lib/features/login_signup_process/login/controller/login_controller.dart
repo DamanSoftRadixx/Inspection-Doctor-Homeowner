@@ -15,6 +15,7 @@ import 'package:inspection_doctor_homeowner/core/social_login/social_login.dart'
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
@@ -447,6 +448,11 @@ class LoginController extends GetxController {
           ?.map((e) => languageList.add(DropdownModel(
                 id: e.id ?? "",
                 name: e.name ?? "",
+                icon: e.name == "English"
+                    ? ImageResource.flagUSA
+                    : e.name == "Spanish"
+                        ? ImageResource.flagSpain
+                        : "",
               )))
           .toList();
       String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
