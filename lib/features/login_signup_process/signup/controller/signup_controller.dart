@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
+import 'package:country_picker/src/country.dart';
 import 'package:device_uuid/device_uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/location/address_search.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
@@ -477,50 +479,20 @@ class SignupController extends GetxController {
     Get.toNamed(Routes.chooseMap)?.then((value) async {
       if (value != null) {
         PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
-
-        // String temp = result.adrAddress
-        //         ?.replaceAll("<span class=", "")
-        //         .replaceAll("</span>", "")
-        //         .toString() ??
-        //     "";
-        // log("dgsdfgsfgsg $temp");
-        // String data = "the quick brown fox jumps over the lazy dog";
-        // getAddressSplit(data: data, end: 'jumps', start: 'quick');
-
-        place.value = FFPlace(
-          latLng: LatLng(
-            result.geometry?.location.lat ?? 0,
-            result.geometry?.location.lng ?? 0,
-          ),
-          address1:
-              "${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_2'))?.longName ?? ""} ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_3'))?.longName ?? ""} ",
-          address2:
-              " ${result.addressComponents?.firstWhereOrNull((e) => e.types.contains('sublocality_level_1'))?.longName ?? ""} ",
-          city: result.addressComponents
-                  ?.firstWhereOrNull((e) => e.types.contains('locality'))
-                  ?.longName ??
-              result.addressComponents
-                  ?.firstWhereOrNull((e) => e.types.contains('sublocality'))
-                  ?.longName ??
-              '',
-          state: result.addressComponents
-                  ?.firstWhereOrNull(
-                      (e) => e.types.contains('administrative_area_level_1'))
-                  ?.longName ??
-              '',
-          country: result.addressComponents
-                  ?.firstWhereOrNull((e) => e.types.contains('country'))
-                  ?.longName ??
-              '',
-          zipCode: result.addressComponents
-                  ?.firstWhereOrNull((e) => e.types.contains('postal_code'))
-                  ?.longName ??
-              '',
-        );
-        streetAddress1Controller.value.text = place.value.address1;
-        streetAddress2Controller.value.text = place.value.address2;
-        cityController.value.text = place.value.city;
-        zipCodeController.value.text = place.value.zipCode;
+        String placeId = result.placeId ?? "";
+        if (placeId.isNotEmpty) {
+          await displayPrediction(placeId).then((value) {
+            place.value = value;
+            predictionsList.value = [];
+            predictionsList.refresh();
+            streetAddress1Controller.value.text = place.value.address1;
+            streetAddress2Controller.value.text = place.value.address2;
+            cityController.value.text = place.value.city;
+            zipCodeController.value.text = place.value.zipCode;
+            setShowLoader(value: false);
+            dismissKeyboard();
+          });
+        }
       }
     });
   }
@@ -553,13 +525,13 @@ class SignupController extends GetxController {
   }
 
   //State
-
+  RxString stateErrorMessage = "".obs;
+  RxBool stateError = false.obs;
+  RxList<DropdownModel> stateList = <DropdownModel>[].obs;
   var selectedStateDropDown = DropdownModel().obs;
-  onSelectStateDropdown({required DropdownModel value}) {
+  onSelectStateStateDropdown({required DropdownModel value}) {
     selectedStateDropDown.value = value;
   }
-
-  RxList<DropdownModel> stateList = <DropdownModel>[].obs;
 
   getStateListApi() async {
     setShowLoader(value: true);
@@ -578,7 +550,7 @@ class SignupController extends GetxController {
             .toList();
 
         int index = stateList.indexWhere((element) => element.isActive == true);
-        onSelectStateDropdown(value: stateList[index]);
+        onSelectStateStateDropdown(value: stateList[index]);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
@@ -590,6 +562,49 @@ class SignupController extends GetxController {
       }
     } catch (e) {
       setShowLoader(value: false);
+    }
+  }
+
+//search address
+
+  RxList<Prediction> predictionsList = <Prediction>[].obs;
+  Rx<ScrollController> scrollController = ScrollController().obs;
+
+  showAddressList({required String value}) async {
+    if (value.trim().length < 2) {
+      predictionsList.value = [];
+      predictionsList.refresh();
+    } else {
+      PlacesAutocompleteResponse result = await handlePressButton(value: value);
+      {
+        predictionsList.value = result.predictions;
+        predictionsList.refresh();
+        scrollController.value.animateTo(800,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn);
+        scrollController.refresh();
+      }
+    }
+  }
+
+  onAddressSelection({required int index}) async {
+    setShowLoader(value: true);
+    String placeId = predictionsList[index].placeId ?? "";
+    if (placeId.isNotEmpty) {
+      await displayPrediction(placeId).then((value) {
+        place.value = value;
+        predictionsList.value = [];
+        predictionsList.refresh();
+        streetAddress1Controller.value.text = place.value.address1;
+        streetAddress2Controller.value.text = place.value.address2;
+        cityController.value.text = place.value.city;
+        zipCodeController.value.text = place.value.zipCode;
+        setShowLoader(value: false);
+        dismissKeyboard();
+        scrollController.value.animateTo(500,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn);
+      });
     }
   }
 }

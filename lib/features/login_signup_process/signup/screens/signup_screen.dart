@@ -16,7 +16,6 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupScreen extends GetView<SignupController> {
   const SignupScreen({Key? key}) : super(key: key);
@@ -35,48 +34,44 @@ class SignupScreen extends GetView<SignupController> {
       body: SafeArea(
         child: Obx(() => Stack(
               children: [
-                KeyboardActions(
-                    config: controller.buildConfig(context),
-                    child: SingleChildScrollView(
-                      child: InkWell(
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                SingleChildScrollView(
+                  controller: controller.scrollController.value,
+                  child: InkWell(
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        getTopLogo(),
+                        showHeadingText(),
+                        Column(
                           children: [
-                            getTopLogo(),
-                            showHeadingText(),
-                            Column(
-                              children: [
-                                showLanguageSelection()
-                                    .paddingOnly(bottom: 11.h),
-                                showFirstNameField().paddingOnly(bottom: 11.h),
-                                showLastNameField().paddingOnly(bottom: 11.h),
-                                showEmailField().paddingOnly(bottom: 11.h),
-                                showPhoneNumberField()
-                                    .paddingOnly(bottom: 11.h),
-                                showPasswordField().paddingOnly(bottom: 11.h),
-                                showConfirmPasswordField()
-                                    .paddingOnly(bottom: 11.h),
-                                showMailingAddress(),
-                                showStreetAddress1Field()
-                                    .paddingOnly(bottom: 11.h),
-                                showStreetAddress2Field()
-                                    .paddingOnly(bottom: 11.h),
-                                showCityField().paddingOnly(bottom: 11.h),
-                                showStateSelection().paddingOnly(bottom: 11.h),
-                                showZipCodeField(),
-                                showSignUpButton().paddingOnly(top: 40.h),
-                                showLoginOption()
-                                    .paddingOnly(top: 30.h, bottom: 40.h),
-                              ],
-                            ).paddingSymmetric(horizontal: 20.w),
+                            showLanguageSelection().paddingOnly(bottom: 11.h),
+                            showFirstNameField().paddingOnly(bottom: 11.h),
+                            showLastNameField().paddingOnly(bottom: 11.h),
+                            showEmailField().paddingOnly(bottom: 11.h),
+                            showPhoneNumberField().paddingOnly(bottom: 11.h),
+                            showPasswordField().paddingOnly(bottom: 11.h),
+                            showConfirmPasswordField()
+                                .paddingOnly(bottom: 11.h),
+                            showMailingAddress(),
+                            showStreetAddress1Field().paddingOnly(bottom: 11.h),
+                            showGoogleAddressBar(),
+                            showStreetAddress2Field().paddingOnly(bottom: 11.h),
+                            showCityField().paddingOnly(bottom: 11.h),
+                            showStateSelection().paddingOnly(bottom: 11.h),
+                            showZipCodeField(),
+                            showSignUpButton().paddingOnly(top: 40.h),
+                            showLoginOption()
+                                .paddingOnly(top: 30.h, bottom: 40.h),
                           ],
-                        ),
-                      ),
-                    )),
+                        ).paddingSymmetric(horizontal: 20.w),
+                      ],
+                    ),
+                  ),
+                ),
                 CommonLoader(isLoading: controller.isShowLoader.value)
               ],
             )),
@@ -343,10 +338,8 @@ class SignupScreen extends GetView<SignupController> {
   Widget showStreetAddress1Field() {
     return commonTextFieldWidget(
       isShowStar: true,
-      readOnly: controller.place.value.address1.isNotEmpty,
-      focusNode: controller.place.value.address1.isNotEmpty
-          ? FocusNode()
-          : controller.address1FocusNode.value,
+      // readOnly: controller.place.value.address1.isNotEmpty,
+      focusNode: controller.address1FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
@@ -364,7 +357,55 @@ class SignupScreen extends GetView<SignupController> {
           controller.streetAddress1Controller.value.text =
               controller.streetAddress1Controller.value.text.trim();
         }
+        controller.showAddressList(value: value);
       },
+    );
+  }
+
+  showGoogleAddressBar() {
+    return Visibility(
+      visible: controller.predictionsList.isNotEmpty,
+      child: Stack(
+        children: [
+          Card(
+            elevation: 5,
+            color: lightColorPalette.whiteColorPrimary.shade900,
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 300),
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 15.h),
+                shrinkWrap: true,
+                itemCount: controller.predictionsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    horizontalTitleGap: 5,
+                    leading: SizedBox(
+                      height: 30.h,
+                      width: 30.w,
+                      child: CircleAvatar(
+                        child: Icon(
+                          Icons.pin_drop,
+                          color: lightColorPalette.whiteColorPrimary.shade900,
+                          size: 15.r,
+                        ),
+                      ),
+                    ),
+                    title: AppTextWidget(
+                      text: controller.predictionsList[index].description ?? "",
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.black,
+                      ),
+                    ),
+                    onTap: () async {
+                      await controller.onAddressSelection(index: index);
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -471,16 +512,15 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStateSelection() {
     return dropdownField(
-        isShowStar: true,
-        isDisable: true,
-        // isError: controller.languageError.value,
-        // errorMsg: controller.languageErrorMessage.value,
+        isDisable: false,
+        isError: controller.stateError.value,
+        errorMsg: controller.stateErrorMessage.value,
         hint: AppStrings.selectState.tr,
         title: AppStrings.selectState.tr,
         selectedValue: controller.selectedStateDropDown.value,
         onClick: (DropdownModel value) {
-          // controller.onSelectBaseMaterialDropdown(value: value);
-          // controller.languageError.value = false;
+          controller.onSelectStateStateDropdown(value: value);
+          controller.stateError.value = false;
         },
         list: controller.stateList,
         isExpanded: true);

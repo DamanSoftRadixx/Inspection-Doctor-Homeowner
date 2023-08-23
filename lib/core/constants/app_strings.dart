@@ -251,6 +251,7 @@ class AppStrings {
   static const selectAddress = "Select address";
 
   static const searchAddress = "Search address";
+  static const plotNumber = "Plot number";
 
   //OTP
   static const otp = "OTP";
@@ -314,6 +315,7 @@ class AppStrings {
   static const uploadArchitecturalDrawing = "Upload architectural drawing";
   static const uploadAPdf = "Upload a pdf";
   static const time = "Time";
+  static const addressNotAssigned = "Address not assigned";
 
   //Home List
   static const searchNameAddress = "Search by name and address";

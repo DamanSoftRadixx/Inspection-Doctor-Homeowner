@@ -70,7 +70,16 @@ Widget disableScreen({required bool isDisable}) {
 }
 
 String getAddressFormat(PropertyListData property) {
-  return "${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state?.name}, ${property.zipCode}";
+  String result = "";
+
+  if (property.addressLine1 == "" || property.addressLine2 == "") {
+    result = " ${property.city}, ${property.state?.name}, ${property.zipCode}";
+  } else {
+    result =
+        " ${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state?.name}, ${property.zipCode}";
+  }
+
+  return result;
 }
 
 Future<bool> checkForCameraPermissions() async {

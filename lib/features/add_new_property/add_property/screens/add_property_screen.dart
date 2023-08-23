@@ -18,63 +18,130 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
-import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyScreen extends GetView<AddPropertyController> {
   const AddPropertyScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
-      appBar: commonAppBarWithElevation(
-          title: AppStrings.addProperty.tr,
-          onPressBackButton: () {
-            Get.back();
-          }),
-      body: SafeArea(
-          child: Obx(
-        () => Stack(
-          children: [
-            KeyboardActions(
-                config: controller.buildConfig(context),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Column(
+    return Obx(
+      () => WillPopScope(
+        onWillPop: () async => controller.isShowLoader.value ? false : true,
+        child: Scaffold(
+            backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+            appBar: commonAppBarWithElevation(
+                title: AppStrings.addProperty.tr,
+                onPressBackButton: () {
+                  controller.isShowLoader.value ? () {} : Get.back();
+                }),
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: controller.scrollController.value,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        getChooseMapButton().paddingOnly(top: 20.h),
-                        showPropertyNameField()
-                            .paddingOnly(bottom: 11.h, top: 20.h),
-                        showAddress1Field().paddingOnly(bottom: 11.h),
-                        showAddress2Field().paddingOnly(bottom: 11.h),
-                        showCityField().paddingOnly(bottom: 11.h),
-                        showStateSelection().paddingOnly(bottom: 11.h),
-                        showZipCodeField().paddingOnly(bottom: 11.h),
-                        showPermitNumberield().paddingOnly(bottom: 11.h),
-                        showLotNumberField().paddingOnly(bottom: 11.h),
-                        showBlockNumberField().paddingOnly(bottom: 11.h),
-                        showCountyDropDown().paddingOnly(bottom: 11.h),
-                        showAddDocmentBox(),
-                        showAddPropertyButton()
-                            .paddingSymmetric(vertical: 20.h),
+                        Column(
+                          children: [
+                            controller.isAddressNotAssigned.value
+                                ? const SizedBox()
+                                : getChooseMapButton().paddingOnly(top: 20.h),
+                            showPropertyNameField()
+                                .paddingOnly(bottom: 11.h, top: 20.h),
+                            isShowAddressNotAssign(
+                                text: AppStrings.addressNotAssigned.tr,
+                                isSelected:
+                                    controller.isAddressNotAssigned.value,
+                                onTap: () {
+                                  controller.onTapAddressNotAssign();
+                                }).paddingOnly(bottom: 11.h),
+                            controller.isAddressNotAssigned.value
+                                ? showPlotNumberField()
+                                    .paddingOnly(bottom: 11.h)
+                                : Column(
+                                    children: [
+                                      showAddress1Field()
+                                          .paddingOnly(bottom: 11.h),
+                                      showGoogleAddressBar(),
+                                      showAddress2Field()
+                                          .paddingOnly(bottom: 11.h),
+                                    ],
+                                  ),
+                            showCityField().paddingOnly(bottom: 11.h),
+                            showStateSelection().paddingOnly(bottom: 11.h),
+                            showZipCodeField().paddingOnly(bottom: 11.h),
+                            showPermitNumberield().paddingOnly(bottom: 11.h),
+                            showLotNumberField().paddingOnly(bottom: 11.h),
+                            showBlockNumberField().paddingOnly(bottom: 11.h),
+                            showCountyDropDown().paddingOnly(bottom: 11.h),
+                            showAddDocmentBox(),
+                            showAddPropertyButton()
+                                .paddingSymmetric(vertical: 20.h),
+                          ],
+                        ).paddingSymmetric(horizontal: 20.w),
                       ],
-                    ).paddingSymmetric(horizontal: 20.w),
-                  ],
-                )),
-            CommonLoader(isLoading: controller.isShowLoader.value)
+                    ),
+                  ),
+                  CommonLoader(isLoading: controller.isShowLoader.value)
+                ],
+              ),
+            )),
+      ),
+    );
+  }
+
+  Widget isShowAddressNotAssign(
+      {required String text,
+      required bool isSelected,
+      required Function() onTap}) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 2.h),
+              child: isSelected
+                  ? AssetWidget(
+                      color: Colors.green,
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.selectedCheckbox),
+                    )
+                  : AssetWidget(
+                      asset: Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.unSelectedCheckbox),
+                    ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Flexible(
+                child: AppTextWidget(
+              textAlign: TextAlign.start,
+              text: text,
+              style: CustomTextTheme.normalTextWithLineHeight20(
+                color: lightColorPalette.grey,
+              ),
+            )),
           ],
         ),
-      )),
+      ),
     );
   }
 
   Widget showAddress2Field() {
     return commonTextFieldWidget(
-      readOnly: controller.streetAddress2Controller.value.text.isNotEmpty,
-      focusNode: controller.streetAddress2Controller.value.text.isNotEmpty
-          ? FocusNode()
-          : controller.street2FocusNode.value,
+      // readOnly: controller.streetAddress2Controller.value.text.isNotEmpty,
+      focusNode: controller.street2FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
@@ -237,14 +304,11 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showAddress1Field() {
     return commonTextFieldWidget(
-      readOnly: controller.streetAddress1Controller.value.text.isNotEmpty,
       textCapitalization: TextCapitalization.sentences,
       maxLength: 30,
       isError: controller.streetError.value,
       errorMsg: controller.streetErrorMessage.value,
-      focusNode: controller.streetAddress1Controller.value.text.isNotEmpty
-          ? FocusNode()
-          : controller.streetFocusNode.value,
+      focusNode: controller.streetFocusNode.value,
       controller: controller.streetAddress1Controller.value,
       title: AppStrings.address_line_1.tr,
       hint: AppStrings.address_line_1.tr,
@@ -252,20 +316,41 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
       textInputAction: TextInputAction.next,
       onChanged: (value) {
         controller.onChangedAddress1TextField(value: value);
+        controller.showAddressList(value: value);
+      },
+    );
+  }
+
+  Widget showPlotNumberField() {
+    return commonTextFieldWidget(
+      // readOnly: controller.streetAddress1Controller.value.text.isNotEmpty,
+      textCapitalization: TextCapitalization.sentences,
+      maxLength: 30,
+      isError: controller.plotError.value,
+      errorMsg: controller.plotErrorMessage.value,
+      focusNode: controller.plotNoFocusNode.value,
+      controller: controller.plotNumberController.value,
+      title: AppStrings.plotNumber.tr,
+      hint: AppStrings.plotNumber.tr,
+      keyboardType: TextInputType.number,
+      textInputAction: TextInputAction.next,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter(RegExp("[0-9]"), allow: true),
+      ],
+      onChanged: (value) {
+        controller.onChangedPlotNoTextField(value: value);
       },
     );
   }
 
   Widget showCityField() {
     return commonTextFieldWidget(
-      readOnly: controller.cityController.value.text.isNotEmpty,
+      // readOnly: controller.cityController.value.text.isNotEmpty,
       maxLength: 20,
       textCapitalization: TextCapitalization.sentences,
       isError: controller.cityError.value,
       errorMsg: controller.cityErrorMessage.value,
-      focusNode: controller.cityController.value.text.isNotEmpty
-          ? FocusNode()
-          : controller.cityFocusNode.value,
+      focusNode: controller.cityFocusNode.value,
       controller: controller.cityController.value,
       title: AppStrings.city.tr,
       hint: AppStrings.city.tr,
@@ -306,10 +391,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
-      focusNode: controller.zipCodeController.value.text.isNotEmpty
-          ? FocusNode()
-          : controller.zipCodeFocusNode.value,
-      readOnly: controller.zipCodeController.value.text.isNotEmpty,
+      focusNode: controller.zipCodeFocusNode.value,
       maxLength: 5,
       isError: controller.zipCodeError.value,
       errorMsg: controller.zipCodeErrorMessage.value,
@@ -401,5 +483,52 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         },
         list: controller.stateList,
         isExpanded: true);
+  }
+
+  showGoogleAddressBar() {
+    return Visibility(
+      visible: controller.predictionsList.isNotEmpty,
+      child: Stack(
+        children: [
+          Card(
+            elevation: 5,
+            color: lightColorPalette.whiteColorPrimary.shade900,
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 300),
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 15.h),
+                shrinkWrap: true,
+                itemCount: controller.predictionsList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    horizontalTitleGap: 5,
+                    leading: SizedBox(
+                      height: 30.h,
+                      width: 30.w,
+                      child: CircleAvatar(
+                        child: Icon(
+                          Icons.pin_drop,
+                          color: lightColorPalette.whiteColorPrimary.shade900,
+                          size: 15.r,
+                        ),
+                      ),
+                    ),
+                    title: AppTextWidget(
+                      text: controller.predictionsList[index].description ?? "",
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.black,
+                      ),
+                    ),
+                    onTap: () async {
+                      await controller.onAddressSelection(index: index);
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

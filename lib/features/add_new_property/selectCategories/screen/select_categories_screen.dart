@@ -24,21 +24,23 @@ class SelectCategoriesScreen extends GetView<SelectedCategoriesController> {
           onPressBackButton: () {
             Get.back();
           }),
-      body: Obx(() => SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    getTopHeadingView(),
-                    categoryGridviewList(),
-                    showContinueButton(),
-                  ],
-                ).paddingOnly(left: 20.w, right: 20.w),
-                CommonLoader(isLoading: controller.isShowLoader.value)
-              ],
-            ),
-          )),
+      body: Obx(
+        () => SafeArea(
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  getTopHeadingView(),
+                  categoryGridviewList(),
+                  showContinueButton(),
+                ],
+              ).paddingOnly(left: 20.w, right: 20.w),
+              CommonLoader(isLoading: controller.isShowLoader.value)
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -112,14 +114,15 @@ class SelectCategoriesScreen extends GetView<SelectedCategoriesController> {
                           type: AssetType.svg, path: ImageResource.checked),
                     ),
                   ),
-            Flexible(
+            SizedBox(
+              width: 100.w,
               child: AppTextWidget(
+                overflow: TextOverflow.clip,
                 textAlign: TextAlign.center,
                 text: listData.name ?? "",
                 style: CustomTextTheme.categoryText(
-                  color: lightColorPalette.black,
-                ),
-              ).paddingOnly(right: 18.w),
+                    color: lightColorPalette.black),
+              ),
             ),
           ],
         ),

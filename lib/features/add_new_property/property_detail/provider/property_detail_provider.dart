@@ -45,6 +45,8 @@ class PropertyDetailProvider {
           body: body,
           isCancelToken: isCancelToken);
 
+      log("getScheduleInspectionList $response");
+
       ScheduleInspectionListResponseModel data =
           ScheduleInspectionListResponseModel.fromJson(response.data);
 

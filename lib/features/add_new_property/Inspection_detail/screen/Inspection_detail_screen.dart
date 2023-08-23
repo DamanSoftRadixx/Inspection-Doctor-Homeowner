@@ -252,9 +252,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               ],
             ).paddingOnly(left: 20.w, right: 20.w, top: 12.5),
           )
-        : SizedBox(
-            height: 15.h,
-          );
+        : SizedBox(height: 15.h);
   }
 
   getContactPersonDetail() {

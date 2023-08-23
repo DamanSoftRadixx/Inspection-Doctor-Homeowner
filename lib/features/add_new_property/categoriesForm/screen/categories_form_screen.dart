@@ -61,17 +61,17 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
   Widget getDescriptionView() {
     return commonTextFieldWidget(
       height: 88.h,
-      maxLines: 5,
+      // maxLines: 5,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.descriptionFocusNode.value,
       controller: controller.descriptionController.value,
       title: AppStrings.description.tr,
       hint: AppStrings.description.tr,
-      maxLength: 300,
+      maxLength: 500,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9 " "]"), allow: true),
       ],
       onChanged: (value) {
         controller.onChangedDescriptionField(value: value);
@@ -133,7 +133,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         children: List.generate(
             controller.selectedTime.length,
             (index) => Chip(
-                  deleteIconColor: Colors.green,
+                  deleteIconColor: lightColorPalette.redDark,
                   onDeleted: () {
                     controller.selectedTime.removeAt(index);
                   },
@@ -175,9 +175,9 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: lightColorPalette.grey, width: 0.3)),
-            padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 19.w),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 13.h),
             child: AppTextWidget(
-              textAlign: TextAlign.start,
+              textAlign: TextAlign.center,
               text: controller.argData.value.subCategoriesName ?? "",
               style: CustomTextTheme.categoryText(
                 color: lightColorPalette.black,

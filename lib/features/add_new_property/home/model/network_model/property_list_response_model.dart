@@ -44,6 +44,7 @@ class PropertyListResponseModel {
 
 class PropertyListData {
   PropertyListData({
+    this.isAddressAssigned,
     this.id,
     this.assignedUserId,
     this.createdById,
@@ -68,6 +69,7 @@ class PropertyListData {
   });
 
   PropertyListData.fromJson(dynamic json) {
+    isAddressAssigned = json['is_address_assigned'];
     id = json['_id'];
     assignedUserId = json['assigned_user_id'];
     createdById = json['created_by_id'];
@@ -93,6 +95,7 @@ class PropertyListData {
     updatedAt = json['updatedAt'];
     v = json['__v'];
   }
+  bool? isAddressAssigned;
   String? id;
   String? assignedUserId;
   String? createdById;
@@ -117,6 +120,7 @@ class PropertyListData {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    map['is_address_assigned'] = isAddressAssigned;
     map['_id'] = id;
     map['assigned_user_id'] = assignedUserId;
     map['created_by_id'] = createdById;

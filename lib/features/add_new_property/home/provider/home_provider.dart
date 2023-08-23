@@ -18,7 +18,7 @@ class HomeProvider {
           body: body,
           isCancelToken: isCancelToken);
 
-      log("gfdfdgdgdfg $response");
+      log("propertyList>>> $response");
       PropertyListResponseModel data =
           PropertyListResponseModel.fromJson(response.data);
       showResponseData(data, type: 'propertyList');

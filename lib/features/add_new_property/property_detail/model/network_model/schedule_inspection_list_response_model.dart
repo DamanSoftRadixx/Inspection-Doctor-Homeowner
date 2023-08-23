@@ -1,5 +1,3 @@
-import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/model/property_model.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 
 class ScheduleInspectionListResponseModel {
@@ -13,17 +11,17 @@ class ScheduleInspectionListResponseModel {
   });
 
   ScheduleInspectionListResponseModel.fromJson(dynamic json) {
-    status = json['status'].toString().toIntConversion();
+    status = json['status'];
     success = json['success'];
-    message = json['message'].toString().toStringConversion();
-    if (json['data'] != null && json['data'] is List) {
+    message = json['message'];
+    if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
         data?.add(ScheduleInspectionResponseData.fromJson(v));
       });
     }
-    recordsTotal = json['recordsTotal'].toString().toIntConversion();
-    recordsFiltered = json['recordsFiltered'].toString().toIntConversion();
+    recordsTotal = json['recordsTotal'];
+    recordsFiltered = json['recordsFiltered'];
   }
   int? status;
   bool? success;
@@ -49,76 +47,45 @@ class ScheduleInspectionListResponseModel {
 class ScheduleInspectionResponseData {
   ScheduleInspectionResponseData({
     this.id,
-    this.date,
-    this.time,
-    this.description,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.phone,
-    this.countryCode,
+    this.homeownerId,
     this.inspectionStatusId,
-    this.acceptedInspectionDate,
-    this.acceptedInspectionTime,
-    this.report,
-    this.reportDescription,
-    this.reportEmail,
-    this.islatest,
-    this.propertyInspectionParentId,
+    this.inspectorId,
     this.latestUpdate,
-    this.properties,
-    this.architecturelDrawingUrl,
+    this.propertyInspectionSchedulesHistory,
+    this.inspectorDetails,
+    this.inspectorImage,
     this.category,
     this.subcategory,
   });
 
   ScheduleInspectionResponseData.fromJson(dynamic json) {
-    id = json['_id'].toString().toStringConversion();
-    date = json['date'].toString().toStringConversion();
-    if (json['time'] != null && json['time'] is List) {
-      time = [];
-      json['time'].forEach((v) {
-        time?.add(TimeModel.fromJson(v));
+    id = json['_id'];
+    homeownerId = json['homeowner_id'];
+    inspectionStatusId = json['inspection_status_id'];
+    inspectorId = json['inspector_id'];
+    latestUpdate = json['latest_update'];
+    if (json['property_inspection_schedules_history'] != null) {
+      propertyInspectionSchedulesHistory = [];
+      json['property_inspection_schedules_history'].forEach((v) {
+        propertyInspectionSchedulesHistory
+            ?.add(PropertyInspectionSchedulesHistory.fromJson(v));
       });
     }
-    description = json['description'].toString().toStringConversion();
-    firstName = json['first_name'].toString().toStringConversion();
-    lastName = json['last_name'].toString().toStringConversion();
-    email = json['email'].toString().toStringConversion();
-    phone = json['phone'].toString().toStringConversion();
-    countryCode = json['country_code'].toString().toStringConversion();
-    inspectionStatusId =
-        json['inspection_status_id'].toString().toStringConversion();
-    acceptedInspectionDate =
-        json['accepted_inspection_date'].toString().toStringConversion();
-    // if (json['accepted_inspection_time'] != null) {
-    //   acceptedInspectionTime = [];
-    //   json['accepted_inspection_time'].forEach((v) {
-    //     acceptedInspectionTime?.add(Dynamic.fromJson(v));
-    //   });
-    // }
-    report = json['report'].toString().toStringConversion();
-    reportDescription =
-        json['report_description'].toString().toStringConversion();
-    // if (json['report_email'] != null) {
-    //   reportEmail = [];
-    //   json['report_email'].forEach((v) {
-    //     reportEmail?.add(Dynamic.fromJson(v));
-    //   });
-    // }
-    islatest = json['islatest'];
-    propertyInspectionParentId =
-        json['property_inspection_parent_id'].toString().toStringConversion();
-    latestUpdate = json['latest_update'];
-    properties = json['properties'] != null
-        ? Properties.fromJson(json['properties'])
-        : null;
-    architecturelDrawingUrl = json['architecturel_drawing_url'] != null
-        ? ArchitecturelDrawingUrl.fromJson(json['architecturel_drawing_url'])
-        : null;
+    if (json['inspector_details'] != null) {
+      inspectorDetails = [];
+      json['inspector_details'].forEach((v) {
+        inspectorDetails?.add(InspectorDetails.fromJson(v));
+      });
+    }
+    if (json['inspector_image'] != null) {
+      inspectorImage = [];
+      json['inspector_image'].forEach((v) {
+        inspectorImage?.add(InspectorImage.fromJson(v));
+      });
+    }
     category =
         json['category'] != null ? Category.fromJson(json['category']) : null;
-    if (json['subcategory'] != null && json['subcategory'] is List) {
+    if (json['subcategory'] != null) {
       subcategory = [];
       json['subcategory'].forEach((v) {
         subcategory?.add(Subcategory.fromJson(v));
@@ -126,60 +93,33 @@ class ScheduleInspectionResponseData {
     }
   }
   String? id;
-  String? date;
-  List<TimeModel>? time;
-  String? description;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? phone;
-  dynamic countryCode;
+  String? homeownerId;
   String? inspectionStatusId;
-  dynamic acceptedInspectionDate;
-  List<dynamic>? acceptedInspectionTime;
-  dynamic report;
-  dynamic reportDescription;
-  List<dynamic>? reportEmail;
-  int? islatest;
-  dynamic propertyInspectionParentId;
+  String? inspectorId;
   bool? latestUpdate;
-  Properties? properties;
-  ArchitecturelDrawingUrl? architecturelDrawingUrl;
+  List<PropertyInspectionSchedulesHistory>? propertyInspectionSchedulesHistory;
+  List<InspectorDetails>? inspectorDetails;
+  List<InspectorImage>? inspectorImage;
   Category? category;
   List<Subcategory>? subcategory;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;
-    map['date'] = date;
-    if (time != null) {
-      map['time'] = time?.map((v) => v.toJson()).toList();
-    }
-    map['description'] = description;
-    map['first_name'] = firstName;
-    map['last_name'] = lastName;
-    map['email'] = email;
-    map['phone'] = phone;
-    map['country_code'] = countryCode;
+    map['homeowner_id'] = homeownerId;
     map['inspection_status_id'] = inspectionStatusId;
-    map['accepted_inspection_date'] = acceptedInspectionDate;
-    if (acceptedInspectionTime != null) {
-      map['accepted_inspection_time'] =
-          acceptedInspectionTime?.map((v) => v.toJson()).toList();
-    }
-    map['report'] = report;
-    map['report_description'] = reportDescription;
-    if (reportEmail != null) {
-      map['report_email'] = reportEmail?.map((v) => v.toJson()).toList();
-    }
-    map['islatest'] = islatest;
-    map['property_inspection_parent_id'] = propertyInspectionParentId;
+    map['inspector_id'] = inspectorId;
     map['latest_update'] = latestUpdate;
-    if (properties != null) {
-      map['properties'] = properties?.toJson();
+    if (propertyInspectionSchedulesHistory != null) {
+      map['property_inspection_schedules_history'] =
+          propertyInspectionSchedulesHistory?.map((v) => v.toJson()).toList();
     }
-    if (architecturelDrawingUrl != null) {
-      map['architecturel_drawing_url'] = architecturelDrawingUrl?.toJson();
+    if (inspectorDetails != null) {
+      map['inspector_details'] =
+          inspectorDetails?.map((v) => v.toJson()).toList();
+    }
+    if (inspectorImage != null) {
+      map['inspector_image'] = inspectorImage?.map((v) => v.toJson()).toList();
     }
     if (category != null) {
       map['category'] = category?.toJson();
@@ -233,12 +173,12 @@ class Category {
   }
 }
 
-class ArchitecturelDrawingUrl {
-  ArchitecturelDrawingUrl({
+class InspectorImage {
+  InspectorImage({
     this.url,
   });
 
-  ArchitecturelDrawingUrl.fromJson(dynamic json) {
+  InspectorImage.fromJson(dynamic json) {
     url = json['url'];
   }
   String? url;
@@ -250,63 +190,83 @@ class ArchitecturelDrawingUrl {
   }
 }
 
-// class Properties {
-//   Properties({
-//     this.assignedUserId,
-//     this.createdById,
-//     this.propertyName,
-//     this.street,
-//     this.state,
-//     this.city,
-//     this.zipCode,
-//     this.lotNumber,
-//     this.blockNumber,
-//     this.permitNumber,
-//     this.countyId,
-//     this.latestUpdate,
-//   });
+class InspectorDetails {
+  InspectorDetails({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.averageRating,
+  });
 
-//   Properties.fromJson(dynamic json) {
-//     assignedUserId = json['assigned_user_id'];
-//     createdById = json['created_by_id'];
-//     propertyName = json['property_name'];
-//     street = json['street'];
-//     state = json['state'];
-//     city = json['city'];
-//     zipCode = json['zip_code'];
-//     lotNumber = json['lot_number'];
-//     blockNumber = json['block_number'];
-//     permitNumber = json['permit_number'];
-//     countyId = json['county_id'];
-//     latestUpdate = json['latest_update'];
-//   }
-//   String? assignedUserId;
-//   String? createdById;
-//   String? propertyName;
-//   String? street;
-//   String? state;
-//   String? city;
-//   String? zipCode;
-//   String? lotNumber;
-//   String? blockNumber;
-//   String? permitNumber;
-//   String? countyId;
-//   bool? latestUpdate;
+  InspectorDetails.fromJson(dynamic json) {
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    email = json['email'];
+    averageRating = json['average_rating'];
+  }
+  String? firstName;
+  String? lastName;
+  String? email;
+  dynamic averageRating;
 
-//   Map<String, dynamic> toJson() {
-//     final map = <String, dynamic>{};
-//     map['assigned_user_id'] = assignedUserId.toString().toStringConversion();
-//     map['created_by_id'] = createdById.toString().toStringConversion();
-//     map['property_name'] = propertyName.toString().toStringConversion();
-//     map['street'] = street.toString().toStringConversion();
-//     map['state'] = state.toString().toStringConversion();
-//     map['city'] = city.toString().toStringConversion();
-//     map['zip_code'] = zipCode.toString().toStringConversion();
-//     map['lot_number'] = lotNumber.toString().toStringConversion();
-//     map['block_number'] = blockNumber.toString().toStringConversion();
-//     map['permit_number'] = permitNumber.toString().toStringConversion();
-//     map['county_id'] = countyId.toString().toStringConversion();
-//     map['latest_update'] = latestUpdate.toString().toStringConversion();
-//     return map;
-//   }
-// }
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['email'] = email;
+    map['average_rating'] = averageRating;
+    return map;
+  }
+}
+
+class PropertyInspectionSchedulesHistory {
+  PropertyInspectionSchedulesHistory({
+    this.id,
+    this.date,
+    this.time,
+    this.inspectionStatusId,
+    this.acceptedInspectionDate,
+    this.acceptedInspectionTime,
+  });
+
+  PropertyInspectionSchedulesHistory.fromJson(dynamic json) {
+    id = json['_id'];
+    date = json['date'];
+    if (json['time'] != null) {
+      time = [];
+      json['time'].forEach((v) {
+        time?.add(TimeModel.fromJson(v));
+      });
+    }
+    inspectionStatusId = json['inspection_status_id'];
+    acceptedInspectionDate = json['accepted_inspection_date'];
+    if (json['accepted_inspection_time'] != null) {
+      acceptedInspectionTime = [];
+      json['accepted_inspection_time'].forEach((v) {
+        acceptedInspectionTime?.add(TimeModel.fromJson(v));
+      });
+    }
+  }
+  String? id;
+  String? date;
+  List<TimeModel>? time;
+  String? inspectionStatusId;
+  String? acceptedInspectionDate;
+  List<TimeModel>? acceptedInspectionTime;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['date'] = date;
+    if (time != null) {
+      map['time'] = time?.map((v) => v.toJson()).toList();
+    }
+    map['inspection_status_id'] = inspectionStatusId;
+    map['accepted_inspection_date'] = acceptedInspectionDate;
+    if (acceptedInspectionTime != null) {
+      map['accepted_inspection_time'] =
+          acceptedInspectionTime?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+}

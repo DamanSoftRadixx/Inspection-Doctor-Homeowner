@@ -1075,77 +1075,82 @@ Widget commonDatePicker(
     String? hint,
     required dynamic Function(DateTime) onPicked,
     String? selectedDate}) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      if (title != "")
-        Padding(
-          padding: EdgeInsets.only(bottom: 3.h),
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(color: lightColorPalette.black),
-            text: title,
-            textAlign: TextAlign.center,
+  return GestureDetector(
+    onTap: () {
+      showDatePickerDialog(onPicked: onPicked, firstDated: DateTime.now());
+    },
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (title != "")
+          Padding(
+            padding: EdgeInsets.only(bottom: 3.h),
+            child: AppTextWidget(
+              style: CustomTextTheme.normalText(color: lightColorPalette.black),
+              text: title,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        Container(
+          width: 1.sw,
+          height: 44.h,
+          decoration: decoration(isSelected: focusNode?.hasFocus ?? false),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: selectedDate != ""
+                    ? AppTextWidget(
+                        style: CustomTextTheme.normalText(
+                            color: lightColorPalette.black),
+                        text: selectedDate ?? "",
+                        textAlign: TextAlign.start,
+                      ).paddingOnly(left: 15.w)
+                    : AppTextWidget(
+                        style: CustomTextTheme.normalText(
+                            color: lightColorPalette.black.withOpacity(0.5)),
+                        text: title,
+                        textAlign: TextAlign.start,
+                      ).paddingOnly(left: 15.w),
+              ),
+              CustomInkwell(
+                padding: EdgeInsets.zero,
+                onTap: () => showDatePickerDialog(
+                    onPicked: onPicked, firstDated: DateTime.now()),
+                child: AssetWidget(
+                  color: lightColorPalette.grey,
+                  asset: Asset(
+                    type: AssetType.svg,
+                    path: ImageResource.calendar,
+                  ),
+                ),
+              ).paddingOnly(right: 10.w),
+            ],
           ),
         ),
-      Container(
-        width: 1.sw,
-        height: 44.h,
-        decoration: decoration(isSelected: focusNode?.hasFocus ?? false),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: selectedDate != ""
-                  ? AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.black),
-                      text: selectedDate ?? "",
-                      textAlign: TextAlign.start,
-                    ).paddingOnly(left: 15.w)
-                  : AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.black.withOpacity(0.5)),
-                      text: title,
-                      textAlign: TextAlign.start,
-                    ).paddingOnly(left: 15.w),
-            ),
-            CustomInkwell(
-              padding: EdgeInsets.zero,
-              onTap: () => showDatePickerDialog(
-                onPicked: onPicked,
+        Visibility(
+          visible: isError ?? false,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: AppTextWidget(
+              text: errorMsg ?? "",
+              style: CustomTextTheme.bottomTabs(
+                color: lightColorPalette.redDark,
               ),
-              child: AssetWidget(
-                color: lightColorPalette.grey,
-                asset: Asset(
-                  type: AssetType.svg,
-                  path: ImageResource.calendar,
-                ),
-              ),
-            ).paddingOnly(right: 10.w),
-          ],
-        ),
-      ),
-      Visibility(
-        visible: isError ?? false,
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: AppTextWidget(
-            text: errorMsg ?? "",
-            style: CustomTextTheme.bottomTabs(
-              color: lightColorPalette.redDark,
-            ),
-          ).paddingOnly(top: 5.h),
-        ),
-      ), /*paddingOnly(left: 20.w, right: 20.w, top: 4.h),*/
-    ],
+            ).paddingOnly(top: 5.h),
+          ),
+        ), /*paddingOnly(left: 20.w, right: 20.w, top: 4.h),*/
+      ],
+    ),
   );
 }
 
-void showDatePickerDialog({required Function(DateTime date) onPicked}) {
+void showDatePickerDialog(
+    {required Function(DateTime date) onPicked, DateTime? firstDated}) {
   var currentDate = DateTime.now();
-  var firstDate = DateTime(currentDate.year - 100);
+  var firstDate = firstDated ?? DateTime(currentDate.year - 100);
   var lastDate = DateTime(currentDate.year + 100);
 
   showDatePicker(
