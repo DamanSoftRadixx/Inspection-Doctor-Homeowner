@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
@@ -8,6 +9,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
+import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -55,7 +57,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                                   getContactPersonDetail(),
                                   getDescription(),
                                   getInspectorDetailPersonDetail(),
-                                  const Spacer(),
+
                                   showInspectionStatusHistoryList()
                                 ]),
                           ),
@@ -70,44 +72,48 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         ));
   }
 
-  Container showInspectionStatusHistoryList() {
-    return Container(
-      color: lightColorPalette.greyBg,
-      width: 1.sw,
-      margin: EdgeInsets.only(top: 15.h),
-      padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: AppTextWidget(
-              style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-              text: AppStrings.trackYourInspection,
-            ),
-          ).paddingOnly(bottom: 20.h),
-          controller.inspectionHistoryList.value.isNotEmpty == true
-              ? ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  shrinkWrap: true,
-                  itemCount: controller.inspectionHistoryList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 2.w),
-                        showProgressBar(index: index),
-                        Expanded(
-                            child: showStatusDetail(
-                          index: index,
-                        )),
-                      ],
-                    );
-                  },
-                )
-              : const SizedBox()
-        ],
+  showInspectionStatusHistoryList() {
+    return Expanded(
+      child: Container(
+        color: lightColorPalette.greyBg,
+        width: 1.sw,
+        margin: EdgeInsets.only(top: 15.h),
+        padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: AppTextWidget(
+                  style: CustomTextTheme.subtext(color: lightColorPalette.grey),
+                  text: AppStrings.trackYourInspection,
+                ),
+              ).paddingOnly(bottom: 20.h),
+              controller.inspectionHistoryList.value.isNotEmpty == true
+                  ? ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.only(bottom: 10.h),
+                      shrinkWrap: true,
+                      itemCount: controller.inspectionHistoryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 2.w),
+                            showProgressBar(index: index),
+                            Expanded(
+                                child: showStatusDetail(
+                              index: index,
+                            )),
+                          ],
+                        );
+                      },
+                    )
+                  : const SizedBox()
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -170,15 +176,22 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               ),
             ],
           ),
-          SizedBox(
-            height: 5.h,
-          ),
-          RichText(
-              text: TextSpan(
-                  style: CustomTextTheme.normalText(
-                      color: lightColorPalette.black),
-                  text: history.message,
-                  children: const [])),
+          Html(data: history.message, style: {
+            // tables will have the below background color
+
+            "div": Style(
+                fontFamily: CommonStrings.generalSans,
+                fontSize: FontSize(14.sp),
+                fontWeight: FontWeight.w500,
+                color: lightColorPalette.black,
+                letterSpacing: 0.56),
+            "b": Style(
+                fontFamily: CommonStrings.generalSans,
+                fontSize: FontSize(14.sp),
+                fontWeight: FontWeight.w600,
+                color: lightColorPalette.black,
+                letterSpacing: 0.56)
+          }),
           if (index == 0)
             Padding(
               padding:

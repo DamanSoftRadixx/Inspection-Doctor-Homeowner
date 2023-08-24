@@ -479,7 +479,7 @@ class InspectionListStatus {
   static const scheduled = "Scheduled";
   static const rescheduled = "Rescheduled";
   static const canceled = "Canceled";
-  static const inProgress = "In Progress";
+  static const onTheWay = "On The Way";
   static const done = "Done";
   static const correctionRequired = "Correction Required";
   static const inspectionComplete = "Inspection Complete";

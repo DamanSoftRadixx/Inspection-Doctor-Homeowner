@@ -589,6 +589,7 @@ class SignupController extends GetxController {
 
   onAddressSelection({required int index}) async {
     setShowLoader(value: true);
+    dismissKeyboard();
     String placeId = predictionsList[index].placeId ?? "";
     if (placeId.isNotEmpty) {
       await displayPrediction(placeId).then((value) {
@@ -600,7 +601,7 @@ class SignupController extends GetxController {
         cityController.value.text = place.value.city;
         zipCodeController.value.text = place.value.zipCode;
         setShowLoader(value: false);
-        dismissKeyboard();
+
         scrollController.value.animateTo(500,
             duration: const Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn);

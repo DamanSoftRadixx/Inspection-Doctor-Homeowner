@@ -305,7 +305,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
         itemBuilder: (BuildContext context, int index) {
           TimeModel timeData = timeList[index];
           return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               AssetWidget(
                 height: 14.h,
@@ -316,26 +316,23 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   path: ImageResource.clock,
                 ),
               ).paddingOnly(right: 5.w),
-              SizedBox(
-                width: 90.w,
-                child: Row(
-                  children: [
-                    AppTextWidget(
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text: getLocalTimeFromUtc(
-                            dateTimeString: timeData.starttime ?? "")),
-                    AppTextWidget(
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text: "-"),
-                    AppTextWidget(
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text: getLocalTimeFromUtc(
-                            dateTimeString: timeData.endtime ?? "")),
-                  ],
-                ),
+              Row(
+                children: [
+                  AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: getLocalTimeFromUtc(
+                          dateTimeString: timeData.starttime ?? "")),
+                  AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: "-"),
+                  AppTextWidget(
+                      style: CustomTextTheme.normalText(
+                          color: lightColorPalette.grey),
+                      text: getLocalTimeFromUtc(
+                          dateTimeString: timeData.endtime ?? "")),
+                ],
               ),
             ],
           );

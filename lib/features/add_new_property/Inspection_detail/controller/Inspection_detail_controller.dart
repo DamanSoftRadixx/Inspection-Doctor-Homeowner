@@ -261,7 +261,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "You have requested $categoryName inspection by $inspectionDate $timeSlotString.",
+                "<div>You have requested <b>$categoryName inspection by <b>$inspectionDate <b>$timeSlotString.</div>",
             title: AppStrings.inspectionRequested,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -279,7 +279,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "Inspector $inspectorName is assigned and inspection is scheduled at $inspectionDate $timeSlotString.",
+                "<div>Inspector $inspectorName is assigned and inspection is scheduled at <b>$inspectionDate <b>$timeSlotString.</div>",
             title: AppStrings.inspectorAssigned,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -296,7 +296,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "You have rescheduled the inspection at $inspectionDate  $timeSlotString.",
+                "<div>You have rescheduled the inspection at <b>$inspectionDate <b>$timeSlotString.</div>",
             title: AppStrings.inspectionRescheduled,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -307,7 +307,7 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "You have canceled the inspection.",
+            message: "<div>You have canceled the inspection.</div>",
             title: AppStrings.inspectionCanceled,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -316,7 +316,8 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.inspectorInspectionCanceled.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "Inspector $inspectorName Canceled the inspection.",
+            message:
+                "<div>Inspector <b>$inspectorName Canceled the inspection.</div>",
             title: AppStrings.inspectionCanceled,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -332,7 +333,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "Inspector $inspectorName rescheduled the inspection at $inspectionDate  $timeSlotString.",
+              "<div>Inspector <b>$inspectorName rescheduled the inspection at <b>$inspectionDate  <b>$timeSlotString.</div>",
           title: AppStrings.inspectionRescheduled,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
@@ -343,7 +344,8 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.inspectorOnTheWay.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "Inspector $inspectorName is on the way for inspection.",
+            message:
+                "<div>Inspector <b>$inspectorName is on the way for inspection.</div>",
             title: AppStrings.inspectorIsOnTheWay,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -352,7 +354,8 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.inspectionStart.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "Inspector $inspectorName has started the inspection.",
+            message:
+                "<div>Inspector <b>$inspectorName has started the inspection.</div>",
             title: AppStrings.inspectionStarted,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -362,7 +365,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "Inspector $inspectorName has completed the inspection and now wait for the report.",
+              "<div>Inspector <b>$inspectorName has completed the inspection and now wait for the report.</div>",
           title: AppStrings.inspectionDone,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
@@ -373,7 +376,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "Inspector $inspectorName has submitted the report. Correction is required, please view the report from here.",
+                "<div>Inspector <b>$inspectorName has submitted the report. Correction is required, please view the report from here.</div>",
             title: AppStrings.inspectionComplete,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -385,7 +388,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "Inspector $inspectorName has submitted the report. Your inspection is approved. Please view the report from here.",
+                "<div>Inspector <b>$inspectorName has submitted the report. Your inspection is approved. Please view the report from here.</div>",
             title: AppStrings.correctionRequired,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,

@@ -403,6 +403,9 @@ Widget commonSearchFieldWidget({
               onChanged: onChanged,
               expands: false,
               focusNode: focusNode,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter(RegExp("[a-zA-Z0-9]"), allow: true),
+              ],
               decoration: InputDecoration(
                 isCollapsed: true,
                 contentPadding: EdgeInsets.only(left: 8.0, right: 15.w),

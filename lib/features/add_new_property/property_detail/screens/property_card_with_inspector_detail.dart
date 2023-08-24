@@ -75,6 +75,7 @@ extension PropertyCard on PropertyDetailScreen {
 //Date
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -96,7 +97,7 @@ extension PropertyCard on PropertyDetailScreen {
                               ""),
                     ),
                   ],
-                ),
+                ).paddingOnly(right: 18.w),
                 getInspectionTimeList(listData),
               ],
             ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
@@ -108,29 +109,28 @@ extension PropertyCard on PropertyDetailScreen {
                 Expanded(
                     flex: 2,
                     child: getInspectorDetailPersonDetail(listData: listData)),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      AppTextWidget(
-                        textAlign: TextAlign.end,
-                        style: CustomTextTheme.normalText(
-                            color: inspectionStatusModel.color),
-                        text: "\u2022",
-                      ),
-                      Flexible(
-                        child: AppTextWidget(
-                          textAlign: TextAlign.end,
-                          style: CustomTextTheme.normalText(
-                              color: inspectionStatusModel.color),
-                          text: inspectionStatusModel.message,
-                        ),
-                      ),
-                    ],
+              ],
+            ).paddingOnly(right: 18.w),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AppTextWidget(
+                  textAlign: TextAlign.end,
+                  style: CustomTextTheme.normalText(
+                      color: inspectionStatusModel.color),
+                  text: "\u2022",
+                ),
+                Flexible(
+                  child: AppTextWidget(
+                    textAlign: TextAlign.end,
+                    style: CustomTextTheme.normalText(
+                        color: inspectionStatusModel.color),
+                    text: inspectionStatusModel.message,
                   ),
                 ),
               ],
-            ).paddingOnly(right: 18.w)
+            ).paddingOnly(left: 18.w),
           ],
         ),
       ),

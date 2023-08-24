@@ -73,7 +73,8 @@ extension PropertyCard on PropertyDetailScreen {
             getDivider().paddingSymmetric(vertical: 15.h, horizontal: 18.w),
 //Date
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -95,20 +96,27 @@ extension PropertyCard on PropertyDetailScreen {
                               ""),
                     ),
                   ],
-                ),
+                ).paddingOnly(right: 18.w),
                 getInspectionTimeList(listData),
               ],
             ).paddingOnly(bottom: 5.h, left: 18.w, right: 18.w),
 
             getDivider().paddingSymmetric(vertical: 15.h),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: AppTextWidget(
-                style: CustomTextTheme.normalText(
-                    color: inspectionStatusModel.color),
-                text: inspectionStatusModel.message,
-              ).paddingOnly(left: 18.w),
-            )
+            Row(
+              children: [
+                AppTextWidget(
+                  textAlign: TextAlign.end,
+                  style: CustomTextTheme.normalText(
+                      color: inspectionStatusModel.color),
+                  text: "\u2022",
+                ).paddingOnly(right: 5.w),
+                AppTextWidget(
+                  style: CustomTextTheme.normalText(
+                      color: inspectionStatusModel.color),
+                  text: inspectionStatusModel.message,
+                )
+              ],
+            ).paddingOnly(left: 18.w)
           ],
         ),
       ),

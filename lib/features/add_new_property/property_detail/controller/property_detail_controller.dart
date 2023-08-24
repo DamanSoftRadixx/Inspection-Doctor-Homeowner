@@ -296,11 +296,11 @@ class PropertyDetailController extends GetxController {
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
     } else if (inspectionId ==
         InspectionHistoryStatusEnum.inspectorOnTheWay.value) {
-      inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
+      inspectionStatusModel.message = InspectionListStatus.onTheWay.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
     } else if (inspectionId ==
         InspectionHistoryStatusEnum.inspectionStart.value) {
-      inspectionStatusModel.message = InspectionListStatus.inProgress.tr;
+      inspectionStatusModel.message = InspectionListStatus.onTheWay.tr;
       inspectionStatusModel.color = lightColorPalette.primaryBlue;
     } else if (inspectionId ==
         InspectionHistoryStatusEnum.inspectionDone.value) {
