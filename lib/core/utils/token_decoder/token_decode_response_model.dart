@@ -1,3 +1,5 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class TokenResponseModel {
   TokenResponseModel({
     this.data,
@@ -7,8 +9,8 @@ class TokenResponseModel {
 
   TokenResponseModel.fromJson(dynamic json) {
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    iat = json['iat'];
-    exp = json['exp'];
+    iat = json['iat'].toString().toIntConversion();
+    exp = json['exp'].toString().toIntConversion();
   }
   Data? data;
   int? iat;
@@ -68,30 +70,36 @@ class Data {
   });
 
   Data.fromJson(dynamic json) {
-    id = json['_id'];
+    id = json['_id'].toString().toStringConversion();
     roleId = json['role_id'] != null ? RoleId.fromJson(json['role_id']) : null;
-    registerType = json['register_type'];
-    socialKey = json['social_key'];
-    companyName = json['company_name'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
+    registerType = json['register_type'].toString().toStringConversion();
+    socialKey = json['social_key'].toString().toStringConversion();
+    companyName = json['company_name'].toString().toStringConversion();
+    firstName = json['first_name'].toString().toStringConversion();
+    lastName = json['last_name'].toString().toStringConversion();
     image = json['image'] != null ? Image.fromJson(json['image']) : null;
-    email = json['email'];
-    phone = json['phone'];
-    countryCode = json['country_code'];
-    otp = json['otp'];
+    email = json['email'].toString().toStringConversion();
+    phone = json['phone'].toString().toStringConversion();
+    countryCode = json['country_code'].toString().toStringConversion();
+    otp = json['otp'].toString().toStringConversion();
     isOtpVerified = json['is_otp_verified'];
-    createdByUserId = json['created_by_user_id'];
-    state = json['state'] != null ? State.fromJson(json['state']) : null;
-    city = json['city'];
-    drivingLicenceNumber = json['driving_licence_number'];
+    createdByUserId = json['created_by_user_id'].toString().toStringConversion();
+
+    if(json['state'] is String){
+      state = State(name: json['state'].toString().toStringConversion());
+    }else{
+      state = json['state'] != null ? State.fromJson(json['state']) : null;
+    }
+
+    city = json['city'].toString().toStringConversion();
+    drivingLicenceNumber = json['driving_licence_number'].toString().toStringConversion();
     drivingLicenceIssuedState = json['driving_licence_issued_state'] != null
         ? DrivingLicenceIssuedState.fromJson(
             json['driving_licence_issued_state'])
         : null;
     availabilities = json['availabilities'];
-    rejectedReason = json['rejected_reason'];
-    languageId = json['language_id'];
+    rejectedReason = json['rejected_reason'].toString().toStringConversion();
+    languageId = json['language_id'].toString().toStringConversion();
     if (json['county_id'] != null) {
       countyId = [];
       json['county_id'].forEach((v) {
@@ -116,19 +124,19 @@ class Data {
         // documentUploaded?.add(Dynamic.fromJson(v));
       });
     }
-    deviceId = json['device_id'];
-    deviceType = json['device_type'];
-    deviceToken = json['device_token'];
-    logintime = json['logintime'];
-    status = json['status'];
+    deviceId = json['device_id'].toString().toStringConversion();
+    deviceType = json['device_type'].toString().toStringConversion();
+    deviceToken = json['device_token'].toString().toStringConversion();
+    logintime = json['logintime'].toString().toIntConversion();
+    status = json['status'].toString().toStringConversion();
     isapproved = json['isapproved'];
-    zipCode = json['zip_code'];
-    addressLine1 = json['address_line_1'];
-    addressLine2 = json['address_line_2'];
-    deletedAt = json['deleted_at'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    v = json['__v'];
+    zipCode = json['zip_code'].toString().toStringConversion();
+    addressLine1 = json['address_line_1'].toString().toStringConversion();
+    addressLine2 = json['address_line_2'].toString().toStringConversion();
+    deletedAt = json['deleted_at'].toString().toStringConversion();
+    createdAt = json['createdAt'].toString().toStringConversion();
+    updatedAt = json['updatedAt'].toString().toStringConversion();
+    v = json['__v'].toString().toStringConversion();
   }
   String? id;
   RoleId? roleId;
@@ -237,8 +245,8 @@ class DrivingLicenceIssuedState {
   });
 
   DrivingLicenceIssuedState.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
+    id = json['_id'].toString().toStringConversion();
+    name = json['name'].toString().toStringConversion();
   }
   String? id;
   String? name;
@@ -258,8 +266,8 @@ class State {
   });
 
   State.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
+    id = json['_id'].toString().toStringConversion();
+    name = json['name'].toString().toStringConversion();
   }
   String? id;
   String? name;
@@ -279,8 +287,8 @@ class Image {
   });
 
   Image.fromJson(dynamic json) {
-    id = json['_id'];
-    url = json['url'];
+    id = json['_id'].toString().toStringConversion();
+    url = json['url'].toString().toStringConversion();
   }
   String? id;
   String? url;
@@ -300,8 +308,8 @@ class RoleId {
   });
 
   RoleId.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
+    id = json['_id'].toString().toStringConversion();
+    name = json['name'].toString().toStringConversion();
   }
   String? id;
   String? name;
