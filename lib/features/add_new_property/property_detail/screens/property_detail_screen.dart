@@ -21,22 +21,24 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/controller/property_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card_without_inspector_detail.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card_with_inspector_detail.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card_without_inspector_detail.dart';
 
 class PropertyDetailScreen extends GetView<PropertyDetailController> {
   const PropertyDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
-      appBar: commonAppBarWithElevation(
-          title: AppStrings.propertyDetail.tr,
-          onPressBackButton: () {
-            Get.back();
-          }),
-      body: Obx(() => SafeArea(
+    return Obx(() => Scaffold(
+          bottomNavigationBar: showScheduleInspection()
+              .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w),
+          backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+          appBar: commonAppBarWithElevation(
+              title: AppStrings.propertyDetail.tr,
+              onPressBackButton: () {
+                Get.back();
+              }),
+          body: SafeArea(
             child: GestureDetector(
               onTap: () {
                 dismissKeyboard();
@@ -47,8 +49,6 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(child: showPropertyDetail()),
-                      showScheduleInspection()
-                          .paddingOnly(bottom: 20.h, left: 20.w, right: 20.w)
                     ],
                   ),
                   CommonLoader(
@@ -57,8 +57,8 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   showPropertyDetail() {

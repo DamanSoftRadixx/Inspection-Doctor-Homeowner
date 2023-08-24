@@ -53,7 +53,6 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                                   Divider(color: lightColorPalette.grey)
                                       .paddingSymmetric(horizontal: 20.w),
                                   getContactPersonDetail(),
-
                                   getDescription(),
                                   getInspectorDetailPersonDetail(),
                                   const Spacer(),
