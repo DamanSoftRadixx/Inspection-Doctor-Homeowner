@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -161,6 +162,8 @@ class CategoryFormController extends GetxController {
     if (value.length >= 2) {
       firstNameError.value = false;
     }
+
+    firstNameController.refresh();
   }
 
   void onChangedDescriptionField({required String value}) {
@@ -168,6 +171,7 @@ class CategoryFormController extends GetxController {
       descriptionController.value.text =
           descriptionController.value.text.trim();
     }
+    descriptionController.refresh();
   }
 
   void onChangedLastNameTextField({required String value}) {
@@ -177,6 +181,7 @@ class CategoryFormController extends GetxController {
     if (value.length >= 2) {
       lastNameError.value = false;
     }
+    lastNameController.refresh();
   }
 
   void onChangedEmailTextField({required String value}) {
@@ -186,12 +191,14 @@ class CategoryFormController extends GetxController {
     if (value.isNotEmpty && emailController.value.text.isEmail) {
       emailError.value = false;
     }
+    firstNameController.refresh();
   }
 
   void onChangedPhoneTextField({required String value}) {
     if (phoneNumberController.value.text.length > 6) {
       phoneError.value = false;
     }
+    phoneNumberController.refresh();
   }
 
   setShowLoader({required bool value}) {
@@ -281,13 +288,24 @@ class CategoryFormController extends GetxController {
     }
   }
 
-  bool get isEnable {
-    return selectedDate.value != "" &&
+  bool isScheduleButtonEnable() {
+    bool result = false;
+
+    log("selectedDate ${selectedDate.value}");
+    log("selectedTime ${selectedTime.length}");
+    log("firstNameController ${firstNameController.value.text}");
+    log("phoneNumberController ${phoneNumberController.value.text}");
+    log("emailController ${emailController.value.text}");
+
+    if (selectedDate.value != "" &&
         selectedTime.isNotEmpty &&
         firstNameController.value.text.isNotEmpty &&
         lastNameController.value.text.isNotEmpty &&
         phoneNumberController.value.text.isNotEmpty &&
-        emailController.value.text.isNotEmpty;
+        emailController.value.text.isNotEmpty) {
+      result = true;
+    }
+    return result;
   }
 
   void validate(

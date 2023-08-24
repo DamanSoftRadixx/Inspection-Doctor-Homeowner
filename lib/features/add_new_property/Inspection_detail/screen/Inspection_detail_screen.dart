@@ -38,28 +38,27 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    getCategoryView(),
-                                    Divider(color: lightColorPalette.grey)
-                                        .paddingSymmetric(horizontal: 20.w),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  getCategoryView(),
+                                  Divider(color: lightColorPalette.grey)
+                                      .paddingSymmetric(horizontal: 20.w),
 //Date
-                                    showDate().paddingOnly(
-                                        bottom: 5.h, left: 20.w, right: 20.w),
-                                    // getInspectionTimeList(
-                                    //     controller.inspectionDetail.value),
+                                  showDate().paddingOnly(
+                                      bottom: 5.h, left: 20.w, right: 20.w),
+                                  // getInspectionTimeList(
+                                  //     controller.inspectionDetail.value),
 
-                                    Divider(color: lightColorPalette.grey)
-                                        .paddingSymmetric(horizontal: 20.w),
-                                    getContactPersonDetail(),
+                                  Divider(color: lightColorPalette.grey)
+                                      .paddingSymmetric(horizontal: 20.w),
+                                  getContactPersonDetail(),
 
-                                    getDescription(),
-                                    getInspectorDetailPersonDetail(),
-                                    showInspectionStatusHistoryList()
-                                  ]),
-                            ),
+                                  getDescription(),
+                                  getInspectorDetailPersonDetail(),
+                                  const Spacer(),
+                                  showInspectionStatusHistoryList()
+                                ]),
                           ),
                         ],
                       ),
@@ -473,7 +472,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: lightColorPalette.grey, width: 0.3)),
-            padding: EdgeInsets.symmetric(vertical: 19.h, horizontal: 19.w),
+            padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 19.w),
             child: AppTextWidget(
               textAlign: TextAlign.start,
               text: controller.inspectionDetail.value.subcategory?.first.name ??

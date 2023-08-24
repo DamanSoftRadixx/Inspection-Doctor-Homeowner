@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/controller/property_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card_without_inspector_detail.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_card_with_inspector_detail.dart';
 
 class PropertyDetailScreen extends GetView<PropertyDetailController> {
@@ -271,9 +273,10 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                         shrinkWrap: true,
                         itemCount: controller.scheduleInspectionList.length,
                         itemBuilder: (BuildContext context, int index) {
+                          log("message ${controller.scheduleInspectionList[index].inspectorDetails}");
                           return controller.scheduleInspectionList[index]
-                                      .inspectorDetails ==
-                                  null
+                                      .inspectorDetails?.isEmpty ==
+                                  true
                               ? getPropertyDetailCard(index: index)
                               : getPropertyDetailCardWithInspectionDetail(
                                   index: index);

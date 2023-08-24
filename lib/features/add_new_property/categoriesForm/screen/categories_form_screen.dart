@@ -18,14 +18,14 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
-          appBar: commonAppBarWithElevation(
-              title: AppStrings.schedule.tr,
-              onPressBackButton: () {
-                Get.back();
-              }),
-          body: SafeArea(
+    return Scaffold(
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+      appBar: commonAppBarWithElevation(
+          title: AppStrings.schedule.tr,
+          onPressBackButton: () {
+            Get.back();
+          }),
+      body: Obx(() => SafeArea(
             child: Stack(
               children: [
                 Column(
@@ -54,8 +54,8 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                 CommonLoader(isLoading: controller.isShowLoader.value)
               ],
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   Widget getDescriptionView() {
@@ -192,7 +192,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
   Widget showContinueButton() {
     return CommonButton(
             commonButtonBottonText: AppStrings.schedule.tr,
-            onPress: controller.isEnable
+            onPress: controller.isScheduleButtonEnable()
                 ? () {
                     controller.onPressContinueButton();
                   }
