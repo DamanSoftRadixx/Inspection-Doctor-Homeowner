@@ -57,8 +57,10 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                                   controller.onTapAddressNotAssign();
                                 }).paddingOnly(bottom: 11.h),
                             controller.isAddressNotAssigned.value
-                                ? showPlotNumberField()
-                                    .paddingOnly(bottom: 11.h)
+                                // ? showPlotNumberField()
+                                //     .paddingOnly(bottom: 11.h)
+
+                                ? const SizedBox()
                                 : Column(
                                     children: [
                                       showAddress1Field()
@@ -71,7 +73,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                             showCityField().paddingOnly(bottom: 11.h),
                             showStateSelection().paddingOnly(bottom: 11.h),
                             showZipCodeField().paddingOnly(bottom: 11.h),
-                            showPermitNumberield().paddingOnly(bottom: 11.h),
+                            // showPermitNumberield().paddingOnly(bottom: 11.h),
                             showLotNumberField().paddingOnly(bottom: 11.h),
                             showBlockNumberField().paddingOnly(bottom: 11.h),
                             showCountyDropDown().paddingOnly(bottom: 11.h),
@@ -171,6 +173,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
             }
           },
           child: commonDocumentPicker(
+              isShowStar: true,
               isError: controller.documentError.value,
               errorMsg: controller.documentErrorMessage.value,
               title: AppStrings.uploadArchitecturalDrawing.tr,
@@ -257,6 +260,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showCountyDropDown() {
     return dropdownField(
+        isShowStar: true,
         isError: controller.countyError.value,
         errorMsg: controller.countyErrorMessage.value,
         hint: AppStrings.county.tr,
@@ -283,6 +287,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showPropertyNameField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       maxLength: 30,
       textCapitalization: TextCapitalization.sentences,
       isError: controller.propertyNameError.value,
@@ -304,6 +309,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showAddress1Field() {
     return commonTextFieldWidget(
+      isShowStar: true,
       textCapitalization: TextCapitalization.sentences,
       maxLength: 30,
       isError: controller.streetError.value,
@@ -323,6 +329,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showPlotNumberField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       // readOnly: controller.streetAddress1Controller.value.text.isNotEmpty,
       textCapitalization: TextCapitalization.sentences,
       maxLength: 30,
@@ -345,6 +352,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       // readOnly: controller.cityController.value.text.isNotEmpty,
       maxLength: 20,
       textCapitalization: TextCapitalization.sentences,
@@ -391,6 +399,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       focusNode: controller.zipCodeFocusNode.value,
       maxLength: 5,
       isError: controller.zipCodeError.value,
@@ -409,28 +418,30 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
     );
   }
 
-  Widget showPermitNumberield() {
-    return commonTextFieldWidget(
-      textCapitalization: TextCapitalization.words,
-      isError: controller.permitNumberError.value,
-      errorMsg: controller.permitNumberErrorMessage.value,
-      focusNode: controller.permitNumberFocusNode.value,
-      controller: controller.permitNumberController.value,
-      title: AppStrings.permitNumber.tr,
-      hint: AppStrings.permitNumber.tr,
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      onChanged: (value) {
-        controller.onChangedPermitNumberTextField(value: value);
-      },
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
-      ],
-    );
-  }
+  // Widget showPermitNumberield() {
+  //   return commonTextFieldWidget(
+  //     isShowStar: true,
+  //     textCapitalization: TextCapitalization.words,
+  //     isError: controller.permitNumberError.value,
+  //     errorMsg: controller.permitNumberErrorMessage.value,
+  //     focusNode: controller.permitNumberFocusNode.value,
+  //     controller: controller.permitNumberController.value,
+  //     title: AppStrings.permitNumber.tr,
+  //     hint: AppStrings.permitNumber.tr,
+  //     keyboardType: TextInputType.text,
+  //     textInputAction: TextInputAction.next,
+  //     onChanged: (value) {
+  //       controller.onChangedPermitNumberTextField(value: value);
+  //     },
+  //     inputFormatters: <TextInputFormatter>[
+  //       FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+  //     ],
+  //   );
+  // }
 
   Widget showLotNumberField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       maxLength: 15,
       isError: controller.lotNumberError.value,
       errorMsg: controller.lotNumberErrorMessage.value,
@@ -451,6 +462,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showBlockNumberField() {
     return commonTextFieldWidget(
+      isShowStar: true,
       maxLength: 15,
       isError: controller.blockNumberError.value,
       errorMsg: controller.blockNumberErrorMessage.value,
@@ -471,6 +483,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
 
   Widget showStateSelection() {
     return dropdownField(
+        isShowStar: true,
         isDisable: true,
         // isError: controller.languageError.value,
         // errorMsg: controller.languageErrorMessage.value,

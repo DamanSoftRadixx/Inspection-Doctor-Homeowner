@@ -8,23 +8,36 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
-Widget commonDocumentPicker({
-  required String title,
-  String? text,
-  required bool isFilePick,
-  required Widget widget,
-  String? errorMsg,
-  bool? isError,
-}) {
+Widget commonDocumentPicker(
+    {required String title,
+    String? text,
+    required bool isFilePick,
+    required Widget widget,
+    String? errorMsg,
+    bool? isError,
+    bool? isShowStar = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      AppTextWidget(
-        textAlign: TextAlign.start,
-        text: title,
-        style: CustomTextTheme.normalText(
-          color: lightColorPalette.black,
-        ),
+      Row(
+        children: [
+          AppTextWidget(
+            textAlign: TextAlign.start,
+            text: title,
+            style: CustomTextTheme.normalText(
+              color: lightColorPalette.black,
+            ),
+          ),
+          isShowStar == true
+              ? AppTextWidget(
+                  style: CustomTextTheme.normalText(
+                    color: lightColorPalette.redDark,
+                  ),
+                  text: "*",
+                  textAlign: TextAlign.center,
+                )
+              : const SizedBox()
+        ],
       ),
       SizedBox(
         height: 1.h,

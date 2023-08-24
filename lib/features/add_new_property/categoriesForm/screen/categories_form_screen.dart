@@ -61,7 +61,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
   Widget getDescriptionView() {
     return commonTextFieldWidget(
       height: 88.h,
-      // maxLines: 5,
+      maxLines: 5,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.descriptionFocusNode.value,
       controller: controller.descriptionController.value,

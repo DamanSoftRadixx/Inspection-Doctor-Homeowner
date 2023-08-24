@@ -72,11 +72,21 @@ Widget disableScreen({required bool isDisable}) {
 String getAddressFormat(PropertyListData property) {
   String result = "";
 
-  if (property.addressLine1 == "" || property.addressLine2 == "") {
-    result = " ${property.city}, ${property.state?.name}, ${property.zipCode}";
+  if (property.addressLine1 == "" && property.addressLine2 == "") {
+    result = "${property.city},${property.zipCode}";
+  } else if (property.addressLine1 == "" ||
+      property.addressLine1 == " " ||
+      property.addressLine1 == "  " ||
+      property.addressLine1 == null) {
+    result = "${property.addressLine2},${property.city},${property.zipCode}";
+  } else if (property.addressLine2 == "" ||
+      property.addressLine2 == " " ||
+      property.addressLine2 == "  " ||
+      property.addressLine2 == null) {
+    result = "${property.addressLine1},${property.city},${property.zipCode}";
   } else {
     result =
-        " ${property.addressLine1} ${property.addressLine2}, ${property.city}, ${property.state?.name}, ${property.zipCode}";
+        "${property.addressLine1}${property.addressLine2},${property.city},${property.zipCode}";
   }
 
   return result;

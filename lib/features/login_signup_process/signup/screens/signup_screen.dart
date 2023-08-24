@@ -41,6 +41,10 @@ class SignupScreen extends GetView<SignupController> {
                     hoverColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
+                    onTap: () {
+                      dismissKeyboard();
+                      controller.predictionsList.value = [];
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -81,7 +85,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showLanguageSelection() {
     return dropdownField(
-        isShowStar: true,
         isError: controller.languageError.value,
         errorMsg: controller.languageErrorMessage.value,
         hint: AppStrings.selectLanguage.tr,
@@ -105,7 +108,7 @@ class SignupScreen extends GetView<SignupController> {
         ),
 
         // choose map button
-        getChooseMapButton(),
+        // getChooseMapButton(),
       ],
     ).paddingOnly(top: 30.h, bottom: 15.h);
   }
@@ -209,7 +212,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showFirstNameField() {
     return commonTextFieldWidget(
-      isShowStar: true,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.firstNameFocusNode.value,
       isError: controller.firstNameError.value,
@@ -231,7 +233,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showLastNameField() {
     return commonTextFieldWidget(
-      isShowStar: true,
       textCapitalization: TextCapitalization.sentences,
       focusNode: controller.lastNameFocusNode.value,
       controller: controller.lastNameController.value,
@@ -253,7 +254,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showEmailField() {
     return commonTextFieldWidget(
-      isShowStar: true,
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController.value,
       isError: controller.emailError.value,
@@ -274,7 +274,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPhoneNumberField() {
     return commonPhoneText(
-      isShowStar: true,
       focusNode: controller.phoneNumberFocusNode.value,
       controller: controller.phoneNumberController.value,
       title: AppStrings.phoneNumber.tr,
@@ -295,7 +294,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showPasswordField() {
     return commonPasswordText(
-      isShowStar: true,
       focusNode: controller.passwordFocusNode.value,
       controller: controller.passwordController.value,
       title: AppStrings.loginScreenPassword.tr,
@@ -316,7 +314,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showConfirmPasswordField() {
     return commonPasswordText(
-      isShowStar: true,
       focusNode: controller.confirmPasswordFocusNode.value,
       controller: controller.confirmPasswordController.value,
       title: AppStrings.confirmPassword.tr,
@@ -337,12 +334,11 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetAddress1Field() {
     return commonTextFieldWidget(
-      isShowStar: true,
       // readOnly: controller.place.value.address1.isNotEmpty,
       focusNode: controller.address1FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9]"), allow: true),
       ],
       textCapitalization: TextCapitalization.sentences,
       // focusNode: controller.streetFocusNode.value,
@@ -411,13 +407,11 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showStreetAddress2Field() {
     return commonTextFieldWidget(
-      readOnly: controller.place.value.address2.isNotEmpty,
-      focusNode: controller.place.value.address2.isNotEmpty
-          ? FocusNode()
-          : controller.address2FocusNode.value,
+      // readOnly: controller.place.value.address2.isNotEmpty,
+      focusNode: controller.address2FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9]"), allow: true),
       ],
       textCapitalization: TextCapitalization.sentences,
       // focusNode: controller.streetFocusNode.value,
@@ -426,7 +420,7 @@ class SignupScreen extends GetView<SignupController> {
       maxLength: 30,
       hint: AppStrings.address_line_2.tr,
       keyboardType: TextInputType.streetAddress,
-      textInputAction: TextInputAction.next,
+      textInputAction: TextInputAction.done,
       onChanged: (value) {
         if (value.length == 1 && value.contains(" ")) {
           controller.streetAddress2Controller.value.text =
@@ -438,7 +432,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showCityField() {
     return commonTextFieldWidget(
-      isShowStar: true,
       focusNode: controller.place.value.city.isNotEmpty
           ? FocusNode()
           : controller.cityFocusNode.value,
@@ -492,7 +485,6 @@ class SignupScreen extends GetView<SignupController> {
 
   Widget showZipCodeField() {
     return commonTextFieldWidget(
-      isShowStar: true,
       focusNode: controller.place.value.zipCode.isNotEmpty
           ? FocusNode()
           : controller.zipCodeFocusNode.value,

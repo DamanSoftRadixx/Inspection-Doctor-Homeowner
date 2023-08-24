@@ -33,8 +33,8 @@ class AddPropertyController extends GetxController {
   Rx<TextEditingController> cityController = TextEditingController().obs;
   Rx<TextEditingController> stateController = TextEditingController().obs;
   Rx<TextEditingController> zipCodeController = TextEditingController().obs;
-  Rx<TextEditingController> permitNumberController =
-      TextEditingController().obs;
+  // Rx<TextEditingController> permitNumberController =
+  //     TextEditingController().obs;
   Rx<TextEditingController> lotNumberController = TextEditingController().obs;
   Rx<TextEditingController> blockNumberController = TextEditingController().obs;
   Rx<TextEditingController> streetAddress1Controller =
@@ -49,7 +49,7 @@ class AddPropertyController extends GetxController {
   Rx<FocusNode> cityFocusNode = FocusNode().obs;
   Rx<FocusNode> stateFocusNode = FocusNode().obs;
   Rx<FocusNode> zipCodeFocusNode = FocusNode().obs;
-  Rx<FocusNode> permitNumberFocusNode = FocusNode().obs;
+  // Rx<FocusNode> permitNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> lotNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> blockNumberFocusNode = FocusNode().obs;
   Rx<FocusNode> street2FocusNode = FocusNode().obs;
@@ -91,7 +91,7 @@ class AddPropertyController extends GetxController {
   RxBool cityError = false.obs;
   RxBool stateError = false.obs;
   RxBool zipCodeError = false.obs;
-  RxBool permitNumberError = false.obs;
+  // RxBool permitNumberError = false.obs;
   RxBool lotNumberError = false.obs;
   RxBool blockNumberError = false.obs;
   RxBool countyError = false.obs;
@@ -103,7 +103,7 @@ class AddPropertyController extends GetxController {
   RxString cityErrorMessage = "".obs;
   RxString stateErrorMessage = "".obs;
   RxString zipCodeErrorMessage = "".obs;
-  RxString permitNumberErrorMessage = "".obs;
+  // RxString permitNumberErrorMessage = "".obs;
   RxString lotNumberErrorMessage = "".obs;
   RxString blockNumberErrorMessage = "".obs;
   RxString countyErrorMessage = "".obs;
@@ -137,9 +137,9 @@ class AddPropertyController extends GetxController {
     zipCodeFocusNode.value.addListener(() {
       zipCodeFocusNode.refresh();
     });
-    permitNumberFocusNode.value.addListener(() {
-      permitNumberFocusNode.refresh();
-    });
+    // permitNumberFocusNode.value.addListener(() {
+    //   permitNumberFocusNode.refresh();
+    // });
 
     lotNumberFocusNode.value.addListener(() {
       lotNumberFocusNode.refresh();
@@ -158,7 +158,7 @@ class AddPropertyController extends GetxController {
     cityFocusNode.value.removeListener(() {});
     stateFocusNode.value.removeListener(() {});
     zipCodeFocusNode.value.removeListener(() {});
-    permitNumberFocusNode.value.removeListener(() {});
+    // permitNumberFocusNode.value.removeListener(() {});
     lotNumberFocusNode.value.removeListener(() {});
     blockNumberFocusNode.value.removeListener(() {});
     plotNoFocusNode.value.removeListener(() {});
@@ -193,7 +193,7 @@ class AddPropertyController extends GetxController {
       city: cityController.value.text,
       state: selectedStateDropDown.value.id,
       zipCode: zipCodeController.value.text,
-      permitNumber: permitNumberController.value.text,
+      // permitNumber: permitNumberController.value.text,
       lotNumber: lotNumberController.value.text,
       blockNumber: blockNumberController.value.text,
       docment: pdfFile.value.path,
@@ -228,8 +228,8 @@ class AddPropertyController extends GetxController {
             propertyDetail.value.permitNumber ?? "";
 
         zipCodeController.value.text = propertyDetail.value.zipCode ?? "";
-        permitNumberController.value.text =
-            propertyDetail.value.permitNumber ?? "";
+        // permitNumberController.value.text =
+        //     propertyDetail.value.permitNumber ?? "";
         lotNumberController.value.text = propertyDetail.value.lotNumber ?? "";
         blockNumberController.value.text =
             propertyDetail.value.blockNumber ?? "";
@@ -252,7 +252,7 @@ class AddPropertyController extends GetxController {
     required String city,
     required String state,
     required String zipCode,
-    required String permitNumber,
+    // required String permitNumber,
     required String lotNumber,
     required String blockNumber,
     required String county,
@@ -263,7 +263,7 @@ class AddPropertyController extends GetxController {
         city.isEmpty &&
         state.isEmpty &&
         zipCode.isEmpty &&
-        permitNumber.isEmpty &&
+        // permitNumber.isEmpty &&
         lotNumber.isEmpty &&
         blockNumber.isEmpty &&
         county.isEmpty &&
@@ -273,7 +273,7 @@ class AddPropertyController extends GetxController {
       cityError.value = true;
       stateError.value = true;
       zipCodeError.value = true;
-      permitNumberError.value = true;
+      // permitNumberError.value = true;
       lotNumberError.value = true;
       blockNumberError.value = true;
       countyError.value = true;
@@ -283,7 +283,7 @@ class AddPropertyController extends GetxController {
       // streetErrorMessage.value = ErrorMessages.streetEmty;
       cityErrorMessage.value = ErrorMessages.cityEmty;
       zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
-      permitNumberErrorMessage.value = ErrorMessages.permitEmty;
+      // permitNumberErrorMessage.value = ErrorMessages.permitEmty;
       lotNumberErrorMessage.value = ErrorMessages.lotEmty;
       blockNumberErrorMessage.value = ErrorMessages.blockEmty;
       stateErrorMessage.value = ErrorMessages.stateEmty;
@@ -307,10 +307,13 @@ class AddPropertyController extends GetxController {
     } else if (zipCode.isEmpty) {
       zipCodeError.value = true;
       zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
-    } else if (permitNumber.isEmpty) {
-      permitNumberError.value = true;
-      permitNumberErrorMessage.value = ErrorMessages.permitEmty;
-    } else if (lotNumber.isEmpty) {
+    }
+    //  else if (permitNumber.isEmpty) {
+    //   permitNumberError.value = true;
+    //   permitNumberErrorMessage.value = ErrorMessages.permitEmty;
+    // }
+
+    else if (lotNumber.isEmpty) {
       lotNumberError.value = true;
       lotNumberErrorMessage.value = ErrorMessages.lotEmty;
     } else if (blockNumber.isEmpty) {
@@ -328,7 +331,7 @@ class AddPropertyController extends GetxController {
       cityError.value = false;
       stateError.value = false;
       zipCodeError.value = false;
-      permitNumberError.value = false;
+      // permitNumberError.value = false;
       lotNumberError.value = false;
       blockNumberError.value = false;
       countyError.value = false;
@@ -342,7 +345,6 @@ class AddPropertyController extends GetxController {
           updateAddProperty();
         }
       } else {
-        log("message");
         uploadDocuments();
       }
     }
@@ -410,11 +412,11 @@ class AddPropertyController extends GetxController {
     }
   }
 
-  void onChangedPermitNumberTextField({required String value}) {
-    if (value.length >= 2) {
-      permitNumberError.value = false;
-    }
-  }
+  // void onChangedPermitNumberTextField({required String value}) {
+  //   if (value.length >= 2) {
+  //     permitNumberError.value = false;
+  //   }
+  // }
 
   void onChangedLotNumberTextField({required String value}) {
     if (value.length >= 2) {
@@ -454,26 +456,26 @@ class AddPropertyController extends GetxController {
                 );
               }
             ]),
-        KeyboardActionsItem(
-            focusNode: permitNumberFocusNode.value,
-            displayArrows: false,
-            toolbarButtons: [
-              (node) {
-                return GestureDetector(
-                  onTap: () => permitNumberFocusNode.value.requestFocus(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AppTextWidget(
-                      textAlign: TextAlign.start,
-                      text: AppStrings.next.tr,
-                      style: CustomTextTheme.normalText(
-                        color: lightColorPalette.black,
-                      ),
-                    ),
-                  ),
-                );
-              }
-            ]),
+        // KeyboardActionsItem(
+        //     focusNode: permitNumberFocusNode.value,
+        //     displayArrows: false,
+        //     toolbarButtons: [
+        //       (node) {
+        //         return GestureDetector(
+        //           onTap: () => permitNumberFocusNode.value.requestFocus(),
+        //           child: Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: AppTextWidget(
+        //               textAlign: TextAlign.start,
+        //               text: AppStrings.next.tr,
+        //               style: CustomTextTheme.normalText(
+        //                 color: lightColorPalette.black,
+        //               ),
+        //             ),
+        //           ),
+        //         );
+        //       }
+        //     ]),
         KeyboardActionsItem(
             focusNode: lotNumberFocusNode.value,
             displayArrows: false,
@@ -622,14 +624,14 @@ class AddPropertyController extends GetxController {
         "assigned_user_id": "",
         "property_name": propertyController.value.text,
         "is_address_assigned": !isAddressNotAssigned.value,
-        "plot_number": plotNumberController.value.text,
+        // "plot_number": plotNumberController.value.text,
         "address_line_1": "",
         "address_line_2": "",
         "city": cityController.value.text,
         "zip_code": zipCodeController.value.text,
         "lot_number": lotNumberController.value.text,
         "block_number": blockNumberController.value.text,
-        "permit_number": permitNumberController.value.text,
+        // "permit_number": permitNumberController.value.text,
         "state": selectedStateDropDown.value.id,
         "county_id": selectedBaseMaterialDropDown.value.id,
         "architecturel_drawing": uploadData.value.id,
@@ -648,7 +650,7 @@ class AddPropertyController extends GetxController {
         "zip_code": zipCodeController.value.text,
         "lot_number": lotNumberController.value.text,
         "block_number": blockNumberController.value.text,
-        "permit_number": permitNumberController.value.text,
+        // "permit_number": permitNumberController.value.text,
         "state": selectedStateDropDown.value.id,
         "county_id": selectedBaseMaterialDropDown.value.id,
         "architecturel_drawing": uploadData.value.id,
@@ -686,19 +688,39 @@ class AddPropertyController extends GetxController {
   updateAddProperty() async {
     setShowLoader(value: true);
 
-    var body = json.encode({
-      "property_name": propertyController.value.text,
-      "address_line_1": streetAddress1Controller.value.text,
-      "address_line_2": streetAddress2Controller.value.text,
-      "city": cityController.value.text,
-      "zip_code": zipCodeController.value.text,
-      "lot_number": lotNumberController.value.text,
-      "block_number": blockNumberController.value.text,
-      "permit_number": permitNumberController.value.text,
-      "state": selectedStateDropDown.value.id,
-      "county_id": selectedBaseMaterialDropDown.value.id,
-      "architecturel_drawing": uploadData.value.id
-    });
+    Object body = {};
+
+    if (isAddressNotAssigned.value) {
+      body = json.encode({
+        "property_name": propertyController.value.text,
+        "is_address_assigned": isAddressNotAssigned.value,
+        "address_line_1": "",
+        "address_line_2": "",
+        "city": cityController.value.text,
+        "zip_code": zipCodeController.value.text,
+        "lot_number": lotNumberController.value.text,
+        "block_number": blockNumberController.value.text,
+        // "permit_number": permitNumberController.value.text,
+        "state": selectedStateDropDown.value.id,
+        "county_id": selectedBaseMaterialDropDown.value.id,
+        "architecturel_drawing": uploadData.value.id
+      });
+    } else {
+      body = json.encode({
+        "property_name": propertyController.value.text,
+        "is_address_assigned": !isAddressNotAssigned.value,
+        "address_line_1": streetAddress1Controller.value.text,
+        "address_line_2": streetAddress2Controller.value.text,
+        "city": cityController.value.text,
+        "zip_code": zipCodeController.value.text,
+        "lot_number": lotNumberController.value.text,
+        "block_number": blockNumberController.value.text,
+        // "permit_number": permitNumberController.value.text,
+        "state": selectedStateDropDown.value.id,
+        "county_id": selectedBaseMaterialDropDown.value.id,
+        "architecturel_drawing": uploadData.value.id
+      });
+    }
 
     try {
       PropertyUpdateResponseModel response =
@@ -757,11 +779,11 @@ class AddPropertyController extends GetxController {
     bool result = false;
     if (isAddressNotAssigned.value) {
       result = propertyController.value.text.isNotEmpty &&
-          plotNumberController.value.text.isNotEmpty &&
+          // plotNumberController.value.text.isNotEmpty &&
           cityController.value.text.isNotEmpty &&
           selectedStateDropDown.value.id.isNotEmpty &&
           zipCodeController.value.text.isNotEmpty &&
-          permitNumberController.value.text.isNotEmpty &&
+          // permitNumberController.value.text.isNotEmpty &&
           lotNumberController.value.text.isNotEmpty &&
           blockNumberController.value.text.isNotEmpty &&
           selectedBaseMaterialDropDown.value.id.isNotEmpty &&
@@ -772,7 +794,7 @@ class AddPropertyController extends GetxController {
           cityController.value.text.isNotEmpty &&
           selectedStateDropDown.value.id.isNotEmpty &&
           zipCodeController.value.text.isNotEmpty &&
-          permitNumberController.value.text.isNotEmpty &&
+          // permitNumberController.value.text.isNotEmpty &&
           lotNumberController.value.text.isNotEmpty &&
           blockNumberController.value.text.isNotEmpty &&
           selectedBaseMaterialDropDown.value.id.isNotEmpty &&
