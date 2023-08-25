@@ -7,6 +7,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
+import 'package:get/get.dart' as getx;
 
 class ApiHitter {
   static Dio dio = Dio();
@@ -66,8 +67,20 @@ class ApiHitter {
           queryParameters: queryParameters,
         );
 
-        log("response>>>>>> $response");
-        return response;
+        var statusCode = response.data["status"] ?? 400;
+        var statusMessage = response.data["message"] ?? 400;
+
+        if(statusCode == 201 || statusCode == 200){
+          return response;
+        }else{
+          apiErrorDialog(
+            message: statusMessage ?? "",
+            okButtonPressed: () {
+              getx.Get.back();
+            },
+          );
+        }
+
       } else {
         log("no internet issue");
         networkCheck.noInternetConnectionDialog();

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
@@ -145,6 +146,7 @@ class CategoryFormController extends GetxController {
   }
 
   void onPressContinueButton() {
+    dismissKeyboard();
     validate(
         firstName: firstNameController.value.text,
         lastName: lastNameController.value.text,
