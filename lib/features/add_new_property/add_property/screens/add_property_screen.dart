@@ -35,7 +35,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                 onPressBackButton: () {
                   controller.isShowLoader.value ? () {} : Get.back();
                 }),
-            body:  InkWell(
+            body: InkWell(
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,

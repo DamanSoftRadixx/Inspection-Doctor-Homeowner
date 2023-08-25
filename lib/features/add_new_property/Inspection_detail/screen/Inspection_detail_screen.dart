@@ -176,8 +176,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               ),
             ],
           ),
-          Html(data: history.message,
-              style: {
+          Html(data: history.message, style: {
             // tables will have the below background color
 
             "span": Style(
@@ -227,7 +226,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                       width: 10.w,
                     ),
                   if (history.isShowViewReportButton)
-                    Expanded(child: viewReportButtonWidget()),
+                    Expanded(
+                        child: viewReportButtonWidget(
+                            id: controller.inspectionDetail.value.id ?? "")),
                 ],
               ),
             ),
@@ -319,12 +320,12 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                         type: AssetType.svg,
                         path: ImageResource.call,
                       ),
-                    ).paddingOnly(right: 6.w),
+                    ).paddingOnly(right: 3.w),
                     AppTextWidget(
                       style: CustomTextTheme.bottomTabs(
                           color: lightColorPalette.grey),
                       text:
-                          "${firstHistoryItemDetail.countryCode ?? ""} ${firstHistoryItemDetail.phone ?? ""}",
+                          "+${firstHistoryItemDetail.countryCode ?? ""} ${firstHistoryItemDetail.phone ?? ""}",
                     ),
                   ],
                 ).paddingOnly(bottom: 2.h, top: 7.h),
@@ -534,7 +535,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         });
   }
 
-  Widget viewReportButtonWidget() {
+  Widget viewReportButtonWidget({required String id}) {
     return CommonButton(
         style: CustomTextTheme.buttonText(
           color: lightColorPalette.whiteColorPrimary.shade900,
@@ -542,7 +543,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         bgColor: lightColorPalette.black,
         commonButtonBottonText: AppStrings.viewReport.tr,
         onPress: () {
-          controller.onPressViewReportButton();
+          controller.onPressViewReportButton(propertyId: id);
         });
   }
 

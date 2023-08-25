@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:inspection_doctor_homeowner/core/network_utility/model/time_mode
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/inspection_history_local_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/get_report_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_reschedule_request_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/provider/Inspection_detail_provider.dart';
@@ -606,22 +608,62 @@ class InspectionDetailController extends GetxController {
         emailController.value.text.isNotEmpty;
   }
 
-  void onPressViewReportButton() {
-    var reportPath = inspectionDetail.value.report ?? "";
-    var list = reportPath.split(".");
-    var fileName = AppStrings.inspectionReport.tr;
+  void onPressViewReportButton({required String propertyId}) async {
+    // var reportPath = inspectionDetail.value.report ?? "";
+    // var list = reportPath.split(".");
+    // var fileName = AppStrings.inspectionReport.tr;
 
-    if (list.isNotEmpty && list.length >= 2) {
-      fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
+    // if (list.isNotEmpty && list.length >= 2) {
+    //   fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
+    // }
+
+    // Navigator.push(
+    //     Get.context!,
+    //     MaterialPageRoute(
+    //       builder: (context) => FlutterFlowPdfViewer(
+    //         networkPath: reportPath,
+    //         title: fileName,
+    //       ),
+    //     ));
+    setShowLoader(value: true);
+
+    log("propertyId $propertyId");
+
+    try {
+      GetReportResponseModel response =
+          await inspectionDetailProvider.getReport(id: propertyId) ??
+              GetReportResponseModel();
+
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        var reportPath = response.data?.reportUrl?.first ?? "";
+        var list = reportPath.split(".");
+        var fileName = AppStrings.inspectionReport.tr;
+
+        if (list.isNotEmpty && list.length >= 2) {
+          fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
+        }
+
+        Navigator.push(
+            Get.context!,
+            MaterialPageRoute(
+              builder: (context) => FlutterFlowPdfViewer(
+                networkPath: reportPath,
+                title: fileName,
+              ),
+            ));
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
     }
-
-    Navigator.push(
-        Get.context!,
-        MaterialPageRoute(
-          builder: (context) => FlutterFlowPdfViewer(
-            networkPath: reportPath,
-            title: fileName,
-          ),
-        ));
   }
 }
