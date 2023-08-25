@@ -176,10 +176,11 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               ),
             ],
           ),
-          Html(data: history.message, style: {
+          Html(data: history.message,
+              style: {
             // tables will have the below background color
 
-            "div": Style(
+            "span": Style(
                 fontFamily: CommonStrings.generalSans,
                 fontSize: FontSize(14.sp),
                 fontWeight: FontWeight.w500,

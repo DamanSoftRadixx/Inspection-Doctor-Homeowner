@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
@@ -34,59 +35,68 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                 onPressBackButton: () {
                   controller.isShowLoader.value ? () {} : Get.back();
                 }),
-            body: SafeArea(
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    controller: controller.scrollController.value,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            controller.isAddressNotAssigned.value
-                                ? const SizedBox()
-                                : getChooseMapButton().paddingOnly(top: 20.h),
-                            showPropertyNameField()
-                                .paddingOnly(bottom: 11.h, top: 20.h),
-                            isShowAddressNotAssign(
-                                text: AppStrings.addressNotAssigned.tr,
-                                isSelected:
-                                    controller.isAddressNotAssigned.value,
-                                onTap: () {
-                                  controller.onTapAddressNotAssign();
-                                }).paddingOnly(bottom: 11.h),
-                            controller.isAddressNotAssigned.value
-                                // ? showPlotNumberField()
-                                //     .paddingOnly(bottom: 11.h)
+            body:  InkWell(
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                dismissKeyboard();
+              },
+              child: SafeArea(
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      controller: controller.scrollController.value,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              /*controller.isAddressNotAssigned.value
+                                  ? const SizedBox()
+                                  : getChooseMapButton().paddingOnly(top: 20.h),*/
+                              showPropertyNameField()
+                                  .paddingOnly(bottom: 11.h, top: 20.h),
+                              isShowAddressNotAssign(
+                                  text: AppStrings.addressNotAssigned.tr,
+                                  isSelected:
+                                      controller.isAddressNotAssigned.value,
+                                  onTap: () {
+                                    controller.onTapAddressNotAssign();
+                                  }).paddingOnly(bottom: 11.h),
+                              controller.isAddressNotAssigned.value
+                                  // ? showPlotNumberField()
+                                  //     .paddingOnly(bottom: 11.h)
 
-                                ? const SizedBox()
-                                : Column(
-                                    children: [
-                                      showAddress1Field()
-                                          .paddingOnly(bottom: 11.h),
-                                      showGoogleAddressBar(),
-                                      showAddress2Field()
-                                          .paddingOnly(bottom: 11.h),
-                                    ],
-                                  ),
-                            showCityField().paddingOnly(bottom: 11.h),
-                            showStateSelection().paddingOnly(bottom: 11.h),
-                            showZipCodeField().paddingOnly(bottom: 11.h),
-                            // showPermitNumberield().paddingOnly(bottom: 11.h),
-                            showLotNumberField().paddingOnly(bottom: 11.h),
-                            showBlockNumberField().paddingOnly(bottom: 11.h),
-                            showCountyDropDown().paddingOnly(bottom: 11.h),
-                            showAddDocmentBox(),
-                            showAddPropertyButton()
-                                .paddingSymmetric(vertical: 20.h),
-                          ],
-                        ).paddingSymmetric(horizontal: 20.w),
-                      ],
+                                  ? const SizedBox()
+                                  : Column(
+                                      children: [
+                                        showAddress1Field()
+                                            .paddingOnly(bottom: 11.h),
+                                        showGoogleAddressBar(),
+                                        showAddress2Field()
+                                            .paddingOnly(bottom: 11.h),
+                                      ],
+                                    ),
+                              showCityField().paddingOnly(bottom: 11.h),
+                              showStateSelection().paddingOnly(bottom: 11.h),
+                              showZipCodeField().paddingOnly(bottom: 11.h),
+                              // showPermitNumberield().paddingOnly(bottom: 11.h),
+                              showLotNumberField().paddingOnly(bottom: 11.h),
+                              showBlockNumberField().paddingOnly(bottom: 11.h),
+                              showCountyDropDown().paddingOnly(bottom: 11.h),
+                              showAddDocmentBox(),
+                              showAddPropertyButton()
+                                  .paddingSymmetric(vertical: 20.h),
+                            ],
+                          ).paddingSymmetric(horizontal: 20.w),
+                        ],
+                      ),
                     ),
-                  ),
-                  CommonLoader(isLoading: controller.isShowLoader.value)
-                ],
+                    CommonLoader(isLoading: controller.isShowLoader.value)
+                  ],
+                ),
               ),
             )),
       ),
@@ -519,6 +529,7 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                       height: 30.h,
                       width: 30.w,
                       child: CircleAvatar(
+                        backgroundColor: lightColorPalette.greenDark,
                         child: Icon(
                           Icons.pin_drop,
                           color: lightColorPalette.whiteColorPrimary.shade900,

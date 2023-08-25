@@ -89,49 +89,54 @@ class PropertyCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AssetWidget(
-                      color: lightColorPalette.black,
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.hashLogo,
+                Flexible(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                    Flexible(
+                      child: Row(
+                        children: [
+                          AssetWidget(
+                            color: lightColorPalette.black,
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.hashLogo,
+                            ),
+                          ).paddingOnly(right: 5.w),
+                          Flexible(
+                            child: AppTextWidget(
+                              style: CustomTextTheme.normalText(
+                                  color: lightColorPalette.grey),
+                              text: "Lot#${property.lotNumber ?? ""}",
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
                       ),
-                    ).paddingOnly(right: 5.w),
-                    AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: "Lot#${property.lotNumber ?? ""}",
                     ),
-                    AssetWidget(
-                      color: lightColorPalette.black,
-                      asset: Asset(
-                        type: AssetType.svg,
-                        path: ImageResource.hashLogo,
-                      ),
-                    ).paddingOnly(right: 5.w, left: 20.w),
-                    AppTextWidget(
-                      style: CustomTextTheme.normalText(
-                          color: lightColorPalette.grey),
-                      text: property.blockNumber ?? "",
-                    ),
-                  ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // AppTextWidget(
-                    //   style: CustomTextTheme.normalText(
-                    //       color: lightColorPalette.black),
-                    //   text: '\u2022 ',
-                    // ),
-                    // AppTextWidget(
-                    //   style: CustomTextTheme.normalText(
-                    //       color: lightColorPalette.black),
-                    //   text: "Scheduled",
-                    // ),
-                  ],
+
+                      Flexible(child: Row(
+                        children: [
+
+                          AssetWidget(
+                            color: lightColorPalette.black,
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.hashLogo,
+                            ),
+                          ).paddingOnly(right: 5.w, left: 20.w),
+                          Flexible(
+                            child: AppTextWidget(
+                              style: CustomTextTheme.normalText(
+                                  color: lightColorPalette.grey),
+                              text: property.blockNumber ?? "",
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ))
+                    ],
+                  ),
                 ),
               ],
             ).paddingOnly(top: 12.h)

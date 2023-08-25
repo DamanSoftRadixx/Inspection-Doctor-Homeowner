@@ -379,6 +379,7 @@ class SignupScreen extends GetView<SignupController> {
                       height: 30.h,
                       width: 30.w,
                       child: CircleAvatar(
+                        backgroundColor: lightColorPalette.greenDark,
                         child: Icon(
                           Icons.pin_drop,
                           color: lightColorPalette.whiteColorPrimary.shade900,

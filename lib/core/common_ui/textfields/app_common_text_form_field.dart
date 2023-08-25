@@ -821,10 +821,24 @@ Widget multiDropdownField(
       if (title != null && title != "")
         Padding(
           padding: EdgeInsets.only(bottom: 3.h),
-          child: AppTextWidget(
-            style: CustomTextTheme.normalText(color: lightColorPalette.black),
-            text: title,
-            textAlign: TextAlign.center,
+          child: Row(
+            children: [
+              AppTextWidget(
+                style:
+                CustomTextTheme.normalText(color: lightColorPalette.black),
+                text: title,
+                textAlign: TextAlign.center,
+              ),
+              isShowStar == true
+                  ? AppTextWidget(
+                style: CustomTextTheme.normalText(
+                  color: lightColorPalette.redDark,
+                ),
+                text: "*",
+                textAlign: TextAlign.center,
+              )
+                  : const SizedBox()
+            ],
           ),
         ),
       Container(
@@ -1089,7 +1103,7 @@ Widget commonDatePicker(
     FocusNode? focusNode,
     String? errorMsg,
     bool? isError,
-    String? hint,
+    String? hint, bool? isShowStar = false,
     required dynamic Function(DateTime) onPicked,
     String? selectedDate}) {
   return GestureDetector(
@@ -1100,13 +1114,27 @@ Widget commonDatePicker(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != "")
+        if (title != null && title != "")
           Padding(
             padding: EdgeInsets.only(bottom: 3.h),
-            child: AppTextWidget(
-              style: CustomTextTheme.normalText(color: lightColorPalette.black),
-              text: title,
-              textAlign: TextAlign.center,
+            child: Row(
+              children: [
+                AppTextWidget(
+                  style:
+                  CustomTextTheme.normalText(color: lightColorPalette.black),
+                  text: title,
+                  textAlign: TextAlign.center,
+                ),
+                isShowStar == true
+                    ? AppTextWidget(
+                  style: CustomTextTheme.normalText(
+                    color: lightColorPalette.redDark,
+                  ),
+                  text: "*",
+                  textAlign: TextAlign.center,
+                )
+                    : const SizedBox()
+              ],
             ),
           ),
         Container(

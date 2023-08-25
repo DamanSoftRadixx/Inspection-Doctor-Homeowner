@@ -83,28 +83,37 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   text: controller.propertyDetail.value.propertyName ?? "",
                 ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AssetWidget(
-                    color: lightColorPalette.black,
-                    asset: Asset(
-                      type: AssetType.svg,
-                      path: ImageResource.pinLocation,
-                    ),
-                  ).paddingOnly(top: 3.h),
-                  Flexible(
-                    child: AppTextWidget(
-                      textAlign: TextAlign.center,
+
+                  Expanded(child: Text.rich(
+                    style: CustomTextTheme.normalText(
+                        color: lightColorPalette.grey),
+                    textAlign: TextAlign.center,
+                    TextSpan(
                       style: CustomTextTheme.normalText(
                           color: lightColorPalette.grey),
-                      text: getAddressFormat(controller.propertyDetail.value),
+                      children: [
+                        WidgetSpan(
+                          child: AssetWidget(
+                            color: lightColorPalette.black,
+                            asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.pinLocation,
+                            ),
+                          ).paddingOnly(right: 5.w,bottom: 1.h),
+                        ),
+                        TextSpan(text: getAddressFormat(controller.propertyDetail.value)),
+
+                      ],
                     ),
-                  ),
+                  ))
                 ],
-              ).paddingOnly(top: 5.h, bottom: 5.h, left: 20.w, right: 20.w),
-              Row(
+              ).paddingOnly(top: 6.h, bottom: 5.h, left: 20.w, right: 20.w),
+            /*  Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AssetWidget(
@@ -120,48 +129,62 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                     text: controller.propertyDetail.value.permitNumber ?? "",
                   ),
                 ],
-              ),
+              ),*/
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AssetWidget(
-                        color: lightColorPalette.black,
-                        asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.hashLogo,
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Row(
+                            children: [
+                              AssetWidget(
+                                color: lightColorPalette.black,
+                                asset: Asset(
+                                  type: AssetType.svg,
+                                  path: ImageResource.hashLogo,
+                                ),
+                              ).paddingOnly(right: 5.w),
+                              Flexible(
+                                child: AppTextWidget(
+                                  style: CustomTextTheme.normalText(
+                                      color: lightColorPalette.grey),
+                                  text: "Lot#${controller.propertyDetail.value.lotNumber ?? ""}",
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ).paddingOnly(right: 5.w),
-                      AppTextWidget(
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text:
-                            "Lot#${controller.propertyDetail.value.lotNumber ?? ""}" ??
-                                "",
-                      ),
-                    ],
-                  ).paddingOnly(right: 20.w),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AssetWidget(
-                        color: lightColorPalette.black,
-                        asset: Asset(
-                          type: AssetType.svg,
-                          path: ImageResource.hashLogo,
-                        ),
-                      ).paddingOnly(right: 5.w),
-                      AppTextWidget(
-                        style: CustomTextTheme.normalText(
-                            color: lightColorPalette.grey),
-                        text: controller.propertyDetail.value.blockNumber ?? "",
-                      ),
-                    ],
+
+                        Flexible(child: Row(
+                          children: [
+
+                            AssetWidget(
+                              color: lightColorPalette.black,
+                              asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.hashLogo,
+                              ),
+                            ).paddingOnly(right: 5.w, left: 20.w),
+                            Flexible(
+                              child: AppTextWidget(
+                                style: CustomTextTheme.normalText(
+                                    color: lightColorPalette.grey),
+                                text: controller.propertyDetail.value.blockNumber ?? "",
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ))
+                      ],
+                    ),
                   ),
                 ],
-              ).paddingOnly(top: 5.h, bottom: 20.h),
+              ).paddingOnly(top: 5.h, bottom: 20.h,left: 20.w,right: 20.w),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -257,11 +280,12 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   }
 
   getInspectionList() {
-    return Obx(() => Column(
+    return Obx(() =>Column(
           children: [
             showSearchBar()
                 .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
-            Expanded(
+            controller.isShowLoader.value ||
+                controller.isShowSearchLoader.value ? SizedBox() : Expanded(
               child: CommonRefreshIndicator(
                 onRefresh: () => Future.sync(() {
                   controller.onRefresh();

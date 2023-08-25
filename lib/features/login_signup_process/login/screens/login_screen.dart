@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
@@ -30,54 +31,63 @@ class LoginScreen extends GetView<LoginController> {
           )),
       body: WillPopScope(
         onWillPop: () async => false,
-        child: SafeArea(
-          child: Obx(() => Stack(
-                children: [
-                  ListView(
-                    physics: const RangeMaintainingScrollPhysics(),
-                    children: [
-                      Container(
-                          height: 35.h,
-                          color: lightColorPalette.whiteColorPrimary.shade900),
-                      Stack(
-                        children: [
-                          SizedBox(
-                              // height: 0.9.sh,
-                              width: 1.sw,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                      width: 1.sw,
-                                      height: 23.h,
-                                      color: lightColorPalette
-                                          .whiteColorPrimary.shade900),
-                                  getWelcomeLoginView(),
-                                  //Email
-                                  Column(
-                                    children: [
-                                      showLanguageSelection()
-                                          .paddingOnly(bottom: 10.h),
-                                      showEmailField(),
-                                      showPasswordField(),
-                                      showForgotPassword()
-                                          .paddingOnly(top: 10.h),
-                                      showLoginButton().paddingOnly(top: 50.h),
-                                      showSignupButton(),
-                                      showDivider(),
-                                      showOtherLoginOption(),
-                                    ],
-                                  ).paddingOnly(left: 20.w, right: 20.w)
-                                ],
-                              )),
-                          getTopLogo(),
-                        ],
-                      ),
-                    ],
-                  ),
-                  CommonLoader(isLoading: controller.isShowLoader.value)
-                ],
-              )),
+        child:InkWell(
+          focusColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          onTap: (){
+            dismissKeyboard();
+          },
+          child: SafeArea(
+            child: Obx(() => Stack(
+                  children: [
+                    ListView(
+                      physics: const RangeMaintainingScrollPhysics(),
+                      children: [
+                        Container(
+                            height: 35.h,
+                            color: lightColorPalette.whiteColorPrimary.shade900),
+                        Stack(
+                          children: [
+                            SizedBox(
+                                // height: 0.9.sh,
+                                width: 1.sw,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                        width: 1.sw,
+                                        height: 23.h,
+                                        color: lightColorPalette
+                                            .whiteColorPrimary.shade900),
+                                    getWelcomeLoginView(),
+                                    //Email
+                                    Column(
+                                      children: [
+                                        showLanguageSelection()
+                                            .paddingOnly(bottom: 10.h),
+                                        showEmailField(),
+                                        showPasswordField(),
+                                        showForgotPassword()
+                                            .paddingOnly(top: 10.h),
+                                        showLoginButton().paddingOnly(top: 50.h),
+                                        showSignupButton(),
+                                        showDivider(),
+                                        showOtherLoginOption(),
+                                      ],
+                                    ).paddingOnly(left: 20.w, right: 20.w)
+                                  ],
+                                )),
+                            getTopLogo(),
+                          ],
+                        ),
+                      ],
+                    ),
+                    CommonLoader(isLoading: controller.isShowLoader.value)
+                  ],
+                )),
+          ),
         ),
       ),
     );

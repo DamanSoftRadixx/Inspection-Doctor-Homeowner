@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
@@ -20,22 +21,31 @@ class ResetPasswordScreen extends GetView<ResetPasswordController> {
     return Scaffold(
       backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
       appBar: showAppBar(),
-      body: SafeArea(
-        child: Obx(() => Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      showHeadingText(),
-                      showPasswordField(),
-                      showConfirmPasswordField(),
-                      showResetButton(),
-                    ],
-                  ).paddingSymmetric(horizontal: 20.w),
-                ),
-                CommonLoader(isLoading: controller.isShowLoader.value)
-              ],
-            )),
+      body: InkWell(
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: (){
+          dismissKeyboard();
+        },
+        child: SafeArea(
+          child: Obx(() => Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        showHeadingText(),
+                        showPasswordField(),
+                        showConfirmPasswordField(),
+                        showResetButton(),
+                      ],
+                    ).paddingSymmetric(horizontal: 20.w),
+                  ),
+                  CommonLoader(isLoading: controller.isShowLoader.value)
+                ],
+              )),
+        ),
       ),
     );
   }

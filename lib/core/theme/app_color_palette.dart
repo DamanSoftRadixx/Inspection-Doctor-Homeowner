@@ -11,7 +11,6 @@ class AppColorPalette {
   final Color backgroundColor;
   final Color redDark;
   final Color primaryBlue;
-
   final Color errorColor;
   final Color redBackground;
   final Color greenDark;
@@ -317,3 +316,5 @@ BoxDecoration categioryDecoration({required bool isSelected}) {
           color: isSelected ? lightColorPalette.black : lightColorPalette.grey,
           width: isSelected ? 1 : 0.3));
 }
+
+

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
@@ -25,36 +26,45 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
           onPressBackButton: () {
             Get.back();
           }),
-      body: Obx(() => SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            getCategoryView(),
-                            Divider(
-                                thickness: 10.h,
-                                color: lightColorPalette.greyBg),
-                            getFormFillDetail().paddingAll(20.r),
-                            getDateTimeView(),
-                            getDescriptionView(),
-                            getContactInformation(),
-                          ],
+      body: Obx(() => InkWell(
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: (){
+          dismissKeyboard();
+        },
+        child: SafeArea(
+              child: Stack(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              getCategoryView(),
+                              Divider(
+                                  thickness: 10.h,
+                                  color: lightColorPalette.greyBg),
+                              getFormFillDetail().paddingAll(20.r),
+                              getDateTimeView(),
+                              getDescriptionView(),
+                              getContactInformation(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    showContinueButton()
-                  ],
-                ),
-                CommonLoader(isLoading: controller.isShowLoader.value)
-              ],
+                      showContinueButton()
+                    ],
+                  ),
+                  CommonLoader(isLoading: controller.isShowLoader.value)
+                ],
+              ),
             ),
-          )),
+      )),
     );
   }
 
@@ -84,6 +94,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       children: [
         commonDatePicker(
                 title: AppStrings.date,
+                isShowStar: true,
                 onPicked: (DateTime value) {
                   controller.selectedDate.value =
                       getDateFormatedFromDateTime(date: value);
@@ -93,7 +104,8 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         multiDropdownField(
                 hint: AppStrings.time.tr,
                 title: AppStrings.time.tr,
-                selectedValue: controller.selectTime.value,
+            isShowStar: true,
+            selectedValue: controller.selectTime.value,
                 onClick: (DropdownModel value) {
                   controller.onSelectTimeDropdown(value: value);
                 },
@@ -209,6 +221,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       controller: controller.firstNameController.value,
       title: AppStrings.firstName.tr,
       hint: AppStrings.firstName.tr,
+      isShowStar: true,
       maxLength: 30,
       keyboardType: TextInputType.name,
       textInputAction: TextInputAction.next,
@@ -230,6 +243,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       errorMsg: controller.lastNameErrorMessage.value,
       title: AppStrings.lastName.tr,
       hint: AppStrings.lastName.tr,
+      isShowStar: true,
       keyboardType: TextInputType.name,
       maxLength: 30,
       textInputAction: TextInputAction.next,
@@ -249,6 +263,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       isError: controller.emailError.value,
       errorMsg: controller.emailErrorMessage.value,
       maxLength: 50,
+      isShowStar: true,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.deny(RegExp(r'[ ]')),
       ],
@@ -269,6 +284,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       title: AppStrings.phoneNumber.tr,
       hint: AppStrings.phoneNumber.tr,
       isError: controller.phoneError.value,
+      isShowStar: true,
       errorMsg: controller.phoneErrorMessage.value,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.next,
