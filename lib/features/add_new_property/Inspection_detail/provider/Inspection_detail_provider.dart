@@ -63,6 +63,8 @@ class InspectionDetailProvider {
       Response response =
           await apiHitter.getApi(endPoint: "${EndPoints.viewReport}/$id");
 
+      log("response>>>>> $response");
+
       GetReportResponseModel data =
           GetReportResponseModel.fromJson(response.data);
 

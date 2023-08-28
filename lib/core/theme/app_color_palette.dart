@@ -339,3 +339,11 @@ BoxDecoration categioryDecoration({required bool isSelected}) {
           color: isSelected ? lightColorPalette.black : lightColorPalette.grey,
           width: isSelected ? 1 : 0.3));
 }
+
+BoxDecoration decorationImage() {
+  return BoxDecoration(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(10.r),
+      shape: BoxShape.rectangle,
+      border: Border.all(color: lightColorPalette.grey, width: 0.3));
+}

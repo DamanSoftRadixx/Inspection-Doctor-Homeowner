@@ -1,16 +1,15 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/pdf_viewer.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/inspection_history_local_model.dart';
@@ -609,25 +608,8 @@ class InspectionDetailController extends GetxController {
   }
 
   void onPressViewReportButton({required String propertyId}) async {
-    // var reportPath = inspectionDetail.value.report ?? "";
-    // var list = reportPath.split(".");
-    // var fileName = AppStrings.inspectionReport.tr;
 
-    // if (list.isNotEmpty && list.length >= 2) {
-    //   fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
-    // }
-
-    // Navigator.push(
-    //     Get.context!,
-    //     MaterialPageRoute(
-    //       builder: (context) => FlutterFlowPdfViewer(
-    //         networkPath: reportPath,
-    //         title: fileName,
-    //       ),
-    //     ));
     setShowLoader(value: true);
-
-    log("propertyId $propertyId");
 
     try {
       GetReportResponseModel response =
@@ -637,22 +619,27 @@ class InspectionDetailController extends GetxController {
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        var reportPath = response.data?.reportUrl?.first ?? "";
-        var list = reportPath.split(".");
-        var fileName = AppStrings.inspectionReport.tr;
+        // var reportPath = response.data?.reportUrl?.first ?? "";
+        // var list = reportPath.split(".");
+        // var fileName = AppStrings.inspectionReport.tr;
 
-        if (list.isNotEmpty && list.length >= 2) {
-          fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
-        }
+        // if (list.isNotEmpty && list.length >= 2) {
+        //   fileName = "${list[list.length - 2]}.${list[list.length - 1]}";
+        // }
 
-        Navigator.push(
-            Get.context!,
-            MaterialPageRoute(
-              builder: (context) => FlutterFlowPdfViewer(
-                networkPath: reportPath,
-                title: fileName,
-              ),
-            ));
+        Get.toNamed(Routes.reportView, arguments: {
+          GetArgumentConstants.reportData:
+              response.data ?? GetReportResponseModelData(),
+        });
+
+        // Navigator.push(
+        //     Get.context!,
+        //     MaterialPageRoute(
+        //       builder: (context) => FlutterFlowPdfViewer(
+        //         networkPath: reportPath,
+        //         title: fileName,
+        //       ),
+        //     ));
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

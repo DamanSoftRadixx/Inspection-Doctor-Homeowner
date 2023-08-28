@@ -53,6 +53,7 @@ class AppStrings {
   static const loginEmail = "Enter your Email";
   static const loginPassword = "Enter your password";
   static const loginScreenButton = "Login";
+  static const images = "Images";
 
   static const guidedJournalDetails = "Guided Journal Details";
   static const guidedJournalforOvercomingtheFearofBeingJudgedandAvoidingGroupsinPublic =
@@ -408,6 +409,7 @@ class GetArgumentConstants {
   static const inspectionCreateRequestArg = "inspectionCreateRequestModel";
   static const categoriesName = "categoriesName";
   static const inspectionId = "inspectionDetail";
+  static const reportData = "reportData";
 }
 
 class WeekDays {

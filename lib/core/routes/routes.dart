@@ -10,6 +10,8 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/categories
 import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/screen/categories_form_screen.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/report_view/binding/report_view_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/report_view/screen/report_view.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/binding/select_categories_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/screen/select_categories_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
@@ -56,6 +58,7 @@ class Routes {
 
   static const String categoryFormScreen = "/categoryFormScreen";
   static const String inspectionDetailScreen = "/inspectionDetailScreen";
+  static const String reportView = "/reportView";
 }
 
 List<GetPage> appPages() => [
@@ -189,6 +192,15 @@ List<GetPage> appPages() => [
         name: Routes.inspectionDetailScreen,
         page: () => const InspectionDetailScreen(),
         binding: InspectionDetailBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.reportView,
+        page: () => const ReportView(),
+        binding: ReportViewBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

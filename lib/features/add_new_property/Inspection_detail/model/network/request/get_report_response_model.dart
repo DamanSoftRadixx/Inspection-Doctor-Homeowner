@@ -34,20 +34,24 @@ class GetReportResponseModel {
 class GetReportResponseModelData {
   GetReportResponseModelData({
     this.reportUrl,
+    this.reportImages,
     this.reportType,
     this.reportEmail,
     this.reportDescription,
   });
 
   GetReportResponseModelData.fromJson(dynamic json) {
-    reportUrl =
-        json['report_url'] != null ? json['report_url'].cast<String>() : [];
+    reportUrl = json['report_url'];
+    reportImages = json['report_images'] != null
+        ? json['report_images'].cast<String>()
+        : [];
     reportType = json['report_type'];
     reportEmail =
         json['report_email'] != null ? json['report_email'].cast<String>() : [];
     reportDescription = json['report_description'];
   }
-  List<String>? reportUrl;
+  String? reportUrl;
+  List<String>? reportImages;
   String? reportType;
   List<String>? reportEmail;
   String? reportDescription;
@@ -55,6 +59,7 @@ class GetReportResponseModelData {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['report_url'] = reportUrl;
+    map['report_images'] = reportImages;
     map['report_type'] = reportType;
     map['report_email'] = reportEmail;
     map['report_description'] = reportDescription;
