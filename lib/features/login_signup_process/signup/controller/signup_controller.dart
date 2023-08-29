@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/chage_language.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/address_search.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
@@ -99,6 +100,8 @@ class SignupController extends GetxController {
     selectedBaseMaterialDropDown.value = value;
     await Prefs.write(
         Prefs.selectedLangId, selectedBaseMaterialDropDown.value.id);
+
+    changeLanguage();
   }
 
   addFocusListeners() {
@@ -571,7 +574,7 @@ class SignupController extends GetxController {
   Rx<ScrollController> scrollController = ScrollController().obs;
 
   showAddressList({required String value}) async {
-    if (value.trim().length < 1) {
+    if (value.trim().isEmpty) {
       predictionsList.value = [];
       predictionsList.refresh();
     } else {

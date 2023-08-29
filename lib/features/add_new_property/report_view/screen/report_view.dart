@@ -28,9 +28,9 @@ class ReportView extends GetView<ReportViewController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           showDocumentView().paddingOnly(bottom: 20.h),
-
-          (controller.reportData.value.reportImages?.length??0)>0?
-          showImageView().paddingOnly(bottom: 20.h) :SizedBox(),
+          (controller.reportData.value.reportImages?.length ?? 0) > 0
+              ? showImageView().paddingOnly(bottom: 20.h)
+              : SizedBox(),
           showDescription()
         ],
       ).paddingSymmetric(horizontal: 20.w, vertical: 20.h),
@@ -95,7 +95,8 @@ class ReportView extends GetView<ReportViewController> {
                 style: CustomTextTheme.normalText(
                   color: lightColorPalette.black,
                 ),
-                text: "${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length??0)-2]}.${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length??0)-1]}",
+                text:
+                    "${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 2]}.${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 1]}",
                 textAlign: TextAlign.center,
               ),
             ),

@@ -5,6 +5,7 @@ import 'package:device_uuid/device_uuid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/chage_language.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
@@ -64,6 +65,8 @@ class LoginController extends GetxController {
     selectedBaseMaterialDropDown.value = value;
     await Prefs.write(
         Prefs.selectedLangId, selectedBaseMaterialDropDown.value.id);
+
+    changeLanguage();
   }
 
   @override

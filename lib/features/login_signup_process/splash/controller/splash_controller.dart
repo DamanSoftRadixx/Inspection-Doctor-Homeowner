@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/chage_language.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
@@ -13,6 +14,7 @@ class SplashController extends GetxController {
   SplashProvider splashProvider = SplashProvider();
   @override
   void onInit() {
+    changeLanguage();
     getRole();
     navigateToNext();
     super.onInit();
