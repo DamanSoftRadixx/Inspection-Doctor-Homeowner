@@ -341,7 +341,7 @@ class SignupScreen extends GetView<SignupController> {
       focusNode: controller.address1FocusNode.value,
 
       inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9]"), allow: true),
+        FilteringTextInputFormatter(RegExp("[a-zA-Z0-9 " "]"), allow: true),
       ],
       textCapitalization: TextCapitalization.sentences,
       // focusNode: controller.streetFocusNode.value,
