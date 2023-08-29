@@ -1,7 +1,7 @@
 class EndPoints {
   // static const String baseUrl = "http://api.cidusa.net/";
-  // static const String baseUrl = "https://api-stage.cidusa.net/";
-  static const String baseUrl = "https://api-dev.cidusa.net/";
+  static const String baseUrl = "https://api-stage.cidusa.net/";
+  // static const String baseUrl = "https://api-dev.cidusa.net/";
 
   static const String register = "auth/signup";
   static const String login = "auth/login";
