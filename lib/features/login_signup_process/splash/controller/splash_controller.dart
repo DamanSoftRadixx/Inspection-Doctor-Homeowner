@@ -52,16 +52,20 @@ class SplashController extends GetxController {
   }
 
   getRole() async {
-    GetRolesResponse response =
-        await splashProvider.getRoles() ?? GetRolesResponse();
+    try{
+      GetRolesResponse response =
+          await splashProvider.getRoles() ?? GetRolesResponse();
 
-    if (response.success == true &&
-        (response.status == 201 || response.status == 200)) {
-      response.data?.roles?.map((e) {
-        if (e.name == RoleTypeEnum.homeowner.value) {
-          Prefs.write(Prefs.homeownerRollId, e.id);
-        }
-      }).toList();
+      if (response.success == true &&
+          (response.status == 201 || response.status == 200)) {
+        response.data?.roles?.map((e) {
+          if (e.name == RoleTypeEnum.homeowner.value) {
+            Prefs.write(Prefs.homeownerRollId, e.id);
+          }
+        }).toList();
+      }
+    }catch(e){
+
     }
   }
 }

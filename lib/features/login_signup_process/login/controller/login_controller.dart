@@ -442,38 +442,43 @@ class LoginController extends GetxController {
 
   getLanguage() async {
     isShowLoader.value = true;
-    GetLangaugeResponseModel response =
-        await loginProvider.getLanguages() ?? GetLangaugeResponseModel();
-    languageList.clear();
-    isShowLoader.value = false;
+    try{
+      GetLangaugeResponseModel response =
+          await loginProvider.getLanguages() ?? GetLangaugeResponseModel();
+      languageList.clear();
+      isShowLoader.value = false;
 
-    if (response.success == true && response.data?.languages != []) {
-      response.data?.languages
-          ?.map((e) => languageList.add(DropdownModel(
-                id: e.id ?? "",
-                name: e.name ?? "",
-                icon: e.name == "English"
-                    ? ImageResource.flagUSA
-                    : e.name == "Spanish"
-                        ? ImageResource.flagSpain
-                        : "",
-              )))
-          .toList();
-      String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+      if (response.success == true && response.data?.languages != []) {
+        response.data?.languages
+            ?.map((e) => languageList.add(DropdownModel(
+          id: e.id ?? "",
+          name: e.name ?? "",
+          icon: e.name == "English"
+              ? ImageResource.flagUSA
+              : e.name == "Spanish"
+              ? ImageResource.flagSpain
+              : "",
+        )))
+            .toList();
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
-      if (selectedLangId != "") {
-        int index =
-            languageList.indexWhere((element) => element.id == selectedLangId);
-        selectedBaseMaterialDropDown.value = languageList[index];
+        if (selectedLangId != "") {
+          int index =
+          languageList.indexWhere((element) => element.id == selectedLangId);
+          selectedBaseMaterialDropDown.value = languageList[index];
+        }
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
       }
-    } else {
-      setShowLoader(value: false);
-      apiErrorDialog(
-        message: response.message ?? AppStrings.somethingWentWrong.tr,
-        okButtonPressed: () {
-          Get.back();
-        },
-      );
+    }catch(e){
+      isShowLoader.value = false;
+      isShowLoader.refresh();
     }
   }
 }
