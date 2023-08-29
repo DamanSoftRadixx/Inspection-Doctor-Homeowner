@@ -825,18 +825,18 @@ Widget multiDropdownField(
             children: [
               AppTextWidget(
                 style:
-                CustomTextTheme.normalText(color: lightColorPalette.black),
+                    CustomTextTheme.normalText(color: lightColorPalette.black),
                 text: title,
                 textAlign: TextAlign.center,
               ),
               isShowStar == true
                   ? AppTextWidget(
-                style: CustomTextTheme.normalText(
-                  color: lightColorPalette.redDark,
-                ),
-                text: "*",
-                textAlign: TextAlign.center,
-              )
+                      style: CustomTextTheme.normalText(
+                        color: lightColorPalette.redDark,
+                      ),
+                      text: "*",
+                      textAlign: TextAlign.center,
+                    )
                   : const SizedBox()
             ],
           ),
@@ -948,19 +948,34 @@ Widget multiDropdownField(
                   child: StatefulBuilder(
                     builder: (context, menuSetState) {
                       final isSelected = selectedItems.contains(item);
+
                       return InkWell(
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () {
-                          isSelected
-                              ? selectedItems.remove(item)
-                              : selectedItems.add(item);
-                          //This rebuilds the StatefulWidget to update the button's text
+                          //All day selected
+                          if (list.first == item) {
+                            selectedItems.clear();
+                            isSelected
+                                ? selectedItems.remove(item)
+                                : selectedItems.add(item);
+                            menuSetState(() {});
+                            //if All day selected and remove All day and add another time.
+                          } else if (selectedItems.contains(list.first)) {
+                            selectedItems.clear();
 
-                          //This rebuilds the dropdownMenu Widget to update the check mark
-                          menuSetState(() {});
+                            isSelected
+                                ? selectedItems.remove(item)
+                                : selectedItems.add(item);
+                            menuSetState(() {});
+                          } else {
+                            isSelected
+                                ? selectedItems.remove(item)
+                                : selectedItems.add(item);
+                            menuSetState(() {});
+                          }
                         },
                         child: Row(
                           children: [
@@ -993,14 +1008,7 @@ Widget multiDropdownField(
                 );
               }).toList(),
 
-              //  multiSelection(
-              //     items: list,
-              //     selectedValue: selectedValue,
-              //     selectedItems: selectedItems),
-              onChanged: (DropdownModel? value) {
-                // log("message");
-                // onClick(value!);
-              },
+              onChanged: (DropdownModel? value) {},
             ),
           )),
       Visibility(
@@ -1103,7 +1111,8 @@ Widget commonDatePicker(
     FocusNode? focusNode,
     String? errorMsg,
     bool? isError,
-    String? hint, bool? isShowStar = false,
+    String? hint,
+    bool? isShowStar = false,
     required dynamic Function(DateTime) onPicked,
     String? selectedDate}) {
   return GestureDetector(
@@ -1114,25 +1123,25 @@ Widget commonDatePicker(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null && title != "")
+        if (title != "")
           Padding(
             padding: EdgeInsets.only(bottom: 3.h),
             child: Row(
               children: [
                 AppTextWidget(
-                  style:
-                  CustomTextTheme.normalText(color: lightColorPalette.black),
+                  style: CustomTextTheme.normalText(
+                      color: lightColorPalette.black),
                   text: title,
                   textAlign: TextAlign.center,
                 ),
                 isShowStar == true
                     ? AppTextWidget(
-                  style: CustomTextTheme.normalText(
-                    color: lightColorPalette.redDark,
-                  ),
-                  text: "*",
-                  textAlign: TextAlign.center,
-                )
+                        style: CustomTextTheme.normalText(
+                          color: lightColorPalette.redDark,
+                        ),
+                        text: "*",
+                        textAlign: TextAlign.center,
+                      )
                     : const SizedBox()
               ],
             ),

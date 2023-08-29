@@ -15,4 +15,3 @@ changeLanguage() async {
     Get.updateLocale(locale);
   }
 }
-

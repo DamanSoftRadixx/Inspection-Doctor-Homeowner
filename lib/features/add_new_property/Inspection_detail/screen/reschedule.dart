@@ -205,9 +205,11 @@ extension RescheduleFormExtension on InspectionDetailScreen {
         commonDatePicker(
                 title: AppStrings.date,
                 onPicked: (DateTime value) {
-                  controller.selectedDate.value =
-                      getDateFormatedFromDateTime(date: value);
-                  controller.selectedDate.refresh();
+                  if (value != "") {
+                    controller.selectedDate.value =
+                        getDateFormatedFromDateTime(date: value);
+                    controller.selectedDate.refresh();
+                  }
                 },
                 selectedDate: controller.selectedDate.value.toString())
             .paddingOnly(bottom: 11.h),

@@ -69,14 +69,51 @@ String getDateFormatedFromDateTime({
   return formattedDate;
 }
 
+// String getDateFormattedFromString({
+//   required String dateString,
+//   String? newPattern,
+// }) {
+//   String result = "";
+//   if (date != "") {
+//     if (date.contains("/")) {
+//       String year = date.split("/").last;
+//       String month = date.split("/")[1];
+//       String day = date.split("/").first;
+
+//       DateTime tempDate = DateFormat("yyyy-MM-dd").parse("$year-$month-$day");
+
+//       result = DateFormat(newPattern ?? 'dd MMMM yyyy').format(tempDate);
+//     } else {
+//       DateTime temp = parseDated(text: date) ?? DateTime.now();
+//       result = DateFormat(newPattern ?? 'dd MMMM yyyy').format(temp);
+//     }
+//   }
+
+//   return result;
+// }
+
 String getDateFormattedFromString({
-  required String date,
-  String? newPattern,
+  required String dateString,
+  String? inputFormat,
 }) {
-  DateTime result = parseDated(text: date) ?? DateTime.now();
-  String formattedDate =
-      DateFormat(newPattern ?? 'dd MMMM yyyy').format(result);
-  return formattedDate;
+  String result = "";
+  if (dateString != "") {
+    if (dateString.contains("/")) {
+      String year = dateString.split("/").last;
+      String month = dateString.split("/")[1];
+      String day = dateString.split("/").first;
+
+      DateTime tempDate = DateFormat("yyyy-MM-dd").parse("$year-$month-$day");
+
+      result = DateFormat(inputFormat ?? 'dd MMMM yyyy').format(tempDate);
+    } else {
+      var temp = DateFormat("yyyy-MM-dd").parse(dateString);
+
+      result = DateFormat('dd MMMM yyyy').format(temp);
+    }
+  }
+
+  return result;
 }
 
 DateTime? parseDated({required String text}) {

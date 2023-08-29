@@ -8,7 +8,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/pdf_v
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/report_view/controller/report_view_controller.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -30,7 +29,7 @@ class ReportView extends GetView<ReportViewController> {
           showDocumentView().paddingOnly(bottom: 20.h),
           (controller.reportData.value.reportImages?.length ?? 0) > 0
               ? showImageView().paddingOnly(bottom: 20.h)
-              : SizedBox(),
+              : const SizedBox(),
           showDescription()
         ],
       ).paddingSymmetric(horizontal: 20.w, vertical: 20.h),
@@ -159,14 +158,14 @@ class ReportView extends GetView<ReportViewController> {
                 fit: BoxFit.contain,
               ),
               allowRotation: false,
-              tag: 'tesr',
+              tag: imageList[index],
               useHeroAnimation: true,
             ),
           ),
         );
       },
       child: Hero(
-        tag: 'tesr',
+        tag: imageList[index],
         transitionOnUserGestures: true,
         child: Container(
           height: 102.h,

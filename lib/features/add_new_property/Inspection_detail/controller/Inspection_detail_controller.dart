@@ -254,7 +254,7 @@ class InspectionDetailController extends GetxController {
 
       if (historyStatusId == InspectionHistoryStatusEnum.newInspection.value) {
         var inspectionDate =
-            getDateFormattedFromString(date: historyData.date ?? "");
+            getDateFormattedFromString(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -272,7 +272,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectionAcccepted.value) {
         var inspectionDate =
-            getDateFormattedFromString(date: historyData.date ?? "");
+            getDateFormattedFromString(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -289,7 +289,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value) {
         var inspectionDate =
-            getDateFormattedFromString(date: historyData.date ?? "");
+            getDateFormattedFromString(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -326,7 +326,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value) {
         var inspectionDate =
-            getDateFormattedFromString(date: historyData.date ?? "");
+            getDateFormattedFromString(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -434,7 +434,8 @@ class InspectionDetailController extends GetxController {
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
     selectedDate.value = getDateFormattedFromString(
-        date: firstHistoryItemDetail.date ?? "", newPattern: "dd/MM/yyyy");
+        dateString: firstHistoryItemDetail.date ?? "",
+        inputFormat: "dd/MM/yyyy");
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];
@@ -505,7 +506,7 @@ class InspectionDetailController extends GetxController {
       inspectionRescheduleRequestModel.description =
           descriptionController.value.text;
       inspectionRescheduleRequestModel.date = getDateFormattedFromString(
-          date: selectedDate.value, newPattern: "yyyy-MM-dd");
+          dateString: selectedDate.value, inputFormat: "yyyy-MM-dd");
       inspectionRescheduleRequestModel.countryCode = selectedCountryCode.value;
 
       inspectionRescheduleRequestModel.time = utcDateTimeList;
@@ -608,7 +609,6 @@ class InspectionDetailController extends GetxController {
   }
 
   void onPressViewReportButton({required String propertyId}) async {
-
     setShowLoader(value: true);
 
     try {

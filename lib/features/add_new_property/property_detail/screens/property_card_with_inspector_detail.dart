@@ -92,8 +92,10 @@ extension PropertyCard on PropertyDetailScreen {
                       style: CustomTextTheme.normalText(
                           color: lightColorPalette.grey),
                       text: getDateFormattedFromString(
-                          date: listData.propertyInspectionSchedulesHistory
-                                  ?.first.acceptedInspectionDate ??
+                          dateString: listData
+                                  .propertyInspectionSchedulesHistory
+                                  ?.first
+                                  .acceptedInspectionDate ??
                               ""),
                     ),
                   ],

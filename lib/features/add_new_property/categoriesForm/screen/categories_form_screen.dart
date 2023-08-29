@@ -27,14 +27,14 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
             Get.back();
           }),
       body: Obx(() => InkWell(
-        focusColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: (){
-          dismissKeyboard();
-        },
-        child: SafeArea(
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () {
+              dismissKeyboard();
+            },
+            child: SafeArea(
               child: Stack(
                 children: [
                   Column(
@@ -64,7 +64,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                 ],
               ),
             ),
-      )),
+          )),
     );
   }
 
@@ -96,16 +96,19 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                 title: AppStrings.date,
                 isShowStar: true,
                 onPicked: (DateTime value) {
-                  controller.selectedDate.value =
-                      getDateFormatedFromDateTime(date: value);
+                  if (value != "") {
+                    controller.selectedDate.value =
+                        getDateFormatedFromDateTime(date: value);
+                    controller.selectedDate.refresh();
+                  }
                 },
                 selectedDate: controller.selectedDate.value.toString())
             .paddingOnly(bottom: 11.h),
         multiDropdownField(
                 hint: AppStrings.time.tr,
                 title: AppStrings.time.tr,
-            isShowStar: true,
-            selectedValue: controller.selectTime.value,
+                isShowStar: true,
+                selectedValue: controller.selectTime.value,
                 onClick: (DropdownModel value) {
                   controller.onSelectTimeDropdown(value: value);
                 },

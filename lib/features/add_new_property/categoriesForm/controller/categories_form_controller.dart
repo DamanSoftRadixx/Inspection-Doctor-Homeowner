@@ -222,13 +222,46 @@ class CategoryFormController extends GetxController {
     List<TimeModel> utcDateTimeList = [];
 
     if (selectedTime.isNotEmpty) {
-      selectedTime.map((e) {
-        utcDateTimeList.add(TimeModel(
-            starttime:
-                getUtcDateString(date: selectedDate.value, time: e.startTime),
-            endtime:
-                getUtcDateString(date: selectedDate.value, time: e.endTime)));
-      }).toList();
+      //If all days selected
+      if (selectedTime.length == 1 && selectedTime.first == timeList.first) {
+        selectedTime.clear();
+        selectedTime.add(timeList[1]);
+        selectedTime.add(timeList[2]);
+        selectedTime.add(timeList[3]);
+
+        selectedTime.map((e) {
+          if (e == timeList.first) {
+            utcDateTimeList.add(TimeModel(
+                starttime: getUtcDateString(
+                    date: selectedDate.value, time: e.startTime),
+                endtime: getUtcDateString(
+                    date: selectedDate.value, time: e.endTime)));
+          }
+
+          utcDateTimeList.add(TimeModel(
+              starttime:
+                  getUtcDateString(date: selectedDate.value, time: e.startTime),
+              endtime:
+                  getUtcDateString(date: selectedDate.value, time: e.endTime)));
+        }).toList();
+      } else {
+        //If all days  not selected
+        selectedTime.map((e) {
+          if (e == timeList.first) {
+            utcDateTimeList.add(TimeModel(
+                starttime: getUtcDateString(
+                    date: selectedDate.value, time: e.startTime),
+                endtime: getUtcDateString(
+                    date: selectedDate.value, time: e.endTime)));
+          }
+
+          utcDateTimeList.add(TimeModel(
+              starttime:
+                  getUtcDateString(date: selectedDate.value, time: e.startTime),
+              endtime:
+                  getUtcDateString(date: selectedDate.value, time: e.endTime)));
+        }).toList();
+      }
     }
 
     argData.value.firstName = firstNameController.value.text;
@@ -237,13 +270,14 @@ class CategoryFormController extends GetxController {
     argData.value.email = emailController.value.text;
     argData.value.phone = phoneNumberController.value.text;
     argData.value.date = getDateFormattedFromString(
-        date: selectedDate.value, newPattern: "yyyy-MM-dd");
+        dateString: selectedDate.value, inputFormat: "yyyy-MM-dd");
     argData.value.countryCode = selectedCountryCode.value;
     argData.value.time = utcDateTimeList;
     argData.value.description = descriptionController.value.text;
     argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
 
     var body = json.encode(argData.value);
+    log("message>>>>>> $body");
 
     try {
       CategoryListResponseModel response =

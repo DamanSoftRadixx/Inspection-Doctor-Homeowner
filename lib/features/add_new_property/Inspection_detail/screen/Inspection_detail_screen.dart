@@ -463,7 +463,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         AppTextWidget(
           style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: getDateFormattedFromString(
-              date: firstHistoryItemDetail.date ?? ""),
+              dateString: firstHistoryItemDetail.date ?? ""),
         ),
       ],
     );
