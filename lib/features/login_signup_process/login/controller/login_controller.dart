@@ -70,9 +70,16 @@ class LoginController extends GetxController {
     changeLanguage();
   }
 
+  setLangunage() async {
+    var temp = await Prefs.read(Prefs.selectedLangId);
+    int index = languageList.indexWhere((element) => element.id == temp);
+    selectedBaseMaterialDropDown.value = languageList[index];
+  }
+
   @override
   void onInit() {
     getLanguage();
+    setLangunage();
     addFocusListeners();
     super.onInit();
   }
@@ -442,7 +449,7 @@ class LoginController extends GetxController {
 
   getLanguage() async {
     isShowLoader.value = true;
-    try{
+    try {
       GetLangaugeResponseModel response =
           await loginProvider.getLanguages() ?? GetLangaugeResponseModel();
       languageList.clear();
@@ -451,20 +458,20 @@ class LoginController extends GetxController {
       if (response.success == true && response.data?.languages != []) {
         response.data?.languages
             ?.map((e) => languageList.add(DropdownModel(
-          id: e.id ?? "",
-          name: e.name ?? "",
-          icon: e.name == "English"
-              ? ImageResource.flagUSA
-              : e.name == "Spanish"
-              ? ImageResource.flagSpain
-              : "",
-        )))
+                  id: e.id ?? "",
+                  name: e.name ?? "",
+                  icon: e.name == "English"
+                      ? ImageResource.flagUSA
+                      : e.name == "Spanish"
+                          ? ImageResource.flagSpain
+                          : "",
+                )))
             .toList();
         String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
         if (selectedLangId != "") {
-          int index =
-          languageList.indexWhere((element) => element.id == selectedLangId);
+          int index = languageList
+              .indexWhere((element) => element.id == selectedLangId);
           selectedBaseMaterialDropDown.value = languageList[index];
         }
       } else {
@@ -476,7 +483,7 @@ class LoginController extends GetxController {
           },
         );
       }
-    }catch(e){
+    } catch (e) {
       isShowLoader.value = false;
       isShowLoader.refresh();
     }

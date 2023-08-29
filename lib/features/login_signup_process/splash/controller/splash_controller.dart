@@ -14,10 +14,23 @@ class SplashController extends GetxController {
   SplashProvider splashProvider = SplashProvider();
   @override
   void onInit() {
-    changeLanguage();
+    // changeLanguage();
+    setDefaltLanguange();
     getRole();
     navigateToNext();
     super.onInit();
+  }
+
+  setDefaltLanguange() async {
+    var temp = await Prefs.read(Prefs.selectedLangId);
+
+    if (temp == null) {
+      await Prefs.write(Prefs.selectedLangId, LanguageEnum.english.langunageId);
+
+      changeLanguage();
+    } else {
+      changeLanguage();
+    }
   }
 
   Future navigateToNext() async {
@@ -52,7 +65,7 @@ class SplashController extends GetxController {
   }
 
   getRole() async {
-    try{
+    try {
       GetRolesResponse response =
           await splashProvider.getRoles() ?? GetRolesResponse();
 
@@ -64,8 +77,6 @@ class SplashController extends GetxController {
           }
         }).toList();
       }
-    }catch(e){
-
-    }
+    } catch (e) {}
   }
 }
