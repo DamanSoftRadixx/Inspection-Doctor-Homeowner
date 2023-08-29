@@ -93,7 +93,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
     return Column(
       children: [
         commonDatePicker(
-                title: AppStrings.date,
+                title: AppStrings.date.tr,
                 isShowStar: true,
                 onPicked: (DateTime value) {
                   if (value != "") {

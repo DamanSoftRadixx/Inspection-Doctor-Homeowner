@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
@@ -287,7 +288,7 @@ class CategoryFormController extends GetxController {
       if (response.success == true &&
           (response.status == 200 || response.status == 201)) {
         showCommonAlertSingleButtonDialog(
-            title: AppStrings.alert,
+            title: AppStrings.alert.tr,
             subHeader: response.message ?? "",
             okPressed: () {
               Get.until((route) =>
@@ -295,10 +296,10 @@ class CategoryFormController extends GetxController {
                       ? true
                       : false);
             },
-            buttonTitle: AppStrings.ok);
+            buttonTitle: AppStrings.ok.tr);
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -362,34 +363,34 @@ class CategoryFormController extends GetxController {
 
       lastNameError.value = true;
 
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
     } else if (firstName.length < 2) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameMatch;
+      firstNameErrorMessage.value = ErrorMessages.firstNameMatch.tr;
     } else if (lastName.isEmpty) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
     } else if (lastName.length < 2) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameMatch;
+      lastNameErrorMessage.value = ErrorMessages.lastNameMatch.tr;
     } else if (email.isEmpty) {
       emailError.value = true;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
     } else if (!email.isEmail) {
-      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid.tr;
       emailError.value = true;
     } else if (phone.isEmpty) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
     } else if (phone.length < 7) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneValid;
+      phoneErrorMessage.value = ErrorMessages.phoneValid.tr;
     } else {
       firstNameError.value = false;
       lastNameError.value = false;

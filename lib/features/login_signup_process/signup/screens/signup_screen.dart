@@ -200,7 +200,7 @@ class SignupScreen extends GetView<SignupController> {
         Center(
           child: AppTextWidget(
             textAlign: TextAlign.center,
-            text: AppStrings.fillDetail,
+            text: AppStrings.fillDetail.tr,
             style: CustomTextTheme.normalText(
               color: lightColorPalette.grey,
             ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -75,7 +76,7 @@ class SelectedCategoriesController extends GetxController {
         categoriesList.value = response.data ?? [];
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

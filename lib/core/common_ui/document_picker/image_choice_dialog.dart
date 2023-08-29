@@ -33,7 +33,7 @@ class ImagePickerUtils {
                         isCircular: false)
                     .paddingOnly(top: 10.h, bottom: 27.h),
                 AppTextWidget(
-                    text: AppStrings.uploadPhoto,
+                    text: AppStrings.uploadPhoto.tr,
                     style: CustomTextTheme.heading2(
                         color: lightColorPalette.black)),
                 CommonButton(
@@ -71,7 +71,7 @@ class ImagePickerUtils {
                   child: AppTextWidget(
                           style: CustomTextTheme.normalTextWithWeight600(
                               color: lightColorPalette.grey),
-                          text: AppStrings.close)
+                          text: AppStrings.close.tr)
                       .paddingOnly(top: 22.5.h, bottom: 41.5.h),
                 )
               ]).paddingSymmetric(horizontal: 20.w))

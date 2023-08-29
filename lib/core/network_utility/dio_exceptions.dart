@@ -22,7 +22,7 @@ class DioExceptions implements Exception {
         break;
       case dio.DioExceptionType.connectionTimeout:
         apiErrorDialog(
-          message: AppStrings.connectionTimeOut,
+          message: AppStrings.connectionTimeOut.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -30,7 +30,7 @@ class DioExceptions implements Exception {
         break;
       case dio.DioExceptionType.receiveTimeout:
         apiErrorDialog(
-          message: AppStrings.connectionTimeOut,
+          message: AppStrings.connectionTimeOut.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -38,7 +38,7 @@ class DioExceptions implements Exception {
         break;
       case dio.DioExceptionType.connectionError:
         apiErrorDialog(
-          message: AppStrings.connectionTimeOut,
+          message: AppStrings.connectionTimeOut.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -52,7 +52,7 @@ class DioExceptions implements Exception {
 
         var statusCode = response?.statusCode ?? 0;
         var statusMessage =
-            response?.statusMessage ?? AppStrings.strSometingWentWrong;
+            response?.statusMessage ?? AppStrings.strSometingWentWrong.tr;
 
         if (statusCode == 413) {
           apiErrorDialog(
@@ -77,7 +77,7 @@ class DioExceptions implements Exception {
             logoutFunctionality();
           } else {
             apiErrorDialog(
-              message: message ?? AppStrings.strSometingWentWrong,
+              message: message ?? AppStrings.strSometingWentWrong.tr,
               okButtonPressed: () {
                 Get.back();
               },
@@ -89,7 +89,7 @@ class DioExceptions implements Exception {
 
       case dio.DioExceptionType.sendTimeout:
         apiErrorDialog(
-          message: AppStrings.connectionTimeOut,
+          message: AppStrings.connectionTimeOut.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -97,7 +97,7 @@ class DioExceptions implements Exception {
         break;
       case dio.DioExceptionType.unknown:
         apiErrorDialog(
-          message: AppStrings.strSometingWentWrong,
+          message: AppStrings.strSometingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -106,7 +106,7 @@ class DioExceptions implements Exception {
 
       default:
         apiErrorDialog(
-          message: AppStrings.strSometingWentWrong,
+          message: AppStrings.strSometingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -119,7 +119,7 @@ class DioExceptions implements Exception {
 apiErrorDialog(
     {String? title, required String message, Function()? okButtonPressed}) {
   showCommonAlertSingleButtonDialog(
-      title: title ?? AppStrings.strError,
+      title: title ?? AppStrings.strError.tr,
       subHeader: message,
       okPressed: () {
         (okButtonPressed != null) ? okButtonPressed() : Get.back();

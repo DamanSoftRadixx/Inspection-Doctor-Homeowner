@@ -13,6 +13,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/location/m
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
@@ -278,20 +279,20 @@ class AddPropertyController extends GetxController {
       blockNumberError.value = true;
       countyError.value = true;
       documentError.value = true;
-      propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
-      propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
+      propertyNameErrorMessage.value = ErrorMessages.propertyEmty.tr;
+      propertyNameErrorMessage.value = ErrorMessages.propertyEmty.tr;
       // streetErrorMessage.value = ErrorMessages.streetEmty;
-      cityErrorMessage.value = ErrorMessages.cityEmty;
-      zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
+      cityErrorMessage.value = ErrorMessages.cityEmty.tr;
+      zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty.tr;
       // permitNumberErrorMessage.value = ErrorMessages.permitEmty;
-      lotNumberErrorMessage.value = ErrorMessages.lotEmty;
-      blockNumberErrorMessage.value = ErrorMessages.blockEmty;
-      stateErrorMessage.value = ErrorMessages.stateEmty;
-      countyErrorMessage.value = ErrorMessages.countyEmty;
-      documentErrorMessage.value = ErrorMessages.docEmty;
+      lotNumberErrorMessage.value = ErrorMessages.lotEmty.tr;
+      blockNumberErrorMessage.value = ErrorMessages.blockEmty.tr;
+      stateErrorMessage.value = ErrorMessages.stateEmty.tr;
+      countyErrorMessage.value = ErrorMessages.countyEmty.tr;
+      documentErrorMessage.value = ErrorMessages.docEmty.tr;
     } else if (perpertyName.isEmpty) {
       propertyNameError.value = true;
-      propertyNameErrorMessage.value = ErrorMessages.propertyEmty;
+      propertyNameErrorMessage.value = ErrorMessages.propertyEmty.tr;
     }
     // else if (street.isEmpty) {
     //   streetError.value = true;
@@ -300,13 +301,13 @@ class AddPropertyController extends GetxController {
 
     else if (city.isEmpty) {
       cityError.value = true;
-      cityErrorMessage.value = ErrorMessages.cityEmty;
+      cityErrorMessage.value = ErrorMessages.cityEmty.tr;
     } else if (state.isEmpty) {
       stateError.value = true;
-      stateErrorMessage.value = ErrorMessages.stateEmty;
+      stateErrorMessage.value = ErrorMessages.stateEmty.tr;
     } else if (zipCode.isEmpty) {
       zipCodeError.value = true;
-      zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty;
+      zipCodeErrorMessage.value = ErrorMessages.zipCodeEmty.tr;
     }
     //  else if (permitNumber.isEmpty) {
     //   permitNumberError.value = true;
@@ -315,16 +316,16 @@ class AddPropertyController extends GetxController {
 
     else if (lotNumber.isEmpty) {
       lotNumberError.value = true;
-      lotNumberErrorMessage.value = ErrorMessages.lotEmty;
+      lotNumberErrorMessage.value = ErrorMessages.lotEmty.tr;
     } else if (blockNumber.isEmpty) {
       blockNumberError.value = true;
-      blockNumberErrorMessage.value = ErrorMessages.blockEmty;
+      blockNumberErrorMessage.value = ErrorMessages.blockEmty.tr;
     } else if (county.isEmpty) {
       countyError.value = true;
-      countyErrorMessage.value = ErrorMessages.countyEmty;
+      countyErrorMessage.value = ErrorMessages.countyEmty.tr;
     } else if (docment.isEmpty) {
       documentError.value = true;
-      documentErrorMessage.value = ErrorMessages.docEmty;
+      documentErrorMessage.value = ErrorMessages.docEmty.tr;
     } else {
       propertyNameError.value = false;
       // streetError.value = false;
@@ -567,7 +568,7 @@ class AddPropertyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -603,7 +604,7 @@ class AddPropertyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -674,7 +675,7 @@ class AddPropertyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -742,7 +743,7 @@ class AddPropertyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -825,7 +826,7 @@ class AddPropertyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

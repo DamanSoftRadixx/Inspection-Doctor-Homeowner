@@ -280,10 +280,10 @@ Future<bool> checkForLocationPermissions() async {
 
 goToSettingDialog() async {
   return await showCommonAlertWithTwoActionsDialog(
-      title: AppStrings.permissionDenied,
-      leftButtonTitle: AppStrings.cancel,
-      rightButtonTitle: AppStrings.openSettings,
-      subHeader: AppStrings.accessWasPreviouslyDenied,
+      title: AppStrings.permissionDenied.tr,
+      leftButtonTitle: AppStrings.cancel.tr,
+      rightButtonTitle: AppStrings.openSettings.tr,
+      subHeader: AppStrings.accessWasPreviouslyDenied.tr,
       noPressed: () {
         Get.back();
       },

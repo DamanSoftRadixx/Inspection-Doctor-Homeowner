@@ -62,20 +62,20 @@ class ResetPasswordController extends GetxController {
     if (password.isEmpty && confirmPassword.isEmpty) {
       passwordError.value = true;
       confirmPasswordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
     } else if (password.isEmpty) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
     } else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordLength;
+      passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
     } else if (confirmPassword.isEmpty) {
       confirmPasswordError.value = true;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
     } else if (password != confirmPassword) {
       confirmPasswordError.value = true;
-      confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches;
+      confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches.tr;
     } else {
       passwordError.value = false;
       confirmPasswordError.value = false;
@@ -106,7 +106,7 @@ class ResetPasswordController extends GetxController {
             route.settings.name == Routes.loginScreen ? true : false);
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

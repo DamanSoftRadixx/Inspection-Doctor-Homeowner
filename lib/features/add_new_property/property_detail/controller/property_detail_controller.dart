@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -123,10 +124,10 @@ class PropertyDetailController extends GetxController {
 
   void onTapDeleteButton() async {
     await showCommonAlertWithTwoActionsDialog(
-        title: AppStrings.alert,
-        leftButtonTitle: AppStrings.no,
-        rightButtonTitle: AppStrings.yes,
-        subHeader: AppStrings.areYouWantDelete,
+        title: AppStrings.alert.tr,
+        leftButtonTitle: AppStrings.no.tr,
+        rightButtonTitle: AppStrings.yes.tr,
+        subHeader: AppStrings.areYouWantDelete.tr,
         noPressed: () {
           Get.back();
         },
@@ -150,16 +151,16 @@ class PropertyDetailController extends GetxController {
         ]);
         Future.delayed(const Duration(milliseconds: 200), () {
           showCommonAlertSingleButtonDialog(
-              title: AppStrings.alert,
+              title: AppStrings.alert.tr,
               subHeader: response.message ?? "",
               okPressed: () {
                 Get.back();
               },
-              buttonTitle: AppStrings.ok);
+              buttonTitle: AppStrings.ok.tr);
         });
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -234,7 +235,7 @@ class PropertyDetailController extends GetxController {
 
         setShowSearchLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

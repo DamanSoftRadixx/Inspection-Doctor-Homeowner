@@ -45,7 +45,7 @@ class NoInternetConnectionScreen extends StatelessWidget {
               height: 30.h,
             ),
             AppTextWidget(
-              text: AppStrings.strNoInternetConnection,
+              text: AppStrings.strNoInternetConnection.tr,
               style: Theme.of(Get.context!).textTheme.displayLarge!.copyWith(
                   fontSize: 17.sp,
                   color: lightColorPalette.primarySwatch.shade900,
@@ -57,7 +57,7 @@ class NoInternetConnectionScreen extends StatelessWidget {
               height: 7.h,
             ),
             AppTextWidget(
-              text: AppStrings.strPleaseCheckYourInternetConnectivity,
+              text: AppStrings.strPleaseCheckYourInternetConnectivity.tr,
               style: Theme.of(Get.context!).textTheme.displayLarge!.copyWith(
                   fontSize: 12.sp,
                   color: lightColorPalette.primarySwatch.shade800,

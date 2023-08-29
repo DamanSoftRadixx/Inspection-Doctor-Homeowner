@@ -37,7 +37,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
   showMap() {
     return Obx(() => PlacePicker(
           searchingText: "Please wait ...",
-          selectText: AppStrings.selectAddress,
+          selectText: AppStrings.selectAddress.tr,
           // outsideOfPickAreaText: "Place not in area",
           useCurrentLocation: true,
           selectInitialPosition: true,
@@ -49,7 +49,7 @@ class ChooseMapScreen extends GetView<ChooseMapController> {
           automaticallyImplyAppBarLeading: false,
           autocompleteLanguage: "en",
           region: 'us',
-          hintText: AppStrings.searchAddress,
+          hintText: AppStrings.searchAddress.tr,
           apiKey: EndPoints.mapKey,
           initialPosition: controller.initialLocation.value,
           hidePlaceDetailsWhenDraggingPin: false,

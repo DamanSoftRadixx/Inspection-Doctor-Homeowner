@@ -167,7 +167,7 @@ extension PropertyCard on PropertyDetailScreen {
                   textAlign: TextAlign.left,
                   style:
                       CustomTextTheme.normalText(color: lightColorPalette.grey),
-                  text: AppStrings.inspector,
+                  text: AppStrings.inspector.tr,
                 ),
               ).paddingOnly(bottom: 10.h),
               Row(

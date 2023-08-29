@@ -380,7 +380,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
           controller.onChangedSearch();
         },
         focusNode: controller.searchFocusNode.value,
-        searchHint: AppStrings.searchCategoryAndInspection);
+        searchHint: AppStrings.searchCategoryAndInspection.tr);
   }
 
   Divider getDivider() {

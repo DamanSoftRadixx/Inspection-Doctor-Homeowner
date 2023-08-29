@@ -9,6 +9,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/chage_lang
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -124,20 +125,20 @@ class LoginController extends GetxController {
       emailError.value = true;
       passwordError.value = true;
 
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
     } else if (email.isEmpty) {
       emailError.value = true;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
     } else if (!email.isEmail) {
-      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid.tr;
       emailError.value = true;
     } else if (password.isEmpty) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
     } else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordLength;
+      passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
     } else {
       emailError.value = false;
       passwordError.value = false;
@@ -185,7 +186,7 @@ class LoginController extends GetxController {
         checkProfileStatus(response: response);
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -271,7 +272,7 @@ class LoginController extends GetxController {
             checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
-              message: response.message ?? AppStrings.somethingWentWrong,
+              message: response.message ?? AppStrings.somethingWentWrong.tr,
               okButtonPressed: () {
                 Get.back();
               },
@@ -356,7 +357,7 @@ class LoginController extends GetxController {
             checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
-              message: response.message ?? AppStrings.somethingWentWrong,
+              message: response.message ?? AppStrings.somethingWentWrong.tr,
               okButtonPressed: () {
                 Get.back();
               },
@@ -422,7 +423,7 @@ class LoginController extends GetxController {
             checkProfileStatus(response: response);
           } else {
             apiErrorDialog(
-              message: response.message ?? AppStrings.somethingWentWrong,
+              message: response.message ?? AppStrings.somethingWentWrong.tr,
               okButtonPressed: () {
                 Get.back();
               },
@@ -468,7 +469,7 @@ class LoginController extends GetxController {
     } else {
       setShowLoader(value: false);
       apiErrorDialog(
-        message: response.message ?? AppStrings.somethingWentWrong,
+        message: response.message ?? AppStrings.somethingWentWrong.tr,
         okButtonPressed: () {
           Get.back();
         },

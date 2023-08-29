@@ -93,7 +93,7 @@ class HomeScreen extends GetView<HomeController> {
         controller.onChangedSearch();
       },
       focusNode: controller.searchFocusNode.value,
-      searchHint: AppStrings.searchNameAddress,
+      searchHint: AppStrings.searchNameAddress.tr,
     );
   }
 

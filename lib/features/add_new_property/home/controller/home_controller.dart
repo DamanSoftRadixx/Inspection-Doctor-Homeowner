@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -179,7 +180,7 @@ class HomeController extends GetxController {
 
         setShowSearchLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

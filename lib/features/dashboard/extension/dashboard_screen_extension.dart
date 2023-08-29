@@ -147,13 +147,13 @@ extension DashboardScreenExtension on DashBoardScreen {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 CommonButton(
-                    commonButtonBottonText: AppStrings.logout,
+                    commonButtonBottonText: AppStrings.logout.tr,
                     onPress: () {
                       showCommonAlertWithTwoActionsDialog(
-                          title: AppStrings.alert,
-                          leftButtonTitle: AppStrings.no,
-                          rightButtonTitle: AppStrings.yes,
-                          subHeader: AppStrings.areYouWantLogout,
+                          title: AppStrings.alert.tr,
+                          leftButtonTitle: AppStrings.no.tr,
+                          rightButtonTitle: AppStrings.yes.tr,
+                          subHeader: AppStrings.areYouWantLogout.tr,
                           noPressed: () {
                             Get.back();
                           },

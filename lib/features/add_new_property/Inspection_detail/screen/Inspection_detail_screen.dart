@@ -87,7 +87,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                 alignment: Alignment.centerLeft,
                 child: AppTextWidget(
                   style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-                  text: AppStrings.trackYourInspection,
+                  text: AppStrings.trackYourInspection.tr,
                 ),
               ).paddingOnly(bottom: 20.h),
               controller.inspectionHistoryList.value.isNotEmpty == true
@@ -255,7 +255,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               children: [
                 AppTextWidget(
                   style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-                  text: AppStrings.description,
+                  text: AppStrings.description.tr,
                 ).paddingOnly(bottom: 5.h),
                 AppTextWidget(
                   style:
@@ -279,7 +279,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
           alignment: Alignment.centerLeft,
           child: AppTextWidget(
             style: CustomTextTheme.normalText(color: lightColorPalette.grey),
-            text: AppStrings.contactPerson,
+            text: AppStrings.contactPerson.tr,
           ),
         ).paddingOnly(bottom: 10.h),
         Row(
@@ -381,7 +381,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                 child: AppTextWidget(
                   style:
                       CustomTextTheme.normalText(color: lightColorPalette.grey),
-                  text: AppStrings.inspector,
+                  text: AppStrings.inspector.tr,
                 ),
               ).paddingOnly(bottom: 10.h),
               Row(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
@@ -215,7 +216,7 @@ class InspectionDetailController extends GetxController {
         createInspectionHistoryListFromResponse();
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -262,8 +263,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>You have requested <b>$categoryName inspection by <b>$inspectionDate <b>$timeSlotString.</span>",
-            title: AppStrings.inspectionRequested,
+                "<span>${AppStrings.youHaveRequested.tr} <b>$categoryName ${AppStrings.inspectionBy.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+            title: AppStrings.inspectionRequested.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
@@ -280,8 +281,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector $inspectorName is assigned and inspection is scheduled at <b>$inspectionDate <b>$timeSlotString.</span>",
-            title: AppStrings.inspectorAssigned,
+                "<span>${AppStrings.inspector.tr} $inspectorName ${AppStrings.isAssignedAndInspectionIsScheduledAt.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+            title: AppStrings.inspectorAssigned.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
@@ -297,8 +298,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>You have rescheduled the inspection at <b>$inspectionDate <b>$timeSlotString.</span>",
-            title: AppStrings.inspectionRescheduled,
+                "<span>${AppStrings.youHaveRescheduledTheInspectionAt.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+            title: AppStrings.inspectionRescheduled.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
@@ -308,8 +309,8 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "<span>You have canceled the inspection.</span>",
-            title: AppStrings.inspectionCanceled,
+            message: "<span>${AppStrings.youHaveCanceledTheinspection.tr}</span>",
+            title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData));
@@ -318,8 +319,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector <b>$inspectorName Canceled the inspection.</span>",
-            title: AppStrings.inspectionCanceled,
+                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.canceledTheInspection.tr}.</span>",
+            title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData));
@@ -334,8 +335,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "<span>Inspector <b>$inspectorName rescheduled the inspection at <b>$inspectionDate  <b>$timeSlotString.</span>",
-          title: AppStrings.inspectionRescheduled,
+              "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.rescheduledTheInspectionAt.tr} <b>$inspectionDate  <b>$timeSlotString.</span>",
+          title: AppStrings.inspectionRescheduled.tr,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
           historyResponse: historyData,
@@ -346,8 +347,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector <b>$inspectorName is on the way for inspection.</span>",
-            title: AppStrings.inspectorIsOnTheWay,
+                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.isOnTheWayForInspection.tr}.</span>",
+            title: AppStrings.inspectorIsOnTheWay.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData));
@@ -356,8 +357,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector <b>$inspectorName has started the inspection.</span>",
-            title: AppStrings.inspectionStarted,
+                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasStartedTheInspection.tr}.</span>",
+            title: AppStrings.inspectionStarted.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData));
@@ -366,8 +367,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "<span>Inspector <b>$inspectorName has completed the inspection and now wait for the report.</span>",
-          title: AppStrings.inspectionDone,
+              "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasCompletedTheInspctionAndNowWaitForTheReport.tr}.</span>",
+          title: AppStrings.inspectionDone.tr,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
           historyResponse: historyData,
@@ -377,8 +378,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector <b>$inspectorName has submitted the report. Correction is required, please view the report from here.</span>",
-            title: AppStrings.inspectionComplete,
+                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasSubmittedTheReportCorrectionIsRequired.tr}.</span>",
+            title: AppStrings.inspectionComplete.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
@@ -389,8 +390,8 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>Inspector <b>$inspectorName has submitted the report. Your inspection is approved. Please view the report from here.</span>",
-            title: AppStrings.correctionRequired,
+                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasSubmittedTheReportYourInspectionIsApproved.tr}.</span>",
+            title: AppStrings.correctionRequired.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
@@ -469,7 +470,7 @@ class InspectionDetailController extends GetxController {
         snackbar(response.message ?? "");
       } else {
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -549,43 +550,43 @@ class InspectionDetailController extends GetxController {
 
       lastNameError.value = true;
 
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
 
       isValid = false;
     } else if (firstNameController.value.text.isEmpty) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
       isValid = false;
     } else if (firstNameController.value.text.length < 2) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameMatch;
+      firstNameErrorMessage.value = ErrorMessages.firstNameMatch.tr;
       isValid = false;
     } else if (lastNameController.value.text.isEmpty) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
       isValid = false;
     } else if (lastNameController.value.text.length < 2) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameMatch;
+      lastNameErrorMessage.value = ErrorMessages.lastNameMatch.tr;
       isValid = false;
     } else if (emailController.value.text.isEmpty) {
       emailError.value = true;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
       isValid = false;
     } else if (!emailController.value.text.isEmail) {
-      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid.tr;
       emailError.value = true;
       isValid = false;
     } else if (phoneNumberController.value.text.isEmpty) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
       isValid = false;
     } else if (phoneNumberController.value.text.length < 7) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneValid;
+      phoneErrorMessage.value = ErrorMessages.phoneValid.tr;
       isValid = false;
     } else {
       firstNameError.value = false;
@@ -643,7 +644,7 @@ class InspectionDetailController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

@@ -335,7 +335,7 @@ class LoginScreen extends GetView<LoginController> {
               boxFit: BoxFit.fitWidth,
             ).paddingOnly(right: 10.w),
             AppTextWidget(
-              text: AppStrings.welcomeToLogin.tr,
+              text: AppStrings.signIn.tr,
               style: CustomTextTheme.heading1(
                 color: lightColorPalette.black,
               ),
@@ -345,7 +345,7 @@ class LoginScreen extends GetView<LoginController> {
         Center(
           child: AppTextWidget(
             textAlign: TextAlign.center,
-            text: AppStrings.fillLoginDetail,
+            text: AppStrings.fillLoginDetail.tr,
             style: CustomTextTheme.normalText(
               color: lightColorPalette.grey,
             ),

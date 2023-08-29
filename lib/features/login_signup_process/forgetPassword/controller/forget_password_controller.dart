@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -47,9 +48,9 @@ class ForgetPasswordController extends GetxController {
   }) async {
     if (email.isEmpty) {
       emailError.value = true;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
     } else if (!email.isEmail) {
-      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid.tr;
       emailError.value = true;
     } else {
       forgotPasswordApi();
@@ -102,7 +103,7 @@ class ForgetPasswordController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

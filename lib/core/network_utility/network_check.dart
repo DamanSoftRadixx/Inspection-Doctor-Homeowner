@@ -21,8 +21,8 @@ class NetworkCheck {
 
   noInternetConnectionDialog() {
     showCommonAlertSingleButtonDialog(
-        title: AppStrings.strNoInternetConnection,
-        subHeader: AppStrings.strPleaseCheckYourInternetConnectivity,
+        title: AppStrings.strNoInternetConnection.tr,
+        subHeader: AppStrings.strPleaseCheckYourInternetConnectivity.tr,
         okPressed: () {
           Get.back();
         },

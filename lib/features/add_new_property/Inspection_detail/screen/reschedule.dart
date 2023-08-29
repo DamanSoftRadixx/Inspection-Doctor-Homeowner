@@ -49,7 +49,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AppTextWidget(
-                            text: AppStrings.reschedule,
+                            text: AppStrings.reschedule.tr,
                             style: CustomTextTheme.heading2(
                               color: lightColorPalette.black,
                             ),
@@ -203,7 +203,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
     return Column(
       children: [
         commonDatePicker(
-                title: AppStrings.date,
+                title: AppStrings.date.tr,
                 onPicked: (DateTime value) {
                   if (value != "") {
                     controller.selectedDate.value =

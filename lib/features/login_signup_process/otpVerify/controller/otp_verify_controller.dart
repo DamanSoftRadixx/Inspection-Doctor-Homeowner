@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
@@ -91,11 +92,12 @@ class OtpVerifyController extends GetxController {
         json.encode({"otp": verifyCode.value.toString(), "token": token});
 
     log("bodyData $body");
-    VerifyOtpResponseModel response =
-        await otpVerifyProvider.otpVerification(body: body) ??
-            VerifyOtpResponseModel();
+
 
     try {
+      VerifyOtpResponseModel response =
+          await otpVerifyProvider.otpVerification(body: body) ??
+              VerifyOtpResponseModel();
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
         isShowLoader.value = false;
@@ -105,7 +107,7 @@ class OtpVerifyController extends GetxController {
         //  snackbar(response.message ?? "");
 
         apiErrorDialog(
-          message: response.message ?? AppStrings.strSometingWentWrong,
+          message: response.message ?? AppStrings.strSometingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -156,7 +158,7 @@ class OtpVerifyController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

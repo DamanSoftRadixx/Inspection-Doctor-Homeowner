@@ -15,6 +15,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/location/p
 import 'package:inspection_doctor_homeowner/core/common_functionality/validations/validations.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
@@ -230,64 +231,64 @@ class SignupController extends GetxController {
       cityError.value = true;
       zipCodeError.value = true;
 
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
-      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
-      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode;
-      cityErrorMessage.value = ErrorMessages.pleaseEnterCity;
-      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
+      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage.tr;
+      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode.tr;
+      cityErrorMessage.value = ErrorMessages.pleaseEnterCity.tr;
+      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress.tr;
     } else if (firstName.isEmpty) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty;
+      firstNameErrorMessage.value = ErrorMessages.firstNameIsEmpty.tr;
     } else if (firstName.length < 2) {
       firstNameError.value = true;
-      firstNameErrorMessage.value = ErrorMessages.firstNameMatch;
+      firstNameErrorMessage.value = ErrorMessages.firstNameMatch.tr;
     } else if (lastName.isEmpty) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty;
+      lastNameErrorMessage.value = ErrorMessages.lastNameIsEmpty.tr;
     } else if (lastName.length < 2) {
       lastNameError.value = true;
-      lastNameErrorMessage.value = ErrorMessages.lastNameMatch;
+      lastNameErrorMessage.value = ErrorMessages.lastNameMatch.tr;
     } else if (email.isEmpty) {
       emailError.value = true;
-      emailErrorMessage.value = ErrorMessages.emailIsEmpty;
+      emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
     } else if (!email.isEmail) {
-      emailErrorMessage.value = ErrorMessages.emailIsNotValid;
+      emailErrorMessage.value = ErrorMessages.emailIsNotValid.tr;
       emailError.value = true;
     } else if (phone.isEmpty) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty;
+      phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
     } else if (phone.length < 7) {
       phoneError.value = true;
-      phoneErrorMessage.value = ErrorMessages.phoneValid;
+      phoneErrorMessage.value = ErrorMessages.phoneValid.tr;
     } else if (password.isEmpty) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty;
+      passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
     } else if (password.length < 8 || !isValidPassword(password: password)) {
       passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordLength;
+      passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
     } else if (confirmPassword.isEmpty) {
       confirmPasswordError.value = true;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty;
+      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
     } else if (password != confirmPassword) {
       confirmPasswordError.value = true;
-      confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches;
+      confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches.tr;
     } else if (isLanguageSelected == false) {
       languageError.value = true;
-      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage;
+      languageErrorMessage.value = ErrorMessages.pleasSelectLanguage.tr;
     } else if (address1.isEmpty) {
       address1Error.value = true;
-      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress;
+      address1ErrorMessage.value = ErrorMessages.pleasEnterAddress.tr;
     } else if (city.isEmpty) {
       cityError.value = true;
-      cityErrorMessage.value = ErrorMessages.pleaseEnterCity;
+      cityErrorMessage.value = ErrorMessages.pleaseEnterCity.tr;
     } else if (zipCode.isEmpty) {
       zipCodeError.value = true;
-      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode;
+      zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode.tr;
     } else {
       firstNameError.value = false;
       lastNameError.value = false;
@@ -399,7 +400,7 @@ class SignupController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },
@@ -557,7 +558,7 @@ class SignupController extends GetxController {
       } else {
         setShowLoader(value: false);
         apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong,
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
           okButtonPressed: () {
             Get.back();
           },

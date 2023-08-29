@@ -42,7 +42,7 @@ class ReportView extends GetView<ReportViewController> {
       children: [
         AppTextWidget(
           style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-          text: AppStrings.description,
+          text: AppStrings.description.tr,
         ).paddingOnly(bottom: 5.h),
         AppTextWidget(
           style: CustomTextTheme.subtext(color: lightColorPalette.black),
@@ -60,7 +60,7 @@ class ReportView extends GetView<ReportViewController> {
           style: CustomTextTheme.normalText(
             color: lightColorPalette.black,
           ),
-          text: AppStrings.document,
+          text: AppStrings.document.tr,
           textAlign: TextAlign.center,
         ),
         GestureDetector(
@@ -113,7 +113,7 @@ class ReportView extends GetView<ReportViewController> {
           style: CustomTextTheme.normalText(
             color: lightColorPalette.black,
           ),
-          text: AppStrings.images,
+          text: AppStrings.images.tr,
           textAlign: TextAlign.center,
         ),
         Row(
