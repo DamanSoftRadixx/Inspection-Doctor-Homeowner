@@ -165,7 +165,8 @@ class LoginController extends GetxController {
     dismissKeyboard();
     clearTextField();
     Get.toNamed(Routes.signupScreen,
-        arguments: {GetArgumentConstants.languageList: languageList.value});
+            arguments: {GetArgumentConstants.languageList: languageList.value})
+        ?.then((value) => setLangunage());
   }
 
   hitLoginApi() async {

@@ -27,4 +27,5 @@ class GetArgumentConstants {
   static const categoriesName = "categoriesName";
   static const inspectionId = "inspectionDetail";
   static const reportData = "reportData";
+  static const isNeedtoRefersh = "reportData";
 }

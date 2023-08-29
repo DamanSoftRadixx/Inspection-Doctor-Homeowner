@@ -11,6 +11,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -27,7 +28,9 @@ class SignupScreen extends GetView<SignupController> {
       appBar: commonAppBarWithElevation(
         title: AppStrings.signup.tr,
         onPressBackButton: () {
-          Get.back();
+          Get.back(result: [
+            {GetArgumentConstants.isNeedtoRefersh: true}
+          ]);
         },
         centerWidget: const SizedBox(),
       ),
