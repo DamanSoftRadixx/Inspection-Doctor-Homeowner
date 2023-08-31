@@ -182,6 +182,7 @@ extension PropertyCard on PropertyDetailScreen {
                             color: lightColorPalette.grey, width: 0.3)),
                     child: Center(
                       child: AssetWidget(
+                        boxFit: BoxFit.cover,
                         color: lightColorPalette.black,
                         asset: inspectorProfileImage != null &&
                                 inspectorProfileImage != ""

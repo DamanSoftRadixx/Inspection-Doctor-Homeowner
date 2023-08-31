@@ -210,6 +210,9 @@ class AppStrings {
   static const hasSubmittedTheReportYourInspectionIsApproved =
       "has submitted the report. Your inspection is approved. Please view the report from here";
   static const signIn = "Sign in";
+  //New
+  static const notSelectedNY =
+      "Selected address Should be Within the new jersey.";
 }
 
 class ErrorMessages {

@@ -843,7 +843,7 @@ class AddPropertyController extends GetxController {
   Rx<ScrollController> scrollController = ScrollController().obs;
 
   showAddressList({required String value}) async {
-    if (value.trim().length < 1) {
+    if (value.trim().isEmpty) {
       predictionsList.value = [];
       predictionsList.refresh();
     } else {
@@ -865,13 +865,26 @@ class AddPropertyController extends GetxController {
     String placeId = predictionsList[index].placeId ?? "";
     if (placeId.isNotEmpty) {
       await displayPrediction(placeId).then((value) {
-        place.value = value;
-        predictionsList.value = [];
-        predictionsList.refresh();
         streetAddress1Controller.value.text = place.value.address1;
         streetAddress2Controller.value.text = place.value.address2;
         cityController.value.text = place.value.city;
         zipCodeController.value.text = place.value.zipCode;
+        // } else {
+        //   streetAddress1Controller.value.text = "";
+        //   streetAddress2Controller.value.text = "";
+        //   cityController.value.text = "";
+        //   zipCodeController.value.text = "";
+        //   apiErrorDialog(
+        //     message: AppStrings.notSelectedNY.tr,
+        //     okButtonPressed: () {
+        //       Get.back();
+        //     },
+        //   );
+        // }
+        place.value = value;
+        predictionsList.value = [];
+        predictionsList.refresh();
+
         setShowLoader(value: false);
 
         scrollController.value.animateTo(0,

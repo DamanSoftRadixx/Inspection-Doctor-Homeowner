@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -278,7 +277,6 @@ class CategoryFormController extends GetxController {
     argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
 
     var body = json.encode(argData.value);
-    log("message>>>>>> $body");
 
     try {
       CategoryListResponseModel response =
@@ -321,18 +319,17 @@ class CategoryFormController extends GetxController {
       lastNameController.value.text = tokenResponse.value.data?.lastName ?? "";
       emailController.value.text = tokenResponse.value.data?.email ?? "";
       phoneNumberController.value.text = tokenResponse.value.data?.phone ?? "";
-      selectedCountryCode.value = tokenResponse.value.data?.countryCode ?? "";
+
+      if (tokenResponse.value.data?.countryCode != null) {
+        selectedCountryCode.value = tokenResponse.value.data?.countryCode ?? "";
+      } else {
+        selectedCountryCode.value = selectedCountryCode.value;
+      }
     }
   }
 
   bool isScheduleButtonEnable() {
     bool result = false;
-
-    log("selectedDate ${selectedDate.value}");
-    log("selectedTime ${selectedTime.length}");
-    log("firstNameController ${firstNameController.value.text}");
-    log("phoneNumberController ${phoneNumberController.value.text}");
-    log("emailController ${emailController.value.text}");
 
     if (selectedDate.value != "" &&
         selectedTime.isNotEmpty &&

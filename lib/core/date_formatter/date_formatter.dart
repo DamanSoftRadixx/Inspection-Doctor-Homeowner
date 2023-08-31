@@ -65,7 +65,7 @@ String getDateFormatedFromDateTime({
   required DateTime date,
   String? newPattern,
 }) {
-  String formattedDate = DateFormat(newPattern ?? 'dd/MM/yyyy').format(date);
+  String formattedDate = DateFormat(newPattern ?? 'MM/dd/yyyy').format(date);
   return formattedDate;
 }
 
@@ -105,11 +105,11 @@ String getDateFormattedFromString({
 
       DateTime tempDate = DateFormat("yyyy-MM-dd").parse("$year-$month-$day");
 
-      result = DateFormat(inputFormat ?? 'dd MMMM yyyy').format(tempDate);
+      result = DateFormat(inputFormat ?? 'MM/dd/yyyy').format(tempDate);
     } else {
       var temp = DateFormat("yyyy-MM-dd").parse(dateString);
 
-      result = DateFormat('dd MMMM yyyy').format(temp);
+      result = DateFormat('MM/dd/yyyy').format(temp);
     }
   }
 
