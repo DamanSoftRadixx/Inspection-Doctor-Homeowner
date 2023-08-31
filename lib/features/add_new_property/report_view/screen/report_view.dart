@@ -115,7 +115,7 @@ class ReportView extends GetView<ReportViewController> {
           ),
           text: AppStrings.images.tr,
           textAlign: TextAlign.center,
-        ),
+        ).paddingOnly(bottom: 5.h),
         Row(
           children: [
             Expanded(
@@ -153,13 +153,7 @@ class ReportView extends GetView<ReportViewController> {
           PageTransition(
             type: PageTransitionType.fade,
             child: ExpandedImageView(
-              image: Image.network(
-                imageList[index],
-                fit: BoxFit.contain,
-              ),
-              allowRotation: false,
-              tag: imageList[index],
-              useHeroAnimation: true,
+              path: imageList[index],
             ),
           ),
         );

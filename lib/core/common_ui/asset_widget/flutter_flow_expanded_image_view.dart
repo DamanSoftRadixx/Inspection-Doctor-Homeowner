@@ -1,71 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:photo_view/photo_view.dart';
+import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 
 class ExpandedImageView extends StatelessWidget {
   const ExpandedImageView({
-    required this.image,
-    this.allowRotation = false,
-    this.useHeroAnimation = true,
-    this.tag,
+    super.key,
+    required this.path,
   });
 
-  final Widget image;
-  final bool allowRotation;
-  final bool useHeroAnimation;
-  final Object? tag;
+  final String path;
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.sizeOf(context);
-    return Material(
-      color: Colors.black,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              height: screenSize.height,
-              width: screenSize.width,
-              child: PhotoView.customChild(
-                minScale: 1.0,
-                maxScale: 3.0,
-                enableRotation: allowRotation,
-                heroAttributes: useHeroAnimation
-                    ? PhotoViewHeroAttributes(tag: tag!)
-                    : null,
-                onScaleEnd: (context, details, value) {
-                  if (value.scale! < 0.3) {
-                    Navigator.pop(context);
-                  }
-                },
-                child: image,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding:  EdgeInsets.only(top: 8.0.w , right: 8.w),
-                  child: Container(
-
-                    decoration: BoxDecoration(shape:BoxShape.circle,          color:lightColorPalette.green,),
-                    child: IconButton(
-                      color: Colors.black,
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.close,
-                        size: 32,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+    return Scaffold(
+        appBar: commonAppBarWithElevation(
+            title: "",
+            onPressBackButton: () {
+              Get.back();
+            }),
+        body: AssetWidget(
+          asset: Asset(type: AssetType.network, path: path),
+        ));
   }
 }

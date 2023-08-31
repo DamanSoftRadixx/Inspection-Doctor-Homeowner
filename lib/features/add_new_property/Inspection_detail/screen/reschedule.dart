@@ -237,7 +237,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
             children: List.generate(
                 controller.selectedTime.length,
                 (index) => Chip(
-                      deleteIconColor: Colors.green,
+                      deleteIconColor: lightColorPalette.redDark,
                       onDeleted: () {
                         controller.selectedTime.removeAt(index);
                       },

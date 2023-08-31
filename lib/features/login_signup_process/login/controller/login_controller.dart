@@ -143,10 +143,14 @@ class LoginController extends GetxController {
     } else if (password.isEmpty) {
       passwordError.value = true;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
-    } else if (password.length < 8 || !isValidPassword(password: password)) {
-      passwordError.value = true;
-      passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
-    } else {
+    }
+
+    // else if (password.length < 8 || !isValidPassword(password: password)) {
+    //   passwordError.value = true;
+    //   passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
+    // }
+
+    else {
       emailError.value = false;
       passwordError.value = false;
       hitLoginApi();

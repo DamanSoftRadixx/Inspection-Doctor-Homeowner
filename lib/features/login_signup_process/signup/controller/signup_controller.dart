@@ -236,7 +236,8 @@ class SignupController extends GetxController {
       emailErrorMessage.value = ErrorMessages.emailIsEmpty.tr;
       phoneErrorMessage.value = ErrorMessages.phoneIsEmpty.tr;
       passwordErrorMessage.value = ErrorMessages.passwordIsEmpty.tr;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
+      confirmPasswordErrorMessage.value =
+          ErrorMessages.confirmPasswordIsEmpty.tr;
       languageErrorMessage.value = ErrorMessages.pleasSelectLanguage.tr;
       zipCodeErrorMessage.value = ErrorMessages.pleaseEnterZipCode.tr;
       cityErrorMessage.value = ErrorMessages.pleaseEnterCity.tr;
@@ -273,7 +274,8 @@ class SignupController extends GetxController {
       passwordErrorMessage.value = ErrorMessages.passwordLength.tr;
     } else if (confirmPassword.isEmpty) {
       confirmPasswordError.value = true;
-      confirmPasswordErrorMessage.value = ErrorMessages.confirmPasswordIsEmpty.tr;
+      confirmPasswordErrorMessage.value =
+          ErrorMessages.confirmPasswordIsEmpty.tr;
     } else if (password != confirmPassword) {
       confirmPasswordError.value = true;
       confirmPasswordErrorMessage.value = ErrorMessages.passwordMatches.tr;
@@ -553,8 +555,8 @@ class SignupController extends GetxController {
                 )))
             .toList();
 
-        int index = stateList.indexWhere((element) => element.isActive == true);
-        onSelectStateStateDropdown(value: stateList[index]);
+        // int index = stateList.indexWhere((element) => element.isActive == true);
+        // onSelectStateStateDropdown(value: stateList[index]);
       } else {
         setShowLoader(value: false);
         apiErrorDialog(

@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' as getx;
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/network_check.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
-import 'package:get/get.dart' as getx;
 
 class ApiHitter {
   static Dio dio = Dio();
@@ -20,7 +20,7 @@ class ApiHitter {
       Object? body,
       void Function(int, int)? onSendProgress,
       void Function(int, int)? onReceiveProgress,
-        bool isCancelToken = false,
+      bool isCancelToken = false,
       Map<String, dynamic>? queryParameters,
       Map<String, String>? headersParm}) async {
     try {
@@ -30,15 +30,12 @@ class ApiHitter {
       print("POST $endPoint >> $queryParameters");
 
       if (await networkCheck.hasNetwork()) {
-
-
-        if(isCancelToken){
+        if (isCancelToken) {
           cancelToken.cancel();
 
           if (cancelToken.isCancelled) {
-            cancelToken = new CancelToken();
+            cancelToken = CancelToken();
           }
-
         }
 
         String token = await Prefs.read(Prefs.token) ?? "";
@@ -48,7 +45,7 @@ class ApiHitter {
 
         Map<String, String> headers = {
           'Content-Type': 'application/json',
-          'language_id': selectedLangId,
+          'languageid': selectedLangId,
           'authorization': "Bearer $token",
         };
         log("headers>> $headers");
@@ -70,9 +67,9 @@ class ApiHitter {
         var statusCode = response.data["status"] ?? 400;
         var statusMessage = response.data["message"] ?? 400;
 
-        if(statusCode == 201 || statusCode == 200){
+        if (statusCode == 201 || statusCode == 200) {
           return response;
-        }else{
+        } else {
           apiErrorDialog(
             message: statusMessage ?? "",
             okButtonPressed: () {
@@ -80,7 +77,6 @@ class ApiHitter {
             },
           );
         }
-
       } else {
         log("no internet issue");
         networkCheck.noInternetConnectionDialog();
@@ -112,7 +108,7 @@ class ApiHitter {
 
         Map<String, String> headers = {
           'Content-Type': 'application/json',
-          'language_id': selectedLangId,
+          'languageid': selectedLangId,
         };
 
         print("headers : $headers");
@@ -160,7 +156,7 @@ class ApiHitter {
 
         Map<String, String> headers = {
           'Content-Type': 'application/json',
-          'language_id': selectedLangId,
+          'languageid': selectedLangId,
           'authorization': "Bearer $token",
         };
 
@@ -212,7 +208,7 @@ class ApiHitter {
         Map<String, String> headers = {
           'accept': 'application/json',
           'Content-Type': 'multipart/form-data',
-          'language_id': selectedLangId,
+          'languageid': selectedLangId,
         };
 
         headers.addAll(headersParm ?? {});
@@ -260,7 +256,7 @@ class ApiHitter {
 
         Map<String, String> headers = {
           'Content-Type': 'application/json',
-          'language_id': selectedLangId,
+          'languageid': selectedLangId,
           'authorization': "Bearer $token",
         };
 

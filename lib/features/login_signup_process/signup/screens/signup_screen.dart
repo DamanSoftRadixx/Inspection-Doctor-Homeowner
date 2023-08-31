@@ -223,7 +223,7 @@ class SignupScreen extends GetView<SignupController> {
       title: AppStrings.firstName.tr,
       hint: placeHolder.firstName.tr,
       maxLength: 30,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),
@@ -243,7 +243,7 @@ class SignupScreen extends GetView<SignupController> {
       errorMsg: controller.lastNameErrorMessage.value,
       title: AppStrings.lastName.tr,
       hint: placeHolder.lastName.tr,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.text,
       maxLength: 30,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[

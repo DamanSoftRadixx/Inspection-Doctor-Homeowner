@@ -113,7 +113,7 @@ extension PropertyCard on PropertyDetailScreen {
                   text: "\u2022",
                 ).paddingOnly(right: 5.w),
                 AppTextWidget(
-                  style: CustomTextTheme.normalText(
+                  style: CustomTextTheme.heading2(
                       color: inspectionStatusModel.color),
                   text: inspectionStatusModel.message,
                 )

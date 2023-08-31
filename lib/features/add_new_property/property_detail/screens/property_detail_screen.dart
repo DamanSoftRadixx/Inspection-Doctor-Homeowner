@@ -83,13 +83,12 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                   text: controller.propertyDetail.value.propertyName ?? "",
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  Expanded(child: Text.rich(
+                  Expanded(
+                      child: Text.rich(
                     style: CustomTextTheme.normalText(
                         color: lightColorPalette.grey),
                     textAlign: TextAlign.center,
@@ -104,16 +103,17 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                               type: AssetType.svg,
                               path: ImageResource.pinLocation,
                             ),
-                          ).paddingOnly(right: 5.w,bottom: 1.h),
+                          ).paddingOnly(right: 5.w, bottom: 1.h),
                         ),
-                        TextSpan(text: getAddressFormat(controller.propertyDetail.value)),
-
+                        TextSpan(
+                            text: getAddressFormat(
+                                controller.propertyDetail.value)),
                       ],
                     ),
                   ))
                 ],
               ).paddingOnly(top: 6.h, bottom: 5.h, left: 20.w, right: 20.w),
-            /*  Row(
+              /*  Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AssetWidget(
@@ -152,17 +152,17 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                                 child: AppTextWidget(
                                   style: CustomTextTheme.normalText(
                                       color: lightColorPalette.grey),
-                                  text: "Lot#${controller.propertyDetail.value.lotNumber ?? ""}",
+                                  text:
+                                      "Lot#${controller.propertyDetail.value.lotNumber ?? ""}",
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
                         ),
-
-                        Flexible(child: Row(
+                        Flexible(
+                            child: Row(
                           children: [
-
                             AssetWidget(
                               color: lightColorPalette.black,
                               asset: Asset(
@@ -174,7 +174,9 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                               child: AppTextWidget(
                                 style: CustomTextTheme.normalText(
                                     color: lightColorPalette.grey),
-                                text: controller.propertyDetail.value.blockNumber ?? "",
+                                text: controller
+                                        .propertyDetail.value.blockNumber ??
+                                    "",
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -184,7 +186,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                     ),
                   ),
                 ],
-              ).paddingOnly(top: 5.h, bottom: 20.h,left: 20.w,right: 20.w),
+              ).paddingOnly(top: 5.h, bottom: 20.h, left: 20.w, right: 20.w),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -280,37 +282,40 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   }
 
   getInspectionList() {
-    return Obx(() =>Column(
+    return Obx(() => Column(
           children: [
             showSearchBar()
                 .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
-            controller.isShowLoader.value ||
-                controller.isShowSearchLoader.value ? SizedBox() : Expanded(
-              child: CommonRefreshIndicator(
-                onRefresh: () => Future.sync(() {
-                  controller.onRefresh();
-                }),
-                controller: controller.refreshController,
-                child: controller.scheduleInspectionList.isNotEmpty
-                    ? ListView.builder(
-                        padding: EdgeInsets.only(bottom: 20.h),
-                        shrinkWrap: true,
-                        itemCount: controller.scheduleInspectionList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          log("message ${controller.scheduleInspectionList[index].inspectorDetails}");
-                          return controller.scheduleInspectionList[index]
-                                      .inspectorDetails?.isEmpty ==
-                                  true
-                              ? getPropertyDetailCard(index: index)
-                              : getPropertyDetailCardWithInspectionDetail(
-                                  index: index);
-                        },
-                      )
-                    : (controller.isShowSearchLoader.value
-                        ? const SizedBox()
-                        : showNoDataFound()),
-              ),
-            ),
+            controller.isShowLoader.value || controller.isShowSearchLoader.value
+                ? const SizedBox()
+                : Expanded(
+                    child: CommonRefreshIndicator(
+                      onRefresh: () => Future.sync(() {
+                        controller.onRefresh();
+                      }),
+                      controller: controller.refreshController,
+                      child: controller.scheduleInspectionList.isNotEmpty
+                          ? ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.only(bottom: 20.h),
+                              shrinkWrap: true,
+                              itemCount:
+                                  controller.scheduleInspectionList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                log("message ${controller.scheduleInspectionList[index].inspectorDetails}");
+                                return controller.scheduleInspectionList[index]
+                                            .inspectorDetails?.isEmpty ==
+                                        true
+                                    ? getPropertyDetailCard(index: index)
+                                    : getPropertyDetailCardWithInspectionDetail(
+                                        index: index);
+                              },
+                            )
+                          : (controller.isShowSearchLoader.value
+                              ? const SizedBox()
+                              : showNoDataFound()),
+                    ),
+                  ),
             Visibility(
                 visible: controller.loadMore.value == true,
                 child: const CircularProgressIndicator())
@@ -324,6 +329,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
 
     return Expanded(
       child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: timeList.length,
         itemBuilder: (BuildContext context, int index) {

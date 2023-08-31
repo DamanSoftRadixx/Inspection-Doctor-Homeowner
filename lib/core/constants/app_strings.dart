@@ -276,8 +276,8 @@ class placeHolder {
   static const firstName = "John";
   static const lastName = "Doe";
   static const email = "johndoe@example.com";
-  static const phoneNo = "+1 (555) 123-4567";
-  static const password = "T%45gh*89bD";
+  static const phoneNo = "(555) 123-4567";
+  static const password = "Example1#";
   static const address1 = "123 Main Street";
   static const address2 = "Apt 4B (if applicable)";
   static const state = "New Jersey";

@@ -124,7 +124,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
       focusNode: controller.emailFocusNode.value,
       controller: controller.emailController.value,
       title: AppStrings.email.tr,
-      hint: AppStrings.email.tr,
+      hint: placeHolder.email.tr,
       maxLength: 50,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.deny(RegExp(r'[ ]')),

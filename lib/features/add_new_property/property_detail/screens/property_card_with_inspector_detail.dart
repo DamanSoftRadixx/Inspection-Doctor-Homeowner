@@ -126,7 +126,7 @@ extension PropertyCard on PropertyDetailScreen {
                 Flexible(
                   child: AppTextWidget(
                     textAlign: TextAlign.end,
-                    style: CustomTextTheme.normalText(
+                    style: CustomTextTheme.heading2(
                         color: inspectionStatusModel.color),
                     text: inspectionStatusModel.message,
                   ),
