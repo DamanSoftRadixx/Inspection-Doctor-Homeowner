@@ -156,6 +156,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
     var history = controller.inspectionHistoryList[index];
 
     return MeasureSize(
+      key: history.globalKey,
       onChange: (Size size) {
         controller.inspectionHistoryList[index].widgetSize =
             WidgetSize(height: size.height);

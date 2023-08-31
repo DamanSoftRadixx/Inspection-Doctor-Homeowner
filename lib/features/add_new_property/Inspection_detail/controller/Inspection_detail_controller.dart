@@ -269,6 +269,7 @@ class InspectionDetailController extends GetxController {
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
             isShowCancelButton: true,
+            globalKey: GlobalKey(),
             isShowRescheduleButton: true));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectionAcccepted.value) {
@@ -286,6 +287,7 @@ class InspectionDetailController extends GetxController {
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
+            globalKey: GlobalKey(),
             isShowCancelButton: true));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value) {
@@ -304,6 +306,7 @@ class InspectionDetailController extends GetxController {
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
             isShowCancelButton: true,
+            globalKey: GlobalKey(),
             isShowRescheduleButton: true));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
@@ -313,6 +316,7 @@ class InspectionDetailController extends GetxController {
             title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
+            globalKey: GlobalKey(),
             historyResponse: historyData));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectorInspectionCanceled.value) {
@@ -323,6 +327,7 @@ class InspectionDetailController extends GetxController {
             title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
+            globalKey: GlobalKey(),
             historyResponse: historyData));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value) {
@@ -340,6 +345,7 @@ class InspectionDetailController extends GetxController {
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
           historyResponse: historyData,
+          globalKey: GlobalKey(),
           isShowCancelButton: true,
         ));
       } else if (historyStatusId ==
@@ -351,6 +357,7 @@ class InspectionDetailController extends GetxController {
             title: AppStrings.inspectorIsOnTheWay.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
+            globalKey: GlobalKey(),
             historyResponse: historyData));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectionStart.value) {
@@ -360,6 +367,7 @@ class InspectionDetailController extends GetxController {
                 "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasStartedTheInspection.tr}.</span>",
             title: AppStrings.inspectionStarted.tr,
             iconPath: ImageResource.blackCircle,
+            globalKey: GlobalKey(),
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData));
       } else if (historyStatusId ==
@@ -371,6 +379,7 @@ class InspectionDetailController extends GetxController {
           title: AppStrings.inspectionDone.tr,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
+          globalKey: GlobalKey(),
           historyResponse: historyData,
         ));
       } else if (historyStatusId ==
@@ -384,6 +393,7 @@ class InspectionDetailController extends GetxController {
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
             isShowGiveFeedBackButton: true,
+            globalKey: GlobalKey(),
             isShowViewReportButton: true));
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectionReportCorrections.value) {
@@ -396,6 +406,7 @@ class InspectionDetailController extends GetxController {
             isShowLine: i == historyList.length - 1 ? false : true,
             historyResponse: historyData,
             isShowGiveFeedBackButton: true,
+            globalKey: GlobalKey(),
             isShowViewReportButton: true));
       }
     }

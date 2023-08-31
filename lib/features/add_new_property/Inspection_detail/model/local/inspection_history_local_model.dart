@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/widget_size.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 
@@ -13,6 +14,8 @@ class InspectionHistoryLocalModel {
   bool isShowGiveFeedBackButton;
   bool isShowViewReportButton;
   WidgetSize? widgetSize;
+  GlobalKey? globalKey;
+
 
   InspectionHistoryLocalModel({
     required this.id,
@@ -21,6 +24,7 @@ class InspectionHistoryLocalModel {
     required this.isShowLine,
     required this.title,
     this.historyResponse,
+    this.globalKey,
     this.isShowCancelButton = false,
     this.isShowRescheduleButton = false,
     this.isShowGiveFeedBackButton = false,
