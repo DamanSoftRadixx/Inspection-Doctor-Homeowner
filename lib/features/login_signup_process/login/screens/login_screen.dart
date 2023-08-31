@@ -31,12 +31,12 @@ class LoginScreen extends GetView<LoginController> {
           )),
       body: WillPopScope(
         onWillPop: () async => false,
-        child:InkWell(
+        child: InkWell(
           focusColor: Colors.transparent,
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
-          onTap: (){
+          onTap: () {
             dismissKeyboard();
           },
           child: SafeArea(
@@ -47,7 +47,8 @@ class LoginScreen extends GetView<LoginController> {
                       children: [
                         Container(
                             height: 35.h,
-                            color: lightColorPalette.whiteColorPrimary.shade900),
+                            color:
+                                lightColorPalette.whiteColorPrimary.shade900),
                         Stack(
                           children: [
                             SizedBox(
@@ -71,7 +72,8 @@ class LoginScreen extends GetView<LoginController> {
                                         showPasswordField(),
                                         showForgotPassword()
                                             .paddingOnly(top: 10.h),
-                                        showLoginButton().paddingOnly(top: 50.h),
+                                        showLoginButton()
+                                            .paddingOnly(top: 50.h),
                                         showSignupButton(),
                                         showDivider(),
                                         showOtherLoginOption(),
@@ -221,7 +223,7 @@ class LoginScreen extends GetView<LoginController> {
       isError: controller.emailError.value,
       errorMsg: controller.emailErrorMessage.value,
       title: AppStrings.email.tr,
-      hint: AppStrings.email.tr,
+      hint: placeHolder.email.tr,
       maxLength: 50,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
@@ -244,7 +246,7 @@ class LoginScreen extends GetView<LoginController> {
       isError: controller.passwordError.value,
       errorMsg: controller.passwordErrorMessage.value,
       title: AppStrings.loginScreenPassword.tr,
-      hint: AppStrings.loginScreenPassword.tr,
+      hint: placeHolder.password.tr,
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.next,
       onPress: () {

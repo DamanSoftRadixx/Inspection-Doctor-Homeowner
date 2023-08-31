@@ -1,5 +1,4 @@
 class AppStrings {
-
   static const logout = "Logout";
   static const date = "Date";
   static const images = "Images";
@@ -194,18 +193,23 @@ class AppStrings {
 
   static const youHaveRequested = "You have requested";
   static const inspectionBy = "inspection by";
-  static const isAssignedAndInspectionIsScheduledAt = "is assigned and inspection is scheduled at";
-  static const youHaveRescheduledTheInspectionAt = "You have rescheduled the inspection at";
-  static const youHaveCanceledTheinspection = "You have canceled the inspection.";
+  static const isAssignedAndInspectionIsScheduledAt =
+      "is assigned and inspection is scheduled at";
+  static const youHaveRescheduledTheInspectionAt =
+      "You have rescheduled the inspection at";
+  static const youHaveCanceledTheinspection =
+      "You have canceled the inspection.";
   static const canceledTheInspection = "Canceled the inspection";
   static const rescheduledTheInspectionAt = "rescheduled the inspection at";
   static const isOnTheWayForInspection = "is on the way for inspection";
   static const hasStartedTheInspection = "has started the inspection";
-  static const hasCompletedTheInspctionAndNowWaitForTheReport = "has completed the inspection and now wait for the report";
-  static const hasSubmittedTheReportCorrectionIsRequired = "has submitted the report. Correction is required, please view the report from here";
-  static const hasSubmittedTheReportYourInspectionIsApproved = "has submitted the report. Your inspection is approved. Please view the report from here";
+  static const hasCompletedTheInspctionAndNowWaitForTheReport =
+      "has completed the inspection and now wait for the report";
+  static const hasSubmittedTheReportCorrectionIsRequired =
+      "has submitted the report. Correction is required, please view the report from here";
+  static const hasSubmittedTheReportYourInspectionIsApproved =
+      "has submitted the report. Your inspection is approved. Please view the report from here";
   static const signIn = "Sign in";
-
 }
 
 class ErrorMessages {
@@ -255,10 +259,6 @@ class ErrorMessages {
   static const docEmty = "Please upload architectural drawing.";
   static const dateEmty = "Please select date.";
   static const timeEmty = "Please select time.";
-
-
-
-
 }
 
 class InspectionListStatus {
@@ -270,4 +270,18 @@ class InspectionListStatus {
   static const done = "Done";
   static const correctionRequired = "Correction Required";
   static const inspectionComplete = "Inspection Complete";
+}
+
+class placeHolder {
+  static const firstName = "John";
+  static const lastName = "Doe";
+  static const email = "johndoe@example.com";
+  static const phoneNo = "+1 (555) 123-4567";
+  static const password = "T%45gh*89bD";
+  static const address1 = "123 Main Street";
+  static const address2 = "Apt 4B (if applicable)";
+  static const state = "New Jersey";
+  static const city = "Jersey City";
+  static const zipCode = "07302";
+  static const drivingLicenseNo = "DL1234567890";
 }
