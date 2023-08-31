@@ -813,7 +813,7 @@ Widget multiDropdownField(
     Function()? onTap,
     String? errorMsg,
     bool hasFocus = false,
-    required List<DropdownModel> selectedItems,
+    required RxList<DropdownModel> selectedItems,
     bool? isShowStar = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -847,9 +847,6 @@ Widget multiDropdownField(
           decoration: decoration(isSelected: hasFocus),
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<DropdownModel>(
-              // isDense: true,
-              /* menuItemStyleData:
-                  MenuItemStyleData(padding: EdgeInsets.only(left: 24.w)),*/
               dropdownStyleData: DropdownStyleData(
                 // elevation: 3,
                 offset: const Offset(0, -5.59),
@@ -936,79 +933,49 @@ Widget multiDropdownField(
                   );
                 }).toList();
               },
-              // menuItemStyleData: MenuItemStyleData(
-              //   padding: const EdgeInsets.symmetric(horizontal: 0.0),
-              //   customHeights: getCustomItemsHeights(items: list),
-              // ),
               items: list.map((item) {
                 return DropdownMenuItem(
                   value: item,
                   //disable default onTap to avoid closing menu when selecting an item
                   enabled: false,
-                  child: StatefulBuilder(
-                    builder: (context, menuSetState) {
-                      final isSelected = selectedItems.contains(item);
-
-                      return InkWell(
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () {
-                          //All day selected
-                          if (list.first == item) {
-                            selectedItems.clear();
-                            isSelected
-                                ? selectedItems.remove(item)
-                                : selectedItems.add(item);
-                            menuSetState(() {});
-                            //if All day selected and remove All day and add another time.
-                          } else if (selectedItems.contains(list.first)) {
-                            selectedItems.clear();
-
-                            isSelected
-                                ? selectedItems.remove(item)
-                                : selectedItems.add(item);
-                            menuSetState(() {});
-                          } else {
-                            isSelected
-                                ? selectedItems.remove(item)
-                                : selectedItems.add(item);
-                            menuSetState(() {});
-                          }
-                        },
-                        child: Row(
-                          children: [
-                            AppTextWidget(
-                              text: item.name.toString(),
-                              style: CustomTextTheme.normalText(
-                                  color: selectedValue.id == item.id
-                                      ? lightColorPalette.black
-                                      : lightColorPalette.black),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const Spacer(),
-                            isSelected
-                                ? AssetWidget(
-                                    color: Colors.green,
-                                    asset: Asset(
-                                        type: AssetType.svg,
-                                        path: ImageResource.selectedCheckbox),
-                                  )
-                                : AssetWidget(
-                                    asset: Asset(
-                                        type: AssetType.svg,
-                                        path: ImageResource.unSelectedCheckbox),
-                                  )
-                          ],
-                        ),
-                      );
+                  child:Obx(() => InkWell(
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () {
+                      onClick(item);
                     },
-                  ),
+                    child: Row(
+                      children: [
+                        AppTextWidget(
+                          text: item.name.toString(),
+                          style: CustomTextTheme.normalText(
+                              color: selectedValue.id == item.id
+                                  ? lightColorPalette.black
+                                  : lightColorPalette.black),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+
+                        selectedItems.value.contains(item) ? AssetWidget(
+                          color: Colors.green,
+                          asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.selectedCheckbox),
+                        )
+                            : AssetWidget(
+                          asset: Asset(
+                              type: AssetType.svg,
+                              path: ImageResource.unSelectedCheckbox),
+                        )
+                      ],
+                    ),
+                  )),
                 );
               }).toList(),
-
-              onChanged: (DropdownModel? value) {},
+              onChanged: (DropdownModel? value) {
+              },
             ),
           )),
       Visibility(

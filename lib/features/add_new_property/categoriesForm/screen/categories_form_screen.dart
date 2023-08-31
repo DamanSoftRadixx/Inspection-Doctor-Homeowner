@@ -147,7 +147,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         spacing: 5.w,
         children: List.generate(
             controller.selectedTime.length,
-            (index) => Chip(
+            (index) => controller.selectedTime[index].id == "0" ? SizedBox() : Chip(
                   deleteIconColor: lightColorPalette.redDark,
                   onDeleted: () {
                     controller.selectedTime.removeAt(index);

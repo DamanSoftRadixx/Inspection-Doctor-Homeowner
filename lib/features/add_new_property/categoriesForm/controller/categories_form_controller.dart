@@ -22,6 +22,47 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/selectCate
 
 class CategoryFormController extends GetxController {
   CategoryFormProvider categoryFormProvider = CategoryFormProvider();
+
+  RxList<DropdownModel> selectedTime = <DropdownModel>[].obs;
+  Rx<FocusNode> firstNameFocusNode = FocusNode().obs;
+  Rx<FocusNode> lastNameFocusNode = FocusNode().obs;
+  Rx<FocusNode> emailFocusNode = FocusNode().obs;
+  Rx<FocusNode> phoneNumberFocusNode = FocusNode().obs;
+  Rx<FocusNode> descriptionFocusNode = FocusNode().obs;
+
+  Rx<TextEditingController> firstNameController = TextEditingController().obs;
+  Rx<TextEditingController> lastNameController = TextEditingController().obs;
+  Rx<TextEditingController> emailController = TextEditingController().obs;
+  Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
+  Rx<TextEditingController> descriptionController = TextEditingController().obs;
+  InspectionsListProvider inspectionsListProvider = InspectionsListProvider();
+
+  RxList<DropdownModel> timeList = <DropdownModel>[].obs;
+
+  var selectTime = DropdownModel().obs;
+  RxBool emailError = false.obs;
+  RxBool firstNameError = false.obs;
+  RxBool lastNameError = false.obs;
+  RxBool phoneError = false.obs;
+
+  RxString firstNameErrorMessage = "".obs;
+  RxString lastNameErrorMessage = "".obs;
+  RxString phoneErrorMessage = "".obs;
+  RxString emailErrorMessage = "".obs;
+
+  var categoriesList = <CategoryListResponseDataModel>[].obs;
+  Rx<String> selectedDate = "".obs;
+
+  Rx<CategoryListResponseDataModel> selectedCategory =
+      CategoryListResponseDataModel().obs;
+
+  var isShowLoader = false.obs;
+  Rx<InspectionCreateRequestModel> argData = InspectionCreateRequestModel().obs;
+  RxString selectedCountryCode = "1".obs;
+  Rx<TokenResponseModel> tokenResponse = TokenResponseModel().obs;
+
+  // Rx<String> categoriesName = "".obs;
+
   @override
   void onInit() {
     getContactDetails();
@@ -53,87 +94,6 @@ class CategoryFormController extends GetxController {
 
     super.onInit();
   }
-
-  @override
-  void onClose() {
-    disposeFocusListeners();
-    super.onClose();
-  }
-
-  RxList<DropdownModel> selectedTime = <DropdownModel>[].obs;
-  Rx<FocusNode> firstNameFocusNode = FocusNode().obs;
-  Rx<FocusNode> lastNameFocusNode = FocusNode().obs;
-  Rx<FocusNode> emailFocusNode = FocusNode().obs;
-  Rx<FocusNode> phoneNumberFocusNode = FocusNode().obs;
-  Rx<FocusNode> descriptionFocusNode = FocusNode().obs;
-
-  Rx<TextEditingController> firstNameController = TextEditingController().obs;
-  Rx<TextEditingController> lastNameController = TextEditingController().obs;
-  Rx<TextEditingController> emailController = TextEditingController().obs;
-  Rx<TextEditingController> phoneNumberController = TextEditingController().obs;
-  Rx<TextEditingController> descriptionController = TextEditingController().obs;
-  InspectionsListProvider inspectionsListProvider = InspectionsListProvider();
-
-  RxList<DropdownModel> timeList = <DropdownModel>[].obs;
-
-  var selectTime = DropdownModel().obs;
-
-  onSelectTimeDropdown({required DropdownModel value}) async {
-    selectTime.value = value;
-  }
-
-  RxBool emailError = false.obs;
-  RxBool firstNameError = false.obs;
-  RxBool lastNameError = false.obs;
-  RxBool phoneError = false.obs;
-
-  RxString firstNameErrorMessage = "".obs;
-  RxString lastNameErrorMessage = "".obs;
-  RxString phoneErrorMessage = "".obs;
-  RxString emailErrorMessage = "".obs;
-
-  var categoriesList = <CategoryListResponseDataModel>[].obs;
-
-  Rx<CategoryListResponseDataModel> selectedCategory =
-      CategoryListResponseDataModel().obs;
-
-  var isShowLoader = false.obs;
-  Rx<InspectionCreateRequestModel> argData = InspectionCreateRequestModel().obs;
-  RxString selectedCountryCode = "1".obs;
-
-  void onSelectCountryCode({required Country country}) {
-    selectedCountryCode.value = country.phoneCode;
-  }
-
-  Rx<String> selectedDate = "".obs;
-
-  addFocusListeners() {
-    firstNameFocusNode.value.addListener(() {
-      firstNameFocusNode.refresh();
-    });
-    lastNameFocusNode.value.addListener(() {
-      lastNameFocusNode.refresh();
-    });
-    emailFocusNode.value.addListener(() {
-      emailFocusNode.refresh();
-    });
-
-    phoneNumberFocusNode.value.addListener(() {
-      phoneNumberFocusNode.refresh();
-    });
-    descriptionFocusNode.value.addListener(() {
-      phoneNumberFocusNode.refresh();
-    });
-  }
-
-  disposeFocusListeners() {
-    firstNameFocusNode.value.removeListener(() {});
-    lastNameFocusNode.value.removeListener(() {});
-    emailFocusNode.value.removeListener(() {});
-    phoneNumberFocusNode.value.removeListener(() {});
-    descriptionFocusNode.value.removeListener(() {});
-  }
-  // Rx<String> categoriesName = "".obs;
 
   onPressCategoryItem({required int index}) {
     if (selectedCategory.value.id == categoriesList[index].id) {
@@ -222,46 +182,17 @@ class CategoryFormController extends GetxController {
     List<TimeModel> utcDateTimeList = [];
 
     if (selectedTime.isNotEmpty) {
-      //If all days selected
-      if (selectedTime.length == 1 && selectedTime.first == timeList.first) {
-        selectedTime.clear();
-        selectedTime.add(timeList[1]);
-        selectedTime.add(timeList[2]);
-        selectedTime.add(timeList[3]);
 
-        selectedTime.map((e) {
-          if (e == timeList.first) {
-            utcDateTimeList.add(TimeModel(
-                starttime: getUtcDateString(
-                    date: selectedDate.value, time: e.startTime),
-                endtime: getUtcDateString(
-                    date: selectedDate.value, time: e.endTime)));
-          }
-
+      for(var object in selectedTime){
+        if(object.id != "0"){
           utcDateTimeList.add(TimeModel(
-              starttime:
-                  getUtcDateString(date: selectedDate.value, time: e.startTime),
-              endtime:
-                  getUtcDateString(date: selectedDate.value, time: e.endTime)));
-        }).toList();
-      } else {
-        //If all days  not selected
-        selectedTime.map((e) {
-          if (e == timeList.first) {
-            utcDateTimeList.add(TimeModel(
-                starttime: getUtcDateString(
-                    date: selectedDate.value, time: e.startTime),
-                endtime: getUtcDateString(
-                    date: selectedDate.value, time: e.endTime)));
-          }
-
-          utcDateTimeList.add(TimeModel(
-              starttime:
-                  getUtcDateString(date: selectedDate.value, time: e.startTime),
-              endtime:
-                  getUtcDateString(date: selectedDate.value, time: e.endTime)));
-        }).toList();
+              starttime: getUtcDateString(
+                  date: selectedDate.value, time: object.startTime),
+              endtime: getUtcDateString(
+                  date: selectedDate.value, time: object.endTime)));
+        }
       }
+
     }
 
     argData.value.firstName = firstNameController.value.text;
@@ -308,7 +239,6 @@ class CategoryFormController extends GetxController {
     }
   }
 
-  Rx<TokenResponseModel> tokenResponse = TokenResponseModel().obs;
   getContactDetails() {
     var token = Prefs.read(Prefs.token);
     if (token != null && token != "") {
@@ -396,5 +326,76 @@ class CategoryFormController extends GetxController {
 
       createInspection();
     }
+  }
+
+  onSelectTimeDropdown({required DropdownModel value}) async {
+    final isSelected = selectedTime.contains(value);
+
+    if (value.id == "0" && isSelected) {
+      selectedTime.clear();
+      selectedTime.refresh();
+    } else if (value.id == "0" && !isSelected) {
+      selectedTime.clear();
+
+      for (var object in timeList) {
+        selectedTime.add(object);
+      }
+    } else if (!selectedTime.contains(timeList.first) &&
+        selectedTime.length == 2 &&
+        !isSelected) {
+      selectedTime.add(timeList.first);
+      if (isSelected) {
+        selectedTime.remove(value);
+      } else {
+        selectedTime.add(value);
+      }
+    } else {
+      if (isSelected) {
+        selectedTime.remove(value);
+      } else {
+        selectedTime.add(value);
+      }
+
+      selectedTime.remove(timeList.first);
+    }
+
+    selectedTime.refresh();
+  }
+
+  void onSelectCountryCode({required Country country}) {
+    selectedCountryCode.value = country.phoneCode;
+  }
+
+  addFocusListeners() {
+    firstNameFocusNode.value.addListener(() {
+      firstNameFocusNode.refresh();
+    });
+    lastNameFocusNode.value.addListener(() {
+      lastNameFocusNode.refresh();
+    });
+    emailFocusNode.value.addListener(() {
+      emailFocusNode.refresh();
+    });
+
+    phoneNumberFocusNode.value.addListener(() {
+      phoneNumberFocusNode.refresh();
+    });
+    descriptionFocusNode.value.addListener(() {
+      phoneNumberFocusNode.refresh();
+    });
+  }
+
+  disposeFocusListeners() {
+    firstNameFocusNode.value.removeListener(() {});
+    lastNameFocusNode.value.removeListener(() {});
+    emailFocusNode.value.removeListener(() {});
+    phoneNumberFocusNode.value.removeListener(() {});
+    descriptionFocusNode.value.removeListener(() {});
+  }
+
+  @override
+  void onClose() {
+    disposeFocusListeners();
+    super.onClose();
   }
 }
