@@ -55,5 +55,7 @@
             android:value="@string/default_notification_channel_id" />
             <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I"/>
+
     </application>
+
 </manifest>

@@ -447,10 +447,12 @@ class InspectionDetailController extends GetxController {
     phoneNumberController.value.text = firstHistoryItemDetail.phone ?? "";
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
-    log("onOpenReScheduledBottomSheet ${getDDMMYYYFormetFromString(date: getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? ""))}");
 
     selectedDate.value =
-        getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? "");
+        getDDMMYYYFormetFromString(date: getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? ""));
+
+    print("${selectedDate.value}");
+
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];

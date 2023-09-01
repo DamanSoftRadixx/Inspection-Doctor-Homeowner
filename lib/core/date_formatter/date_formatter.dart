@@ -75,13 +75,8 @@ String getDDMMYYYFormet({
 String getDDMMYYYFormetFromString({
   required String date,
 }) {
-  log("messagedfdfdfdsf $date");
   var formattedDate = DateFormat("MM/dd/yyyy").parse(date);
-
-  log("messagedfdfdfdsf $formattedDate");
-
   String formattedDateString = DateFormat("dd/MM/yyyy").format(formattedDate);
-  log("messagedfdfdfdsf $formattedDateString");
   return formattedDateString;
 }
 
@@ -91,10 +86,8 @@ String getMMDDYYYYFormetFromString({
 }) {
   log("date $date");
   var formattedDate = DateFormat("dd/MM/yyyy").parse(date);
-  log("messagedfdfdfdsffsdfdsfdsfd $formattedDate");
 
   String formattedDateString = DateFormat("MM/dd/yyyy").format(formattedDate);
-  log("messagedfdfdfdsffsdfdsfdsfd $formattedDateString");
   return formattedDateString;
 }
 
