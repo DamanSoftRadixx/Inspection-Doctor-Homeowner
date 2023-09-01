@@ -373,7 +373,7 @@ class SignupController extends GetxController {
       "phone": phoneNumberController.value.text,
       "password": passwordController.value.text,
       "language_id": selectedBaseMaterialDropDown.value.id,
-      "country_code": int.parse(selectedCountryCode.value),
+      "country_code": "+${selectedCountryCode.value}",
       "address_line_1": streetAddress1Controller.value.text,
       "address_line_2": streetAddress2Controller.value.text,
       "zip_code": zipCodeController.value.text,

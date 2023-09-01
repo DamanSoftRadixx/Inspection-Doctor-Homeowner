@@ -211,7 +211,8 @@ extension RescheduleFormExtension on InspectionDetailScreen {
                     controller.selectedDate.refresh();
                   }
                 },
-                selectedDate: controller.selectedDate.value.toString())
+                selectedDate: getMMDDYYYYFormetFromString(
+                    date: controller.selectedDate.value.toString()))
             .paddingOnly(bottom: 11.h),
         multiDropdownField(
                 hint: AppStrings.time.tr,

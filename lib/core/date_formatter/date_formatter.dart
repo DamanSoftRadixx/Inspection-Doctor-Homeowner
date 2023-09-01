@@ -70,6 +70,15 @@ String getDDMMYYYFormet({
   return formattedDate;
 }
 
+String getDDMMYYYFormetFromString({
+  required String date,
+}) {
+  var formattedDate = DateFormat("'MM/dd/yyyy").parse(date);
+
+  String formattedDateString = DateFormat('dd/MM/yyyy').format(formattedDate);
+  return formattedDateString;
+}
+
 String getMMDDYYYYFormetFromString({
   required String date,
   String? newPattern,

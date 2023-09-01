@@ -446,9 +446,10 @@ class InspectionDetailController extends GetxController {
     phoneNumberController.value.text = firstHistoryItemDetail.phone ?? "";
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
-    selectedDate.value = getLocalDateFromUtc(
+    selectedDate.value = getDDMMYYYFormetFromString(
+        date: getLocalDateFromUtc(
       dateString: firstHistoryItemDetail.date ?? "",
-    );
+    ));
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];
@@ -518,8 +519,8 @@ class InspectionDetailController extends GetxController {
       inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
       inspectionRescheduleRequestModel.description =
           descriptionController.value.text;
-      inspectionRescheduleRequestModel.date = getLocalDateFromUtc(
-        dateString: selectedDate.value,
+      inspectionRescheduleRequestModel.date = getUtcDateString(
+        date: selectedDate.value,
       );
       inspectionRescheduleRequestModel.countryCode = selectedCountryCode.value;
 

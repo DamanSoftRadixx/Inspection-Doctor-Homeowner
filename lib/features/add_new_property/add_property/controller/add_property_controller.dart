@@ -866,27 +866,24 @@ class AddPropertyController extends GetxController {
       if (placeId.isNotEmpty) {
         await displayPrediction(description: description, placeId: placeId)
             .then((value) {
-          streetAddress1Controller.value.text = value.address1;
-          streetAddress2Controller.value.text = value.address2;
-          cityController.value.text = value.city;
-          zipCodeController.value.text = value.zipCode;
-          // if (value.state.trim().toUpperCase() == "NJ") {
-          //   streetAddress1Controller.value.text = value.address1;
-          //   streetAddress2Controller.value.text = value.address2;
-          //   cityController.value.text = value.city;
-          //   zipCodeController.value.text = value.zipCode;
-          // } else {
-          //   streetAddress1Controller.value.text = "";
-          //   streetAddress2Controller.value.text = "";
-          //   cityController.value.text = "";
-          //   zipCodeController.value.text = "";
-          //   apiErrorDialog(
-          //     message: AppStrings.notSelectedNY.tr,
-          //     okButtonPressed: () {
-          //       Get.back();
-          //     },
-          //   );
-          // }
+          if (value.state.trim().toUpperCase().removeAllWhitespace ==
+              "NEWJERSEY") {
+            streetAddress1Controller.value.text = value.address1;
+            streetAddress2Controller.value.text = value.address2;
+            cityController.value.text = value.city;
+            zipCodeController.value.text = value.zipCode;
+          } else {
+            streetAddress1Controller.value.text = "";
+            streetAddress2Controller.value.text = "";
+            cityController.value.text = "";
+            zipCodeController.value.text = "";
+            apiErrorDialog(
+              message: AppStrings.notSelectedNY.tr,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
           place.value = value;
           predictionsList.value = [];
           predictionsList.refresh();
