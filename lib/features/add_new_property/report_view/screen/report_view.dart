@@ -94,8 +94,8 @@ class ReportView extends GetView<ReportViewController> {
                 style: CustomTextTheme.normalText(
                   color: lightColorPalette.black,
                 ),
-                text:
-                    "${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 2]}.${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 1]}",
+                text: "Report.pdf",
+                // "${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 2]}.${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 1]}",
                 textAlign: TextAlign.center,
               ),
             ),

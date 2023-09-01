@@ -74,8 +74,10 @@ class LoginController extends GetxController {
 
   setLangunage() async {
     var temp = await Prefs.read(Prefs.selectedLangId);
-    int index = languageList.indexWhere((element) => element.id == temp);
-    selectedBaseMaterialDropDown.value = languageList[index];
+    if (languageList.isNotEmpty) {
+      int index = languageList.indexWhere((element) => element.id == temp);
+      selectedBaseMaterialDropDown.value = languageList[index];
+    }
   }
 
   @override
