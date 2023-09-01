@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -73,9 +75,13 @@ String getDDMMYYYFormet({
 String getDDMMYYYFormetFromString({
   required String date,
 }) {
-  var formattedDate = DateFormat("'MM/dd/yyyy").parse(date);
+  log("messagedfdfdfdsf $date");
+  var formattedDate = DateFormat("MM/dd/yyyy").parse(date);
 
-  String formattedDateString = DateFormat('dd/MM/yyyy').format(formattedDate);
+  log("messagedfdfdfdsf $formattedDate");
+
+  String formattedDateString = DateFormat("dd/MM/yyyy").format(formattedDate);
+  log("messagedfdfdfdsf $formattedDateString");
   return formattedDateString;
 }
 
@@ -83,10 +89,12 @@ String getMMDDYYYYFormetFromString({
   required String date,
   String? newPattern,
 }) {
+  log("date $date");
   var formattedDate = DateFormat("dd/MM/yyyy").parse(date);
+  log("messagedfdfdfdsffsdfdsfdsfd $formattedDate");
 
-  String formattedDateString =
-      DateFormat(newPattern ?? 'MM/dd/yyyy').format(formattedDate);
+  String formattedDateString = DateFormat("MM/dd/yyyy").format(formattedDate);
+  log("messagedfdfdfdsffsdfdsfdsfd $formattedDateString");
   return formattedDateString;
 }
 

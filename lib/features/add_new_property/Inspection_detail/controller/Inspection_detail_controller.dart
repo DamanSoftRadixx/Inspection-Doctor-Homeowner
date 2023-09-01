@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
@@ -446,10 +447,10 @@ class InspectionDetailController extends GetxController {
     phoneNumberController.value.text = firstHistoryItemDetail.phone ?? "";
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
-    selectedDate.value = getDDMMYYYFormetFromString(
-        date: getLocalDateFromUtc(
-      dateString: firstHistoryItemDetail.date ?? "",
-    ));
+    log("onOpenReScheduledBottomSheet ${getDDMMYYYFormetFromString(date: getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? ""))}");
+
+    selectedDate.value =
+        getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? "");
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];
