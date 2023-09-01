@@ -98,7 +98,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                 onPicked: (DateTime value) {
                   if (value != "") {
                     controller.selectedDate.value =
-                        getDateFormatedFromDateTime(date: value);
+                        getDDMMYYYFormet(date: value);
                     controller.selectedDate.refresh();
                   }
                 },

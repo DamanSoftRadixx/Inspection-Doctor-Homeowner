@@ -10,6 +10,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_i
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
@@ -938,44 +939,43 @@ Widget multiDropdownField(
                   value: item,
                   //disable default onTap to avoid closing menu when selecting an item
                   enabled: false,
-                  child:Obx(() => InkWell(
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      onClick(item);
-                    },
-                    child: Row(
-                      children: [
-                        AppTextWidget(
-                          text: item.name.toString(),
-                          style: CustomTextTheme.normalText(
-                              color: selectedValue.id == item.id
-                                  ? lightColorPalette.black
-                                  : lightColorPalette.black),
-                          overflow: TextOverflow.ellipsis,
+                  child: Obx(() => InkWell(
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () {
+                          onClick(item);
+                        },
+                        child: Row(
+                          children: [
+                            AppTextWidget(
+                              text: item.name.toString(),
+                              style: CustomTextTheme.normalText(
+                                  color: selectedValue.id == item.id
+                                      ? lightColorPalette.black
+                                      : lightColorPalette.black),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const Spacer(),
+                            selectedItems.value.contains(item)
+                                ? AssetWidget(
+                                    color: Colors.green,
+                                    asset: Asset(
+                                        type: AssetType.svg,
+                                        path: ImageResource.selectedCheckbox),
+                                  )
+                                : AssetWidget(
+                                    asset: Asset(
+                                        type: AssetType.svg,
+                                        path: ImageResource.unSelectedCheckbox),
+                                  )
+                          ],
                         ),
-                        const Spacer(),
-
-                        selectedItems.value.contains(item) ? AssetWidget(
-                          color: Colors.green,
-                          asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.selectedCheckbox),
-                        )
-                            : AssetWidget(
-                          asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.unSelectedCheckbox),
-                        )
-                      ],
-                    ),
-                  )),
+                      )),
                 );
               }).toList(),
-              onChanged: (DropdownModel? value) {
-              },
+              onChanged: (DropdownModel? value) {},
             ),
           )),
       Visibility(
@@ -1126,7 +1126,8 @@ Widget commonDatePicker(
                     ? AppTextWidget(
                         style: CustomTextTheme.normalText(
                             color: lightColorPalette.black),
-                        text: selectedDate ?? "",
+                        text: getMMDDYYYYFormetFromString(
+                            date: selectedDate ?? ""),
                         textAlign: TextAlign.start,
                       ).paddingOnly(left: 15.w)
                     : AppTextWidget(

@@ -51,7 +51,7 @@ class CategoryFormController extends GetxController {
   RxString emailErrorMessage = "".obs;
 
   var categoriesList = <CategoryListResponseDataModel>[].obs;
-  Rx<String> selectedDate = "".obs;
+  Rx<String> selectedDate = "".obs; //dd/mm/yyyy used format
 
   Rx<CategoryListResponseDataModel> selectedCategory =
       CategoryListResponseDataModel().obs;
@@ -208,8 +208,9 @@ class CategoryFormController extends GetxController {
     argData.value.phone = phoneNumberController.value.text;
     argData.value.email = emailController.value.text;
     argData.value.phone = phoneNumberController.value.text;
-    argData.value.date = getDateFormattedFromString(
-        dateString: selectedDate.value, inputFormat: "yyyy-MM-dd");
+    argData.value.date = getUtcDateString(
+      date: selectedDate.value,
+    );
     argData.value.countryCode = selectedCountryCode.value;
     argData.value.time = utcDateTimeList;
     argData.value.description = descriptionController.value.text;
