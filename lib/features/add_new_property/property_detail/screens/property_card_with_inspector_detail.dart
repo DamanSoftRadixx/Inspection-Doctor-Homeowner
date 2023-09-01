@@ -91,7 +91,7 @@ extension PropertyCard on PropertyDetailScreen {
                     AppTextWidget(
                       style: CustomTextTheme.normalText(
                           color: lightColorPalette.grey),
-                      text: getDateFormattedFromString(
+                      text: getLocalDateFromUtc(
                           dateString: listData
                                   .propertyInspectionSchedulesHistory
                                   ?.first

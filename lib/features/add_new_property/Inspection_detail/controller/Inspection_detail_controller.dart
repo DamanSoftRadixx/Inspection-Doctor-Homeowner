@@ -255,7 +255,7 @@ class InspectionDetailController extends GetxController {
 
       if (historyStatusId == InspectionHistoryStatusEnum.newInspection.value) {
         var inspectionDate =
-            getDateFormattedFromString(dateString: historyData.date ?? "");
+            getLocalDateFromUtc(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -274,7 +274,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectionAcccepted.value) {
         var inspectionDate =
-            getDateFormattedFromString(dateString: historyData.date ?? "");
+            getLocalDateFromUtc(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -292,7 +292,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.homeownerInspectionRescheduled.value) {
         var inspectionDate =
-            getDateFormattedFromString(dateString: historyData.date ?? "");
+            getLocalDateFromUtc(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -312,7 +312,8 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message: "<span>${AppStrings.youHaveCanceledTheinspection.tr}</span>",
+            message:
+                "<span>${AppStrings.youHaveCanceledTheinspection.tr}</span>",
             title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -332,7 +333,7 @@ class InspectionDetailController extends GetxController {
       } else if (historyStatusId ==
           InspectionHistoryStatusEnum.inspectorInspectionRescheduled.value) {
         var inspectionDate =
-            getDateFormattedFromString(dateString: historyData.date ?? "");
+            getLocalDateFromUtc(dateString: historyData.date ?? "");
 
         var timeList = historyData.time ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
@@ -445,9 +446,9 @@ class InspectionDetailController extends GetxController {
     phoneNumberController.value.text = firstHistoryItemDetail.phone ?? "";
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
-    selectedDate.value = getDateFormattedFromString(
-        dateString: firstHistoryItemDetail.date ?? "",
-        inputFormat: "dd/MM/yyyy");
+    selectedDate.value = getLocalDateFromUtc(
+      dateString: firstHistoryItemDetail.date ?? "",
+    );
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 
     var timeRespList = firstHistoryItemDetail.time ?? [];
@@ -517,8 +518,9 @@ class InspectionDetailController extends GetxController {
       inspectionRescheduleRequestModel.phone = phoneNumberController.value.text;
       inspectionRescheduleRequestModel.description =
           descriptionController.value.text;
-      inspectionRescheduleRequestModel.date = getDateFormattedFromString(
-          dateString: selectedDate.value, inputFormat: "yyyy-MM-dd");
+      inspectionRescheduleRequestModel.date = getLocalDateFromUtc(
+        dateString: selectedDate.value,
+      );
       inspectionRescheduleRequestModel.countryCode = selectedCountryCode.value;
 
       inspectionRescheduleRequestModel.time = utcDateTimeList;

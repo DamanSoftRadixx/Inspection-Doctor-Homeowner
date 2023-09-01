@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-getLocalDateFromUtc({required String dateTimeString}) {
-  if (dateTimeString != "" && dateTimeString != "null") {
-    var giveDateTime = DateTime.parse(dateTimeString);
+getLocalDateFromUtc({required String dateString}) {
+  if (dateString != "" && dateString != "null") {
+    var giveDateTime = DateTime.parse(dateString);
     var localDateTime = giveDateTime.toLocal();
-    var localDate = DateFormat("dd MMM At hh:mm a").format(localDateTime);
+    // var localDate = DateFormat("dd MMM At hh:mm a").format(localDateTime);
+    var localDate = DateFormat("MM/dd/yyyy").format(localDateTime);
     localDate = localDate.replaceAll("At", "at");
     return localDate;
   }
@@ -61,60 +62,48 @@ String getUtcDateString(
   return "";
 }
 
-String getDateFormatedFromDateTime({
+String getDDMMYYYFormet({
   required DateTime date,
   String? newPattern,
 }) {
-  String formattedDate = DateFormat(newPattern ?? 'MM/dd/yyyy').format(date);
+  String formattedDate = DateFormat(newPattern ?? 'dd/MM/yyyy').format(date);
   return formattedDate;
+}
+
+String getMMDDYYYYFormetFromString({
+  required String date,
+  String? newPattern,
+}) {
+  var formattedDate = DateFormat("dd/MM/yyyy").parse(date);
+
+  String formattedDateString =
+      DateFormat(newPattern ?? 'MM/dd/yyyy').format(formattedDate);
+  return formattedDateString;
 }
 
 // String getDateFormattedFromString({
 //   required String dateString,
-//   String? newPattern,
+//   String? inputFormat,
 // }) {
 //   String result = "";
-//   if (date != "") {
-//     if (date.contains("/")) {
-//       String year = date.split("/").last;
-//       String month = date.split("/")[1];
-//       String day = date.split("/").first;
+//   if (dateString != "") {
+//     if (dateString.contains("/")) {
+//       String year = dateString.split("/").last;
+//       String month = dateString.split("/")[1];
+//       String day = dateString.split("/").first;
 
 //       DateTime tempDate = DateFormat("yyyy-MM-dd").parse("$year-$month-$day");
 
-//       result = DateFormat(newPattern ?? 'dd MMMM yyyy').format(tempDate);
+//       result = DateFormat(inputFormat ?? 'MM/dd/yyyy').format(tempDate);
 //     } else {
-//       DateTime temp = parseDated(text: date) ?? DateTime.now();
-//       result = DateFormat(newPattern ?? 'dd MMMM yyyy').format(temp);
+//       var temp = DateFormat("yyyy-MM-dd").parse(dateString);
+
+//       result = DateFormat('MM/dd/yyyy').format(temp);
 //     }
 //   }
 
 //   return result;
 // }
-
-String getDateFormattedFromString({
-  required String dateString,
-  String? inputFormat,
-}) {
-  String result = "";
-  if (dateString != "") {
-    if (dateString.contains("/")) {
-      String year = dateString.split("/").last;
-      String month = dateString.split("/")[1];
-      String day = dateString.split("/").first;
-
-      DateTime tempDate = DateFormat("yyyy-MM-dd").parse("$year-$month-$day");
-
-      result = DateFormat(inputFormat ?? 'MM/dd/yyyy').format(tempDate);
-    } else {
-      var temp = DateFormat("yyyy-MM-dd").parse(dateString);
-
-      result = DateFormat('MM/dd/yyyy').format(temp);
-    }
-  }
-
-  return result;
-}
 
 DateTime? parseDated({required String text}) {
   final MaterialLocalizations localizations =
