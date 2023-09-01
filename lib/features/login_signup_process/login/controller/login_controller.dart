@@ -12,6 +12,8 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/select_language_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/provider/common_provider.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/social_login/social_login.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
@@ -21,11 +23,11 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/login_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/login_signup_process/login/models/network_model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/provider/login_provider.dart';
 
 class LoginController extends GetxController {
   LoginProvider loginProvider = LoginProvider();
+  CommonProvider commonProvider = CommonProvider();
 
   RxBool isHidePassword = true.obs;
   Rx<TextEditingController> emailController = TextEditingController().obs;
@@ -456,7 +458,7 @@ class LoginController extends GetxController {
     isShowLoader.value = true;
     try {
       GetLangaugeResponseModel response =
-          await loginProvider.getLanguages() ?? GetLangaugeResponseModel();
+          await commonProvider.getLanguages() ?? GetLangaugeResponseModel();
       languageList.clear();
       isShowLoader.value = false;
 

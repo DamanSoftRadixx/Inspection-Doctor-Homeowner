@@ -66,9 +66,6 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
                                     controller.onTapAddressNotAssign();
                                   }).paddingOnly(bottom: 11.h),
                               controller.isAddressNotAssigned.value
-                                  // ? showPlotNumberField()
-                                  //     .paddingOnly(bottom: 11.h)
-
                                   ? const SizedBox()
                                   : Column(
                                       children: [

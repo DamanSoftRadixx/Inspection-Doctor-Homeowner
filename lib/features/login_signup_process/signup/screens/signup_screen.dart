@@ -87,18 +87,30 @@ class SignupScreen extends GetView<SignupController> {
   }
 
   Widget showLanguageSelection() {
-    return dropdownField(
-        isError: controller.languageError.value,
-        errorMsg: controller.languageErrorMessage.value,
-        hint: AppStrings.selectLanguage.tr,
-        title: AppStrings.selectLanguage.tr,
-        selectedValue: controller.selectedBaseMaterialDropDown.value,
-        onClick: (DropdownModel value) {
-          controller.onSelectBaseMaterialDropdown(value: value);
-          controller.languageError.value = false;
-        },
-        list: controller.languageList,
-        isExpanded: true);
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        controller.getLanguage();
+      },
+      child: IgnorePointer(
+        ignoring: controller.languageList.isEmpty,
+        child: dropdownField(
+            isError: controller.languageError.value,
+            errorMsg: controller.languageErrorMessage.value,
+            hint: AppStrings.selectLanguage.tr,
+            title: AppStrings.selectLanguage.tr,
+            selectedValue: controller.selectedBaseMaterialDropDown.value,
+            onClick: (DropdownModel value) {
+              controller.onSelectBaseMaterialDropdown(value: value);
+              controller.languageError.value = false;
+            },
+            list: controller.languageList,
+            isExpanded: true),
+      ),
+    );
   }
 
   showMailingAddress() {

@@ -18,18 +18,22 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/provider/common_provider.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/foundation.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/models/network_model/signup_model.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/provider/signup_provider.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class SignupController extends GetxController {
   SignUpProvider signUpProvider = SignUpProvider();
+  CommonProvider commonProvider = CommonProvider();
 
   Rx<TextEditingController> firstNameController = TextEditingController().obs;
   Rx<TextEditingController> lastNameController = TextEditingController().obs;
@@ -160,6 +164,7 @@ class SignupController extends GetxController {
   void onInit() {
     getStateListApi();
     addFocusListeners();
+    getLanguage();
     getArguments();
 
     super.onInit();
@@ -179,20 +184,20 @@ class SignupController extends GetxController {
   getArguments() async {
     var args = Get.arguments;
     if (args != null) {
-      List<DropdownModel> languageListTemp =
-          args[GetArgumentConstants.languageList] ?? List<DropdownModel>;
+      // List<DropdownModel> languageListTemp =
+      //     args[GetArgumentConstants.languageList] ?? List<DropdownModel>;
 
-      if (languageListTemp.isNotEmpty) {
-        languageList.value = languageListTemp;
-      }
+      // if (languageListTemp.isNotEmpty) {
+      //   languageList.value = languageListTemp;
+      // }
 
-      String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+      // String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
 
-      if (selectedLangId != "") {
-        int index =
-            languageList.indexWhere((element) => element.id == selectedLangId);
-        selectedBaseMaterialDropDown.value = languageList[index];
-      }
+      // if (selectedLangId != "") {
+      //   int index =
+      //       languageList.indexWhere((element) => element.id == selectedLangId);
+      //   selectedBaseMaterialDropDown.value = languageList[index];
+      // }
     }
   }
 
@@ -612,6 +617,48 @@ class SignupController extends GetxController {
             duration: const Duration(milliseconds: 500),
             curve: Curves.fastOutSlowIn);
       });
+    }
+  }
+
+  getLanguage() async {
+    isShowLoader.value = true;
+    try {
+      GetLangaugeResponseModel response =
+          await commonProvider.getLanguages() ?? GetLangaugeResponseModel();
+      languageList.clear();
+      isShowLoader.value = false;
+
+      if (response.success == true && response.data?.languages != []) {
+        response.data?.languages
+            ?.map((e) => languageList.add(DropdownModel(
+                  id: e.id ?? "",
+                  name: e.name ?? "",
+                  icon: e.name == "English"
+                      ? ImageResource.flagUSA
+                      : e.name == "Spanish"
+                          ? ImageResource.flagSpain
+                          : "",
+                )))
+            .toList();
+        String selectedLangId = await Prefs.read(Prefs.selectedLangId) ?? "";
+
+        if (selectedLangId != "") {
+          int index = languageList
+              .indexWhere((element) => element.id == selectedLangId);
+          selectedBaseMaterialDropDown.value = languageList[index];
+        }
+      } else {
+        setShowLoader(value: false);
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      isShowLoader.value = false;
+      isShowLoader.refresh();
     }
   }
 }

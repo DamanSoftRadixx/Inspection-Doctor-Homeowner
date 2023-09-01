@@ -865,22 +865,25 @@ class AddPropertyController extends GetxController {
     String placeId = predictionsList[index].placeId ?? "";
     if (placeId.isNotEmpty) {
       await displayPrediction(placeId).then((value) {
-        streetAddress1Controller.value.text = place.value.address1;
-        streetAddress2Controller.value.text = place.value.address2;
-        cityController.value.text = place.value.city;
-        zipCodeController.value.text = place.value.zipCode;
-        // } else {
-        //   streetAddress1Controller.value.text = "";
-        //   streetAddress2Controller.value.text = "";
-        //   cityController.value.text = "";
-        //   zipCodeController.value.text = "";
-        //   apiErrorDialog(
-        //     message: AppStrings.notSelectedNY.tr,
-        //     okButtonPressed: () {
-        //       Get.back();
-        //     },
-        //   );
-        // }
+        log("message ${value.state}");
+
+        if (value.state.trim().toUpperCase() == "NJ") {
+          streetAddress1Controller.value.text = value.address1;
+          streetAddress2Controller.value.text = value.address2;
+          cityController.value.text = value.city;
+          zipCodeController.value.text = value.zipCode;
+        } else {
+          streetAddress1Controller.value.text = "";
+          streetAddress2Controller.value.text = "";
+          cityController.value.text = "";
+          zipCodeController.value.text = "";
+          apiErrorDialog(
+            message: AppStrings.notSelectedNY.tr,
+            okButtonPressed: () {
+              Get.back();
+            },
+          );
+        }
         place.value = value;
         predictionsList.value = [];
         predictionsList.refresh();
