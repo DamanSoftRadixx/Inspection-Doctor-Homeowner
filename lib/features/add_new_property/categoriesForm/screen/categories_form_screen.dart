@@ -147,18 +147,20 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
         spacing: 5.w,
         children: List.generate(
             controller.selectedTime.length,
-            (index) => controller.selectedTime[index].id == "0" ? SizedBox() : Chip(
-                  deleteIconColor: lightColorPalette.redDark,
-                  onDeleted: () {
-                    controller.selectedTime.removeAt(index);
-                  },
-                  label: AppTextWidget(
-                    textAlign: TextAlign.start,
-                    text: controller.selectedTime[index].name,
-                    style: CustomTextTheme.bottomTabsithFontWeight600(
-                        color: lightColorPalette.grey),
-                  ),
-                )),
+            (index) => controller.selectedTime[index].id == "0"
+                ? const SizedBox()
+                : Chip(
+                    deleteIconColor: lightColorPalette.redDark,
+                    onDeleted: () {
+                      controller.removeTime(index);
+                    },
+                    label: AppTextWidget(
+                      textAlign: TextAlign.start,
+                      text: controller.selectedTime[index].name,
+                      style: CustomTextTheme.bottomTabsithFontWeight600(
+                          color: lightColorPalette.grey),
+                    ),
+                  )),
       ),
     );
   }

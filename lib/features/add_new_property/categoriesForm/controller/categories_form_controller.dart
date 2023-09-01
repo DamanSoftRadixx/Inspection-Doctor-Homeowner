@@ -176,15 +176,24 @@ class CategoryFormController extends GetxController {
     }
   }
 
+  void removeTime(int index) {
+    selectedTime.removeAt(index);
+    //Remove all days
+    if (selectedTime.contains(timeList[0])) {
+      int tempIndex =
+          selectedTime.indexWhere((element) => element == timeList[0]);
+      selectedTime.removeAt(tempIndex);
+    }
+  }
+
   Future<void> createInspection() async {
     setShowLoader(value: true);
 
     List<TimeModel> utcDateTimeList = [];
 
     if (selectedTime.isNotEmpty) {
-
-      for(var object in selectedTime){
-        if(object.id != "0"){
+      for (var object in selectedTime) {
+        if (object.id != "0") {
           utcDateTimeList.add(TimeModel(
               starttime: getUtcDateString(
                   date: selectedDate.value, time: object.startTime),
@@ -192,7 +201,6 @@ class CategoryFormController extends GetxController {
                   date: selectedDate.value, time: object.endTime)));
         }
       }
-
     }
 
     argData.value.firstName = firstNameController.value.text;
