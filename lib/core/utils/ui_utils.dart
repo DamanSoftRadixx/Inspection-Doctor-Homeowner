@@ -86,7 +86,7 @@ String getAddressFormat(PropertyListData property) {
     result = "${property.addressLine1},${property.city},${property.zipCode}";
   } else {
     result =
-        "${property.addressLine1}${property.addressLine2},${property.city},${property.zipCode}";
+        "${property.addressLine1},${property.addressLine2},${property.city},${property.zipCode}";
   }
 
   return result;

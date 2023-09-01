@@ -136,7 +136,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                 children: [
                   Flexible(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Flexible(
                           child: Row(

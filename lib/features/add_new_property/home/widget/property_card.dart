@@ -93,31 +93,31 @@ class PropertyCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                    Flexible(
-                      child: Row(
-                        children: [
-                          AssetWidget(
-                            color: lightColorPalette.black,
-                            asset: Asset(
-                              type: AssetType.svg,
-                              path: ImageResource.hashLogo,
+                      Flexible(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AssetWidget(
+                              color: lightColorPalette.black,
+                              asset: Asset(
+                                type: AssetType.svg,
+                                path: ImageResource.hashLogo,
+                              ),
+                            ).paddingOnly(right: 5.w),
+                            Flexible(
+                              child: AppTextWidget(
+                                style: CustomTextTheme.normalText(
+                                    color: lightColorPalette.grey),
+                                text: "Lot#${property.lotNumber ?? ""}",
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ).paddingOnly(right: 5.w),
-                          Flexible(
-                            child: AppTextWidget(
-                              style: CustomTextTheme.normalText(
-                                  color: lightColorPalette.grey),
-                              text: "Lot#${property.lotNumber ?? ""}",
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-
-                      Flexible(child: Row(
+                      Flexible(
+                          child: Row(
                         children: [
-
                           AssetWidget(
                             color: lightColorPalette.black,
                             asset: Asset(
