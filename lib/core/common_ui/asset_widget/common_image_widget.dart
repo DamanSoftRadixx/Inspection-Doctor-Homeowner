@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,8 +20,9 @@ class AssetWidget extends StatelessWidget {
   final String? placeHolder;
   final bool? isCircular;
   final VoidCallback? onClick;
+  Function(DownloadProgress progress)? percentageCallback;
 
-  const AssetWidget(
+  AssetWidget(
       {Key? key,
       required this.asset,
       this.width,
@@ -31,6 +34,7 @@ class AssetWidget extends StatelessWidget {
       this.lastName,
       this.height,
       this.color,
+      this.percentageCallback,
       this.boxFit})
       : super(key: key);
 
@@ -82,18 +86,25 @@ class AssetWidget extends StatelessWidget {
                 }
               }*/ /*
             },*/
-            child: asset.path == "" && asset.path == null
-                ? loadingWidget(placeHolder: placeHolder)
-                : CachedNetworkImage(
-                    height: height,
-                    width: width,
-                    imageUrl: asset.path,
-                    fit: boxFit ?? BoxFit.cover,
-                    /*placeholder: (context, url) =>
-                        loadingWidget(placeHolder: url),*/
-                    errorWidget: (context, url, error) =>
-                        loadingWidget(placeHolder: placeHolder),
-                  ),
+            child: CachedNetworkImage(
+              height: height,
+              width: width,
+              imageUrl: asset.path,
+              fit: boxFit ?? BoxFit.cover,
+              imageBuilder: (context, imageProvider) {
+                return uiShow(imageProvider);
+              },
+              errorWidget: (context, url, error) =>
+                  loadingWidget(placeHolder: placeHolder),
+              progressIndicatorBuilder: (context, url, progress) {
+                if (percentageCallback != null) {
+                  percentageCallback!(progress);
+                }
+                return ProgressCommonLoader(
+                  value: progress.progress ?? 0,
+                );
+              },
+            ),
           );
 
           return widget;
@@ -125,4 +136,23 @@ class Asset {
   File? file;
 
   Asset({required this.path, required this.type, this.file});
+}
+
+Container uiShow(ImageProvider<Object> imageProvider) {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(2.r),
+      boxShadow: [
+        BoxShadow(
+            color: lightColorPalette.black,
+            blurRadius: 5.0,
+            offset: const Offset(2, 2),
+            spreadRadius: 0),
+      ],
+      image: DecorationImage(
+        image: imageProvider,
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
 }
