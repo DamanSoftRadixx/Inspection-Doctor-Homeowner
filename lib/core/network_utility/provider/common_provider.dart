@@ -4,6 +4,7 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/logout/mod
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/model/google_address_response_model.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/select_language_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
@@ -43,6 +44,28 @@ class CommonProvider {
       showResponseData(
         data,
         type: 'getLanguages',
+      );
+      return data;
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      }
+    }
+    return null;
+  }
+
+  Future<GoogleAddressResponseModel?> getGoogleAddress(
+      {required String placeid}) async {
+    try {
+      Response response = await apiHitter.getGoogleAddressApi(
+          endPoint:
+              "${EndPoints.googleMapUrl}placeid=$placeid&key=${EndPoints.mapKey}");
+
+      GoogleAddressResponseModel data =
+          GoogleAddressResponseModel.fromJson(response.data);
+      showResponseData(
+        data,
+        type: 'getGoogleAddress',
       );
       return data;
     } catch (e) {

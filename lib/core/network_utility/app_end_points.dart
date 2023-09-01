@@ -32,7 +32,8 @@ class EndPoints {
   static const String viewReport = "inspector/view-report";
 
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";
-  // connectTimeout
+  static String googleMapUrl =
+      "https://maps.googleapis.com/maps/api/place/details/json?";
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

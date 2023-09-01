@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
@@ -14,8 +13,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/controller/signup_controller.dart';
 
 class SignupScreen extends GetView<SignupController> {
@@ -128,38 +125,38 @@ class SignupScreen extends GetView<SignupController> {
     ).paddingOnly(top: 30.h, bottom: 15.h);
   }
 
-  getChooseMapButton() {
-    return CustomInkwell(
-      padding: EdgeInsets.zero,
-      onTap: () async {
-        if (await checkForLocationPermissions()) {
-          controller.onTapChooseButton();
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: lightColorPalette.black, width: 0.3)),
-        child: Row(
-          children: [
-            AssetWidget(
-              color: lightColorPalette.black,
-              asset: Asset(
-                type: AssetType.svg,
-                path: ImageResource.map,
-              ),
-            ).paddingOnly(right: 4.w),
-            AppTextWidget(
-              style: CustomTextTheme.bottomTabsithFontWeight600(
-                  color: lightColorPalette.black),
-              text: AppStrings.chooseOnMap.tr,
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // getChooseMapButton() {
+  //   return CustomInkwell(
+  //     padding: EdgeInsets.zero,
+  //     onTap: () async {
+  //       if (await checkForLocationPermissions()) {
+  //         controller.onTapChooseButton();
+  //       }
+  //     },
+  //     child: Container(
+  //       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
+  //       decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10.r),
+  //           border: Border.all(color: lightColorPalette.black, width: 0.3)),
+  //       child: Row(
+  //         children: [
+  //           AssetWidget(
+  //             color: lightColorPalette.black,
+  //             asset: Asset(
+  //               type: AssetType.svg,
+  //               path: ImageResource.map,
+  //             ),
+  //           ).paddingOnly(right: 4.w),
+  //           AppTextWidget(
+  //             style: CustomTextTheme.bottomTabsithFontWeight600(
+  //                 color: lightColorPalette.black),
+  //             text: AppStrings.chooseOnMap.tr,
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Row showLoginOption() {
     return Row(

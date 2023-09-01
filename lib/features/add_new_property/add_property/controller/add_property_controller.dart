@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/address_search.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/location/models/pick_result.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/location/place.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
@@ -17,7 +16,6 @@ import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
@@ -754,27 +752,27 @@ class AddPropertyController extends GetxController {
     }
   }
 
-  void onTapChooseButton() {
-    Get.toNamed(Routes.chooseMap)?.then((value) async {
-      if (value != null) {
-        PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
-        String placeId = result.placeId ?? "";
-        if (placeId.isNotEmpty) {
-          await displayPrediction(placeId).then((value) {
-            place.value = value;
-            predictionsList.value = [];
-            predictionsList.refresh();
-            streetAddress1Controller.value.text = place.value.address1;
-            streetAddress2Controller.value.text = place.value.address2;
-            cityController.value.text = place.value.city;
-            zipCodeController.value.text = place.value.zipCode;
-            setShowLoader(value: false);
-            dismissKeyboard();
-          });
-        }
-      }
-    });
-  }
+  // void onTapChooseButton() {
+  //   Get.toNamed(Routes.chooseMap)?.then((value) async {
+  //     if (value != null) {
+  //       PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
+  //       String placeId = result.placeId ?? "";
+  //       if (placeId.isNotEmpty) {
+  //         await displayPrediction(placeId).then((value) {
+  //           place.value = value;
+  //           predictionsList.value = [];
+  //           predictionsList.refresh();
+  //           streetAddress1Controller.value.text = place.value.address1;
+  //           streetAddress2Controller.value.text = place.value.address2;
+  //           cityController.value.text = place.value.city;
+  //           zipCodeController.value.text = place.value.zipCode;
+  //           setShowLoader(value: false);
+  //           dismissKeyboard();
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
 
   bool get isAppPropertyButtonEnable {
     bool result = false;
@@ -863,37 +861,43 @@ class AddPropertyController extends GetxController {
     setShowLoader(value: true);
     dismissKeyboard();
     String placeId = predictionsList[index].placeId ?? "";
+    String description = predictionsList[index].description ?? "";
     if (placeId.isNotEmpty) {
-      await displayPrediction(placeId).then((value) {
-        log("message ${value.state}");
-
-        if (value.state.trim().toUpperCase() == "NJ") {
+      if (placeId.isNotEmpty) {
+        await displayPrediction(description: description, placeId: placeId)
+            .then((value) {
           streetAddress1Controller.value.text = value.address1;
           streetAddress2Controller.value.text = value.address2;
           cityController.value.text = value.city;
           zipCodeController.value.text = value.zipCode;
-        } else {
-          streetAddress1Controller.value.text = "";
-          streetAddress2Controller.value.text = "";
-          cityController.value.text = "";
-          zipCodeController.value.text = "";
-          apiErrorDialog(
-            message: AppStrings.notSelectedNY.tr,
-            okButtonPressed: () {
-              Get.back();
-            },
-          );
-        }
-        place.value = value;
-        predictionsList.value = [];
-        predictionsList.refresh();
+          // if (value.state.trim().toUpperCase() == "NJ") {
+          //   streetAddress1Controller.value.text = value.address1;
+          //   streetAddress2Controller.value.text = value.address2;
+          //   cityController.value.text = value.city;
+          //   zipCodeController.value.text = value.zipCode;
+          // } else {
+          //   streetAddress1Controller.value.text = "";
+          //   streetAddress2Controller.value.text = "";
+          //   cityController.value.text = "";
+          //   zipCodeController.value.text = "";
+          //   apiErrorDialog(
+          //     message: AppStrings.notSelectedNY.tr,
+          //     okButtonPressed: () {
+          //       Get.back();
+          //     },
+          //   );
+          // }
+          place.value = value;
+          predictionsList.value = [];
+          predictionsList.refresh();
 
-        setShowLoader(value: false);
+          setShowLoader(value: false);
 
-        scrollController.value.animateTo(0,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastOutSlowIn);
-      });
+          scrollController.value.animateTo(0,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        });
+      }
     }
   }
 }

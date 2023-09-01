@@ -6,7 +6,6 @@ import 'package:country_picker/src/country.dart';
 import 'package:device_uuid/device_uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/chage_language.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
@@ -486,27 +485,27 @@ class SignupController extends GetxController {
     }
   }
 
-  void onTapChooseButton() {
-    Get.toNamed(Routes.chooseMap)?.then((value) async {
-      if (value != null) {
-        PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
-        String placeId = result.placeId ?? "";
-        if (placeId.isNotEmpty) {
-          await displayPrediction(placeId).then((value) {
-            place.value = value;
-            predictionsList.value = [];
-            predictionsList.refresh();
-            streetAddress1Controller.value.text = place.value.address1;
-            streetAddress2Controller.value.text = place.value.address2;
-            cityController.value.text = place.value.city;
-            zipCodeController.value.text = place.value.zipCode;
-            setShowLoader(value: false);
-            dismissKeyboard();
-          });
-        }
-      }
-    });
-  }
+  // void onTapChooseButton() {
+  //   Get.toNamed(Routes.chooseMap)?.then((value) async {
+  //     if (value != null) {
+  //       PickResult result = value[0][GetArgumentConstants.googleAddressPlace];
+  //       String placeId = result.placeId ?? "";
+  //       if (placeId.isNotEmpty) {
+  //         await displayPrediction(placeId).then((value) {
+  //           place.value = value;
+  //           predictionsList.value = [];
+  //           predictionsList.refresh();
+  //           streetAddress1Controller.value.text = place.value.address1;
+  //           streetAddress2Controller.value.text = place.value.address2;
+  //           cityController.value.text = place.value.city;
+  //           zipCodeController.value.text = place.value.zipCode;
+  //           setShowLoader(value: false);
+  //           dismissKeyboard();
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
 
   void getAddressSplit(
       {required String start, required String end, required String data}) {
@@ -602,15 +601,17 @@ class SignupController extends GetxController {
     setShowLoader(value: true);
     dismissKeyboard();
     String placeId = predictionsList[index].placeId ?? "";
+    String description = predictionsList[index].description ?? "";
     if (placeId.isNotEmpty) {
-      await displayPrediction(placeId).then((value) {
+      await displayPrediction(description: description, placeId: placeId)
+          .then((value) {
         place.value = value;
         predictionsList.value = [];
         predictionsList.refresh();
-        streetAddress1Controller.value.text = place.value.address1;
-        streetAddress2Controller.value.text = place.value.address2;
-        cityController.value.text = place.value.city;
-        zipCodeController.value.text = place.value.zipCode;
+        streetAddress1Controller.value.text = value.address1;
+        streetAddress2Controller.value.text = value.address2;
+        cityController.value.text = value.city;
+        zipCodeController.value.text = value.zipCode;
         setShowLoader(value: false);
 
         scrollController.value.animateTo(500,

@@ -9,7 +9,6 @@ import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_ke
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/document_picker/common_document_picker.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
@@ -17,7 +16,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
 
 class AddPropertyScreen extends GetView<AddPropertyController> {
@@ -218,40 +216,40 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
         ));
   }
 
-  Widget getChooseMapButton() {
-    return CustomInkwell(
-      padding: EdgeInsets.zero,
-      onTap: () async {
-        if (await checkForLocationPermissions()) {
-          controller.onTapChooseButton();
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
-        decoration: BoxDecoration(
-            // color: lightColorPalette.backgroundColor,
-            borderRadius: BorderRadius.circular(4.r),
-            border: Border.all(color: lightColorPalette.black, width: 0.3)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AssetWidget(
-              color: lightColorPalette.black,
-              asset: Asset(
-                type: AssetType.svg,
-                path: ImageResource.map,
-              ),
-            ).paddingOnly(right: 4.w),
-            AppTextWidget(
-              style: CustomTextTheme.bottomTabsithFontWeight600(
-                  color: lightColorPalette.black),
-              text: AppStrings.chooseOnMap.tr,
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget getChooseMapButton() {
+  //   return CustomInkwell(
+  //     padding: EdgeInsets.zero,
+  //     onTap: () async {
+  //       if (await checkForLocationPermissions()) {
+  //         controller.onTapChooseButton();
+  //       }
+  //     },
+  //     child: Container(
+  //       padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 7.h),
+  //       decoration: BoxDecoration(
+  //           // color: lightColorPalette.backgroundColor,
+  //           borderRadius: BorderRadius.circular(4.r),
+  //           border: Border.all(color: lightColorPalette.black, width: 0.3)),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           AssetWidget(
+  //             color: lightColorPalette.black,
+  //             asset: Asset(
+  //               type: AssetType.svg,
+  //               path: ImageResource.map,
+  //             ),
+  //           ).paddingOnly(right: 4.w),
+  //           AppTextWidget(
+  //             style: CustomTextTheme.bottomTabsithFontWeight600(
+  //                 color: lightColorPalette.black),
+  //             text: AppStrings.chooseOnMap.tr,
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   CommonButton showAddPropertyButton() {
     return CommonButton(

@@ -324,8 +324,23 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
   }
 
   getInspectionTimeList(ScheduleInspectionResponseData listData) {
-    List<TimeModel> timeList =
-        listData.propertyInspectionSchedulesHistory?.first.time ?? [];
+    // List<TimeModel> timeList =
+    //     listData.propertyInspectionSchedulesHistory?.first.time ?? [];
+
+    var timeList = [];
+
+    if (listData.propertyInspectionSchedulesHistory?.first
+                .acceptedInspectionTime?.isNotEmpty ==
+            true &&
+        listData.propertyInspectionSchedulesHistory?.first
+                .acceptedInspectionTime !=
+            null) {
+      timeList = listData.propertyInspectionSchedulesHistory?.first
+              .acceptedInspectionTime ??
+          [];
+    } else {
+      timeList = listData.propertyInspectionSchedulesHistory?.first.time ?? [];
+    }
 
     return Expanded(
       child: ListView.builder(

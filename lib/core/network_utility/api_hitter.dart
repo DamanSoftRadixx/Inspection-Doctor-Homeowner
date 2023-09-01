@@ -287,6 +287,35 @@ class ApiHitter {
     }
   }
 
+  getGoogleAddressApi(
+      {required String endPoint,
+      Object? body,
+      void Function(int, int)? onSendProgress,
+      void Function(int, int)? onReceiveProgress,
+      CancelToken? cancelToken,
+      Map<String, dynamic>? queryParameters,
+      Map<String, String>? headersParm}) async {
+    try {
+      String url = endPoint;
+
+      if (await networkCheck.hasNetwork()) {
+        Response response = await dio.get(
+          url,
+        );
+        return response;
+      } else {
+        log("no internet issue");
+        networkCheck.noInternetConnectionDialog();
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw DioExceptions.fromDioError(dioError: e);
+      } else {
+        throw Exception("Error");
+      }
+    }
+  }
+
   Future<bool> cancelRequests() async {
     cancelToken.cancel();
     return cancelToken.isCancelled;
