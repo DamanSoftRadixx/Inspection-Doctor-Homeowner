@@ -516,18 +516,30 @@ class SignupScreen extends GetView<SignupController> {
   }
 
   Widget showStateSelection() {
-    return dropdownField(
-        isDisable: false,
-        isError: controller.stateError.value,
-        errorMsg: controller.stateErrorMessage.value,
-        hint: placeHolder.state.tr,
-        title: AppStrings.selectState.tr,
-        selectedValue: controller.selectedStateDropDown.value,
-        onClick: (DropdownModel value) {
-          controller.onSelectStateStateDropdown(value: value);
-          controller.stateError.value = false;
-        },
-        list: controller.stateList,
-        isExpanded: true);
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        controller.getStateListApi();
+      },
+      child: IgnorePointer(
+        ignoring: controller.stateList.isEmpty,
+        child: dropdownField(
+            isDisable: false,
+            isError: controller.stateError.value,
+            errorMsg: controller.stateErrorMessage.value,
+            hint: placeHolder.state.tr,
+            title: AppStrings.selectState.tr,
+            selectedValue: controller.selectedStateDropDown.value,
+            onClick: (DropdownModel value) {
+              controller.onSelectStateStateDropdown(value: value);
+              controller.stateError.value = false;
+            },
+            list: controller.stateList,
+            isExpanded: true),
+      ),
+    );
   }
 }

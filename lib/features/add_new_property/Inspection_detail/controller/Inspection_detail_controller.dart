@@ -264,7 +264,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.youHaveRequested.tr} <b>$categoryName ${AppStrings.inspectionBy.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+                "<div>${AppStrings.youHaveRequested.tr} <b>$categoryName</b> ${AppStrings.inspectionBy.tr} <b>$inspectionDate</b> <b>$timeSlotString</b>.</div>",
             title: AppStrings.inspectionRequested.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -277,13 +277,14 @@ class InspectionDetailController extends GetxController {
         var inspectionDate =
             getLocalDateFromUtc(dateString: historyData.date ?? "");
 
-        var timeList = historyData.time ?? [];
+        var timeList = historyData.acceptedInspectionTime ?? [];
         var timeSlotString = getTimeString(timeList: timeList);
+        log("timeSlotString>>>>> $timeSlotString");
 
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} $inspectorName ${AppStrings.isAssignedAndInspectionIsScheduledAt.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.isAssignedAndInspectionIsScheduledAt.tr} <b>$inspectionDate</b> <b>$timeSlotString</b>.</div>",
             title: AppStrings.inspectorAssigned.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -301,7 +302,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.youHaveRescheduledTheInspectionAt.tr} <b>$inspectionDate <b>$timeSlotString.</span>",
+                "<div>${AppStrings.youHaveRescheduledTheInspectionAt.tr} <b>$inspectionDate</b> <b>$timeSlotString</b>.</div>",
             title: AppStrings.inspectionRescheduled.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -313,8 +314,7 @@ class InspectionDetailController extends GetxController {
           InspectionHistoryStatusEnum.homeownerInspectionCanceled.value) {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
-            message:
-                "<span>${AppStrings.youHaveCanceledTheinspection.tr}</span>",
+            message: "<div>${AppStrings.youHaveCanceledTheinspection.tr}</div>",
             title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -325,7 +325,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.canceledTheInspection.tr}.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.canceledTheInspection.tr}.</div>",
             title: AppStrings.inspectionCanceled.tr,
             iconPath: ImageResource.cancel,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -342,7 +342,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.rescheduledTheInspectionAt.tr} <b>$inspectionDate  <b>$timeSlotString.</span>",
+              "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.rescheduledTheInspectionAt.tr} <b>$inspectionDate</b>  <b>$timeSlotString</b>.</div>",
           title: AppStrings.inspectionRescheduled.tr,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
@@ -355,7 +355,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.isOnTheWayForInspection.tr}.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.isOnTheWayForInspection.tr}.</div>",
             title: AppStrings.inspectorIsOnTheWay.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -366,7 +366,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasStartedTheInspection.tr}.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.hasStartedTheInspection.tr}.</div>",
             title: AppStrings.inspectionStarted.tr,
             iconPath: ImageResource.blackCircle,
             globalKey: GlobalKey(),
@@ -377,7 +377,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
           id: historyData.id ?? "",
           message:
-              "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasCompletedTheInspctionAndNowWaitForTheReport.tr}.</span>",
+              "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.hasCompletedTheInspctionAndNowWaitForTheReport.tr}.</div>",
           title: AppStrings.inspectionDone.tr,
           iconPath: ImageResource.blackCircle,
           isShowLine: i == historyList.length - 1 ? false : true,
@@ -389,7 +389,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasSubmittedTheReportCorrectionIsRequired.tr}.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.hasSubmittedTheReportCorrectionIsRequired.tr}.</div>",
             title: AppStrings.inspectionComplete.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -402,7 +402,7 @@ class InspectionDetailController extends GetxController {
         inspectionHistoryList.add(InspectionHistoryLocalModel(
             id: historyData.id ?? "",
             message:
-                "<span>${AppStrings.inspector.tr} <b>$inspectorName ${AppStrings.hasSubmittedTheReportYourInspectionIsApproved.tr}.</span>",
+                "<div>${AppStrings.inspector.tr} <b>$inspectorName</b> ${AppStrings.hasSubmittedTheReportYourInspectionIsApproved.tr}.</div>",
             title: AppStrings.correctionRequired.tr,
             iconPath: ImageResource.blackCircle,
             isShowLine: i == historyList.length - 1 ? false : true,
@@ -413,7 +413,6 @@ class InspectionDetailController extends GetxController {
       }
     }
 
-    print("historydata : ${inspectionHistoryList.length}");
     inspectionHistoryList.refresh();
   }
 
@@ -448,10 +447,9 @@ class InspectionDetailController extends GetxController {
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
     descriptionController.value.text = firstHistoryItemDetail.description ?? "";
 
-    selectedDate.value =
-        getDDMMYYYFormetFromString(date: getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? ""));
-
-    print("${selectedDate.value}");
+    selectedDate.value = getDDMMYYYFormetFromString(
+        date:
+            getLocalDateFromUtc(dateString: firstHistoryItemDetail.date ?? ""));
 
     selectedCountryCode.value = firstHistoryItemDetail.countryCode ?? "";
 

@@ -264,19 +264,31 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   }
 
   Widget showCountyDropDown() {
-    return dropdownField(
-        isShowStar: true,
-        isError: controller.countyError.value,
-        errorMsg: controller.countyErrorMessage.value,
-        hint: AppStrings.county.tr,
-        title: AppStrings.county.tr,
-        selectedValue: controller.selectedBaseMaterialDropDown.value,
-        onClick: (DropdownModel value) {
-          controller.onSelectBaseMaterialDropdown(value: value);
-          controller.countyError.value = false;
-        },
-        list: controller.countiesList,
-        isExpanded: true);
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        controller.getCounties();
+      },
+      child: IgnorePointer(
+        ignoring: controller.countiesList.isEmpty,
+        child: dropdownField(
+            isShowStar: true,
+            isError: controller.countyError.value,
+            errorMsg: controller.countyErrorMessage.value,
+            hint: AppStrings.county.tr,
+            title: AppStrings.county.tr,
+            selectedValue: controller.selectedBaseMaterialDropDown.value,
+            onClick: (DropdownModel value) {
+              controller.onSelectBaseMaterialDropdown(value: value);
+              controller.countyError.value = false;
+            },
+            list: controller.countiesList,
+            isExpanded: true),
+      ),
+    );
   }
 
   Row showMailingAddress() {
@@ -487,20 +499,32 @@ class AddPropertyScreen extends GetView<AddPropertyController> {
   }
 
   Widget showStateSelection() {
-    return dropdownField(
-        isShowStar: true,
-        isDisable: true,
-        // isError: controller.languageError.value,
-        // errorMsg: controller.languageErrorMessage.value,
-        hint: AppStrings.selectState.tr,
-        title: AppStrings.selectState.tr,
-        selectedValue: controller.selectedStateDropDown.value,
-        onClick: (DropdownModel value) {
-          // controller.onSelectBaseMaterialDropdown(value: value);
-          // controller.languageError.value = false;
-        },
-        list: controller.stateList,
-        isExpanded: true);
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        controller.getStateListApi();
+      },
+      child: IgnorePointer(
+        ignoring: controller.stateList.isEmpty,
+        child: dropdownField(
+            isShowStar: true,
+            isDisable: true,
+            // isError: controller.languageError.value,
+            // errorMsg: controller.languageErrorMessage.value,
+            hint: AppStrings.selectState.tr,
+            title: AppStrings.selectState.tr,
+            selectedValue: controller.selectedStateDropDown.value,
+            onClick: (DropdownModel value) {
+              // controller.onSelectBaseMaterialDropdown(value: value);
+              // controller.languageError.value = false;
+            },
+            list: controller.stateList,
+            isExpanded: true),
+      ),
+    );
   }
 
   showGoogleAddressBar() {
