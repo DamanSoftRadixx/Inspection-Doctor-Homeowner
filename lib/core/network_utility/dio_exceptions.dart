@@ -75,6 +75,12 @@ class DioExceptions implements Exception {
 
           if (status == 401) {
             logoutFunctionality();
+            apiErrorDialog(
+              message: message ?? AppStrings.strSometingWentWrong.tr,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
           } else {
             apiErrorDialog(
               message: message ?? AppStrings.strSometingWentWrong.tr,

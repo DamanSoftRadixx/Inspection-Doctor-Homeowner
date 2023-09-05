@@ -213,6 +213,23 @@ class AppStrings {
   //New
   static const notSelectedNY =
       "Selected address Should be Within the new jersey.";
+  static const poor = "Poor 👎";
+  static const okey = "Okay 👍";
+  static const good = "Good! 😊";
+  static const excellent = "Excellent 😁";
+  static const outstanding = "Outstanding 😍";
+  static const writeReview = "Write a review";
+  static const viewFeedback = "View feedback";
+
+  static const received = "Received";
+  static const given = "Given";
+  static const youHaveNoNewInspection =
+      "You have no new Inspection request yet.";
+  static const rateYourExp = "Rate your experience";
+  static const areYouSatisfiedithTheInspection =
+      "Are you satisfied with the inspection?";
+  static const submitButton = "Submit";
+  static const feedback = "Feedback";
 }
 
 class ErrorMessages {

@@ -26,7 +26,7 @@ class NetworkCheck {
         okPressed: () {
           Get.back();
         },
-        buttonTitle: '');
+        buttonTitle: AppStrings.ok);
   }
 
   Future<bool> hasNetwork() async {

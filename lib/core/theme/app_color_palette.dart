@@ -27,6 +27,7 @@ class AppColorPalette {
   final Color sunflowerYellow;
   final Color emeraldGreen;
   final Color green;
+  final Color orange;
   AppColorPalette({
     required this.primarySwatch,
     required this.secondarySwatch,
@@ -52,42 +53,44 @@ class AppColorPalette {
     required this.emeraldGreen,
     required this.sunflowerYellow,
     required this.green,
+    required this.orange,
   });
 }
 
 AppColorPalette lightColorPalette = AppColorPalette(
-    primarySwatch: const MaterialColor(800, {}),
-    secondarySwatch: const MaterialColor(600, {}),
-    additionalSwatch1: const MaterialColor(800, {}),
-    whiteColorPrimary: const MaterialColor(900, {
-      900: Color(0xFFFFFFFF),
-      800: Color(0xFFFAFAFA),
-      700: Color(0xFFF5F5F5),
-      600: Color(0xFFF9F9F9),
-    }),
-    transparentColor: Colors.transparent,
-    redDark: const Color(0xFFF51F1F),
-    backgroundColor: const Color(0xFFEDF4FF),
-    // stroke: const Color(0xFFB3BAC6),
-    greenBackground: const Color(0xFFE0FFDF),
-    greenDark: const Color(0xFF04B201),
-    primaryBlue: const Color(0xFF0060F7),
-    // black: const Color(0xFF1A4563),
-    // primaryGrey: const Color(0xFF757F8E),
-    redBackground: const Color(0xFFFFEDED),
-    black: const Color(0xFF0A0A0C),
-    grey: const Color(0xFF6C6868),
-    greyBg: const Color(0xFFF3F3F3),
-    textfieldGrey: const Color(0xffeeeeee),
-    errorColor: const Color(0xffb85e53),
-    dodgerBlue: const Color(0xff1E90FF),
-    emeraldGreen: const Color(0xff008000),
-    forestGreen: const Color(0xff228B22),
-    goldenrod: const Color(0xffDAA520),
-    red: const Color(0xffb85e53),
-    royalBlue: const Color(0xff4169E1),
-    sunflowerYellow: const Color(0xffFFD700),
-    green: Colors.green);
+  primarySwatch: const MaterialColor(800, {}),
+  secondarySwatch: const MaterialColor(600, {}),
+  additionalSwatch1: const MaterialColor(800, {}),
+  whiteColorPrimary: const MaterialColor(900, {
+    900: Color(0xFFFFFFFF),
+    800: Color(0xFFFAFAFA),
+    700: Color(0xFFF5F5F5),
+    600: Color(0xFFF9F9F9),
+  }),
+  transparentColor: Colors.transparent,
+  redDark: const Color(0xFFF51F1F),
+  backgroundColor: const Color(0xFFEDF4FF),
+  // stroke: const Color(0xFFB3BAC6),
+  greenBackground: const Color(0xFFE0FFDF),
+  greenDark: const Color(0xFF04B201),
+  primaryBlue: const Color(0xFF0060F7),
+  // black: const Color(0xFF1A4563),
+  // primaryGrey: const Color(0xFF757F8E),
+  redBackground: const Color(0xFFFFEDED),
+  black: const Color(0xFF0A0A0C),
+  grey: const Color(0xFF6C6868),
+  greyBg: const Color(0xFFF3F3F3),
+  textfieldGrey: const Color(0xffeeeeee),
+  errorColor: const Color(0xffb85e53),
+  dodgerBlue: const Color(0xff1E90FF),
+  emeraldGreen: const Color(0xff008000),
+  forestGreen: const Color(0xff228B22),
+  goldenrod: const Color(0xffDAA520),
+  red: const Color(0xffb85e53),
+  royalBlue: const Color(0xff4169E1),
+  sunflowerYellow: const Color(0xffFFD700),
+  green: Colors.green, orange: const Color(0xffF78500),
+);
 
 class CustomTextTheme {
   static TextStyle heading1({required Color color}) {
@@ -244,6 +247,13 @@ BoxDecoration decorationSearchTextField({required bool isSelected}) {
       border: Border.all(
           color: isSelected ? lightColorPalette.black : lightColorPalette.grey,
           width: isSelected ? 1 : 0.3));
+}
+
+BoxDecoration decoration2({required Color bgColor}) {
+  return BoxDecoration(
+      color: bgColor,
+      borderRadius: BorderRadius.circular(10.r),
+      border: Border.all(color: lightColorPalette.grey, width: 0.3));
 }
 
 BoxDecoration decoration({required bool isSelected}) {

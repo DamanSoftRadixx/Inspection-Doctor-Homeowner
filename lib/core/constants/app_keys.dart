@@ -28,4 +28,15 @@ class GetArgumentConstants {
   static const inspectionId = "inspectionDetail";
   static const reportData = "reportData";
   static const isNeedtoRefersh = "reportData";
+
+  static const propertyId = "propertyId";
+
+  static const isNeedToUpdateList = "isNeedToUpdateList";
+  static const latlong = "latlong";
+
+  static const inspectorId = "inspectorId";
+  static const homeownerId = "homeownerId";
+  static const ratings = "feedback";
+  static const inspectorName = "inspectorName";
+  static const inspectorPic = "inspectorPic";
 }

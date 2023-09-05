@@ -15,8 +15,10 @@ import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/controller/Inspection_detail_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/widget_size.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/reschedule.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/Inspector_details.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/property_inspection_schedules_history_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/schedule_inspection_list_response_model.dart';
 import 'package:measure_size/measure_size.dart';
 
 class InspectionDetailScreen extends GetView<InspectionDetailController> {
@@ -554,7 +556,9 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         ),
         bgColor: Colors.transparent,
         border: BorderSide(color: lightColorPalette.black),
-        commonButtonBottonText: AppStrings.giveFeedback.tr,
-        onPress: () {});
+        commonButtonBottonText: AppStrings.feedback.tr,
+        onPress: () {
+          controller.onTapFeedbackButton();
+        });
   }
 }

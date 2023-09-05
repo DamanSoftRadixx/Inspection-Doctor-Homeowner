@@ -16,6 +16,8 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/selectCate
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/screen/select_categories_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
+import 'package:inspection_doctor_homeowner/features/give_feedback/binding/give_feedback_binding.dart';
+import 'package:inspection_doctor_homeowner/features/give_feedback/screens/give_feedback_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/binding/choose_map_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/view/choose_map_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
@@ -59,6 +61,7 @@ class Routes {
   static const String categoryFormScreen = "/categoryFormScreen";
   static const String inspectionDetailScreen = "/inspectionDetailScreen";
   static const String reportView = "/reportView";
+  static const String giveFeedbackScreen = "/giveFeedbackScreen";
 }
 
 List<GetPage> appPages() => [
@@ -201,6 +204,16 @@ List<GetPage> appPages() => [
         name: Routes.reportView,
         page: () => const ReportView(),
         binding: ReportViewBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+
+      GetPage(
+        name: Routes.giveFeedbackScreen,
+        page: () => const GiveFeedbackScreen(),
+        binding: GiveFeedbackBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

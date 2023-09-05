@@ -19,6 +19,7 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_reschedule_request_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/provider/Inspection_detail_provider.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/model/network_model/property_inspection_schedules_history_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/model/network/category_list_response_model.dart';
 import 'package:intl/intl.dart';
 
@@ -668,5 +669,23 @@ class InspectionDetailController extends GetxController {
     } catch (e) {
       setShowLoader(value: false);
     }
+  }
+
+  void onTapFeedbackButton() {
+    Get.toNamed(Routes.giveFeedbackScreen, arguments: {
+      GetArgumentConstants.inspectionId: inspectionDetail.value.id,
+      GetArgumentConstants.homeownerId: inspectionDetail.value.homeownerId,
+      GetArgumentConstants.inspectorId:
+          inspectionDetail.value.inspectorDetails?.first.id,
+      GetArgumentConstants.ratings: inspectionDetail.value.ratings,
+      GetArgumentConstants.inspectorName:
+          "${inspectionDetail.value.inspectorDetails?.first.firstName} ${inspectionDetail.value.inspectorDetails?.first.lastName}",
+      GetArgumentConstants.inspectorPic:
+          inspectionDetail.value.inspectorImage?.first.url,
+    })?.then((value) {
+      if (value != null) {
+        getScheduleInspectionDetailsList(isFromOnInit: true);
+      }
+    });
   }
 }
