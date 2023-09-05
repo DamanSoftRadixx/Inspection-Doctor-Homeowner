@@ -420,7 +420,7 @@ class LoginController extends GetxController {
           "first_name": getFirstName(user),
           "last_name": getLastName(user),
           "email": user.email,
-          "social_key": socialLogin.appleIdCredential?.userIdentifier,
+          "social_key": user.uid,
           "device_type":
               isIos ? DeviceTypeEnum.iOS.value : DeviceTypeEnum.android.value,
           "device_token": deviceToken,

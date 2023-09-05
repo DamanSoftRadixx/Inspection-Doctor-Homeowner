@@ -288,22 +288,21 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 36.h,
-              width: 36.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.r),
-                  border:
-                      Border.all(color: lightColorPalette.grey, width: 0.3)),
-              child: Center(
-                child: AssetWidget(
-                  color: lightColorPalette.black,
-                  asset: Asset(
-                    type: AssetType.svg,
-                    path: ImageResource.user,
+                height: 36.h,
+                width: 36.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.r),
+                    border:
+                        Border.all(color: lightColorPalette.grey, width: 0.3)),
+                child: Center(
+                  child: AssetWidget(
+                    color: lightColorPalette.black,
+                    asset: Asset(
+                      type: AssetType.svg,
+                      path: ImageResource.user,
+                    ),
                   ),
-                ),
-              ),
-            ),
+                )),
             SizedBox(width: 10.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

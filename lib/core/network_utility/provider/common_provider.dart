@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:inspection_doctor_homeowner/core/common_functionality/logout/model/logout_response_model.dart';
@@ -56,6 +58,7 @@ class CommonProvider {
 
   Future<GoogleAddressResponseModel?> getGoogleAddress(
       {required String placeid}) async {
+    log("getGoogleAddressURl ${"${EndPoints.googleMapUrl}placeid=$placeid&key=${EndPoints.mapKey}"}");
     try {
       Response response = await apiHitter.getGoogleAddressApi(
           endPoint:

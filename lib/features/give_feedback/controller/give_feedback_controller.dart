@@ -39,7 +39,6 @@ class GiveFeedBackController extends GetxController {
     TokenResponseModel tokenModel = getJsonFromJWTToken(token: token);
     homeownerName.value =
         "${tokenModel.data?.firstName} ${tokenModel.data?.lastName}";
-    homeownerPic.value = tokenModel.data?.image?.url ?? "";
   }
 
   getArguments() {
@@ -65,6 +64,9 @@ class GiveFeedBackController extends GetxController {
       if (args[GetArgumentConstants.inspectorPic] != null) {
         inspectorPic.value = args[GetArgumentConstants.inspectorPic];
       }
+      if (args[GetArgumentConstants.homeOwnerPic] != null) {
+        homeownerPic.value = args[GetArgumentConstants.homeOwnerPic];
+      }
     }
   }
 
@@ -80,6 +82,7 @@ class GiveFeedBackController extends GetxController {
     ]);
     getArguments();
     addFocusListeners();
+    getHomeOnwerDetail();
     super.onInit();
   }
 

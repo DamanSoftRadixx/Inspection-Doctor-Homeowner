@@ -40,10 +40,15 @@ extension Extension on GiveFeedbackScreen {
               child: Center(
                 child: AssetWidget(
                   color: lightColorPalette.black,
-                  asset: Asset(
-                    type: AssetType.svg,
-                    path: ImageResource.user,
-                  ),
+                  asset: homeownerProfileImage != ""
+                      ? Asset(
+                          type: AssetType.network,
+                          path: homeownerProfileImage ?? "",
+                        )
+                      : Asset(
+                          type: AssetType.svg,
+                          path: ImageResource.user,
+                        ),
                 ),
               ),
             ),
@@ -54,7 +59,7 @@ extension Extension on GiveFeedbackScreen {
                 AppTextWidget(
                     style: CustomTextTheme.buttonText(
                         color: lightColorPalette.black),
-                    text: "Saurav Garg"),
+                    text: homeownerName),
                 RatingBar.builder(
                   ignoreGestures: true,
                   itemSize: 20.r,

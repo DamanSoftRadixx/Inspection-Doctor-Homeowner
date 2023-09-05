@@ -52,6 +52,7 @@ class InspectionDetailData {
     this.inspectorImage,
     this.category,
     this.subcategory,
+    this.homeownerImage,
   });
 
   InspectionDetailData.fromJson(dynamic json) {
@@ -92,6 +93,12 @@ class InspectionDetailData {
         inspectorImage?.add(InspectorImage.fromJson(v));
       });
     }
+    if (json['homeowner_image'] != null) {
+      homeownerImage = [];
+      json['homeowner_image'].forEach((v) {
+        homeownerImage?.add(HomeownerImage.fromJson(v));
+      });
+    }
     category =
         json['category'] != null ? Category.fromJson(json['category']) : null;
     if (json['subcategory'] != null) {
@@ -112,6 +119,7 @@ class InspectionDetailData {
   List<InspectorImage>? inspectorImage;
   Category? category;
   List<Subcategory>? subcategory;
+  List<HomeownerImage>? homeownerImage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -127,6 +135,9 @@ class InspectionDetailData {
     }
     if (properties != null) {
       map['properties'] = properties?.toJson();
+    }
+    if (homeownerImage != null) {
+      map['homeowner_image'] = homeownerImage?.map((v) => v.toJson()).toList();
     }
     if (stateInfo != null) {
       map['state_info'] = stateInfo?.map((v) => v.toJson()).toList();
@@ -165,6 +176,23 @@ class Subcategory {
     final map = <String, dynamic>{};
     map['_id'] = id;
     map['name'] = name;
+    return map;
+  }
+}
+
+class HomeownerImage {
+  HomeownerImage({
+    this.url,
+  });
+
+  HomeownerImage.fromJson(dynamic json) {
+    url = json['url'];
+  }
+  String? url;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['url'] = url;
     return map;
   }
 }

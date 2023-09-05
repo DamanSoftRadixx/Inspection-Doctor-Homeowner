@@ -12,8 +12,11 @@ import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.d
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
+import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
+import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
+import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/local/inspection_history_local_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/get_report_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
@@ -65,10 +68,21 @@ class InspectionDetailController extends GetxController {
   var inspectionHistoryList = <InspectionHistoryLocalModel>[].obs;
   // RxList<WidgetSize> widgetSizeList = <WidgetSize>[].obs;
 
+  RxString homeownerPic = "".obs;
+
+  getHomeOnwerDetail() async {
+    String token = await Prefs.read(Prefs.token) ?? "";
+
+    TokenResponseModel tokenModel = getJsonFromJWTToken(token: token);
+
+    homeownerPic.value = tokenModel.data?.image?.url ?? "";
+  }
+
   @override
   void onInit() {
     initTimeList();
     getArguments();
+    getHomeOnwerDetail();
     super.onInit();
   }
 
@@ -681,7 +695,13 @@ class InspectionDetailController extends GetxController {
       GetArgumentConstants.inspectorName:
           "${inspectionDetail.value.inspectorDetails?.first.firstName} ${inspectionDetail.value.inspectorDetails?.first.lastName}",
       GetArgumentConstants.inspectorPic:
-          inspectionDetail.value.inspectorImage?.first.url,
+          inspectionDetail.value.inspectorImage?.isNotEmpty == true
+              ? inspectionDetail.value.inspectorImage?.first.url ?? ""
+              : "",
+      GetArgumentConstants.homeOwnerPic:
+          inspectionDetail.value.homeownerImage?.isNotEmpty == true
+              ? inspectionDetail.value.homeownerImage?.first.url ?? ""
+              : "",
     })?.then((value) {
       if (value != null) {
         getScheduleInspectionDetailsList(isFromOnInit: true);
