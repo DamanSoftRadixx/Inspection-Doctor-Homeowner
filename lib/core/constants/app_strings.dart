@@ -230,6 +230,7 @@ class AppStrings {
       "Are you satisfied with the inspection?";
   static const submitButton = "Submit";
   static const feedback = "Feedback";
+  static const rating = "Rating";
 }
 
 class ErrorMessages {

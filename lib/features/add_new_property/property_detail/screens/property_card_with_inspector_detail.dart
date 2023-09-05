@@ -229,7 +229,8 @@ extension PropertyCard on PropertyDetailScreen {
                             AppTextWidget(
                               style: CustomTextTheme.normalText(
                                   color: lightColorPalette.grey),
-                              text: "4.50 Rating",
+                              text:
+                                  "${inspectorDetails.averageRating.toString()} ${AppStrings.rating.tr}",
                             ),
                           ],
                         ),
