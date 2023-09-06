@@ -231,6 +231,8 @@ class AppStrings {
   static const submitButton = "Submit";
   static const feedback = "Feedback";
   static const rating = "Rating";
+  static const today = "Today";
+  static const noNotificationFound = "No Notification found";
 }
 
 class ErrorMessages {

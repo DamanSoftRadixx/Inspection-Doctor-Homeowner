@@ -16,6 +16,8 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/controller/home_controller.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/home/screens/home_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
+import 'package:inspection_doctor_homeowner/features/notification/controller/notification_controller.dart';
+import 'package:inspection_doctor_homeowner/features/notification/screens/notification_screen.dart';
 
 extension DashboardScreenExtension on DashBoardScreen {
   bottomWidget() {
@@ -130,10 +132,13 @@ extension DashboardScreenExtension on DashBoardScreen {
       return commonNoDataWidget();
     } else if (controller.bottomNavigationEnum.value ==
         BottomNavigationEnum.Notification) {
-      Get.delete<HomeController>();
-      /*Get.put(DealersListController());
-      return DealersListScreen();*/
-      return commonNoDataWidget();
+      if (Get.isRegistered<HomeController>()) {
+        Get.delete<HomeController>();
+      }
+
+      Get.put(NotificationController());
+
+      return const NotificationScreen();
     } else if (controller.bottomNavigationEnum.value ==
         BottomNavigationEnum.MyProfile) {
       Get.delete<HomeController>();

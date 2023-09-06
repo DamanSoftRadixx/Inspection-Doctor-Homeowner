@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,33 +40,22 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               children: [
                 controller.isShowInitialLoader.value
                     ? const SizedBox()
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  getCategoryView(),
-                                  Divider(color: lightColorPalette.grey)
-                                      .paddingSymmetric(horizontal: 20.w),
-//Date
-                                  showDate().paddingOnly(
-                                      bottom: 5.h, left: 20.w, right: 20.w),
-                                  // getInspectionTimeList(
-                                  //     controller.inspectionDetail.value),
-
-                                  Divider(color: lightColorPalette.grey)
-                                      .paddingSymmetric(horizontal: 20.w),
-                                  getContactPersonDetail(),
-                                  getDescription(),
-                                  getInspectorDetailPersonDetail(),
-
-                                  showInspectionStatusHistoryList()
-                                ]),
-                          ),
-                        ],
-                      ),
+                    : CustomScrollView(
+                        physics: const RangeMaintainingScrollPhysics(),
+                        slivers: [
+                            SliverAppBar(
+                              leading: const SizedBox(),
+                              backgroundColor:
+                                  lightColorPalette.whiteColorPrimary.shade900,
+                              pinned: false,
+                              // expandedHeight: 0.53.sh,
+                              flexibleSpace: FlexibleSpaceBar(
+                                background: showInspectorDetails(),
+                              ),
+                            ),
+                            SliverToBoxAdapter(
+                                child: showInspectionStatusHistoryList())
+                          ]),
                 CommonLoader(
                     isLoading: controller.isShowLoader.value ||
                         controller.isShowInitialLoader.value)
@@ -74,47 +65,70 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
         ));
   }
 
+  Widget showInspectorDetails() {
+    return MeasureSize(
+      onChange: (Size size) {
+        log("message ${size.}");
+      },
+      child: Column(
+        children: [
+          getCategoryView(),
+          Divider(color: lightColorPalette.grey)
+              .paddingSymmetric(horizontal: 20.w),
+          //Date
+          showDate().paddingOnly(bottom: 5.h, left: 20.w, right: 20.w),
+          // getInspectionTimeList(
+          //     controller.inspectionDetail.value),
+
+          Divider(color: lightColorPalette.grey)
+              .paddingSymmetric(horizontal: 20.w),
+          getContactPersonDetail(),
+          getDescription(),
+          getInspectorDetailPersonDetail()
+        ],
+      ),
+    );
+  }
+
   showInspectionStatusHistoryList() {
-    return Expanded(
-      child: Container(
-        color: lightColorPalette.greyBg,
-        width: 1.sw,
-        margin: EdgeInsets.only(top: 15.h),
-        padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: AppTextWidget(
-                  style: CustomTextTheme.subtext(color: lightColorPalette.grey),
-                  text: AppStrings.trackYourInspection.tr,
-                ),
-              ).paddingOnly(bottom: 20.h),
-              controller.inspectionHistoryList.value.isNotEmpty == true
-                  ? ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.only(bottom: 10.h),
-                      shrinkWrap: true,
-                      itemCount: controller.inspectionHistoryList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(width: 2.w),
-                            showProgressBar(index: index),
-                            Expanded(
-                                child: showStatusDetail(
-                              index: index,
-                            )),
-                          ],
-                        );
-                      },
-                    )
-                  : const SizedBox()
-            ],
-          ),
+    return Container(
+      color: lightColorPalette.greyBg,
+      width: 1.sw,
+      margin: EdgeInsets.only(top: 15.h),
+      padding: EdgeInsets.only(top: 15.h, left: 20.w, right: 20.w),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: AppTextWidget(
+                style: CustomTextTheme.subtext(color: lightColorPalette.grey),
+                text: AppStrings.trackYourInspection.tr,
+              ),
+            ).paddingOnly(bottom: 20.h),
+            controller.inspectionHistoryList.value.isNotEmpty == true
+                ? ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(bottom: 10.h),
+                    shrinkWrap: true,
+                    itemCount: controller.inspectionHistoryList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 2.w),
+                          showProgressBar(index: index),
+                          Expanded(
+                              child: showStatusDetail(
+                            index: index,
+                          )),
+                        ],
+                      );
+                    },
+                  )
+                : const SizedBox()
+          ],
         ),
       ),
     );
@@ -267,7 +281,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               ],
             ).paddingOnly(left: 20.w, right: 20.w, top: 12.5),
           )
-        : SizedBox(height: 15.h);
+        : SizedBox(height: 0.h);
   }
 
   getContactPersonDetail() {

@@ -28,6 +28,7 @@ class AppColorPalette {
   final Color emeraldGreen;
   final Color green;
   final Color orange;
+  final Color red1;
   AppColorPalette({
     required this.primarySwatch,
     required this.secondarySwatch,
@@ -54,6 +55,7 @@ class AppColorPalette {
     required this.sunflowerYellow,
     required this.green,
     required this.orange,
+    required this.red1,
   });
 }
 
@@ -90,6 +92,7 @@ AppColorPalette lightColorPalette = AppColorPalette(
   royalBlue: const Color(0xff4169E1),
   sunflowerYellow: const Color(0xffFFD700),
   green: Colors.green, orange: const Color(0xffF78500),
+  red1: const Color(0xFFc70000),
 );
 
 class CustomTextTheme {

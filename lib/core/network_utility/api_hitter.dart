@@ -92,7 +92,7 @@ class ApiHitter {
 
   putApi(
       {required String endPoint,
-      required Object body,
+      Object? body,
       void Function(int, int)? onSendProgress,
       void Function(int, int)? onReceiveProgress,
       CancelToken? cancelToken,
@@ -109,6 +109,7 @@ class ApiHitter {
         Map<String, String> headers = {
           'Content-Type': 'application/json',
           'languageid': selectedLangId,
+          'authorization': "Bearer $token",
         };
 
         print("headers : $headers");
