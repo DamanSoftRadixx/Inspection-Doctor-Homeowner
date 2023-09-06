@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -48,7 +46,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                               backgroundColor:
                                   lightColorPalette.whiteColorPrimary.shade900,
                               pinned: false,
-                              // expandedHeight: 0.53.sh,
+                              expandedHeight: 0.53.sh,
                               flexibleSpace: FlexibleSpaceBar(
                                 background: showInspectorDetails(),
                               ),
@@ -66,27 +64,22 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   Widget showInspectorDetails() {
-    return MeasureSize(
-      onChange: (Size size) {
-        log("message ${size.}");
-      },
-      child: Column(
-        children: [
-          getCategoryView(),
-          Divider(color: lightColorPalette.grey)
-              .paddingSymmetric(horizontal: 20.w),
-          //Date
-          showDate().paddingOnly(bottom: 5.h, left: 20.w, right: 20.w),
-          // getInspectionTimeList(
-          //     controller.inspectionDetail.value),
+    return Column(
+      children: [
+        getCategoryView(),
+        Divider(color: lightColorPalette.grey)
+            .paddingSymmetric(horizontal: 20.w),
+        //Date
+        showDate().paddingOnly(bottom: 5.h, left: 20.w, right: 20.w),
+        // getInspectionTimeList(
+        //     controller.inspectionDetail.value),
 
-          Divider(color: lightColorPalette.grey)
-              .paddingSymmetric(horizontal: 20.w),
-          getContactPersonDetail(),
-          getDescription(),
-          getInspectorDetailPersonDetail()
-        ],
-      ),
+        Divider(color: lightColorPalette.grey)
+            .paddingSymmetric(horizontal: 20.w),
+        getContactPersonDetail(),
+        getDescription(),
+        getInspectorDetailPersonDetail()
+      ],
     );
   }
 
