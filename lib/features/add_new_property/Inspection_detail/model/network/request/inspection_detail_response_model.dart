@@ -53,6 +53,7 @@ class InspectionDetailData {
     this.category,
     this.subcategory,
     this.homeownerImage,
+    this.homeownerDetails,
   });
 
   InspectionDetailData.fromJson(dynamic json) {
@@ -64,6 +65,12 @@ class InspectionDetailData {
       json['property_inspection_schedules_history'].forEach((v) {
         propertyInspectionSchedulesHistory
             ?.add(PropertyInspectionSchedulesHistory.fromJson(v));
+      });
+    }
+    if (json['homeowner_details'] != null) {
+      homeownerDetails = [];
+      json['homeowner_details'].forEach((v) {
+        homeownerDetails?.add(HomeownerDetails.fromJson(v));
       });
     }
     if (json['ratings'] != null) {
@@ -120,6 +127,7 @@ class InspectionDetailData {
   Category? category;
   List<Subcategory>? subcategory;
   List<HomeownerImage>? homeownerImage;
+  List<HomeownerDetails>? homeownerDetails;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -135,6 +143,10 @@ class InspectionDetailData {
     }
     if (properties != null) {
       map['properties'] = properties?.toJson();
+    }
+    if (homeownerDetails != null) {
+      map['homeowner_details'] =
+          homeownerDetails?.map((v) => v.toJson()).toList();
     }
     if (homeownerImage != null) {
       map['homeowner_image'] = homeownerImage?.map((v) => v.toJson()).toList();
@@ -176,6 +188,31 @@ class Subcategory {
     final map = <String, dynamic>{};
     map['_id'] = id;
     map['name'] = name;
+    return map;
+  }
+}
+
+class HomeownerDetails {
+  HomeownerDetails({
+    this.firstName,
+    this.lastName,
+    this.email,
+  });
+
+  HomeownerDetails.fromJson(dynamic json) {
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    email = json['email'];
+  }
+  String? firstName;
+  String? lastName;
+  String? email;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['first_name'] = firstName;
+    map['last_name'] = lastName;
+    map['email'] = email;
     return map;
   }
 }

@@ -7,9 +7,6 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
-import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
-import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/give_feedback/model/local_model/feedback_model.dart';
 import 'package:inspection_doctor_homeowner/features/give_feedback/model/network/feedback_response_model.dart';
@@ -32,14 +29,6 @@ class GiveFeedBackController extends GetxController {
   RxString inspectorPic = "".obs;
   RxString homeownerName = "".obs;
   RxString homeownerPic = "".obs;
-
-  getHomeOnwerDetail() async {
-    String token = await Prefs.read(Prefs.token) ?? "";
-
-    TokenResponseModel tokenModel = getJsonFromJWTToken(token: token);
-    homeownerName.value =
-        "${tokenModel.data?.firstName} ${tokenModel.data?.lastName}";
-  }
 
   getArguments() {
     var args = Get.arguments;
@@ -67,6 +56,9 @@ class GiveFeedBackController extends GetxController {
       if (args[GetArgumentConstants.homeOwnerPic] != null) {
         homeownerPic.value = args[GetArgumentConstants.homeOwnerPic];
       }
+      if (args[GetArgumentConstants.homeOwnerName] != null) {
+        homeownerName.value = args[GetArgumentConstants.homeOwnerName];
+      }
     }
   }
 
@@ -82,7 +74,7 @@ class GiveFeedBackController extends GetxController {
     ]);
     getArguments();
     addFocusListeners();
-    getHomeOnwerDetail();
+
     super.onInit();
   }
 

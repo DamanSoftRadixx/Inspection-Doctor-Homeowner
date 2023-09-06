@@ -702,6 +702,8 @@ class InspectionDetailController extends GetxController {
           inspectionDetail.value.homeownerImage?.isNotEmpty == true
               ? inspectionDetail.value.homeownerImage?.first.url ?? ""
               : "",
+      GetArgumentConstants.homeOwnerName:
+          "${inspectionDetail.value.homeownerDetails?.first.firstName} ${inspectionDetail.value.homeownerDetails?.first.lastName}",
     })?.then((value) {
       if (value != null) {
         getScheduleInspectionDetailsList(isFromOnInit: true);
