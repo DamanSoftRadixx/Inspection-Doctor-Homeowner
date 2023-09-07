@@ -16,7 +16,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/controller/add_property_controller.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/controller/add_property_controller.dart';
 
 class AddPropertyScreen extends GetView<AddPropertyController> {
   const AddPropertyScreen({Key? key}) : super(key: key);

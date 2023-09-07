@@ -6,10 +6,10 @@ import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/state_response_model.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/add_property_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/get_county_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/property_update_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/upload_doc_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/model/network_model/add_property_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/model/network_model/get_county_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/model/network_model/property_update_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/model/network_model/upload_doc_response_model.dart';
 
 class AddPropertyProvider {
   ApiHitter apiHitter = ApiHitter();

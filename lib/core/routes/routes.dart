@@ -4,8 +4,8 @@ import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/sche
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/screen/Inspection_detail_screen.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/binding/inspections_list_binding.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/screen/inspections_list_screen.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/binding/add_property_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/screens/add_property_screen.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/binding/add_property_binding.dart';
+import 'package:inspection_doctor_homeowner/features/add_new_property/screens/add_property_screen.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/binding/categories_form_binding.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/screen/categories_form_screen.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/binding/add_property_binding.dart';
