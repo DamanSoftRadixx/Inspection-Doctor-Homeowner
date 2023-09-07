@@ -34,6 +34,8 @@ import 'package:inspection_doctor_homeowner/features/login_signup_process/splash
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/screens/splashScreen.dart';
 import 'package:inspection_doctor_homeowner/features/notification/binding/notification_binding.dart';
 import 'package:inspection_doctor_homeowner/features/notification/screens/notification_screen.dart';
+import 'package:inspection_doctor_homeowner/features/payment/binding/payment_binding.dart';
+import 'package:inspection_doctor_homeowner/features/payment/screens/payment_screen.dart';
 
 class Routes {
   Routes._();
@@ -65,6 +67,7 @@ class Routes {
   static const String reportView = "/reportView";
   static const String giveFeedbackScreen = "/giveFeedbackScreen";
   static const String notificationScreen = "/notificationScreen";
+  static const String paymentScreen = "/paymentScreen";
 }
 
 List<GetPage> appPages() => [
@@ -226,6 +229,15 @@ List<GetPage> appPages() => [
         name: Routes.notificationScreen,
         page: () => const NotificationScreen(),
         binding: NotificationBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.paymentScreen,
+        page: () => const PaymentScreen(),
+        binding: PaymentBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

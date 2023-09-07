@@ -233,6 +233,14 @@ class AppStrings {
   static const rating = "Rating";
   static const today = "Today";
   static const noNotificationFound = "No Notification found";
+  static const payments = "Payments";
+  static const noCardAdded = "No cards added yet!";
+  static const lookLikeYouHaveNotAdded =
+      "Looks like you haven’t added any payment methods yet.";
+  static const addCard = "Add card";
+  static const deleteCard = "Delete card";
+  static const cardDeleteMsg =
+      "Are you sure you want to delete your card? Please tap on YES button to delete card.";
 }
 
 class ErrorMessages {
