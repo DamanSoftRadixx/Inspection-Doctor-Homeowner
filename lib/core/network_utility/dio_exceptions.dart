@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/core/common_functionality/logout/logout_functionality.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/logout/functionality/logout_functionality.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
@@ -13,12 +13,6 @@ class DioExceptions implements Exception {
     log("DioException $dioError}");
     switch (dioError.type) {
       case dio.DioExceptionType.cancel:
-        // apiErrorDialog(
-        //   message: AppStrings.strSometingWentWrong,
-        //   okButtonPressed: () {
-        //     Get.back();
-        //   },
-        // );
         break;
       case dio.DioExceptionType.connectionTimeout:
         apiErrorDialog(

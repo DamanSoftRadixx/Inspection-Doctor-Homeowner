@@ -11,7 +11,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/home/model/network_model/property_list_response_model.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 

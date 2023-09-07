@@ -1,23 +1,23 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/binding/Inspection_detail_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/Inspection_detail/screen/Inspection_detail_screen.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/InspectionsList/binding/inspections_list_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/InspectionsList/screen/inspections_list_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/binding/Inspection_detail_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/screen/Inspection_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/binding/inspections_list_binding.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/screen/inspections_list_screen.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/screens/add_property_screen.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/binding/categories_form_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/categoriesForm/screen/categories_form_screen.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/binding/add_property_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/property_detail/screens/property_detail_screen.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/report_view/binding/report_view_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/report_view/screen/report_view.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/binding/select_categories_binding.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/selectCategories/screen/select_categories_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/binding/categories_form_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/screen/categories_form_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/binding/add_property_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/screens/property_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/binding/report_view_binding.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/screen/report_view.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/binding/select_categories_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/screen/select_categories_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
-import 'package:inspection_doctor_homeowner/features/give_feedback/binding/give_feedback_binding.dart';
-import 'package:inspection_doctor_homeowner/features/give_feedback/screens/give_feedback_screen.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/binding/give_feedback_binding.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/screens/give_feedback_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/binding/choose_map_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/view/choose_map_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
@@ -80,15 +80,6 @@ List<GetPage> appPages() => [
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
       ),
-      // GetPage(
-      //   name: Routes.selectLanguage,
-      //   page: () => const SelectLanguageScreen(),
-      //   fullscreenDialog: true,
-      //   binding: SelectLanguageBinding(),
-      //   transition: CommonStrings.transition,
-      //   transitionDuration:
-      //       const Duration(milliseconds: CommonStrings.transitionDuration),
-      // ),
       GetPage(
         name: Routes.loginScreen,
         page: () => const LoginScreen(),
@@ -215,7 +206,6 @@ List<GetPage> appPages() => [
         transitionDuration:
             const Duration(milliseconds: CommonStrings.transitionDuration),
       ),
-
       GetPage(
         name: Routes.giveFeedbackScreen,
         page: () => const GiveFeedbackScreen(),

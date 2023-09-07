@@ -22,7 +22,7 @@ import 'package:inspection_doctor_homeowner/features/add_new_property/add_proper
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/property_update_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/model/network_model/upload_doc_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/add_property/provider/add_property_provider.dart';
-import 'package:inspection_doctor_homeowner/features/add_new_property/home/model/network_model/property_list_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/home/model/network_model/property_list_response_model.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 
 class AddPropertyController extends GetxController {

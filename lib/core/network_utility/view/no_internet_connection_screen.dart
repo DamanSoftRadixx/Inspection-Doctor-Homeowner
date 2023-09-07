@@ -15,30 +15,11 @@ class NoInternetConnectionScreen extends StatelessWidget {
     return Expanded(
       child: Container(
         width: 1.sw,
-        decoration: const BoxDecoration(
-            // color: lightColorPalette.whiteColorPrimary.shade700,
-            /*borderRadius: BorderRadius.circular(16.r),
-            border: Border.all(
-                color: lightColorPalette.primarySwatch.shade600, width: 1.0)*/
-            ),
+        decoration: const BoxDecoration(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // AssetWidget(
-            //   asset: Asset(
-            //       type: AssetType.svg,
-            //       path: ImageResource.noInternetConnection),
-            //   height: 158.h,
-            //   width: 138.w,
-            //   boxFit: BoxFit.fitWidth,
-            // ),
-            /*
-            Icon(
-                Icons.wifi_off_sharp,
-                color: lightColorPalette.secondarySwatch.shade900,
-              size: 100.w,
-            ),*/
             SizedBox(
               height: 30.h,
             ),

@@ -10,7 +10,7 @@ import '../constants/app_strings.dart';
 class NetworkCheck {
   Future<bool> isInternetAvailable() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    print("connectivityResult : $connectivityResult");
+
     if (connectivityResult == ConnectivityResult.mobile) {
       return true;
     } else if (connectivityResult == ConnectivityResult.wifi) {

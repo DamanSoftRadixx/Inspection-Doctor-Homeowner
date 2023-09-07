@@ -9,21 +9,6 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 
 import '../../theme/app_color_palette.dart';
 
-// AppBar commonAppBar({required String title, Widget? leading}) {
-//   return AppBar(
-//     leading: leading ?? const SizedBox(),
-//     elevation: 0,
-//     centerTitle: true,
-//     backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
-//     title: AppTextWidget(
-//       text: title,
-//       style: CustomTextTheme.heading2(
-//         color: lightColorPalette.black,
-//       ),
-//     ),
-//   );
-// }
-
 AppBar commonAppBarWithElevation(
     {required String title,
     bool isShowBackButton = true,
@@ -142,7 +127,6 @@ getTopLogo() {
           )
         ],
       ),
-
       Center(
         child: AppTextWidget(
           textAlign: TextAlign.center,
@@ -161,14 +145,6 @@ getTopLogo() {
           ),
         ),
       )
-
-      // Center(
-      //   child: AssetWidget(
-      //     color: lightColorPalette.whiteColorPrimary.shade900,
-      //     asset: Asset(type: AssetType.svg, path: ImageResource.inspectionsDoctor),
-      //     boxFit: BoxFit.fitWidth,
-      //   ),
-      // ),
     ],
   );
 }

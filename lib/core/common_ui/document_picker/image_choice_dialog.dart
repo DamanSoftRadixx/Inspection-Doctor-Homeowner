@@ -12,8 +12,6 @@ import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/core/utils/ui_utils.dart';
 
 class ImagePickerUtils {
-  final GlobalKey _scaffold = GlobalKey();
-
   static showMyCameraGalleryDialog(Function(XFile, String? type) filePicked) {
     Get.bottomSheet(
         isDismissible: true,

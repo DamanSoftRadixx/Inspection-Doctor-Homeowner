@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 
 class AppTextWidget extends StatelessWidget {
   final String text;
@@ -7,20 +6,18 @@ class AppTextWidget extends StatelessWidget {
   final TextAlign? textAlign;
   final TextOverflow? overflow;
 
-  dynamic OnTap;
-
-  AppTextWidget({
+  const AppTextWidget({
     Key? key,
     required this.text,
     this.style,
     this.textAlign,
     this.overflow,
-    this.OnTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
+    return Text(
+      text,
       style: style,
       textAlign: textAlign,
       overflow: overflow,

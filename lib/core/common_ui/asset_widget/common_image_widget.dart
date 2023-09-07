@@ -75,17 +75,6 @@ class AssetWidget extends StatelessWidget {
             hoverColor: Colors.transparent,
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            /* onTap: () {
-              */ /*print("asset.path> ${asset.path}");
-              if(asset.path!=null&&asset.path!=""&&asset.path!='null') {
-                Get.toNamed(Routes.FullScreenImage,
-                    arguments: {"image": asset.path});
-              }else{
-                if(onClick!=null){
-                  onClick!();
-                }
-              }*/ /*
-            },*/
             child: CachedNetworkImage(
               height: height,
               width: width,

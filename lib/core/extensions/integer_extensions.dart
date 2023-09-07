@@ -5,16 +5,12 @@ extension IntExtensions on int? {
     var value = this ?? 0.0;
 
     String valueInString = value.toString();
-    print("valueInString : $valueInString");
 
     var finalValue = "0";
     var valueArr = valueInString.split(".");
-    print("valueArr : $valueArr");
+
     if (valueArr.length > 1 && valueArr[1].toIntConversion() == 0) {
       var valueInInt = value.toInt();
-      print("valueInInt : $valueInInt");
-      print(
-          "valueInString[1].toIntConversion() : ${valueInString[1].toIntConversion()}");
 
       finalValue = valueInInt.toString();
     }

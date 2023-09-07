@@ -57,13 +57,8 @@ class ProgressCommonLoader extends StatelessWidget {
             Colors.redAccent,
             Colors.purpleAccent
           ],
-          // backColor: Colors.blueGrey,
+
           mergeMode: true,
-          // onGetText: (double value) {
-          //   return Text(
-          //     value == null ? "" : "${getPercentage(progress: value ?? 0)}%",
-          //   );
-          // },
         ),
       ),
     );
