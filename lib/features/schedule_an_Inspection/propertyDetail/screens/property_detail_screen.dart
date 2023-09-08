@@ -283,7 +283,7 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
     return Obx(() => Column(
           children: [
             showSearchBar()
-                .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
+                .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 5.h),
             controller.isShowLoader.value || controller.isShowSearchLoader.value
                 ? const SizedBox()
                 : Expanded(

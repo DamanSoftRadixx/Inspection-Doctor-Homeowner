@@ -80,7 +80,7 @@ class HomeScreen extends GetView<HomeController> {
     return Column(
       children: [
         showSearchBar()
-            .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 02.h),
+            .paddingOnly(top: 10.h, left: 20.w, right: 20.w, bottom: 05.h),
         showPropertyList(),
       ],
     );

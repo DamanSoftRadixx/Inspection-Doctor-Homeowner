@@ -12,7 +12,7 @@ import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/screen/Inspection_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/screen/Inspection_detail_screen.dart';
 
 extension RescheduleFormExtension on InspectionDetailScreen {
   Future<dynamic> showRescheduleForm() {

@@ -14,12 +14,12 @@ import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/controller/Inspection_detail_controller.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/model/local/widget_size.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/screen/reschedule.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/model/network_model/Inspector_details.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/model/network_model/property_inspection_schedules_history_model.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/model/network_model/schedule_inspection_list_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/controller/Inspection_detail_controller.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/model/local/widget_size.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/screen/reschedule.dart';
 import 'package:measure_size/measure_size.dart';
 
 class InspectionDetailScreen extends GetView<InspectionDetailController> {
@@ -28,7 +28,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-          backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+          backgroundColor: lightColorPalette.greyBg,
           appBar: commonAppBarWithElevation(
               title: AppStrings.inspectionDetail.tr,
               onPressBackButton: () {

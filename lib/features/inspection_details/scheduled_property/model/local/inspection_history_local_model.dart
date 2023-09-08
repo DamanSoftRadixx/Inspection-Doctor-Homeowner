@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/model/local/widget_size.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/model/network/request/inspection_detail_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/model/local/widget_size.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/model/network_model/property_inspection_schedules_history_model.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/model/network_model/schedule_inspection_list_response_model.dart';
 

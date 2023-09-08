@@ -69,9 +69,7 @@ class NotificationController extends GetxController {
       notificationStart.refresh();
     }
 
-    if (!isFromRefresh &&
-        !isFromOnInit &&
-        notificationLoadMore.value == false) {
+    if (isFromRefresh && isFromOnInit && notificationLoadMore.value == false) {
       setScheduledLoader(value: true);
     }
 
@@ -125,7 +123,7 @@ class NotificationController extends GetxController {
   }
 
   void onTapCard({required String inspectionId, required String id}) {
-    editStatus(id: id, inspection_id: inspectionId);
+    updateSeeStatus(id: id, inspection_id: inspectionId);
   }
 
   @override
@@ -160,7 +158,7 @@ class NotificationController extends GetxController {
     isShowNoInspectionDialogUI.refresh();
   }
 
-  editStatus({required String inspection_id, required String id}) async {
+  updateSeeStatus({required String inspection_id, required String id}) async {
     setOnInitLoader(value: true);
 
     try {

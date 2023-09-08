@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/no_data/no_data_found.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/refresh_indicator/common_refresh_indicator.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/features/notification/controller/notification_controller.dart';
+import 'package:inspection_doctor_homeowner/features/notification/extensions/no_notification.dart';
 import 'package:inspection_doctor_homeowner/features/notification/model/network/notification_response_model.dart';
 
 class NotificationScreen extends GetView<NotificationController> {
@@ -30,8 +30,7 @@ class NotificationScreen extends GetView<NotificationController> {
                     ? (controller.isShowScheduledLoader.value ||
                             controller.isShowOnInitLoader.value
                         ? Container()
-                        : showNoDataFound(
-                            message: AppStrings.noNotificationFound.tr))
+                        : noCardAddedYetWidget())
                     : ListView.builder(
                         itemCount: controller.notificationList.length,
                         itemBuilder: (BuildContext context, int index) {

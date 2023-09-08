@@ -241,6 +241,9 @@ class AppStrings {
   static const deleteCard = "Delete card";
   static const cardDeleteMsg =
       "Are you sure you want to delete your card? Please tap on YES button to delete card.";
+  static const noNotificationYet = "No notifications yet!";
+  static const yourNotiFicationlisting =
+      "Your notifications listing will show here. Thanks!";
 }
 
 class ErrorMessages {

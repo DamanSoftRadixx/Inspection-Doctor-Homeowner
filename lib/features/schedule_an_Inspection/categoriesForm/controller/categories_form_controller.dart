@@ -15,7 +15,7 @@ import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/jwt_decoder.dart';
 import 'package:inspection_doctor_homeowner/core/utils/token_decoder/token_decode_response_model.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/provider/inspections_list_provider.dart';
+import 'package:inspection_doctor_homeowner/features/InspectionsList/provider/inspections_list_provider.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/provider/categories_form_provider.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/network/category_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/request_model/inspection_create_request_model.dart';

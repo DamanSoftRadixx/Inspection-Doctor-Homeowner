@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/controller/inspections_list_controller.dart';
+import 'package:inspection_doctor_homeowner/features/InspectionsList/controller/inspections_list_controller.dart';
 
 class InspectionsListBinding implements Bindings {
   @override
