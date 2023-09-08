@@ -179,7 +179,7 @@ class NotificationController extends GetxController {
               bool result = value[0][GetArgumentConstants.isNeedToUpdateList];
 
               if (result == true) {
-                getNotification();
+                getNotification(isFromOnInit: true, isFromRefresh: true);
               }
             }
           });

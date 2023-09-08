@@ -27,7 +27,7 @@ class PropertyDetailController extends GetxController {
   //search
   TextEditingController searchController = TextEditingController();
   onChangedSearch() {
-    getScheduleInspectionList(isFromSearch: true);
+    getScheduleInspectionList(isFromSearch: true, isCancelToken: true);
   }
 
   var searchFocusNode = FocusNode().obs;
@@ -177,7 +177,9 @@ class PropertyDetailController extends GetxController {
   }
 
   Future<void> getScheduleInspectionList(
-      {bool isFromRefresh = false, bool isFromSearch = false}) async {
+      {bool isFromRefresh = false,
+      bool isFromSearch = false,
+      bool isCancelToken = false}) async {
     if (isFromRefresh || isFromSearch) {
       start.value = 0;
       loadMore.value == false;
@@ -208,7 +210,7 @@ class PropertyDetailController extends GetxController {
           await propertyDetailProvider.getScheduleInspectionList(
                   id: propertyDetail.value.id ?? "",
                   body: body,
-                  isCancelToken: true) ??
+                  isCancelToken: isCancelToken) ??
               ScheduleInspectionListResponseModel();
       setShowLoader(value: false);
       if (response.success == true &&
@@ -264,7 +266,8 @@ class PropertyDetailController extends GetxController {
     var listData = scheduleInspectionList[index];
     await Get.toNamed(Routes.inspectionDetailScreen,
         arguments: {GetArgumentConstants.inspectionId: listData.id});
-    getScheduleInspectionList();
+    getScheduleInspectionList(
+        isFromRefresh: false, isFromSearch: true, isCancelToken: false);
   }
 
   InspectionStatusModel getInspectionStatus({required String inspectionId}) {

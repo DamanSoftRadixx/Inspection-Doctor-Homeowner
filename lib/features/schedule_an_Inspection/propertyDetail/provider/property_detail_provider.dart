@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
@@ -17,8 +15,6 @@ class PropertyDetailProvider {
       Response response = await apiHitter.deleteApi(
         endPoint: "${EndPoints.deleteProperty}/$id",
       );
-
-      log("getScheduleInspectionListgdgfdg ${response.data}");
 
       DeletePropertyResponseModel data =
           DeletePropertyResponseModel.fromJson(response.data);
@@ -44,8 +40,6 @@ class PropertyDetailProvider {
           endPoint: EndPoints.scheduleInspectionList,
           body: body,
           isCancelToken: isCancelToken);
-
-      log("getScheduleInspectionList $response");
 
       ScheduleInspectionListResponseModel data =
           ScheduleInspectionListResponseModel.fromJson(response.data);

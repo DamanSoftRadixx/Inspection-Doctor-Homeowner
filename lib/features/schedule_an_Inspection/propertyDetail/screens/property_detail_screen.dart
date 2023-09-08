@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -302,7 +300,6 @@ class PropertyDetailScreen extends GetView<PropertyDetailController> {
                               itemCount:
                                   controller.scheduleInspectionList.length,
                               itemBuilder: (BuildContext context, int index) {
-                                log("message ${controller.scheduleInspectionList[index].inspectorDetails}");
                                 return controller.scheduleInspectionList[index]
                                             .inspectorDetails?.isEmpty ==
                                         true

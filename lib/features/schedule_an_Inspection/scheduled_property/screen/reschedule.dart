@@ -188,7 +188,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
       title: AppStrings.description.tr,
       hint: AppStrings.description.tr,
       maxLength: 300,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter(RegExp("[a-zA-Z " "]"), allow: true),

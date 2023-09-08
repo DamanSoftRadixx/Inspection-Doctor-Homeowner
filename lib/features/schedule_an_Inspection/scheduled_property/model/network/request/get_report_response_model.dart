@@ -1,3 +1,5 @@
+import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
+
 class GetReportResponseModel {
   GetReportResponseModel({
     this.status,
@@ -7,12 +9,12 @@ class GetReportResponseModel {
   });
 
   GetReportResponseModel.fromJson(dynamic json) {
-    status = json['status'];
+    status = json['status'].toString().toIntConversion();
     success = json['success'];
     data = json['data'] != null
         ? GetReportResponseModelData.fromJson(json['data'])
         : null;
-    message = json['message'];
+    message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
@@ -41,14 +43,17 @@ class GetReportResponseModelData {
   });
 
   GetReportResponseModelData.fromJson(dynamic json) {
-    reportUrl = json['report_url'];
-    reportImages = json['report_images'] != null
-        ? json['report_images'].cast<String>()
+    reportUrl = json['report_url'].toString().toStringConversion();
+    reportImages =
+        json['report_images'] != null && json['report_images'] is List
+            ? json['report_images'].cast<String>()
+            : [];
+    reportType = json['report_type'].toString().toStringConversion();
+    reportEmail = json['report_email'] != null && json['report_email'] is List
+        ? json['report_email'].cast<String>()
         : [];
-    reportType = json['report_type'];
-    reportEmail =
-        json['report_email'] != null ? json['report_email'].cast<String>() : [];
-    reportDescription = json['report_description'];
+    reportDescription =
+        json['report_description'].toString().toStringConversion();
   }
   String? reportUrl;
   List<String>? reportImages;

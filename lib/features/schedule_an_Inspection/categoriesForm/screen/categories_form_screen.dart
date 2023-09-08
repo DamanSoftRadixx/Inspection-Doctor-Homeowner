@@ -78,7 +78,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
       title: AppStrings.description.tr,
       hint: AppStrings.description.tr,
       maxLength: 500,
-      keyboardType: TextInputType.name,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
       // inputFormatters: <TextInputFormatter>[
       //   FilteringTextInputFormatter(RegExp("[a-zA-Z0-9 " "]"), allow: true),

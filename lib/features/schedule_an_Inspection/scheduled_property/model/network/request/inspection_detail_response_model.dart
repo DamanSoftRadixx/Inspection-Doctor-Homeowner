@@ -14,7 +14,7 @@ class InspectionDetailResponseModel {
   InspectionDetailResponseModel.fromJson(dynamic json) {
     status = json['status'];
     success = json['success'];
-    if (json['data'] != null) {
+    if (json['data'] != null && json['data'] is List) {
       data = [];
       json['data'].forEach((v) {
         data?.add(InspectionDetailData.fromJson(v));
