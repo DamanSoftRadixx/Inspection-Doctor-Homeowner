@@ -84,4 +84,5 @@ class ImageResource {
   static const done = "assets/images/svg/done.svg";
   static const greyCircle = "assets/images/svg/greyCircle.svg";
   static const star = "assets/images/svg/star.svg";
+  static const bell = "assets/images/svg/bell.svg";
 }

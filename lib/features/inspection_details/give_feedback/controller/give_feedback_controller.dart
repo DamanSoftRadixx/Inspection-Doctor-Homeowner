@@ -7,7 +7,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/scheduled_property/model/network/request/inspection_detail_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/model/network/request/inspection_detail_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/model/local_model/feedback_model.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/model/network/feedback_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/provider/give_feedback_provider.dart';

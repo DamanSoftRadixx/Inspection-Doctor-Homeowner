@@ -1,22 +1,27 @@
 import 'package:inspection_doctor_homeowner/core/extensions/string_extensions.dart';
 
-class GetCountyResponseModel {
-  GetCountyResponseModel({
+class CountyResponseModel {
+  CountyResponseModel({
     this.status,
     this.success,
     this.data,
     this.message,
   });
 
-  GetCountyResponseModel.fromJson(dynamic json) {
+  CountyResponseModel.fromJson(dynamic json) {
     status = json['status'].toString().toIntConversion();
     success = json['success'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    if (json['data'] != null && json['data'] is List) {
+      data = [];
+      json['data'].forEach((v) {
+        data?.add(CountyResponseModelData.fromJson(v));
+      });
+    }
     message = json['message'].toString().toStringConversion();
   }
   int? status;
   bool? success;
-  Data? data;
+  List<CountyResponseModelData>? data;
   String? message;
 
   Map<String, dynamic> toJson() {
@@ -24,39 +29,15 @@ class GetCountyResponseModel {
     map['status'] = status;
     map['success'] = success;
     if (data != null) {
-      map['data'] = data?.toJson();
+      map['data'] = data?.map((v) => v.toJson()).toList();
     }
     map['message'] = message;
     return map;
   }
 }
 
-class Data {
-  Data({
-    this.counties,
-  });
-
-  Data.fromJson(dynamic json) {
-    if (json['counties'] != null) {
-      counties = [];
-      json['counties'].forEach((v) {
-        counties?.add(Counties.fromJson(v));
-      });
-    }
-  }
-  List<Counties>? counties;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (counties != null) {
-      map['counties'] = counties?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-}
-
-class Counties {
-  Counties({
+class CountyResponseModelData {
+  CountyResponseModelData({
     this.id,
     this.name,
     this.stateId,
@@ -67,14 +48,13 @@ class Counties {
     this.updatedAt,
   });
 
-  Counties.fromJson(dynamic json) {
+  CountyResponseModelData.fromJson(dynamic json) {
     id = json['_id'].toString().toStringConversion();
     name = json['name'].toString().toStringConversion();
-
     stateId = json['state_id'].toString().toStringConversion();
     isActive = json['is_active'];
-    deletedAt = json['deleted_at'].toString().toStringConversion();
-    v = json['__v'].toString().toIntConversion();
+    deletedAt = json['deleted_at'];
+    v = json['__v'];
     createdAt = json['createdAt'].toString().toStringConversion();
     updatedAt = json['updatedAt'].toString().toStringConversion();
   }

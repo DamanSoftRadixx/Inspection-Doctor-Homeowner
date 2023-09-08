@@ -536,15 +536,15 @@ class AddPropertyController extends GetxController {
   getCounties() async {
     setShowLoader(value: true);
     try {
-      GetCountyResponseModel response =
-          await addPropertyProvider.counties() ?? GetCountyResponseModel();
+      CountyResponseModel response =
+          await addPropertyProvider.counties() ?? CountyResponseModel();
       setShowLoader(value: false);
       if (response.success == true &&
           (response.status == 201 || response.status == 200)) {
-        if (response.data?.counties != []) {
+        if (response.data != []) {
           DropdownModel();
 
-          response.data?.counties
+          response.data
               ?.map((e) => countiesList.add(DropdownModel(
                     id: e.id ?? "",
                     name: e.name ?? "",

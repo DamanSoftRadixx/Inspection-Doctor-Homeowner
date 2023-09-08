@@ -7,7 +7,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/controller/inspections_list_controller.dart';
+import 'package:inspection_doctor_homeowner/features/InspectionsList/controller/inspections_list_controller.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/network/category_list_response_model.dart';
 
 class InspectionsListScreen extends GetView<InspectionsListController> {

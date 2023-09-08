@@ -5,7 +5,7 @@ import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/InspectionsList/provider/inspections_list_provider.dart';
+import 'package:inspection_doctor_homeowner/features/InspectionsList/provider/inspections_list_provider.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/network/category_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/request_model/inspection_create_request_model.dart';
 

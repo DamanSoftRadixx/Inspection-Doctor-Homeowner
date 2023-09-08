@@ -32,14 +32,13 @@ class PaymentProvider {
     }
   }
 
-  Future<GetCountyResponseModel?> counties() async {
+  Future<CountyResponseModel?> counties() async {
     try {
       Response response = await apiHitter.getApi(
         endPoint: EndPoints.getCounties,
       );
 
-      GetCountyResponseModel data =
-          GetCountyResponseModel.fromJson(response.data);
+      CountyResponseModel data = CountyResponseModel.fromJson(response.data);
       showResponseData(data, type: 'counties');
 
       return data;
