@@ -20,7 +20,7 @@ class PropertyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomInkwell(
+    return CustomTapState(
       padding: EdgeInsets.zero,
       onTap: onTap,
       child: Container(

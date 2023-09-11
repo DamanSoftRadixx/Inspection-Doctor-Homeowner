@@ -16,7 +16,7 @@ AppBar commonAppBarWithElevation(
     Widget? centerWidget}) {
   return AppBar(
     leading: isShowBackButton
-        ? CustomInkwell(
+        ? CustomTapState(
             onTap: () {
               if (onPressBackButton != null) onPressBackButton();
             },
@@ -60,7 +60,7 @@ AppBar commonAppBarWithOutElevation(
     Function()? onPressBackButton}) {
   return AppBar(
     leading: isShowBackButton
-        ? CustomInkwell(
+        ? CustomTapState(
             onTap: () {
               if (onPressBackButton != null) onPressBackButton();
             },

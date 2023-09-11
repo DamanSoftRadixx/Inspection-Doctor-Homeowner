@@ -61,7 +61,7 @@ class ImagePickerUtils {
                         }
                       }
                     }),
-                CustomInkwell(
+                CustomTapState(
                   padding: EdgeInsets.zero,
                   onTap: () {
                     Get.back();

@@ -57,7 +57,7 @@ class NotificationScreen extends GetView<NotificationController> {
       {required int index,
       required List<NotificationResponseModelData> notificationList}) {
     NotificationResponseModelData data = notificationList[index];
-    return CustomInkwell(
+    return CustomTapState(
       padding: EdgeInsets.zero,
       onTap: () {
         controller.onTapCard(

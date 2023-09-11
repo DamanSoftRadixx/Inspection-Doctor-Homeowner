@@ -33,7 +33,7 @@ extension RescheduleFormExtension on InspectionDetailScreen {
                   SizedBox(height: 22.h),
                   Stack(
                     children: [
-                      CustomInkwell(
+                      CustomTapState(
                           padding: EdgeInsets.only(left: 20.w),
                           onTap: () {
                             Get.back();

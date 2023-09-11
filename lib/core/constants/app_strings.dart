@@ -244,6 +244,9 @@ class AppStrings {
   static const noNotificationYet = "No notifications yet!";
   static const yourNotiFicationlisting =
       "Your notifications listing will show here. Thanks!";
+  static const connectionLost = "Connection lost!";
+  static const connectionLostMSG =
+      "There seems to be a problem with your internet connection, please check your internet settings and try again.";
 }
 
 class ErrorMessages {

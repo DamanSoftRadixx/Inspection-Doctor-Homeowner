@@ -105,7 +105,7 @@ class LoginScreen extends GetView<LoginController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomInkwell(
+            CustomTapState(
               onTap: () {
                 controller.signInWithGoogle();
               },
@@ -134,7 +134,7 @@ class LoginScreen extends GetView<LoginController> {
                 ),
               ),
             ),
-            CustomInkwell(
+            CustomTapState(
               onTap: () {
                 controller.signInWithFb();
               },
@@ -164,7 +164,7 @@ class LoginScreen extends GetView<LoginController> {
               ).paddingSymmetric(horizontal: 10),
             ),
             isIos
-                ? CustomInkwell(
+                ? CustomTapState(
                     onTap: () {
                       controller.signInWithApple();
                     },
@@ -259,7 +259,7 @@ class LoginScreen extends GetView<LoginController> {
   Align showForgotPassword() {
     return Align(
       alignment: Alignment.topLeft,
-      child: CustomInkwell(
+      child: CustomTapState(
         padding: EdgeInsets.zero,
         onTap: () {
           controller.onPressForgotPasswordButton();
@@ -293,7 +293,7 @@ class LoginScreen extends GetView<LoginController> {
           style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.dontHaveAccount.tr,
         ),
-        CustomInkwell(
+        CustomTapState(
           padding: EdgeInsets.zero,
           onTap: () {
             controller.onTapSignupButton();

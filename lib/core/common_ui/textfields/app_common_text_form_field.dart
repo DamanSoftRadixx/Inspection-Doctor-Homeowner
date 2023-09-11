@@ -193,7 +193,7 @@ Widget commonPasswordText(
               ),
               Flexible(
                   flex: 1,
-                  child: CustomInkwell(
+                  child: CustomTapState(
                     padding: EdgeInsets.zero,
                     onTap: onPress == null
                         ? null
@@ -275,7 +275,7 @@ Widget commonPhoneText(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomInkwell(
+            CustomTapState(
               padding: EdgeInsets.zero,
               onTap: () {
                 dismissKeyboard();
@@ -921,7 +921,7 @@ Widget commonDatePicker(
                         textAlign: TextAlign.start,
                       ).paddingOnly(left: 15.w),
               ),
-              CustomInkwell(
+              CustomTapState(
                 padding: EdgeInsets.zero,
                 onTap: () => showDatePickerDialog(
                     onPicked: onPicked, firstDated: DateTime.now()),

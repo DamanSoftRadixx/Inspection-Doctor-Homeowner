@@ -53,7 +53,7 @@ class OtpVerifyScreen extends GetView<OtpVerifyController> {
               ? AppStrings.expiresIn.tr
               : AppStrings.dontYouReceivedOTP.tr,
         ),
-        CustomInkwell(
+        CustomTapState(
           padding: EdgeInsets.only(left: 3.w),
           onTap: () {
             controller.resendOtpButtonPressed();

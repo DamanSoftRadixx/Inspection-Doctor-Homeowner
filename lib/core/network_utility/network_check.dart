@@ -2,10 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
-
-import '../constants/app_strings.dart';
 
 class NetworkCheck {
   Future<bool> isInternetAvailable() async {
@@ -20,13 +17,14 @@ class NetworkCheck {
   }
 
   noInternetConnectionDialog() {
-    showCommonAlertSingleButtonDialog(
-        title: AppStrings.strNoInternetConnection.tr,
-        subHeader: AppStrings.strPleaseCheckYourInternetConnectivity.tr,
-        okPressed: () {
-          Get.back();
-        },
-        buttonTitle: AppStrings.ok);
+    // showCommonAlertSingleButtonDialog(
+    //     title: AppStrings.strNoInternetConnection.tr,
+    //     subHeader: AppStrings.strPleaseCheckYourInternetConnectivity.tr,
+    //     okPressed: () {
+    //       Get.back();
+    //     },
+    //     buttonTitle: AppStrings.ok);
+    showNoInternetDialog();
   }
 
   Future<bool> hasNetwork() async {

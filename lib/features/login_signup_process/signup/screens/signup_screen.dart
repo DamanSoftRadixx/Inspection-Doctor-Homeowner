@@ -167,7 +167,7 @@ class SignupScreen extends GetView<SignupController> {
           style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.alreadyAccount.tr,
         ),
-        CustomInkwell(
+        CustomTapState(
           padding: EdgeInsets.zero,
           onTap: () {
             dismissKeyboard();

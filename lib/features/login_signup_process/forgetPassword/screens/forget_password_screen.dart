@@ -52,7 +52,7 @@ class ForgetPasswordScreen extends GetView<ForgetPasswordController> {
           style: CustomTextTheme.normalText(color: lightColorPalette.grey),
           text: AppStrings.dontYouReceivedLink.tr,
         ),
-        CustomInkwell(
+        CustomTapState(
           padding: EdgeInsets.only(left: 3.w),
           onTap: () {},
           child: AppTextWidget(
