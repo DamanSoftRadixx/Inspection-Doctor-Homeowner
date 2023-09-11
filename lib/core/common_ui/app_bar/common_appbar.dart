@@ -54,6 +54,19 @@ AppBar commonAppBarWithElevation(
   );
 }
 
+AppBar commonAppBarWithOnlyLogo({Widget? centerWidget}) {
+  return AppBar(
+      elevation: 4,
+      centerTitle: true,
+      shadowColor: lightColorPalette.grey.withOpacity(0.2),
+      foregroundColor: lightColorPalette.whiteColorPrimary.shade900,
+      backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
+      title: AssetWidget(
+        asset: Asset(type: AssetType.svg, path: ImageResource.cid_new),
+        boxFit: BoxFit.fitWidth,
+      ));
+}
+
 AppBar commonAppBarWithOutElevation(
     {required String title,
     bool isShowBackButton = true,

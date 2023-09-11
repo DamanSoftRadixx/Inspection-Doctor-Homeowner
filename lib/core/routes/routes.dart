@@ -1,23 +1,17 @@
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/binding/Inspection_detail_binding.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/screen/Inspection_detail_screen.dart';
 import 'package:inspection_doctor_homeowner/features/InspectionsList/binding/inspections_list_binding.dart';
 import 'package:inspection_doctor_homeowner/features/InspectionsList/screen/inspections_list_screen.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/binding/add_property_binding.dart';
 import 'package:inspection_doctor_homeowner/features/add_new_property/screens/add_property_screen.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/binding/categories_form_binding.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/screen/categories_form_screen.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/binding/add_property_binding.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/screens/property_detail_screen.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/binding/report_view_binding.dart';
-import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/screen/report_view.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/binding/select_categories_binding.dart';
-import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/screen/select_categories_screen.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/binding/dashboard_binding.dart';
 import 'package:inspection_doctor_homeowner/features/dashboard/screen/dashboard_screen.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/binding/give_feedback_binding.dart';
 import 'package:inspection_doctor_homeowner/features/inspection_details/give_feedback/screens/give_feedback_screen.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/binding/report_view_binding.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/report_view/screen/report_view.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/binding/Inspection_detail_binding.dart';
+import 'package:inspection_doctor_homeowner/features/inspection_details/scheduled_property/screen/Inspection_detail_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/binding/choose_map_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/choose_map/view/choose_map_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/forgetPassword/binding/forget_password_binding.dart';
@@ -26,6 +20,8 @@ import 'package:inspection_doctor_homeowner/features/login_signup_process/login/
 import 'package:inspection_doctor_homeowner/features/login_signup_process/login/screens/login_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/binding/otp_verify_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/otpVerify/screen/otp_verify.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/price_listing/binding/price_listing_binding.dart';
+import 'package:inspection_doctor_homeowner/features/login_signup_process/price_listing/screens/price_listing_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/binding/reset_password_binding.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/resetPassword/screens/reset_password_screen.dart';
 import 'package:inspection_doctor_homeowner/features/login_signup_process/signup/binding/signup_binding.dart';
@@ -36,6 +32,12 @@ import 'package:inspection_doctor_homeowner/features/notification/binding/notifi
 import 'package:inspection_doctor_homeowner/features/notification/screens/notification_screen.dart';
 import 'package:inspection_doctor_homeowner/features/payment/binding/payment_binding.dart';
 import 'package:inspection_doctor_homeowner/features/payment/screens/payment_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/binding/categories_form_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/screen/categories_form_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/binding/add_property_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/screens/property_detail_screen.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/binding/select_categories_binding.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/screen/select_categories_screen.dart';
 
 class Routes {
   Routes._();
@@ -68,6 +70,7 @@ class Routes {
   static const String giveFeedbackScreen = "/giveFeedbackScreen";
   static const String notificationScreen = "/notificationScreen";
   static const String paymentScreen = "/paymentScreen";
+  static const String priceListingScreen = "/priceListingScreen";
 }
 
 List<GetPage> appPages() => [
@@ -228,6 +231,15 @@ List<GetPage> appPages() => [
         name: Routes.paymentScreen,
         page: () => const PaymentScreen(),
         binding: PaymentBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.priceListingScreen,
+        page: () => const PriceListingScreen(),
+        binding: PriceListingBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

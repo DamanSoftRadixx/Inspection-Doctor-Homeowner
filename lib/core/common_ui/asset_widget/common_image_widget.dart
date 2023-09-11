@@ -131,13 +131,13 @@ Container uiShow(ImageProvider<Object> imageProvider) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(2.r),
-      boxShadow: [
-        BoxShadow(
-            color: lightColorPalette.black,
-            blurRadius: 5.0,
-            offset: const Offset(2, 2),
-            spreadRadius: 0),
-      ],
+      // boxShadow: [
+      //   BoxShadow(
+      //       color: lightColorPalette.black,
+      //       blurRadius: 5.0,
+      //       offset: const Offset(2, 2),
+      //       spreadRadius: 0),
+      // ],
       image: DecorationImage(
         image: imageProvider,
         fit: BoxFit.cover,

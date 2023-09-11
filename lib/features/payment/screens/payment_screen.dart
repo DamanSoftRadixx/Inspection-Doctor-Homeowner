@@ -37,7 +37,7 @@ class PaymentScreen extends GetView<PaymentController> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        noCardAddedYetWidget(isNoCard: false),
+                        noCardAddedYetWidget(isNoCard: true),
                       ],
                     ),
                     CommonLoader(isLoading: controller.isShowLoader.value)

@@ -93,7 +93,6 @@ class OtpVerifyController extends GetxController {
 
     log("bodyData $body");
 
-
     try {
       VerifyOtpResponseModel response =
           await otpVerifyProvider.otpVerification(body: body) ??
@@ -125,9 +124,11 @@ class OtpVerifyController extends GetxController {
       if (fromScreen.value == Routes.forgetScreen) {
         Get.toNamed(Routes.resetPassword);
       } else if (fromScreen.value == Routes.signupScreen) {
-        Get.toNamed(Routes.dashboard);
+        // Get.toNamed(Routes.dashboard);
+        Get.toNamed(Routes.priceListingScreen);
       } else if (fromScreen.value == Routes.loginScreen) {
-        Get.toNamed(Routes.dashboard);
+        // Get.toNamed(Routes.dashboard);
+        Get.toNamed(Routes.priceListingScreen);
       }
       //  snackbar(response.message ?? "");
     }

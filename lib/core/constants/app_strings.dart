@@ -247,6 +247,11 @@ class AppStrings {
   static const connectionLost = "Connection lost!";
   static const connectionLostMSG =
       "There seems to be a problem with your internet connection, please check your internet settings and try again.";
+  static const inspectionCharges = "Inspection Charges";
+  static const youCanCheckThePrice =
+      "You can check the price of each category in below listing.";
+  static const inspectionChargesText =
+      "After the first hour, an extra charge of 25% will apply for each 15-minute interval thereafter.";
 }
 
 class ErrorMessages {

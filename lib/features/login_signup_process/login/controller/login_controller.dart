@@ -312,7 +312,8 @@ class LoginController extends GetxController {
       TokenResponseModel loginTokenModel = getJsonFromJWTToken(token: token);
       var isOtpVerified = loginTokenModel.data?.isOtpVerified ?? 0;
       if (isOtpVerified == 1) {
-        Get.toNamed(Routes.dashboard);
+        // Get.toNamed(Routes.dashboard);
+        Get.toNamed(Routes.priceListingScreen);
       } else {
         Get.toNamed(Routes.otpVerifyScreen, arguments: {
           GetArgumentConstants.otp: loginTokenModel.data?.otp ?? "",

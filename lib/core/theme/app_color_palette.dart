@@ -271,6 +271,22 @@ BoxDecoration decoration({required bool isSelected}) {
           width: isSelected ? 1 : 0.3));
 }
 
+BoxDecoration inspectionChargesDecoration() {
+  return BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 20,
+          color: lightColorPalette.black.withOpacity(0.20),
+          offset: const Offset(0, 2),
+          spreadRadius: 0,
+        ),
+      ],
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      borderRadius: BorderRadius.circular(10.r),
+      shape: BoxShape.rectangle,
+      border: Border.all(color: lightColorPalette.grey, width: 0.3));
+}
+
 BoxDecoration decorationWithElevationOnly() {
   return BoxDecoration(
       color: lightColorPalette.whiteColorPrimary.shade900,

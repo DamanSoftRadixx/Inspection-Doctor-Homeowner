@@ -35,7 +35,7 @@ extension NoCardAddedYetExtension on PaymentScreen {
                 CommonButton(
                     commonButtonBottonText: AppStrings.addCard.tr,
                     onPress: () {
-                      // controller.onPressAddPropertyButton();
+                      controller.displayPaymentSheet();
                     })
               ],
             ),

@@ -35,6 +35,7 @@ class EndPoints {
   static String mapKey = "AIzaSyBYNsU2aU0_SpFhAeQQxKA1744aDM1Gs2I";
   static const String notification = "user/notification-list";
   static const String editNotification = "user/edit/notification/";
+  static const String categoryList = "inspector/category-list";
   static String googleMapUrl =
       "https://maps.googleapis.com/maps/api/place/details/json?";
 
