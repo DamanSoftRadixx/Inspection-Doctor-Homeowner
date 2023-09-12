@@ -9,15 +9,15 @@ import 'package:pdfx/pdfx.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class FlutterFlowPdfViewer extends StatefulWidget {
-  const FlutterFlowPdfViewer({
-    Key? key,
-    this.networkPath,
-    this.assetPath,
-    this.width,
-    this.height,
-    this.horizontalScroll = false,
-    this.title
-  })  : assert((networkPath != null) ^ (assetPath != null)),
+  const FlutterFlowPdfViewer(
+      {Key? key,
+      this.networkPath,
+      this.assetPath,
+      this.width,
+      this.height,
+      this.horizontalScroll = false,
+      this.title})
+      : assert((networkPath != null) ^ (assetPath != null)),
         super(key: key);
 
   final String? networkPath;

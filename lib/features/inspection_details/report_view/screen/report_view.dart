@@ -77,7 +77,7 @@ class ReportView extends GetView<ReportViewController> {
                 MaterialPageRoute(
                   builder: (context) => FlutterFlowPdfViewer(
                     networkPath: reportPath,
-                    title: fileName,
+                    title: AppStrings.report.tr,
                   ),
                 ));
           },
@@ -94,7 +94,7 @@ class ReportView extends GetView<ReportViewController> {
                 style: CustomTextTheme.normalText(
                   color: lightColorPalette.black,
                 ),
-                text: "Report.pdf",
+                text: AppStrings.report.tr,
                 // "${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 2]}.${controller.reportData.value.reportUrl?.split(".")[(controller.reportData.value.reportUrl?.split(".").length ?? 0) - 1]}",
                 textAlign: TextAlign.center,
               ),

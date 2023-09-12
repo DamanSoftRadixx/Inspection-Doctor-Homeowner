@@ -36,12 +36,14 @@ class PriceListingScreen extends GetView<PriceListingController> {
           child: SafeArea(
             child: Obx(() => Stack(
                   children: [
-                    Column(
-                      children: [
-                        showHeadingText(),
-                        showChargesList(),
-                      ],
-                    ).paddingSymmetric(horizontal: 20.w),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          showHeadingText(),
+                          showChargesList(),
+                        ],
+                      ).paddingSymmetric(horizontal: 20.w),
+                    ),
                     CommonLoader(isLoading: controller.isShowLoader.value)
                   ],
                 )),
@@ -52,16 +54,15 @@ class PriceListingScreen extends GetView<PriceListingController> {
   }
 
   Widget showChargesList() {
-    return Expanded(
-      child: ListView.builder(
-        padding: EdgeInsets.only(top: 10.h),
-        physics: const RangeMaintainingScrollPhysics(),
-        itemCount: controller.list.length,
-        itemBuilder: (BuildContext context, int index) {
-          Category data = controller.list[index];
-          return chargesCard(data);
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: EdgeInsets.only(top: 10.h, bottom: 100.h),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: controller.list.length,
+      itemBuilder: (BuildContext context, int index) {
+        Category data = controller.list[index];
+        return chargesCard(data);
+      },
     );
   }
 

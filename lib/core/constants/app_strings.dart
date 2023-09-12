@@ -252,6 +252,8 @@ class AppStrings {
       "You can check the price of each category in below listing.";
   static const inspectionChargesText =
       "After the first hour, an extra charge of 25% will apply for each 15-minute interval thereafter.";
+
+  static const report = "Report.pdf";
 }
 
 class ErrorMessages {
