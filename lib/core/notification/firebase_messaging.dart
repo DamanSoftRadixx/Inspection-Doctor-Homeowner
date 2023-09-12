@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/snackbar/snackbar.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
@@ -110,7 +111,7 @@ class Notifications {
 
   static onPressNotificationItem({required RemoteMessage message}) async {
     print("Response of message is :${message.data}");
-
+    snackbar(message.data.toString());
     String inspectionId = message.data["inspection_id"];
     if (inspectionId != "") {
       Get.toNamed(Routes.inspectionDetailScreen,
