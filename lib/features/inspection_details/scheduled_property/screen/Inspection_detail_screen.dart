@@ -41,22 +41,30 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
               children: [
                 controller.isShowInitialLoader.value
                     ? const SizedBox()
-                    : CustomScrollView(
-                        physics: const RangeMaintainingScrollPhysics(),
-                        slivers: [
-                            SliverAppBar(
-                              leading: const SizedBox(),
-                              backgroundColor:
-                                  lightColorPalette.whiteColorPrimary.shade900,
-                              pinned: false,
-                              expandedHeight: 0.53.sh,
-                              flexibleSpace: FlexibleSpaceBar(
-                                background: showInspectorDetails(),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                                child: showInspectionStatusHistoryList())
-                          ]),
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            showInspectorDetails(),
+                            showInspectionStatusHistoryList()
+                          ],
+                        ),
+                      ),
+                // : CustomScrollView(
+                //     physics: const RangeMaintainingScrollPhysics(),
+                //     slivers: [
+                //         SliverAppBar(
+                //           leading: const SizedBox(),
+                //           backgroundColor:
+                //               lightColorPalette.whiteColorPrimary.shade900,
+                //           pinned: false,
+                //           expandedHeight: 0.53.sh,
+                //           flexibleSpace: FlexibleSpaceBar(
+                //             background: showInspectorDetails(),
+                //           ),
+                //         ),
+                //         SliverToBoxAdapter(
+                //             child: showInspectionStatusHistoryList())
+                //       ]),
                 CommonLoader(
                     isLoading: controller.isShowLoader.value ||
                         controller.isShowInitialLoader.value)
@@ -67,22 +75,25 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
   }
 
   Widget showInspectorDetails() {
-    return Column(
-      children: [
-        getCategoryView(),
-        Divider(color: lightColorPalette.grey)
-            .paddingSymmetric(horizontal: 20.w),
-        //Date
-        showDate().paddingOnly(bottom: 5.h, left: 20.w, right: 20.w),
-        // getInspectionTimeList(
-        //     controller.inspectionDetail.value),
+    return Container(
+      color: lightColorPalette.whiteColorPrimary.shade900,
+      child: Column(
+        children: [
+          getCategoryView(),
+          Divider(color: lightColorPalette.grey)
+              .paddingSymmetric(horizontal: 20.w),
+          //Date
+          showDate().paddingOnly(bottom: 5.h, left: 20.w, right: 20.w),
+          // getInspectionTimeList(
+          //     controller.inspectionDetail.value),
 
-        Divider(color: lightColorPalette.grey)
-            .paddingSymmetric(horizontal: 20.w),
-        getContactPersonDetail(),
-        getDescription(),
-        getInspectorDetailPersonDetail()
-      ],
+          Divider(color: lightColorPalette.grey)
+              .paddingSymmetric(horizontal: 20.w),
+          getContactPersonDetail(),
+          getDescription(),
+          getInspectorDetailPersonDetail()
+        ],
+      ),
     );
   }
 

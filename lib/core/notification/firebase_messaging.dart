@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
 
 class Notifications {
@@ -106,7 +108,16 @@ class Notifications {
     handleNotificationTapForTerminatedState();
   }
 
-  static onPressNotificationItem({required RemoteMessage message}) async {}
+  static onPressNotificationItem({required RemoteMessage message}) async {
+    print("Response of message is :${message.data}");
+
+    String inspectionId = message.data["inspection_id"];
+    if (inspectionId != "") {
+      Get.toNamed(Routes.inspectionDetailScreen,
+              arguments: {GetArgumentConstants.inspectionId: inspectionId})
+          ?.then((value) {});
+    }
+  }
 
   static handleNotificationTapForTerminatedState() {
     Notifications.appComesFromTerminatedState();
