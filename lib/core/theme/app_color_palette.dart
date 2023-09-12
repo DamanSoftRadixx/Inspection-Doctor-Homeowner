@@ -202,12 +202,13 @@ class CustomTextTheme {
     );
   }
 
-  static TextStyle bottomTabs({required Color color}) {
+  static TextStyle bottomTabs({required Color color, double? height}) {
     return TextStyle(
+      letterSpacing: 0.56,
       fontFamily: CommonStrings.generalSans,
       fontSize: 12.sp,
       fontWeight: FontWeight.w500,
-      height: 1,
+      height: height ?? 1,
       color: color,
     );
   }

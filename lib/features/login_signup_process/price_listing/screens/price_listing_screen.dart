@@ -98,8 +98,7 @@ class PriceListingScreen extends GetView<PriceListingController> {
                         // overflow: TextOverflow.ellipsis,
                         text: AppStrings.inspectionChargesText.tr,
                         style: CustomTextTheme.bottomTabs(
-                          color: lightColorPalette.grey,
-                        ),
+                            color: lightColorPalette.grey, height: 1.35),
                       ),
                     ],
                   ),

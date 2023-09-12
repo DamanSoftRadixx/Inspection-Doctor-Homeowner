@@ -36,39 +36,48 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                   {GetArgumentConstants.isNeedToUpdateList: true}
                 ]);
               }),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                controller.isShowInitialLoader.value
-                    ? const SizedBox()
-                    : SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            showInspectorDetails(),
-                            showInspectionStatusHistoryList()
-                          ],
+          body: WillPopScope(
+            onWillPop: () async {
+              Get.back(closeOverlays: true, result: [
+                {GetArgumentConstants.isNeedToUpdateList: true}
+              ]);
+
+              return true;
+            },
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  controller.isShowInitialLoader.value
+                      ? const SizedBox()
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              showInspectorDetails(),
+                              showInspectionStatusHistoryList()
+                            ],
+                          ),
                         ),
-                      ),
-                // : CustomScrollView(
-                //     physics: const RangeMaintainingScrollPhysics(),
-                //     slivers: [
-                //         SliverAppBar(
-                //           leading: const SizedBox(),
-                //           backgroundColor:
-                //               lightColorPalette.whiteColorPrimary.shade900,
-                //           pinned: false,
-                //           expandedHeight: 0.53.sh,
-                //           flexibleSpace: FlexibleSpaceBar(
-                //             background: showInspectorDetails(),
-                //           ),
-                //         ),
-                //         SliverToBoxAdapter(
-                //             child: showInspectionStatusHistoryList())
-                //       ]),
-                CommonLoader(
-                    isLoading: controller.isShowLoader.value ||
-                        controller.isShowInitialLoader.value)
-              ],
+                  // : CustomScrollView(
+                  //     physics: const RangeMaintainingScrollPhysics(),
+                  //     slivers: [
+                  //         SliverAppBar(
+                  //           leading: const SizedBox(),
+                  //           backgroundColor:
+                  //               lightColorPalette.whiteColorPrimary.shade900,
+                  //           pinned: false,
+                  //           expandedHeight: 0.53.sh,
+                  //           flexibleSpace: FlexibleSpaceBar(
+                  //             background: showInspectorDetails(),
+                  //           ),
+                  //         ),
+                  //         SliverToBoxAdapter(
+                  //             child: showInspectionStatusHistoryList())
+                  //       ]),
+                  CommonLoader(
+                      isLoading: controller.isShowLoader.value ||
+                          controller.isShowInitialLoader.value)
+                ],
+              ),
             ),
           ),
         ));
