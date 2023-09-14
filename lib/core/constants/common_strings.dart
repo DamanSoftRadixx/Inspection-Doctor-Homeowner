@@ -9,3 +9,8 @@ class CommonStrings {
   static const Transition bottomToToptransition = Transition.rightToLeft;
   static String token = "";
 }
+
+class CreditDebitMask {
+  static const americanExpressMask = "0000 000000 00000";
+  static const otherCreditDebitMask = "0000 0000 0000 0000";
+}

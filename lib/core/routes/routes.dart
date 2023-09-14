@@ -30,8 +30,10 @@ import 'package:inspection_doctor_homeowner/features/login_signup_process/splash
 import 'package:inspection_doctor_homeowner/features/login_signup_process/splash/screens/splashScreen.dart';
 import 'package:inspection_doctor_homeowner/features/notification/binding/notification_binding.dart';
 import 'package:inspection_doctor_homeowner/features/notification/screens/notification_screen.dart';
-import 'package:inspection_doctor_homeowner/features/payment/binding/payment_binding.dart';
-import 'package:inspection_doctor_homeowner/features/payment/screens/payment_screen.dart';
+import 'package:inspection_doctor_homeowner/features/payments/add_card/binding/add_card_binding.dart';
+import 'package:inspection_doctor_homeowner/features/payments/add_card/screens/add_card_screen.dart';
+import 'package:inspection_doctor_homeowner/features/payments/payment/binding/payment_binding.dart';
+import 'package:inspection_doctor_homeowner/features/payments/payment/screens/payment_screen.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/binding/categories_form_binding.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/categoriesForm/screen/categories_form_screen.dart';
 import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/propertyDetail/binding/add_property_binding.dart';
@@ -71,6 +73,7 @@ class Routes {
   static const String notificationScreen = "/notificationScreen";
   static const String paymentScreen = "/paymentScreen";
   static const String priceListingScreen = "/priceListingScreen";
+  static const String addPaymentCardScreen = "/addPaymentCardScreen";
 }
 
 List<GetPage> appPages() => [
@@ -240,6 +243,15 @@ List<GetPage> appPages() => [
         name: Routes.priceListingScreen,
         page: () => const PriceListingScreen(),
         binding: PriceListingBinding(),
+        transition: CommonStrings.transition,
+        fullscreenDialog: true,
+        transitionDuration:
+            const Duration(milliseconds: CommonStrings.transitionDuration),
+      ),
+      GetPage(
+        name: Routes.addCardScreen,
+        page: () => const AddPaymentCardScreen(),
+        binding: AddCardBinding(),
         transition: CommonStrings.transition,
         fullscreenDialog: true,
         transitionDuration:

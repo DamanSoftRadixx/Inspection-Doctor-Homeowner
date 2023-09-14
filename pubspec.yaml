@@ -88,6 +88,12 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   eva_icons_flutter: ^3.1.0
   flutter_stripe: ^9.4.0
+  flutter_masked_text2: ^0.9.1
+  credit_card_validator: ^2.1.0
+  
+ 
+  
+ 
 
   
 

@@ -15,8 +15,11 @@ import 'core/routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = 'pk_test_R3eBVbkdHfttbv7Rf8lP4ewH';
+  Stripe.publishableKey =
+      'pk_test_51NQObnJ8Y5OAtA7dOnvdfI1TsdDnxEliv6bDE0YFZ1dkGM26AEuSq1xBlCK9ymPhDQoLN1pZcHkUFGTVglp0pXl700VOURxMDe';
 
+  Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+  Stripe.urlScheme = 'flutterstripe';
   await Stripe.instance.applySettings();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

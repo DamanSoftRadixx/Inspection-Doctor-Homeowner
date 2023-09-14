@@ -85,4 +85,17 @@ class ImageResource {
   static const greyCircle = "assets/images/svg/greyCircle.svg";
   static const star = "assets/images/svg/star.svg";
   static const bell = "assets/images/svg/bell.svg";
+
+  //png
+
+  static const brand_amex = "assets/images/png/brand_amex.png";
+  static const brand_diners = "assets/images/png/brand_diners.png";
+  static const brand_discover = "assets/images/png/brand_discover.png";
+  static const brand_jcb = "assets/images/png/brand_jcb.png";
+  static const brand_maestro = "assets/images/png/brand_maestro.png";
+  static const brand_mastercard = "assets/images/png/brand_mastercard.png";
+  static const brand_mir = "assets/images/png/brand_mir.png";
+  static const brand_visa = "assets/images/png/brand_visa.png";
+  static const credit_card = "assets/images/png/credit_card.png";
+  static const cvc = "assets/images/png/cvc.png";
 }

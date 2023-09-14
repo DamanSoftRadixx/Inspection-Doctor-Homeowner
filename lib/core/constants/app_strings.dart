@@ -254,6 +254,17 @@ class AppStrings {
       "After the first hour, an extra charge of 25% will apply for each 15-minute interval thereafter.";
 
   static const report = "Report.pdf";
+
+  static const addAccount = "Add card";
+  static const cardNumber = "Card number";
+  static const expiryDate = "Expiry date";
+  static const cvv = "CVV";
+
+  static const strCardNoWarning = "Please enter your Card Number.";
+  static const strCardExpWarning = "Please enter your card Expiry Date";
+  static const strExpDateWarning = "Please enter valid Expiry date";
+  static const strCvvWarning = "Please enter Cvv Number";
+  static const strCvvWarning1 = "Please enter valid Cvv number";
 }
 
 class ErrorMessages {
@@ -328,4 +339,7 @@ class placeHolder {
   static const city = "Jersey City";
   static const zipCode = "07302";
   static const drivingLicenseNo = "DL1234567890";
+  static const enterCardNumber = "Enter card number";
+  static const mmyy = "mm/yy";
+  static const enterCVV = "Enter CVV";
 }

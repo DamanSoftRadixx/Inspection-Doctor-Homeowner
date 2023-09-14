@@ -5,8 +5,8 @@ import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
-import 'package:inspection_doctor_homeowner/features/payment/controller/payment_controller.dart';
-import 'package:inspection_doctor_homeowner/features/payment/extensions/no_card_added_box.dart';
+import 'package:inspection_doctor_homeowner/features/payments/payment/controller/payment_controller.dart';
+import 'package:inspection_doctor_homeowner/features/payments/payment/extensions/no_card_added_box.dart';
 
 class PaymentScreen extends GetView<PaymentController> {
   const PaymentScreen({Key? key}) : super(key: key);
