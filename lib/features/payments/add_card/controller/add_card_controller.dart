@@ -6,10 +6,9 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
-import 'package:inspection_doctor_homeowner/features/payments/add_card/provider/add_card_provider.dart';
 
 class AddCardController extends GetxController {
-  AddCardProvider addCardProvider = AddCardProvider();
+  // AddCardProvider addCardProvider = AddCardProvider();
   var isShowLoader = false.obs;
   CardFormEditController cardFormEditController = CardFormEditController();
   CreditCardValidator ccValidator = CreditCardValidator();

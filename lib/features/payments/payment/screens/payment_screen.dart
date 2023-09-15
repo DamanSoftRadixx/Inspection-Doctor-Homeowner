@@ -44,17 +44,18 @@ class PaymentScreen extends GetView<PaymentController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         showPaymentInfo(),
-                        noCardAddedYetWidget(isNoCard: false),
-                        Column(
-                          children: [
-                            showCardList(),
-                            showMakePaymentButton().paddingSymmetric(
-                                horizontal: 20.w, vertical: 10.h),
-                            showAddCardButton().paddingSymmetric(
-                              horizontal: 20.w,
-                            ),
-                          ],
-                        )
+                        controller.cardList.isEmpty
+                            ? noCardAddedYetWidget(isNoCard: true)
+                            : Column(
+                                children: [
+                                  showCardList(),
+                                  showMakePaymentButton().paddingSymmetric(
+                                      horizontal: 20.w, vertical: 10.h),
+                                  showAddCardButton().paddingSymmetric(
+                                    horizontal: 20.w,
+                                  ),
+                                ],
+                              )
                       ],
                     ),
                     CommonLoader(isLoading: controller.isShowLoader.value)
