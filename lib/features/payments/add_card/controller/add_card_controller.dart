@@ -11,7 +11,7 @@ import 'package:inspection_doctor_homeowner/features/payments/add_card/provider/
 class AddCardController extends GetxController {
   AddCardProvider addCardProvider = AddCardProvider();
   var isShowLoader = false.obs;
-
+  CardFormEditController cardFormEditController = CardFormEditController();
   CreditCardValidator ccValidator = CreditCardValidator();
 
   Rx<MaskedTextController> debitCardController =

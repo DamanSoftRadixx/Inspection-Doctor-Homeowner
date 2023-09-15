@@ -24,47 +24,49 @@ class AddPaymentCardScreen extends GetView<AddCardController> {
             controller.isShowLoader.value ? () {} : Get.back();
           }),
       body: SafeArea(
-        child: Obx(() {
-          return Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Obx(() => Stack(
                 children: [
-                  // showCardNumberField(),
-                  // Row(
-                  //   children: [
-                  //     Expanded(flex: 3, child: showExpriyNumberField()),
-                  //     SizedBox(width: 14.w),
-                  //     Expanded(flex: 2, child: showCVVNumberField())
-                  //   ],
-                  // ),
-                  CardFormField(
-                    enablePostalCode: false,
-                    countryCode: 'US',
-                    style: CardFormStyle(
-                      textColor: Colors.black,
-                      fontSize: 20,
-                      backgroundColor: Colors.white,
-                      borderColor: Colors.black,
-                      cursorColor: Colors.black,
-                      placeholderColor: Colors.grey,
-                      textErrorColor: Colors.red,
-                    ),
-                    autofocus: true,
-                    onCardChanged: (card) {
-                      controller.card.value =
-                          card ?? const CardFieldInputDetails(complete: false);
-                    },
-                  ),
-                  showSignUpButton()
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // showCardNumberField(),
+                      // Row(
+                      //   children: [
+                      //     Expanded(flex: 3, child: showExpriyNumberField()),
+                      //     SizedBox(width: 14.w),
+                      //     Expanded(flex: 2, child: showCVVNumberField())
+                      //   ],
+                      // ),
+
+                      CardFormField(
+                        controller: controller.cardFormEditController,
+                        enablePostalCode: false,
+                        // countryCode: 'US',
+                        style: CardFormStyle(
+                          borderColor: lightColorPalette.grey,
+                          borderWidth: 1,
+                          borderRadius: 10,
+                          textColor: lightColorPalette.black,
+                          fontSize: 20,
+                          backgroundColor:
+                              lightColorPalette.whiteColorPrimary.shade900,
+                          cursorColor: lightColorPalette.black,
+                          placeholderColor: lightColorPalette.grey,
+                          textErrorColor: lightColorPalette.red,
+                        ),
+                        autofocus: true,
+                        onCardChanged: (card) {
+                          controller.card.value = card ??
+                              const CardFieldInputDetails(complete: false);
+                        },
+                      ).paddingOnly(top: 30.h, bottom: 20.h),
+                      showAddCardButton()
+                    ],
+                  ).paddingSymmetric(horizontal: 20.w),
+                  CommonLoader(isLoading: controller.isShowLoader.value)
                 ],
-              ).paddingSymmetric(horizontal: 20.w),
-              CommonLoader(isLoading: controller.isShowLoader.value)
-            ],
-          );
-        }),
-      ),
+              ))),
     );
   }
 
@@ -128,7 +130,7 @@ class AddPaymentCardScreen extends GetView<AddCardController> {
     ).paddingOnly(bottom: 11.h);
   }
 
-  CommonButton showSignUpButton() {
+  CommonButton showAddCardButton() {
     return CommonButton(
       commonButtonBottonText: AppStrings.addCard.tr,
       onPress: controller.card.value.complete == false

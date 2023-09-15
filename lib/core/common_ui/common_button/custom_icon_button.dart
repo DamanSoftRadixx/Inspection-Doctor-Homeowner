@@ -31,3 +31,27 @@ class CustomTapState extends StatelessWidget {
         ));
   }
 }
+
+class CommonInkwell extends StatelessWidget {
+  final Widget child;
+
+  final void Function()? onTap;
+
+  const CommonInkwell({
+    Key? key,
+    required this.child,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      focusColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: onTap,
+      child: child,
+    );
+  }
+}

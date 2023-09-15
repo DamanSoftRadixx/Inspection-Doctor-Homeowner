@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/asset_widget/common_image_widget.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
+import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
 import 'package:inspection_doctor_homeowner/features/payments/payment/controller/payment_controller.dart';
 import 'package:inspection_doctor_homeowner/features/payments/payment/extensions/no_card_added_box.dart';
 
@@ -19,7 +25,7 @@ class PaymentScreen extends GetView<PaymentController> {
         child: Scaffold(
             backgroundColor: lightColorPalette.whiteColorPrimary.shade900,
             appBar: commonAppBarWithElevation(
-                title: AppStrings.payments.tr,
+                title: AppStrings.makePayment.tr,
                 onPressBackButton: () {
                   controller.isShowLoader.value ? () {} : Get.back();
                 }),
@@ -35,9 +41,20 @@ class PaymentScreen extends GetView<PaymentController> {
                 child: Stack(
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        noCardAddedYetWidget(isNoCard: true),
+                        showPaymentInfo(),
+                        noCardAddedYetWidget(isNoCard: false),
+                        Column(
+                          children: [
+                            showCardList(),
+                            showMakePaymentButton().paddingSymmetric(
+                                horizontal: 20.w, vertical: 10.h),
+                            showAddCardButton().paddingSymmetric(
+                              horizontal: 20.w,
+                            ),
+                          ],
+                        )
                       ],
                     ),
                     CommonLoader(isLoading: controller.isShowLoader.value)
@@ -46,6 +63,103 @@ class PaymentScreen extends GetView<PaymentController> {
               ),
             )),
       ),
+    );
+  }
+
+  ListView showCardList() {
+    return ListView.builder(
+      padding: EdgeInsets.only(top: 30.h, bottom: 40.h),
+      shrinkWrap: true,
+      physics: const RangeMaintainingScrollPhysics(),
+      itemCount: 5,
+      itemBuilder: (BuildContext context, int index) {
+        return showCardDetail();
+      },
+    );
+  }
+
+  Container showPaymentInfo() {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      color: lightColorPalette.greyBg,
+      width: 1.sw,
+      child: AppTextWidget(
+        text: AppStrings.informAboutPayment,
+        style: CustomTextTheme.normalText2(
+          color: lightColorPalette.grey,
+        ),
+      ),
+    );
+  }
+
+  CommonButton showAddCardButton() {
+    return CommonButton(
+      border: BorderSide(
+        width: 1,
+        color: lightColorPalette.black,
+      ),
+      style: CustomTextTheme.normalTextWithWeight600(
+          color: lightColorPalette.black),
+      bgColor: lightColorPalette.whiteColorPrimary.shade900,
+      commonButtonBottonText: AppStrings.addNewCard.tr,
+      onPress: () {},
+    );
+  }
+
+  CommonButton showMakePaymentButton() {
+    return CommonButton(
+      commonButtonBottonText: AppStrings.makePayment.tr,
+      onPress: () {},
+    );
+  }
+
+  showCardDetail() {
+    return CommonInkwell(
+      onTap: () {},
+      child: Row(
+        children: [
+          SizedBox(
+            height: 25.h,
+            width: 25.w,
+            child: AssetWidget(
+                    asset: Asset(
+                        path: false
+                            ? ImageResource.blackCircle
+                            : ImageResource.unCheck,
+                        type: AssetType.svg),
+                    isCircular: false)
+                .paddingOnly(right: 10.w),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: 1.sw,
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10.h, horizontal: 11.w),
+                    decoration: decorationImage(),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          height: 32.w,
+                          width: 44.h,
+                        ),
+                        AppTextWidget(
+                          text: "**********2514",
+                          style: CustomTextTheme.normalTextWithWeight600(
+                            color: lightColorPalette.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ).paddingOnly(left: 20.w, right: 20.w, top: 10.h),
     );
   }
 }

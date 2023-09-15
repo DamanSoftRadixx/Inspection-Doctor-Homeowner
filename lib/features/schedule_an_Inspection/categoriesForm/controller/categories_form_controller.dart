@@ -333,7 +333,8 @@ class CategoryFormController extends GetxController {
       emailError.value = false;
       phoneError.value = false;
 
-      createInspection();
+      // createInspection();
+      Get.toNamed(Routes.paymentScreen);
     }
   }
 
