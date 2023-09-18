@@ -36,7 +36,7 @@ class EndPoints {
   static const String notification = "user/notification-list";
   static const String editNotification = "user/edit/notification/";
   static const String categoryList = "inspector/category-list";
-  static const String addCard = "card/add";
+
   static const String createCard = "stripe/create-card";
   static const String cardList = "stripe/card-list";
   static String googleMapUrl =

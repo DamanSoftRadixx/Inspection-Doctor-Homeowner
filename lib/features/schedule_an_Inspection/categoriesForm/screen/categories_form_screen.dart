@@ -57,7 +57,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
                           ),
                         ),
                       ),
-                      showContinueButton()
+                      showScheduleButton()
                     ],
                   ),
                   CommonLoader(isLoading: controller.isShowLoader.value)
@@ -206,7 +206,7 @@ class CategoryFormScreen extends GetView<CategoryFormController> {
     );
   }
 
-  Widget showContinueButton() {
+  Widget showScheduleButton() {
     return CommonButton(
             commonButtonBottonText: AppStrings.schedule.tr,
             onPress: controller.isScheduleButtonEnable()

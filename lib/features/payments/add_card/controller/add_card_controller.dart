@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:credit_card_validator/credit_card_validator.dart';
@@ -5,10 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/constants/common_strings.dart';
+import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/features/payments/add_card/network_model/network/add_card_response_model.dart';
+import 'package:inspection_doctor_homeowner/features/payments/add_card/provider/add_card_provider.dart';
 
 class AddCardController extends GetxController {
-  // AddCardProvider addCardProvider = AddCardProvider();
+  AddCardProvider addCardProvider = AddCardProvider();
   var isShowLoader = false.obs;
   CardFormEditController cardFormEditController = CardFormEditController();
   CreditCardValidator ccValidator = CreditCardValidator();
@@ -276,28 +283,57 @@ class AddCardController extends GetxController {
   // }
 
   Future<void> handleCreateTokenPress() async {
-    log("_handleCreateTokenPress ${card.value}");
+    dismissKeyboard();
+    setShowLoader(value: true);
 
     try {
       // 1. Gather customer billing information (ex. email)
-      const address = Address(
-        city: 'Houston',
-        country: 'US',
-        line1: '1459  Circle Drive',
-        line2: '',
-        state: 'Texas',
-        postalCode: '77063',
-      ); // mocked data for tests
+      // const address = Address(
+      //   city: 'Houston',
+      //   country: 'US',
+      //   line1: '1459  Circle Drive',
+      //   line2: '',
+      //   state: 'Texas',
+      //   postalCode: '77063',
+      // ); // mocked data for tests
 
       // 2. Create payment method
-      final tokenData = await Stripe.instance.createToken(
+      TokenData tokenData = await Stripe.instance.createToken(
           const CreateTokenParams.card(
-              params: CardTokenParams(address: address, currency: 'USD')));
+              params: CardTokenParams(currency: 'USD')));
 
       log("message  $tokenData");
 
-      const SnackBar(
-          content: Text("Success: The token was created successfully!"));
+      if (tokenData != Null) {
+        var body = json.encode({"token": tokenData.id});
+        try {
+          AddCardResponseModel response =
+              await addCardProvider.addCard(body: body) ??
+                  AddCardResponseModel();
+
+          setShowLoader(value: false);
+
+          if (response.success == true &&
+              (response.status == 201 || response.status == 200)) {
+            const SnackBar(
+                content: Text("Success: The card was successfully added!"));
+
+            Get.back(result: [
+              {GetArgumentConstants.isNeedToUpdateList: true}
+            ]);
+          } else {
+            setShowLoader(value: false);
+            apiErrorDialog(
+              message: response.message ?? AppStrings.somethingWentWrong.tr,
+              okButtonPressed: () {
+                Get.back();
+              },
+            );
+          }
+        } catch (e) {
+          isShowLoader.value = false;
+        }
+      }
 
       return;
     } catch (e) {

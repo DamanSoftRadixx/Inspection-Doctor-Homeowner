@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,8 +43,8 @@ class AddPaymentCardScreen extends GetView<AddCardController> {
 
                       CardFormField(
                         controller: controller.cardFormEditController,
-                        enablePostalCode: false,
-                        // countryCode: 'US',
+                        enablePostalCode: true,
+                        countryCode: 'US',
                         style: CardFormStyle(
                           borderColor: lightColorPalette.grey,
                           borderWidth: 1,
@@ -57,6 +59,7 @@ class AddPaymentCardScreen extends GetView<AddCardController> {
                         ),
                         autofocus: true,
                         onCardChanged: (card) {
+                          log("adfsdssdf $card");
                           controller.card.value = card ??
                               const CardFieldInputDetails(complete: false);
                         },

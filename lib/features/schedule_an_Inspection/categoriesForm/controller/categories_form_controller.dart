@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
-import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/textfields/app_common_text_form_field.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/date_formatter/date_formatter.dart';
-import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/model/time_model.dart';
 import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/storage/local_storage.dart';
@@ -186,67 +182,67 @@ class CategoryFormController extends GetxController {
     }
   }
 
-  Future<void> createInspection() async {
-    setShowLoader(value: true);
+  // Future<void> createInspection() async {
+  //   setShowLoader(value: true);
 
-    List<TimeModel> utcDateTimeList = [];
+  //   List<TimeModel> utcDateTimeList = [];
 
-    if (selectedTime.isNotEmpty) {
-      for (var object in selectedTime) {
-        if (object.id != "0") {
-          utcDateTimeList.add(TimeModel(
-              starttime: getUtcDateString(
-                  date: selectedDate.value, time: object.startTime),
-              endtime: getUtcDateString(
-                  date: selectedDate.value, time: object.endTime)));
-        }
-      }
-    }
+  //   if (selectedTime.isNotEmpty) {
+  //     for (var object in selectedTime) {
+  //       if (object.id != "0") {
+  //         utcDateTimeList.add(TimeModel(
+  //             starttime: getUtcDateString(
+  //                 date: selectedDate.value, time: object.startTime),
+  //             endtime: getUtcDateString(
+  //                 date: selectedDate.value, time: object.endTime)));
+  //       }
+  //     }
+  //   }
 
-    argData.value.firstName = firstNameController.value.text;
-    argData.value.lastName = lastNameController.value.text;
-    argData.value.phone = phoneNumberController.value.text;
-    argData.value.email = emailController.value.text;
-    argData.value.phone = phoneNumberController.value.text;
-    argData.value.date = getUtcDateString(
-      date: selectedDate.value,
-    );
-    argData.value.countryCode = selectedCountryCode.value;
-    argData.value.time = utcDateTimeList;
-    argData.value.description = descriptionController.value.text;
-    argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
+  //   argData.value.firstName = firstNameController.value.text;
+  //   argData.value.lastName = lastNameController.value.text;
+  //   argData.value.phone = phoneNumberController.value.text;
+  //   argData.value.email = emailController.value.text;
+  //   argData.value.phone = phoneNumberController.value.text;
+  //   argData.value.date = getUtcDateString(
+  //     date: selectedDate.value,
+  //   );
+  //   argData.value.countryCode = selectedCountryCode.value;
+  //   argData.value.time = utcDateTimeList;
+  //   argData.value.description = descriptionController.value.text;
+  //   argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
 
-    var body = json.encode(argData.value);
+  //   var body = json.encode(argData.value);
 
-    try {
-      CategoryListResponseModel response =
-          await categoryFormProvider.createInspection(body: body) ??
-              CategoryListResponseModel();
-      setShowLoader(value: false);
-      if (response.success == true &&
-          (response.status == 200 || response.status == 201)) {
-        showCommonAlertSingleButtonDialog(
-            title: AppStrings.alert.tr,
-            subHeader: response.message ?? "",
-            okPressed: () {
-              Get.until((route) =>
-                  route.settings.name == Routes.propertyDetailScreen
-                      ? true
-                      : false);
-            },
-            buttonTitle: AppStrings.ok.tr);
-      } else {
-        apiErrorDialog(
-          message: response.message ?? AppStrings.somethingWentWrong.tr,
-          okButtonPressed: () {
-            Get.back();
-          },
-        );
-      }
-    } catch (e) {
-      setShowLoader(value: false);
-    }
-  }
+  //   try {
+  //     CategoryListResponseModel response =
+  //         await categoryFormProvider.createInspection(body: body) ??
+  //             CategoryListResponseModel();
+  //     setShowLoader(value: false);
+  //     if (response.success == true &&
+  //         (response.status == 200 || response.status == 201)) {
+  //       showCommonAlertSingleButtonDialog(
+  //           title: AppStrings.alert.tr,
+  //           subHeader: response.message ?? "",
+  //           okPressed: () {
+  //             Get.until((route) =>
+  //                 route.settings.name == Routes.propertyDetailScreen
+  //                     ? true
+  //                     : false);
+  //           },
+  //           buttonTitle: AppStrings.ok.tr);
+  //     } else {
+  //       apiErrorDialog(
+  //         message: response.message ?? AppStrings.somethingWentWrong.tr,
+  //         okButtonPressed: () {
+  //           Get.back();
+  //         },
+  //       );
+  //     }
+  //   } catch (e) {
+  //     setShowLoader(value: false);
+  //   }
+  // }
 
   getContactDetails() {
     var token = Prefs.read(Prefs.token);
@@ -334,7 +330,37 @@ class CategoryFormController extends GetxController {
       phoneError.value = false;
 
       // createInspection();
-      Get.toNamed(Routes.paymentScreen);
+
+      List<TimeModel> utcDateTimeList = [];
+
+      if (selectedTime.isNotEmpty) {
+        for (var object in selectedTime) {
+          if (object.id != "0") {
+            utcDateTimeList.add(TimeModel(
+                starttime: getUtcDateString(
+                    date: selectedDate.value, time: object.startTime),
+                endtime: getUtcDateString(
+                    date: selectedDate.value, time: object.endTime)));
+          }
+        }
+      }
+
+      argData.value.firstName = firstNameController.value.text;
+      argData.value.lastName = lastNameController.value.text;
+      argData.value.phone = phoneNumberController.value.text;
+      argData.value.email = emailController.value.text;
+      argData.value.phone = phoneNumberController.value.text;
+      argData.value.date = getUtcDateString(
+        date: selectedDate.value,
+      );
+      argData.value.countryCode = selectedCountryCode.value;
+      argData.value.time = utcDateTimeList;
+      argData.value.description = descriptionController.value.text;
+      argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
+
+      Get.toNamed(Routes.paymentScreen, arguments: {
+        GetArgumentConstants.createInspectionData: argData.value
+      });
     }
   }
 

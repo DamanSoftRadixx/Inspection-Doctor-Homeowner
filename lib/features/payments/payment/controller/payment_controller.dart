@@ -1,14 +1,26 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_ui/common_dialogs.dart';
+import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/dio_exceptions.dart';
+import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/features/payments/payment/model/network_model/card_list_response_model.dart';
 import 'package:inspection_doctor_homeowner/features/payments/payment/provider/payment_provider.dart';
+import 'package:inspection_doctor_homeowner/features/schedule_an_Inspection/select_categories/model/network/category_list_response_model.dart';
+
+import '../../../schedule_an_Inspection/select_categories/model/request_model/inspection_create_request_model.dart';
 
 class PaymentController extends GetxController {
   PaymentProvider paymentProvider = PaymentProvider();
   var isShowLoader = false.obs;
 
   RxList<CardListModelData> cardList = <CardListModelData>[].obs;
+  Rx<InspectionCreateRequestModel> argData = InspectionCreateRequestModel().obs;
+
+  Rx<CardListModelData> selectedCard = CardListModelData().obs;
   setShowLoader({required bool value}) {
     isShowLoader.value = value;
     isShowLoader.refresh();
@@ -40,8 +52,56 @@ class PaymentController extends GetxController {
     }
   }
 
+  Future<void> createInspection() async {
+    setShowLoader(value: true);
+
+    argData.value.cardId = selectedCard.value.id;
+
+    var body = json.encode(argData.value);
+
+    log("dsfsdfsdfsds $body");
+
+    try {
+      CategoryListResponseModel response =
+          await paymentProvider.createInspection(body: body) ??
+              CategoryListResponseModel();
+      setShowLoader(value: false);
+      if (response.success == true &&
+          (response.status == 200 || response.status == 201)) {
+        showCommonAlertSingleButtonDialog(
+            title: AppStrings.alert.tr,
+            subHeader: response.message ?? "",
+            okPressed: () {
+              Get.until((route) =>
+                  route.settings.name == Routes.propertyDetailScreen
+                      ? true
+                      : false);
+            },
+            buttonTitle: AppStrings.ok.tr);
+      } else {
+        apiErrorDialog(
+          message: response.message ?? AppStrings.somethingWentWrong.tr,
+          okButtonPressed: () {
+            Get.back();
+          },
+        );
+      }
+    } catch (e) {
+      setShowLoader(value: false);
+    }
+  }
+
+  getArguments() {
+    var args = Get.arguments;
+    if (args != null) {
+      argData.value = args[GetArgumentConstants.createInspectionData] ??
+          InspectionCreateRequestModel();
+    }
+  }
+
   @override
   void onInit() {
+    getArguments();
     getCardList();
     super.onInit();
   }

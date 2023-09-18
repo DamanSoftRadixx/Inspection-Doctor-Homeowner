@@ -41,4 +41,5 @@ class GetArgumentConstants {
   static const inspectorPic = "inspectorPic";
   static const homeOwnerName = "homeOwnerName";
   static const homeOwnerPic = "homeOwnerPic";
+  static const createInspectionData = "createInspectionData";
 }

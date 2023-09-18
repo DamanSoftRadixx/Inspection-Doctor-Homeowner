@@ -60,3 +60,17 @@ enum InspectionHistoryStatusEnum {
   final String value;
   const InspectionHistoryStatusEnum(this.value);
 }
+
+enum CardTypeEnum {
+  otherBrand("otherBrand"),
+  mastercard("MasterCard"),
+  visa("Visa"),
+  jcb("JCB"),
+  americanExpress("American Express"),
+  discover("Discover"),
+  dinersClub("Diners Club"),
+  unionPay("UnionPay");
+
+  final String value;
+  const CardTypeEnum(this.value);
+}

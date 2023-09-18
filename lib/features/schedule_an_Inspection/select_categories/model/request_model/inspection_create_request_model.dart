@@ -16,7 +16,8 @@ class InspectionCreateRequestModel {
       this.countryCode,
       this.homeownerId,
       this.categoriesName,
-      this.subCategoriesName});
+      this.subCategoriesName,
+      this.cardId});
 
   InspectionCreateRequestModel.fromJson(dynamic json) {
     propertyId = json['property_id'].toString().toStringConversion();
@@ -39,6 +40,7 @@ class InspectionCreateRequestModel {
     phone = json['phone'].toString().toStringConversion();
     countryCode = json['country_code'].toString().toStringConversion();
     homeownerId = json['homeowner_id'].toString().toStringConversion();
+    cardId = json['card_id'].toString().toStringConversion();
   }
   String? propertyId;
   String? categoryId;
@@ -55,6 +57,7 @@ class InspectionCreateRequestModel {
   // local use
   String? categoriesName;
   String? subCategoriesName;
+  String? cardId;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -72,6 +75,7 @@ class InspectionCreateRequestModel {
     map['phone'] = phone;
     map['country_code'] = countryCode;
     map['homeowner_id'] = homeownerId;
+    map['card_id'] = homeownerId;
     return map;
   }
 }

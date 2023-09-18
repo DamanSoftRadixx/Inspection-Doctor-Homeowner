@@ -266,6 +266,7 @@ class AppStrings {
   static const strCvvWarning = "Please enter Cvv Number";
   static const strCvvWarning1 = "Please enter valid Cvv number";
   static const makePayment = "Make Payment";
+  static const createInspection = "Create Inspection";
   static const informAboutPayment =
       "You have to make payment before schedule an inspection.";
   static const addNewCard = "Add new card";
