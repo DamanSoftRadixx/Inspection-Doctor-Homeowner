@@ -70,6 +70,11 @@ class AddCardController extends GetxController {
 
   @override
   void onInit() {
+    setShowLoader(value: true);
+    Future.delayed(const Duration(milliseconds: 800), () {
+      setShowLoader(value: false);
+    });
+
     addFocusListeners();
     super.onInit();
   }

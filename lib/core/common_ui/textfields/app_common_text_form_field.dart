@@ -292,10 +292,7 @@ Widget commonPhoneText(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Flexible(
-                    child: Text(
-                            countryCode.contains("+")
-                                ? countryCode
-                                : "+$countryCode",
+                    child: Text(countryCode,
                             style: CustomTextTheme.normalText(
                                 color: lightColorPalette.black))
                         .paddingOnly(left: 15.w, top: 1.h),

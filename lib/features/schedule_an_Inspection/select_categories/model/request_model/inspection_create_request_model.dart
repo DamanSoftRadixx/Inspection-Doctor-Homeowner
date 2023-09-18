@@ -75,7 +75,7 @@ class InspectionCreateRequestModel {
     map['phone'] = phone;
     map['country_code'] = countryCode;
     map['homeowner_id'] = homeownerId;
-    map['card_id'] = homeownerId;
+    map['card_id'] = cardId;
     return map;
   }
 }

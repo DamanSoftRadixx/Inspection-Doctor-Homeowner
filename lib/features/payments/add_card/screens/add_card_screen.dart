@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:inspection_doctor_homeowner/core/common_functionality/dismiss_keyboard.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/app_bar/common_appbar.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
@@ -28,45 +27,50 @@ class AddPaymentCardScreen extends GetView<AddCardController> {
       body: SafeArea(
           child: Obx(() => Stack(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // showCardNumberField(),
-                      // Row(
-                      //   children: [
-                      //     Expanded(flex: 3, child: showExpriyNumberField()),
-                      //     SizedBox(width: 14.w),
-                      //     Expanded(flex: 2, child: showCVVNumberField())
-                      //   ],
-                      // ),
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // showCardNumberField(),
+                        // Row(
+                        //   children: [
+                        //     Expanded(flex: 3, child: showExpriyNumberField()),
+                        //     SizedBox(width: 14.w),
+                        //     Expanded(flex: 2, child: showCVVNumberField())
+                        //   ],
+                        // ),
 
-                      CardFormField(
-                        controller: controller.cardFormEditController,
-                        enablePostalCode: true,
-                        countryCode: 'US',
-                        style: CardFormStyle(
-                          borderColor: lightColorPalette.grey,
-                          borderWidth: 1,
-                          borderRadius: 10,
-                          textColor: lightColorPalette.black,
-                          fontSize: 20,
-                          backgroundColor:
-                              lightColorPalette.whiteColorPrimary.shade900,
-                          cursorColor: lightColorPalette.black,
-                          placeholderColor: lightColorPalette.grey,
-                          textErrorColor: lightColorPalette.red,
-                        ),
-                        autofocus: true,
-                        onCardChanged: (card) {
-                          log("adfsdssdf $card");
-                          controller.card.value = card ??
-                              const CardFieldInputDetails(complete: false);
-                        },
-                      ).paddingOnly(top: 30.h, bottom: 20.h),
-                      showAddCardButton()
-                    ],
-                  ).paddingSymmetric(horizontal: 20.w),
+                        CardFormField(
+                          controller: controller.cardFormEditController,
+                          enablePostalCode: true,
+                          countryCode: 'US',
+                          style: CardFormStyle(
+                            borderColor: lightColorPalette.grey,
+                            borderWidth: 1,
+                            borderRadius: 10,
+                            textColor: lightColorPalette.black,
+                            fontSize: 18,
+                            backgroundColor:
+                                lightColorPalette.whiteColorPrimary.shade900,
+                            cursorColor: lightColorPalette.black,
+                            placeholderColor: lightColorPalette.grey,
+                            textErrorColor: lightColorPalette.redDark,
+                          ),
+                          autofocus: true,
+                          onCardChanged: (card) {
+                            controller.card.value = card ??
+                                const CardFieldInputDetails(complete: false);
+
+                            if (card?.complete == true) {
+                              dismissKeyboard();
+                            }
+                          },
+                        ).paddingOnly(top: 30.h, bottom: 20.h),
+                        showAddCardButton()
+                      ],
+                    ).paddingSymmetric(horizontal: 20.w),
+                  ),
                   CommonLoader(isLoading: controller.isShowLoader.value)
                 ],
               ))),

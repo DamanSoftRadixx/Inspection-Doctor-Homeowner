@@ -10,9 +10,7 @@ import 'package:inspection_doctor_homeowner/core/common_ui/common_button/common_
 import 'package:inspection_doctor_homeowner/core/common_ui/common_button/custom_icon_button.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/common_loader/common_loader.dart';
 import 'package:inspection_doctor_homeowner/core/common_ui/text/app_text_widget.dart';
-import 'package:inspection_doctor_homeowner/core/constants/app_keys.dart';
 import 'package:inspection_doctor_homeowner/core/constants/app_strings.dart';
-import 'package:inspection_doctor_homeowner/core/routes/routes.dart';
 import 'package:inspection_doctor_homeowner/core/theme/app_color_palette.dart';
 import 'package:inspection_doctor_homeowner/core/utils/enum.dart';
 import 'package:inspection_doctor_homeowner/core/utils/image_resources.dart';
@@ -52,8 +50,9 @@ class PaymentScreen extends GetView<PaymentController> {
                         showPaymentInfo(),
                         controller.cardList.isEmpty
                             ? noCardAddedYetWidget(
-                                isNoCard:
-                                    controller.isShowLoader.value == false)
+                                    isNoCard:
+                                        controller.isShowLoader.value == false)
+                                .paddingOnly(top: 100.h)
                             : Expanded(
                                 child: Column(
                                   children: [
@@ -79,14 +78,19 @@ class PaymentScreen extends GetView<PaymentController> {
 
   Widget showCardList() {
     return Expanded(
-      child: ListView.builder(
-        padding: EdgeInsets.only(top: 30.h, bottom: 40.h),
-        shrinkWrap: true,
-        physics: const RangeMaintainingScrollPhysics(),
-        itemCount: controller.cardList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return showCardDetail(index: index, cardList: controller.cardList);
-        },
+      child: Scrollbar(
+        thumbVisibility: true,
+        trackVisibility: true,
+        thickness: 10.0,
+        child: ListView.builder(
+          padding: EdgeInsets.only(top: 30.h, bottom: 40.h),
+          shrinkWrap: true,
+          physics: const RangeMaintainingScrollPhysics(),
+          itemCount: controller.cardList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return showCardDetail(index: index, cardList: controller.cardList);
+          },
+        ),
       ),
     );
   }
@@ -116,15 +120,7 @@ class PaymentScreen extends GetView<PaymentController> {
       bgColor: lightColorPalette.whiteColorPrimary.shade900,
       commonButtonBottonText: AppStrings.addNewCard.tr,
       onPress: () {
-        Get.toNamed(Routes.addCardScreen)?.then((value) {
-          if (value != null) {
-            bool result = value[0][GetArgumentConstants.isNeedToUpdateList];
-
-            if (result == true) {
-              controller.getCardList();
-            }
-          }
-        });
+        controller.tapOnAddCard();
       },
     );
   }

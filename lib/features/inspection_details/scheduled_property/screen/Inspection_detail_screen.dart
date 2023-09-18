@@ -356,7 +356,7 @@ class InspectionDetailScreen extends GetView<InspectionDetailController> {
                       style: CustomTextTheme.bottomTabs(
                           color: lightColorPalette.grey),
                       text:
-                          "+${firstHistoryItemDetail.countryCode ?? ""} ${firstHistoryItemDetail.phone ?? ""}",
+                          "${firstHistoryItemDetail.countryCode ?? ""} ${firstHistoryItemDetail.phone ?? ""}",
                     ),
                   ],
                 ).paddingOnly(bottom: 2.h, top: 7.h),

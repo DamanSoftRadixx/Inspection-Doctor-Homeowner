@@ -96,3 +96,14 @@ DateTime? parseDated({required String text}) {
       MaterialLocalizations.of(Get.context!);
   return localizations.parseCompactDate(text);
 }
+
+String getMMDDYYYYFormetFromStringTemp({
+  required String date,
+  String? newPattern,
+}) {
+  log("date $date");
+  var formattedDate = DateFormat("dd/MM/yyyy").parse(date);
+
+  String formattedDateString = DateFormat("yyyy-MM-dd").format(formattedDate);
+  return formattedDateString;
+}

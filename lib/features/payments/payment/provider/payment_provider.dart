@@ -41,6 +41,8 @@ class PaymentProvider {
         body: body,
       );
 
+      log("createInspection $response");
+
       CategoryListResponseModel data =
           CategoryListResponseModel.fromJson(response.data);
       showResponseData(data, type: 'createInspection');

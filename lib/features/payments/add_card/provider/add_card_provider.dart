@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/api_hitter.dart';
 import 'package:inspection_doctor_homeowner/core/network_utility/app_end_points.dart';
@@ -12,7 +14,7 @@ class AddCardProvider {
     try {
       Response response =
           await apiHitter.postApi(endPoint: EndPoints.createCard, body: body);
-
+      log("addCard $response");
       AddCardResponseModel data = AddCardResponseModel.fromJson(response.data);
       showResponseData(data, type: 'addCard');
 

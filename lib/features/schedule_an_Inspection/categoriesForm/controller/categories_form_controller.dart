@@ -350,10 +350,10 @@ class CategoryFormController extends GetxController {
       argData.value.phone = phoneNumberController.value.text;
       argData.value.email = emailController.value.text;
       argData.value.phone = phoneNumberController.value.text;
-      argData.value.date = getUtcDateString(
+      argData.value.date = getMMDDYYYYFormetFromStringTemp(
         date: selectedDate.value,
       );
-      argData.value.countryCode = selectedCountryCode.value;
+      argData.value.countryCode = "+${selectedCountryCode.value}";
       argData.value.time = utcDateTimeList;
       argData.value.description = descriptionController.value.text;
       argData.value.homeownerId = tokenResponse.value.data?.id ?? "";
